@@ -7,2282 +7,1289 @@
 <title>SMART FEVER CARE</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap');
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,"Noto Sans Thai",sans-serif;
-  background:#eef8f8;
-  color:#21494e;
+  margin:0;
+  background:#eef4fb;
+  color:#123b72;
+  font-family:"Noto Sans Thai",Arial,sans-serif;
 }
 
-button{
-  font-family:inherit;
-}
+/* ================= HEADER ================= */
 
-.app{
-  width:100%;
-  max-width:480px;
-  min-height:100vh;
-  margin:auto;
-  background:#fff;
-  position:relative;
-  overflow:hidden;
-}
-
-.hidden{
-  display:none !important;
-}
-
-
-/* =========================
-   WELCOME
-========================= */
-
-.welcome{
-  min-height:100vh;
-  padding:35px 25px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-
-  background:
-    radial-gradient(circle at top left,#dff8f6,transparent 35%),
-    linear-gradient(180deg,#f0fbfb,#ffffff);
-}
-
-.logo-circle{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:#fff;
-
+.header{
+  height:78px;
+  background:linear-gradient(90deg,#063b86,#0756ad 55%,#f47b20);
+  color:white;
   display:flex;
   align-items:center;
-  justify-content:center;
-
-  font-size:52px;
-
-  box-shadow:0 10px 30px rgba(35,155,165,.15);
-
-  margin-bottom:20px;
-}
-
-.welcome h1{
-  color:#1599a4;
-  font-size:31px;
-  font-weight:800;
-}
-
-.welcome h2{
-  color:#e8798c;
-  font-size:25px;
-  margin-top:2px;
-}
-
-.welcome-subtitle{
-  margin-top:14px;
-  color:#607b7e;
-  font-size:15px;
-  line-height:1.8;
-}
-
-.welcome-illustration{
-  font-size:80px;
-  margin:22px 0;
-}
-
-.welcome-box{
-  width:100%;
-  background:#fff;
-  border-radius:25px;
-  padding:22px 18px;
-
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-}
-
-.welcome-box h3{
-  font-size:18px;
-  margin-bottom:14px;
-  color:#31595d;
-}
-
-
-/* =========================
-   BUTTON
-========================= */
-
-.btn{
-  width:100%;
-  border:none;
-  border-radius:14px;
-
-  padding:14px;
-  margin-top:10px;
-
-  font-size:16px;
-  font-weight:700;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.btn:active{
-  transform:scale(.98);
-}
-
-.btn-primary{
-  background:#249fa7;
-  color:#fff;
-}
-
-.btn-line{
-  background:#06c755;
-  color:#fff;
-}
-
-.btn-email{
-  background:#fff;
-  color:#249fa7;
-  border:2px solid #249fa7;
-}
-
-.text-btn{
-  border:none;
-  background:none;
-  color:#71888b;
-
-  margin-top:18px;
-
-  cursor:pointer;
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-.login-page{
-  min-height:100vh;
-
-  padding:28px 22px;
-
-  background:#f5fbfb;
-}
-
-.back-btn{
-  border:none;
-  background:none;
-
-  font-size:30px;
-
-  color:#267a80;
-
-  cursor:pointer;
-}
-
-.login-card{
-  background:#fff;
-
-  border-radius:25px;
-
-  padding:28px 22px;
-
-  margin-top:35px;
-
-  box-shadow:0 8px 30px rgba(0,0,0,.07);
-}
-
-.login-card h1{
-  text-align:center;
-
-  color:#249fa7;
-
-  font-size:25px;
-}
-
-.login-card p{
-  text-align:center;
-
-  color:#71888b;
-
-  margin-top:10px;
-
-  line-height:1.6;
-}
-
-.input-label{
-  display:block;
-
-  margin-top:16px;
-
-  font-weight:700;
-
-  font-size:14px;
-}
-
-.input{
-  width:100%;
-
-  border:1px solid #d9e6e7;
-
-  border-radius:12px;
-
-  padding:14px;
-
-  margin-top:7px;
-
-  font-size:15px;
-
-  outline:none;
-}
-
-.input:focus{
-  border-color:#249fa7;
-}
-
-.divider{
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin:20px 0;
-
-  color:#9aa;
-}
-
-.divider:before,
-.divider:after{
-  content:"";
-
-  flex:1;
-
-  height:1px;
-
-  background:#ddd;
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.home{
-  min-height:100vh;
-
-  background:#f5fbfb;
-
-  padding-bottom:85px;
-}
-
-.top{
-  background:
-    linear-gradient(135deg,#159ca8,#36b6a5);
-
-  color:#fff;
-
-  padding:27px 20px 30px;
-
-  border-radius:0 0 28px 28px;
-}
-
-.top-row{
-  display:flex;
-
   justify-content:space-between;
+  padding:8px 28px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
 
+.logo-area{
+  display:flex;
   align-items:center;
+  gap:12px;
+}
 
+.logo-area img{
+  width:55px;
+  height:55px;
+  object-fit:contain;
+  background:white;
+  border-radius:12px;
+}
+
+.university{
+  font-size:13px;
+  line-height:1.25;
+  font-weight:600;
+}
+
+.university strong{
+  font-size:17px;
+  display:block;
+}
+
+.brand{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:.5px;
+  background:white;
+  color:#074899;
+  padding:8px 25px;
+  border-radius:25px;
+  box-shadow:0 3px 8px rgba(0,0,0,.12);
+}
+
+.brand span{
+  color:#f36f21;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
   gap:15px;
 }
 
-.top small{
-  letter-spacing:1.5px;
-
-  opacity:.9;
-}
-
-.top h1{
-  margin-top:5px;
-
-  font-size:25px;
-}
-
-.top p{
-  margin-top:6px;
-
-  font-size:13px;
-
-  line-height:1.5;
-}
-
-.user-avatar{
-  width:58px;
-  height:58px;
-
-  flex-shrink:0;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:31px;
-}
-
-.progress-box{
-  background:#fff;
-
-  color:#21494e;
-
-  padding:15px;
-
-  border-radius:17px;
-
-  margin-top:20px;
-}
-
-.progress-head{
-  display:flex;
-
-  justify-content:space-between;
-
-  font-size:14px;
-}
-
-.progress-track{
-  height:9px;
-
-  background:#e4eeee;
-
-  border-radius:20px;
-
-  overflow:hidden;
-
-  margin-top:10px;
-}
-
-.progress-fill{
-  height:100%;
-
-  width:0%;
-
-  background:#b9dc62;
-
-  transition:.5s;
-}
-
-
-/* =========================
-   MENU
-========================= */
-
-.section-title{
-  padding:20px 20px 5px;
-
-  font-size:20px;
-
+.line-btn{
+  border:0;
+  background:#f58220;
+  color:white;
   font-weight:800;
-}
-
-.menu{
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:13px;
-
-  padding:15px 20px 20px;
-}
-
-.menu-card{
-  background:#fff;
-
-  border-radius:18px;
-
-  padding:19px 12px;
-
-  text-align:center;
-
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
-
+  padding:11px 22px;
+  border-radius:25px;
   cursor:pointer;
-
-  border:1px solid #edf3f3;
 }
 
-.menu-icon{
+.user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.user img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid white;
+}
+
+/* ================= LAYOUT ================= */
+
+.container{
+  padding:15px;
+}
+
+.dashboard{
+  max-width:1500px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:280px repeat(4,1fr);
+  gap:12px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  border:1px solid #d8e2ef;
+  box-shadow:0 3px 12px rgba(13,61,115,.09);
+  overflow:hidden;
+  position:relative;
+}
+
+.card-title{
+  font-size:18px;
+  font-weight:900;
+  color:#0b3c83;
+  padding:14px 18px 5px;
+}
+
+.card-content{
+  padding:10px 18px 18px;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+  grid-row:span 2;
+  background:linear-gradient(180deg,#fff8ef,#fff);
+  text-align:center;
+}
+
+.welcome-top{
+  padding:25px 15px 10px;
+}
+
+.welcome-top small{
+  font-weight:700;
+  color:#244d83;
+}
+
+.welcome h1{
+  margin:5px 0;
+  color:#073f8d;
   font-size:34px;
-
-  margin-bottom:8px;
+  line-height:1;
 }
 
-.menu-card h3{
-  color:#236b72;
-
-  font-size:16px;
+.welcome h1 span{
+  color:#f36e21;
 }
 
-.menu-card p{
-  color:#819497;
-
-  font-size:12px;
-
-  margin-top:5px;
-
+.welcome h3{
+  margin:15px 0;
+  color:#173f75;
   line-height:1.5;
 }
 
-
-/* =========================
-   LINE OA
-========================= */
-
-.line-card{
-  margin:0 20px 18px;
-
-  padding:20px;
-
-  border-radius:21px;
-
-  background:#eafff1;
-
-  border:1px solid #b9edca;
-}
-
-.line-card h3{
-  color:#079d4a;
-
-  font-size:17px;
-}
-
-.line-card p{
-  color:#557477;
-
-  font-size:13px;
-
-  line-height:1.7;
-
-  margin-top:7px;
-}
-
-
-/* =========================
-   CONTENT PAGES
-========================= */
-
-.content-page{
-  min-height:100vh;
-
-  background:#f5fbfb;
-
-  padding-bottom:85px;
-}
-
-.page-header{
-  background:
-    linear-gradient(135deg,#159ca8,#36b6a5);
-
-  color:#fff;
-
-  padding:28px 20px;
-
-  border-radius:0 0 27px 27px;
-}
-
-.page-header h1{
-  font-size:25px;
-}
-
-.page-header p{
-  margin-top:6px;
-
-  font-size:14px;
-}
-
-.content-list{
-  padding:20px;
-}
-
-.content-item{
-  background:#fff;
-
-  padding:18px;
-
-  border-radius:18px;
-
-  margin-bottom:12px;
-
-  box-shadow:0 4px 15px rgba(0,0,0,.05);
-}
-
-.content-item h3{
-  color:#236b72;
-}
-
-.content-item p{
-  margin-top:7px;
-
-  color:#71888b;
-
-  font-size:13px;
-
-  line-height:1.6;
-}
-
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile-page{
-  min-height:100vh;
-
-  background:#f5fbfb;
-
-  padding-bottom:85px;
-}
-
-.profile-header{
-  background:
-    linear-gradient(135deg,#159ca8,#36b6a5);
-
-  color:#fff;
-
-  padding:30px 20px 45px;
-
-  text-align:center;
-
-  border-radius:0 0 30px 30px;
-}
-
-.profile-avatar{
-  width:90px;
-  height:90px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  margin:auto;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:48px;
-}
-
-.profile-header h2{
-  margin-top:12px;
-}
-
-.profile-header p{
-  margin-top:5px;
-
-  font-size:13px;
-}
-
-.profile-card{
-  margin:-20px 20px 15px;
-
-  background:#fff;
-
-  border-radius:20px;
-
-  padding:18px;
-
-  position:relative;
-
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.profile-row{
-  padding:12px 0;
-
-  border-bottom:1px solid #edf1f1;
-
-  font-size:14px;
-}
-
-.profile-row:last-child{
-  border-bottom:none;
-}
-
-.profile-row b{
-  float:right;
-
-  color:#249fa7;
-}
-
-.profile-actions{
-  padding:0 20px;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom-nav{
-  position:fixed;
-
-  bottom:0;
-
-  left:50%;
-
-  transform:translateX(-50%);
-
+.hero{
   width:100%;
-
-  max-width:480px;
-
-  height:70px;
-
-  background:#fff;
-
-  border-top:1px solid #e4eeee;
-
-  display:flex;
-
-  justify-content:space-around;
-
-  align-items:center;
-
-  z-index:100;
+  height:245px;
+  object-fit:cover;
+  border-radius:18px;
+  display:block;
 }
 
-.nav-item{
-  border:none;
+.start{
+  width:90%;
+  border:0;
+  background:#f47a1f;
+  color:white;
+  font-size:18px;
+  font-weight:900;
+  padding:13px;
+  margin:12px auto 7px;
+  border-radius:10px;
+  cursor:pointer;
+  box-shadow:0 4px 8px rgba(243,111,33,.25);
+}
 
-  background:none;
-
-  color:#819497;
-
-  font-size:11px;
-
+.line-login{
+  width:90%;
+  background:white;
+  color:#187b3a;
+  border:2px solid #35a853;
+  padding:10px;
+  border-radius:10px;
+  font-weight:800;
   cursor:pointer;
 }
 
-.nav-item span{
-  display:block;
+/* ================= PRETEST ================= */
 
-  font-size:22px;
-
-  margin-bottom:3px;
+.question{
+  background:#fbfdff;
+  border:1px solid #e0e8f2;
+  border-radius:12px;
+  padding:12px;
+  margin:8px 0;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.nav-item.active{
-  color:#249fa7;
+.question:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 10px #dce8f7;
+}
 
+.question.correct{
+  background:#eef9ed;
+  border-color:#55a84d;
+}
+
+.circle{
+  display:inline-flex;
+  width:25px;
+  height:25px;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #a8b5c5;
+  border-radius:50%;
+  margin-right:8px;
   font-weight:700;
 }
 
+.correct .circle{
+  background:#43a047;
+  color:white;
+  border-color:#43a047;
+}
 
-/* =========================
-   MODAL
-========================= */
+.primary{
+  width:100%;
+  background:#06439a;
+  color:white;
+  border:0;
+  padding:12px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+.primary:hover{
+  background:#f27b21;
+}
+
+/* ================= HOME ================= */
+
+.home{
+  background:linear-gradient(180deg,#eaf6ff,#fff);
+}
+
+.home-head{
+  background:linear-gradient(135deg,#0576b8,#0b4d9c);
+  color:white;
+  padding:20px;
+}
+
+.home-head h2{
+  margin:0;
+  font-size:22px;
+}
+
+.progress{
+  height:9px;
+  background:#d8e4ed;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress div{
+  height:100%;
+  width:60%;
+  background:#ffbd31;
+}
+
+.menu-grid{
+  padding:12px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.menu-item{
+  padding:15px 5px;
+  text-align:center;
+  background:white;
+  border:1px solid #dce5ef;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.menu-item:hover{
+  transform:translateY(-4px);
+  border-color:#f58220;
+  box-shadow:0 5px 15px #dbe5f1;
+}
+
+.icon{
+  font-size:32px;
+  display:block;
+  margin-bottom:5px;
+}
+
+/* ================= EBOOK ================= */
+
+.ebook-img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-top:5px;
+}
+
+.orange-title{
+  color:#ef6d20;
+  font-weight:900;
+}
+
+/* ================= VIDEO ================= */
+
+.video-box{
+  position:relative;
+  height:190px;
+  overflow:hidden;
+  border-radius:13px;
+}
+
+.video-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:white;
+  color:#06439a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+  box-shadow:0 3px 15px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+/* ================= LOWER CARDS ================= */
+
+.quiz-card{
+  min-height:300px;
+}
+
+.info{
+  padding:12px;
+  background:#fff6ed;
+  border-radius:12px;
+  margin-top:10px;
+  color:#743c18;
+}
+
+.simulation{
+  background:linear-gradient(180deg,#f5f9ff,#fff);
+}
+
+.simulation img{
+  width:100%;
+  max-height:130px;
+  object-fit:contain;
+}
+
+.check-row{
+  display:grid;
+  grid-template-columns:1fr repeat(5,30px);
+  gap:4px;
+  align-items:center;
+  margin:12px 0;
+  font-size:12px;
+}
+
+.score{
+  border:1px solid #e1e7ef;
+  border-radius:15px;
+  padding:15px;
+}
+
+.score-circle{
+  width:80px;
+  height:80px;
+  border:8px solid #55a54a;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+  margin:auto;
+}
+
+.bar{
+  height:8px;
+  background:#e6edf3;
+  border-radius:10px;
+  overflow:hidden;
+  margin:5px 0 12px;
+}
+
+.bar div{
+  height:100%;
+  background:linear-gradient(90deg,#f47a21,#0a4fa4);
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom{
+  max-width:1500px;
+  margin:12px auto 0;
+  display:grid;
+  grid-template-columns:1fr 1.2fr 1.2fr;
+  gap:12px;
+}
+
+.bottom-card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  border:1px solid #dce5ef;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.bottom-card h3{
+  margin-top:0;
+  color:#073f8d;
+}
+
+.rich-menu{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.rich-item{
+  text-align:center;
+  padding:10px;
+  border-radius:12px;
+  background:#f3f8fd;
+}
+
+.feature{
+  background:linear-gradient(135deg,#fff,#eef6ff);
+}
+
+.feature ul{
+  margin:0;
+  padding-left:20px;
+  line-height:2;
+}
+
+.feature li::marker{
+  color:#f47a21;
+}
+
+/* ================= MODAL ================= */
 
 .modal{
+  display:none;
   position:fixed;
-
   inset:0;
-
-  background:rgba(0,0,0,.4);
-
-  display:flex;
-
+  background:rgba(0,24,58,.55);
+  z-index:2000;
   align-items:center;
-
   justify-content:center;
-
   padding:20px;
+}
 
-  z-index:500;
+.modal.show{
+  display:flex;
 }
 
 .modal-box{
-  width:100%;
-
-  max-width:420px;
-
-  background:#fff;
-
+  background:white;
+  width:min(550px,100%);
+  max-height:90vh;
+  overflow:auto;
   border-radius:22px;
-
   padding:25px;
-
-  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
 }
 
-.modal-box h2{
-  color:#249fa7;
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  cursor:pointer;
 }
 
-.modal-box p{
-  margin-top:10px;
+/* ================= RESPONSIVE ================= */
 
-  color:#687f82;
+@media(max-width:1200px){
+  .dashboard{
+    grid-template-columns:260px repeat(2,1fr);
+  }
 
-  line-height:1.7;
+  .welcome{
+    grid-row:span 2;
+  }
 
-  white-space:pre-line;
+  .bottom{
+    grid-template-columns:1fr;
+  }
+
+  .brand{
+    font-size:20px;
+  }
 }
 
+@media(max-width:800px){
+  .header{
+    height:auto;
+    padding:10px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .brand{
+    order:3;
+    width:100%;
+    text-align:center;
+  }
+
+  .university{
+    display:none;
+  }
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .welcome{
+    grid-row:auto;
+  }
+
+  .header-right{
+    margin-left:auto;
+  }
+
+  .line-btn{
+    padding:8px 12px;
+  }
+
+  .card-title{
+    font-size:17px;
+  }
+}
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
+<!-- ================= HEADER ================= -->
 
+<header class="header">
 
-<!-- =====================================================
-     WELCOME
-===================================================== -->
+  <div class="logo-area">
 
-<section id="welcomePage" class="welcome">
+    <img
+      src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
+      alt="ตราราชวิทยาลัยจุฬาภรณ์"
+    >
 
-  <div class="logo-circle">
-    🌡️
+    <div class="university">
+      <strong>ราชวิทยาลัยจุฬาภรณ์</strong>
+      คณะพยาบาลศาสตร์ราชวิทยาลัยจุฬาภรณ์
+    </div>
+
   </div>
 
-  <h1>SMART FEVER</h1>
-
-  <h2>CARE</h2>
-
-  <p class="welcome-subtitle">
-    เรียนรู้ เข้าใจ ทำได้<br>
-    ดูแลลูกเมื่อมีไข้อย่างมั่นใจ
-  </p>
-
-  <div class="welcome-illustration">
-    👩🏻‍🍼👶🏻
+  <div class="brand">
+    SMART <span>FEVER CARE</span>
   </div>
 
-  <div class="welcome-box">
+  <div class="header-right">
+
+    <button class="line-btn" onclick="openModal('LINE OA')">
+      🟢 LINE OA
+    </button>
+
+    <div>🔔</div>
+
+    <div class="user">
+      <span>คุณแม่</span>
+      <img
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
+        alt="ผู้ใช้งาน"
+      >
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+<div class="dashboard">
+
+<!-- ================= 1 WELCOME ================= -->
+
+<section class="card welcome">
+
+  <div class="welcome-top">
+
+    <small>ยินดีต้อนรับ</small>
+
+    <h1>
+      SMART<br>
+      <span>FEVER CARE</span>
+    </h1>
 
     <h3>
-      ยินดีต้อนรับสู่ SMART FEVER CARE
+      เรียนรู้ เข้าใจ ทำได้<br>
+      ดูแลลูกเมื่อไข้ อย่างมั่นใจ
     </h3>
-
-    <button
-      class="btn btn-primary"
-      onclick="openLogin()">
-
-      🚀 เริ่มต้นใช้งาน
-
-    </button>
-
-
-    <button
-      class="btn btn-line"
-      onclick="loginWithLINE()">
-
-      💚 เข้าสู่ระบบด้วย LINE
-
-    </button>
-
-
-    <button
-      class="btn btn-email"
-      onclick="openLogin()">
-
-      📧 เข้าสู่ระบบด้วย E-mail
-
-    </button>
 
   </div>
 
+  <img
+    class="hero"
+    src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800"
+    alt="คุณแม่ดูแลเด็ก"
+  >
 
-  <button
-    class="text-btn"
-    onclick="showAbout()">
-
-    เกี่ยวกับ SMART FEVER CARE
-
+  <button class="start" onclick="scrollToSection('pretest')">
+    เริ่มต้นใช้งาน →
   </button>
 
+  <button class="line-login" onclick="openModal('เข้าสู่ระบบด้วย LINE')">
+    🟢 เข้าสู่ระบบด้วย LINE
+  </button>
+
+  <p style="font-weight:600;cursor:pointer"
+     onclick="openModal('เกี่ยวกับ SMART FEVER CARE')">
+    เกี่ยวกับ SMART FEVER CARE
+  </p>
+
 </section>
 
 
+<!-- ================= 2 PRETEST ================= -->
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<section class="card" id="pretest">
 
-<section id="loginPage" class="content-page hidden">
+  <div class="card-title">
+    ← &nbsp; 2. Pre-test
+    <span style="float:right;font-size:12px">1 / 10</span>
+  </div>
 
-  <div class="page-header">
+  <div class="card-content">
 
-    <h1>
-      🔐 เข้าสู่ระบบ
-    </h1>
+    <h3>แบบประเมินความรู้ก่อนเรียน</h3>
+
+    <p style="font-size:13px">
+      กรุณาเลือกคำตอบที่ถูกต้องที่สุด
+    </p>
+
+    <b>1. การเช็ดตัวลดไข้ควรใช้น้ำอุณหภูมิเท่าใด?</b>
+
+    <div class="question">
+      <span class="circle">A</span>
+      น้ำเย็นจัด (ต่ำกว่า 20°C)
+    </div>
+
+    <div class="question correct" onclick="answer(this)">
+      <span class="circle">B</span>
+      น้ำอุ่นประมาณ 26–28°C
+      <span style="float:right">✓</span>
+    </div>
+
+    <div class="question">
+      <span class="circle">C</span>
+      น้ำประมาณ 35–37°C
+    </div>
+
+    <div class="question">
+      <span class="circle">D</span>
+      น้ำร้อน
+    </div>
+
+    <button class="primary" onclick="nextQuestion()">
+      ถัดไป
+    </button>
+
+  </div>
+</section>
+
+
+<!-- ================= 3 HOME ================= -->
+
+<section class="card home">
+
+  <div class="home-head">
+
+    <h2>☰ &nbsp; 3. Home</h2>
+
+    <h2>สวัสดีค่ะ คุณแม่</h2>
+
+    <div>ความก้าวหน้าของคุณในวันนี้</div>
+
+    <div class="progress">
+      <div></div>
+    </div>
+
+    <b>60%</b>
+
+  </div>
+
+  <div class="menu-grid">
+
+    <div class="menu-item" onclick="openModal('E-book')">
+      <span class="icon">📖</span>
+      <b>E-book</b><br>
+      <small>บทเรียน</small>
+    </div>
+
+    <div class="menu-item" onclick="openModal('Video')">
+      <span class="icon">▶️</span>
+      <b>วิดีโอสาธิต</b><br>
+      <small>Video</small>
+    </div>
+
+    <div class="menu-item" onclick="openModal('Quiz')">
+      <span class="icon">❓</span>
+      <b>ทดสอบความรู้</b><br>
+      <small>Quiz</small>
+    </div>
+
+    <div class="menu-item" onclick="openModal('Simulation')">
+      <span class="icon">👩‍👦</span>
+      <b>สถานการณ์จำลอง</b><br>
+      <small>Simulation</small>
+    </div>
+
+    <div class="menu-item" onclick="openModal('Checklist')">
+      <span class="icon">📋</span>
+      <b>ประเมินตนเอง</b><br>
+      <small>Checklist</small>
+    </div>
+
+    <div class="menu-item" onclick="openModal('Progress')">
+      <span class="icon">📊</span>
+      <b>ความก้าวหน้า</b><br>
+      <small>Progress</small>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= 4 EBOOK ================= -->
+
+<section class="card">
+
+  <div class="card-title">
+    ← &nbsp; 4. E-book (บทเรียน)
+  </div>
+
+  <div class="card-content">
+
+    <b style="color:#ef6d20">บทที่ 2</b>
+
+    <h2>การประเมินเด็กที่มีไข้</h2>
+
+    <img
+      class="ebook-img"
+      src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=800"
+      alt="แม่และเด็ก"
+    >
 
     <p>
-      เลือกช่องทางที่ต้องการ
+      การประเมินที่ถูกต้องจะช่วยให้เราดูแลลูกได้อย่างเหมาะสม
+      และปลอดภัย
     </p>
 
-  </div>
-
-
-  <div class="content-list">
-
-    <div class="content-item">
-
-      <button
-        class="btn btn-line"
-        onclick="loginWithLINE()">
-
-        💚 เข้าสู่ระบบด้วย LINE
-
-      </button>
-
-
-      <div class="divider">
-        หรือ
-      </div>
-
-
-      <label class="input-label">
-        E-mail
-      </label>
-
-      <input
-        id="emailInput"
-        class="input"
-        type="email"
-        placeholder="example@email.com">
-
-
-      <label class="input-label">
-        รหัสผ่าน
-      </label>
-
-      <input
-        id="passwordInput"
-        class="input"
-        type="password"
-        placeholder="กรอกรหัสผ่าน">
-
-
-      <button
-        class="btn btn-primary"
-        onclick="loginWithEmail()">
-
-        📧 เข้าสู่ระบบ
-
-      </button>
-
+    <div class="info">
+      <b class="orange-title">สิ่งที่ควรประเมิน</b>
+      <br>✓ อุณหภูมิร่างกาย
+      <br>✓ อาการร่วมอื่น ๆ
+      <br>✓ พฤติกรรมของเด็ก
+      <br>✓ สัญญาณอันตราย
     </div>
 
-  </div>
+    <button class="primary" onclick="openModal('บทเรียนบทที่ 2')">
+      ถัดไป
+    </button>
 
+  </div>
 </section>
 
 
+<!-- ================= 5 VIDEO ================= -->
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<section class="card">
 
-<section id="homePage" class="home hidden">
-
-  <div class="top">
-
-    <div class="top-row">
-
-      <div>
-
-        <small>
-          SMART FEVER CARE
-        </small>
-
-        <h1>
-          สวัสดีค่ะ 👋
-        </h1>
-
-        <p>
-          พร้อมเรียนรู้การดูแลเด็กที่มีไข้หรือยัง?
-        </p>
-
-      </div>
-
-
-      <div class="user-avatar">
-        👩🏻
-      </div>
-
-    </div>
-
-
-    <div class="progress-box">
-
-      <div class="progress-head">
-
-        <b>
-          ความก้าวหน้าของคุณ
-        </b>
-
-        <b id="progressText">
-          0%
-        </b>
-
-      </div>
-
-
-      <div class="progress-track">
-
-        <div
-          id="progressFill"
-          class="progress-fill">
-        </div>
-
-      </div>
-
-    </div>
-
+  <div class="card-title">
+    ← &nbsp; 5. Video
   </div>
 
+  <div class="card-content">
 
-  <div class="section-title">
-    เริ่มต้นการเรียนรู้
-  </div>
+    <h2>วิดีโอสาธิต</h2>
 
+    <div class="video-box" onclick="openModal('วิดีโอสาธิตการเช็ดตัวลดไข้')">
 
-  <div class="menu">
+      <img
+        src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=900"
+        alt="เด็ก"
+      >
 
-
-    <div
-      class="menu-card"
-      onclick="openPage('ebookPage')">
-
-      <div class="menu-icon">
-        📚
-      </div>
-
-      <h3>
-        เรียนรู้
-      </h3>
-
-      <p>
-        E-book
-      </p>
+      <div class="play">▶</div>
 
     </div>
 
+    <h3>วิธีการเช็ดตัวลดไข้</h3>
 
-    <div
-      class="menu-card"
-      onclick="openPage('videoPage')">
-
-      <div class="menu-icon">
-        🎥
-      </div>
-
-      <h3>
-        วิดีโอ
-      </h3>
-
-      <p>
-        เรียนรู้ผ่านวิดีโอ
-      </p>
-
-    </div>
-
-
-    <div
-      class="menu-card"
-      onclick="openPage('quizPage')">
-
-      <div class="menu-icon">
-        ❓
-      </div>
-
-      <h3>
-        Quiz
-      </h3>
-
-      <p>
-        ทดสอบความรู้
-      </p>
-
-    </div>
-
-
-    <div
-      class="menu-card"
-      onclick="openPage('simulationPage')">
-
-      <div class="menu-icon">
-        🩺
-      </div>
-
-      <h3>
-        Simulation
-      </h3>
-
-      <p>
-        สถานการณ์จำลอง
-      </p>
-
-    </div>
-
-
-    <div
-      class="menu-card"
-      onclick="openPage('checklistPage')">
-
-      <div class="menu-icon">
-        ✅
-      </div>
-
-      <h3>
-        ประเมินตนเอง
-      </h3>
-
-      <p>
-        Checklist
-      </p>
-
-    </div>
-
-
-    <div
-      class="menu-card"
-      onclick="openPage('progressPage')">
-
-      <div class="menu-icon">
-        📊
-      </div>
-
-      <h3>
-        ความก้าวหน้า
-      </h3>
-
-      <p>
-        Progress
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <!-- LINE OA -->
-
-  <div class="line-card">
-
-    <h3>
-      💚 SMART FEVER CARE LINE OA
-    </h3>
-
-    <p>
-      รับคำแนะนำ ข่าวสาร และการแจ้งเตือน
-      เพื่อช่วยให้ผู้ปกครองดูแลเด็กที่มีไข้อย่างมั่นใจ
+    <p style="font-size:13px">
+      เรียนรู้ขั้นตอนการเช็ดตัวที่ถูกต้อง
+      เพื่อช่วยลดไข้และดูแลเด็กอย่างปลอดภัย
     </p>
 
-    <button
-      class="btn btn-line"
-      onclick="openLINEOA()">
+    <div class="question">① เตรียมอุปกรณ์</div>
+    <div class="question">② ประเมินอุณหภูมิ</div>
+    <div class="question">③ การเช็ดตัว</div>
+    <div class="question">④ การดูแลหลังเช็ดตัว</div>
+    <div class="question">⑤ อาการที่ควรพบแพทย์</div>
 
-      💬 เชื่อมต่อ LINE OA
-
+    <button class="primary" onclick="openModal('Video')">
+      ดูจนแล้ว ✓
     </button>
 
   </div>
-
-
-  <!-- HOME NAV -->
-
-  <div class="bottom-nav">
-
-    <button
-      id="navHome"
-      class="nav-item active"
-      onclick="goHome()">
-
-      <span>🏠</span>
-      หน้าแรก
-
-    </button>
-
-
-    <button
-      id="navLesson"
-      class="nav-item"
-      onclick="openPage('ebookPage')">
-
-      <span>📚</span>
-      บทเรียน
-
-    </button>
-
-
-    <button
-      id="navActivity"
-      class="nav-item"
-      onclick="openPage('simulationPage')">
-
-      <span>🎯</span>
-      กิจกรรม
-
-    </button>
-
-
-    <button
-      id="navProfile"
-      class="nav-item"
-      onclick="openPage('profilePage')">
-
-      <span>👤</span>
-      โปรไฟล์
-
-    </button>
-
-  </div>
-
 </section>
 
 
+<!-- ================= 6 QUIZ ================= -->
 
-<!-- =====================================================
-     EBOOK
-===================================================== -->
+<section class="card quiz-card">
 
-<section id="ebookPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      📚 E-book
-    </h1>
-
-    <p>
-      เรียนรู้การดูแลเด็กที่มีไข้
-    </p>
-
+  <div class="card-title">
+    ← &nbsp; 6. Quiz
+    <span style="float:right">3 / 10</span>
   </div>
 
+  <div class="card-content">
 
-  <div class="content-list">
+    <b>ข้อใดเป็นวิธีที่ถูกต้องในการเช็ดตัวลดไข้?</b>
 
-    <div class="content-item">
-
-      <h3>
-        📖 บทที่ 1
-      </h3>
-
-      <p>
-        ความรู้เบื้องต้นเกี่ยวกับไข้ในเด็ก
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="completeLesson()">
-
-        เริ่มเรียน
-
-      </button>
-
+    <div class="question">
+      <span class="circle">A</span>
+      ใช้น้ำเย็นจัดและเช็ดแรง ๆ
     </div>
 
-
-    <div class="content-item">
-
-      <h3>
-        🌡️ บทที่ 2
-      </h3>
-
-      <p>
-        การประเมินเด็กที่มีไข้
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="completeLesson()">
-
-        เริ่มเรียน
-
-      </button>
-
+    <div class="question">
+      <span class="circle">B</span>
+      เช็ดเฉพาะบริเวณหน้าและอก
     </div>
 
-
-    <div class="content-item">
-
-      <h3>
-        🛁 บทที่ 3
-      </h3>
-
-      <p>
-        การเช็ดตัวลดไข้อย่างถูกต้อง
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="completeLesson()">
-
-        เริ่มเรียน
-
-      </button>
-
+    <div class="question correct">
+      <span class="circle">C</span>
+      ใช้น้ำอุ่น เช็ดตามแนวเส้นเลือด
+      <span style="float:right">✓</span>
     </div>
 
-
-    <div class="content-item">
-
-      <h3>
-        💧 บทที่ 4
-      </h3>
-
-      <p>
-        การดูแลเด็กและการป้องกันภาวะแทรกซ้อน
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="completeLesson()">
-
-        เริ่มเรียน
-
-      </button>
-
+    <div class="question">
+      <span class="circle">D</span>
+      เช็ดเมื่อไข้สูงกว่า 39.5°C เท่านั้น
     </div>
 
-  </div>
+    <div class="info">
+      <b>💡 ถูกต้อง!</b>
+      <br>
+      การเช็ดตัวช่วยให้ร่างกายระบายความร้อนได้ดี
+      และปลอดภัยสำหรับเด็ก
+    </div>
 
-
-  <div class="bottom-nav">
-
-    <button
-      class="nav-item"
-      onclick="goHome()">
-
-      <span>🏠</span>
-      หน้าแรก
-
-    </button>
-
-    <button
-      class="nav-item active"
-      onclick="openPage('ebookPage')">
-
-      <span>📚</span>
-      บทเรียน
-
-    </button>
-
-    <button
-      class="nav-item"
-      onclick="openPage('simulationPage')">
-
-      <span>🎯</span>
-      กิจกรรม
-
-    </button>
-
-    <button
-      class="nav-item"
-      onclick="openPage('profilePage')">
-
-      <span>👤</span>
-      โปรไฟล์
-
+    <button class="primary" onclick="nextQuestion()">
+      ถัดไป
     </button>
 
   </div>
-
 </section>
 
 
+<!-- ================= 7 SIMULATION ================= -->
 
-<!-- =====================================================
-     VIDEO
-===================================================== -->
+<section class="card simulation">
 
-<section id="videoPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      🎥 วิดีโอ
-    </h1>
-
-    <p>
-      เรียนรู้ผ่านวิดีโอสาธิต
-    </p>
-
+  <div class="card-title">
+    ← &nbsp; 7. Simulation
   </div>
 
+  <div class="card-content">
 
-  <div class="content-list">
+    <b>สถานการณ์ที่ 1 / 5</b>
 
-    <div class="content-item">
+    <h4>
+      น้องอายุ 2 ปี มีไข้ 38.8°C
+      เริ่มมีไข้และตัวร้อนขึ้น
+      ผู้ปกครองควรทำอย่างไรเป็นอันดับแรก?
+    </h4>
 
-      <h3>
-        🎬 วิดีโอที่ 1
-      </h3>
+    <div class="question">
+      <span class="circle">A</span>
+      ให้ยาลดไข้ทันที
+    </div>
 
-      <p>
-        การดูแลเด็กที่มีไข้
+    <div class="question">
+      <span class="circle">B</span>
+      เช็ดตัวด้วยน้ำเย็นจัด
+    </div>
+
+    <div class="question correct">
+      <span class="circle">C</span>
+      ประเมินอาการและวัดอุณหภูมิ
+      ✓
+    </div>
+
+    <div class="question">
+      <span class="circle">D</span>
+      ให้ดื่มน้ำเยอะ ๆ แล้วนอนพัก
+    </div>
+
+    <div class="info">
+      <b class="orange-title">คำตอบที่ถูกต้อง!</b>
+      <br>
+      ควรประเมินอาการและวัดอุณหภูมิ
+      เพื่อประเมินความรุนแรงและวางแผนดูแล
+    </div>
+
+    <button class="primary">
+      สถานการณ์ถัดไป
+    </button>
+
+  </div>
+</section>
+
+
+<!-- ================= 8 CHECKLIST ================= -->
+
+<section class="card">
+
+  <div class="card-title">
+    ← &nbsp; 8. Checklist
+  </div>
+
+  <div class="card-content">
+
+    <h3 style="text-align:center">ประเมินตนเอง</h3>
+
+    <p style="text-align:center;font-size:12px">
+      โปรดประเมินระดับความมั่นใจของคุณ
+    </p>
+
+    <div class="check-row">
+      <span>1. ฉันสามารถวัดอุณหภูมิได้</span>
+      <span>1</span><span>2</span><span>3</span>
+      <span>4</span><b>5</b>
+    </div>
+
+    <div class="check-row">
+      <span>2. ฉันสามารถเช็ดตัวได้ถูกต้อง</span>
+      <span>1</span><span>2</span><span>3</span>
+      <b>4</b><span>5</span>
+    </div>
+
+    <div class="check-row">
+      <span>3. ฉันสามารถติดตามอาการได้</span>
+      <span>1</span><span>2</span><span>3</span>
+      <span>4</span><b>5</b>
+    </div>
+
+    <div class="check-row">
+      <span>4. ฉันสามารถสังเกตอาการผิดปกติได้</span>
+      <span>1</span><span>2</span><span>3</span>
+      <b>4</b><span>5</span>
+    </div>
+
+    <div class="check-row">
+      <span>5. ฉันมั่นใจในการดูแลลูก</span>
+      <span>1</span><span>2</span><span>3</span>
+      <span>4</span><b>5</b>
+    </div>
+
+    <button class="primary" onclick="openModal('บันทึก Checklist')">
+      บันทึกผล
+    </button>
+
+  </div>
+</section>
+
+
+<!-- ================= 9 PROGRESS ================= -->
+
+<section class="card">
+
+  <div class="card-title">
+    ← &nbsp; 9. Progress
+  </div>
+
+  <div class="card-content">
+
+    <h3>ความก้าวหน้าของคุณ</h3>
+
+    <div class="score">
+
+      <div class="score-circle">
+        80%
+      </div>
+
+      <p style="text-align:center">
+        เรียนรู้แล้ว<br>
+        <b>4 จาก 5 บท</b>
       </p>
 
-      <button
-        class="btn btn-primary"
-        onclick="showMessage(
-        'ส่วนวิดีโอสามารถใส่ YouTube หรือไฟล์วิดีโอของคุณได้ภายหลัง',
-        'วิดีโอ')">
+      <hr>
 
-        ▶ ดูวิดีโอ
+      <b>เรียนรู้ (E-book)</b>
+      <div class="bar"><div style="width:83%"></div></div>
 
-      </button>
+      <b>วิดีโอสาธิต</b>
+      <div class="bar"><div style="width:100%"></div></div>
 
-    </div>
+      <b>Quiz</b>
+      <div class="bar"><div style="width:80%"></div></div>
 
+      <b>Simulation</b>
+      <div class="bar"><div style="width:60%"></div></div>
 
-    <div class="content-item">
-
-      <h3>
-        🎬 วิดีโอที่ 2
-      </h3>
-
-      <p>
-        การเช็ดตัวลดไข้อย่างถูกต้อง
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="showMessage(
-        'เตรียมพื้นที่สำหรับวิดีโอสาธิตการเช็ดตัวลดไข้',
-        'วิดีโอ')">
-
-        ▶ ดูวิดีโอ
-
-      </button>
+      <b>Checklist</b>
+      <div class="bar"><div style="width:100%"></div></div>
 
     </div>
 
   </div>
-
-
-  <div class="bottom-nav">
-
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item active" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item" onclick="openPage('simulationPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
-    </button>
-
-  </div>
-
 </section>
 
 
+<!-- ================= 10 POST TEST ================= -->
 
-<!-- =====================================================
-     QUIZ
-===================================================== -->
+<section class="card">
 
-<section id="quizPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      ❓ Quiz
-    </h1>
-
-    <p>
-      แบบทดสอบความรู้
-    </p>
-
+  <div class="card-title">
+    ← &nbsp; 10. Post-test
   </div>
 
+  <div class="card-content">
 
-  <div class="content-list">
+    <h3>แบบประเมินความรู้หลังเรียน</h3>
 
-    <div class="content-item">
+    <p>กรุณาเลือกคำตอบที่ถูกต้องที่สุด</p>
 
-      <h3>
-        แบบทดสอบความรู้
-      </h3>
+    <b>
+      1. หลังเช็ดตัวลดไข้ ควรประเมินอุณหภูมิซ้ำภายในกี่นาที?
+    </b>
 
-      <p>
-        ประเมินความเข้าใจเกี่ยวกับการดูแลเด็กที่มีไข้
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="startQuiz()">
-
-        เริ่มทำแบบทดสอบ
-
-      </button>
-
+    <div class="question correct">
+      <span class="circle">A</span>
+      10–15 นาที ✓
     </div>
 
-  </div>
+    <div class="question">
+      <span class="circle">B</span>
+      20–30 นาที
+    </div>
 
+    <div class="question">
+      <span class="circle">C</span>
+      30–45 นาที
+    </div>
 
-  <div class="bottom-nav">
+    <div class="question">
+      <span class="circle">D</span>
+      1 ชั่วโมง
+    </div>
 
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item active" onclick="openPage('quizPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
+    <button class="primary" onclick="openModal('Post-test')">
+      ถัดไป
     </button>
 
   </div>
-
 </section>
-
-
-
-<!-- =====================================================
-     SIMULATION
-===================================================== -->
-
-<section id="simulationPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      🩺 Simulation
-    </h1>
-
-    <p>
-      สถานการณ์จำลอง
-    </p>
-
-  </div>
-
-
-  <div class="content-list">
-
-    <div class="content-item">
-
-      <h3>
-        👶 สถานการณ์ที่ 1
-      </h3>
-
-      <p>
-        เด็กมีไข้ ผู้ปกครองควรประเมินและดูแลอย่างไร?
-      </p>
-
-      <button
-        class="btn btn-primary"
-        onclick="startSimulation()">
-
-        เริ่ม Simulation
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="bottom-nav">
-
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item active" onclick="openPage('simulationPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
-    </button>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CHECKLIST
-===================================================== -->
-
-<section id="checklistPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      ✅ Checklist
-    </h1>
-
-    <p>
-      ประเมินทักษะการดูแล
-    </p>
-
-  </div>
-
-
-  <div class="content-list">
-
-    <div class="content-item">
-      ☐ ประเมินอุณหภูมิเด็ก
-    </div>
-
-    <div class="content-item">
-      ☐ ประเมินอาการร่วม
-    </div>
-
-    <div class="content-item">
-      ☐ ดูแลให้เด็กได้รับน้ำอย่างเพียงพอ
-    </div>
-
-    <div class="content-item">
-      ☐ เช็ดตัวลดไข้ได้อย่างถูกต้อง
-    </div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="completeChecklist()">
-
-      บันทึกผลการประเมิน
-
-    </button>
-
-  </div>
-
-
-  <div class="bottom-nav">
-
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item active" onclick="openPage('checklistPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
-    </button>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     PROGRESS
-===================================================== -->
-
-<section id="progressPage" class="content-page hidden">
-
-  <div class="page-header">
-
-    <h1>
-      📊 Progress
-    </h1>
-
-    <p>
-      ความก้าวหน้าการเรียนรู้
-    </p>
-
-  </div>
-
-
-  <div class="content-list">
-
-    <div class="content-item">
-      <h3>📚 E-book</h3>
-      <p id="ebookProgress">0 / 4 บท</p>
-    </div>
-
-    <div class="content-item">
-      <h3>🎥 Video</h3>
-      <p>0 / 2 วิดีโอ</p>
-    </div>
-
-    <div class="content-item">
-      <h3>❓ Quiz</h3>
-      <p>ยังไม่ได้ทำแบบทดสอบ</p>
-    </div>
-
-    <div class="content-item">
-      <h3>🩺 Simulation</h3>
-      <p>ยังไม่ได้เริ่ม</p>
-    </div>
-
-  </div>
-
-
-  <div class="bottom-nav">
-
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item" onclick="openPage('simulationPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item active" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
-    </button>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="profilePage" class="profile-page hidden">
-
-  <div class="profile-header">
-
-    <div class="profile-avatar">
-      👩🏻
-    </div>
-
-    <h2>
-      คุณแม่
-    </h2>
-
-    <p>
-      ผู้ใช้งาน SMART FEVER CARE
-    </p>
-
-  </div>
-
-
-  <div class="profile-card">
-
-    <div class="profile-row">
-      📚 บทเรียนที่เรียนแล้ว
-      <b id="profileLesson">0 / 4</b>
-    </div>
-
-    <div class="profile-row">
-      🎥 วิดีโอ
-      <b>0 / 2</b>
-    </div>
-
-    <div class="profile-row">
-      ❓ Quiz
-      <b>ยังไม่ได้ทำ</b>
-    </div>
-
-    <div class="profile-row">
-      🩺 Simulation
-      <b>ยังไม่ได้ทำ</b>
-    </div>
-
-    <div class="profile-row">
-      📊 ความก้าวหน้า
-      <b id="profileProgress">0%</b>
-    </div>
-
-  </div>
-
-
-  <div class="profile-actions">
-
-    <div class="line-card">
-
-      <h3>
-        💚 LINE OA
-      </h3>
-
-      <p>
-        เชื่อมต่อกับ SMART FEVER CARE
-        เพื่อรับคำแนะนำและการแจ้งเตือน
-      </p>
-
-      <button
-        class="btn btn-line"
-        onclick="openLINEOA()">
-
-        💬 เชื่อมต่อ LINE OA
-
-      </button>
-
-    </div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="showWelcome()">
-
-      ออกจากระบบ
-
-    </button>
-
-  </div>
-
-
-  <div class="bottom-nav">
-
-    <button class="nav-item" onclick="goHome()">
-      <span>🏠</span>
-      หน้าแรก
-    </button>
-
-    <button class="nav-item" onclick="openPage('ebookPage')">
-      <span>📚</span>
-      บทเรียน
-    </button>
-
-    <button class="nav-item" onclick="openPage('simulationPage')">
-      <span>🎯</span>
-      กิจกรรม
-    </button>
-
-    <button class="nav-item active" onclick="openPage('profilePage')">
-      <span>👤</span>
-      โปรไฟล์
-    </button>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-  id="modal"
-  class="modal hidden">
-
-  <div class="modal-box">
-
-    <h2 id="modalTitle">
-      SMART FEVER CARE
-    </h2>
-
-    <p id="modalText">
-    </p>
-
-    <button
-      class="btn btn-primary"
-      onclick="closeModal()">
-
-      ตกลง
-
-    </button>
-
-  </div>
 
 </div>
 
+
+<!-- ================= BOTTOM ================= -->
+
+<div class="bottom">
+
+  <section class="bottom-card">
+
+    <h3>LINE OA RICH MENU</h3>
+
+    <div class="rich-menu">
+
+      <div class="rich-item">
+        📖<br>เริ่มเรียนรู้
+      </div>
+
+      <div class="rich-item">
+        ▶️<br>วิดีโอ
+      </div>
+
+      <div class="rich-item">
+        ❓<br>Quiz
+      </div>
+
+      <div class="rich-item">
+        👥<br>Simulation
+      </div>
+
+      <div class="rich-item">
+        📋<br>ประเมินตนเอง
+      </div>
+
+      <div class="rich-item">
+        🟢<br>ติดต่อเรา
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="bottom-card">
+
+    <h3>การแจ้งเตือนจาก LINE OA</h3>
+
+    <div class="info">
+      👩‍⚕️
+      <b> อย่าลืมกลับมาเรียนรู้ SMART FEVER CARE</b>
+      <br>
+      คุณมีบทเรียนใหม่รอคุณอยู่
+    </div>
+
+    <div class="info">
+      🔔
+      <b> วันนี้คุณยังไม่ได้ทำ Quiz</b>
+      <br>
+      มาทบทวนความรู้กันเถอะ 😊
+    </div>
+
+  </section>
+
+
+  <section class="bottom-card feature">
+
+    <h3>คุณสมบัติเด่นของนวัตกรรม</h3>
+
+    <ul>
+      <li>เรียนรู้ได้ทุกที่ทุกเวลา</li>
+      <li>เนื้อหาเข้าใจง่าย ภาพสวยงาม</li>
+      <li>Interactive Quiz และ Simulation</li>
+      <li>ติดตามความก้าวหน้าแบบเรียลไทม์</li>
+      <li>เชื่อมต่อ LINE OA แจ้งเตือนอัตโนมัติ</li>
+    </ul>
+
+  </section>
+
+</div>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <h2 id="modalTitle">SMART FEVER CARE</h2>
+
+    <p id="modalText">
+      กำลังเปิดเนื้อหา...
+    </p>
+
+    <div class="info">
+      ระบบนี้เป็นต้นแบบ Web Application
+      สำหรับการเรียนรู้และประเมินความรู้
+      เรื่องการดูแลเด็กที่มีไข้
+    </div>
+
+    <button class="primary" onclick="closeModal()">
+      ตกลง
+    </button>
+
+  </div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   LINE OA
-===================================================== */
+function openModal(title){
 
-/*
-   ตอนนี้ยังไม่มี LINE OA จริง
+  document.getElementById("modalTitle").innerText = title;
 
-   เมื่อสร้าง LINE OA แล้ว
-   เปลี่ยนเฉพาะบรรทัดนี้เป็นลิงก์จริง เช่น
+  document.getElementById("modalText").innerText =
+    "คุณกำลังเข้าสู่ส่วน " + title +
+    " ของระบบ SMART FEVER CARE";
 
-   const LINE_OA_URL = "https://lin.ee/XXXXXXXX";
-
-*/
-
-const LINE_OA_URL = "#";
-
-
-/* =====================================================
-   PAGE CONTROL
-===================================================== */
-
-const pageIds = [
-  "welcomePage",
-  "loginPage",
-  "homePage",
-  "ebookPage",
-  "videoPage",
-  "quizPage",
-  "simulationPage",
-  "checklistPage",
-  "progressPage",
-  "profilePage"
-];
-
-
-function hideAllPages(){
-
-  pageIds.forEach(function(id){
-
-    const page =
-      document.getElementById(id);
-
-    if(page){
-
-      page.classList.add("hidden");
-
-    }
-
-  });
+  document.getElementById("modal").classList.add("show");
 
 }
 
+function closeModal(){
 
-function showWelcome(){
+  document.getElementById("modal").classList.remove("show");
 
-  hideAllPages();
+}
+
+function nextQuestion(){
+
+  openModal("ดำเนินการต่อ");
+
+}
+
+function answer(element){
 
   document
-    .getElementById("welcomePage")
-    .classList.remove("hidden");
+    .querySelectorAll("#pretest .question")
+    .forEach(q => q.classList.remove("correct"));
 
-  window.scrollTo(0,0);
+  element.classList.add("correct");
 
 }
 
-
-function openLogin(){
-
-  hideAllPages();
+function scrollToSection(id){
 
   document
-    .getElementById("loginPage")
-    .classList.remove("hidden");
-
-  window.scrollTo(0,0);
-
-}
-
-
-function goHome(){
-
-  hideAllPages();
-
-  document
-    .getElementById("homePage")
-    .classList.remove("hidden");
-
-  setActiveNav("navHome");
-
-  window.scrollTo(0,0);
-
-}
-
-
-function openPage(pageId){
-
-  hideAllPages();
-
-  const page =
-    document.getElementById(pageId);
-
-  if(page){
-
-    page.classList.remove("hidden");
-
-  }
-
-  clearActiveNav();
-
-  window.scrollTo(0,0);
-
-}
-
-
-/* =====================================================
-   NAV
-===================================================== */
-
-function setActiveNav(id){
-
-  clearActiveNav();
-
-  const nav =
-    document.getElementById(id);
-
-  if(nav){
-
-    nav.classList.add("active");
-
-  }
-
-}
-
-
-function clearActiveNav(){
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(function(item){
-
-      item.classList.remove("active");
-
+    .getElementById(id)
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
     });
 
 }
 
+window.onclick = function(event){
 
-/* =====================================================
-   LINE LOGIN
-===================================================== */
+  const modal = document.getElementById("modal");
 
-function loginWithLINE(){
-
-  if(LINE_OA_URL === "#"){
-
-    showMessage(
-      "ตอนนี้ปุ่ม LINE ถูกเตรียมไว้สำหรับการเชื่อมต่อแล้วค่ะ\n\nเมื่อเราสร้าง LINE Login จริง จะนำระบบมาเชื่อมตรงนี้",
-      "เข้าสู่ระบบด้วย LINE"
-    );
-
-    return;
-
+  if(event.target === modal){
+    closeModal();
   }
 
-  window.location.href =
-    LINE_OA_URL;
-
-}
-
-
-/* =====================================================
-   EMAIL LOGIN
-===================================================== */
-
-function loginWithEmail(){
-
-  const email =
-    document
-      .getElementById("emailInput")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("passwordInput")
-      .value
-      .trim();
-
-
-  if(email === ""){
-
-    showMessage(
-      "กรุณากรอก E-mail ก่อนค่ะ",
-      "เข้าสู่ระบบ"
-    );
-
-    return;
-
-  }
-
-
-  if(password === ""){
-
-    showMessage(
-      "กรุณากรอกรหัสผ่านก่อนค่ะ",
-      "เข้าสู่ระบบ"
-    );
-
-    return;
-
-  }
-
-
-  goHome();
-
-}
-
-
-/* =====================================================
-   LINE OA
-===================================================== */
-
-function openLINEOA(){
-
-  if(LINE_OA_URL === "#"){
-
-    showMessage(
-      "ช่องทาง LINE OA ถูกเตรียมไว้แล้วค่ะ\n\nเมื่อสร้าง LINE OA จริง เราจะนำลิงก์มาใส่ตรงนี้",
-      "SMART FEVER CARE LINE OA"
-    );
-
-    return;
-
-  }
-
-
-  window.open(
-    LINE_OA_URL,
-    "_blank"
-  );
-
-}
-
-
-/* =====================================================
-   ABOUT
-===================================================== */
-
-function showAbout(){
-
-  showMessage(
-    "SMART FEVER CARE\n\nสื่อการเรียนรู้ดิจิทัลเพื่อส่งเสริมความรู้และทักษะในการดูแลเด็กที่มีไข้",
-    "เกี่ยวกับ SMART FEVER CARE"
-  );
-
-}
-
-
-/* =====================================================
-   LESSON
-===================================================== */
-
-let lessonCount = 0;
-
-function completeLesson(){
-
-  if(lessonCount < 4){
-
-    lessonCount++;
-
-  }
-
-  const progress =
-    Math.min(
-      lessonCount * 10,
-      40
-    );
-
-  updateProgress(progress);
-
-
-  document
-    .getElementById("profileLesson")
-    .innerText =
-      lessonCount + " / 4";
-
-
-  document
-    .getElementById("ebookProgress")
-    .innerText =
-      lessonCount + " / 4 บท";
-
-
-  showMessage(
-    "บันทึกความก้าวหน้าของคุณแล้วค่ะ",
-    "เรียนรู้"
-  );
-
-}
-
-
-/* =====================================================
-   QUIZ
-===================================================== */
-
-function startQuiz(){
-
-  showMessage(
-    "ส่วนนี้เราจะพัฒนาเป็น Pre-test และ Post-test จริงในขั้นตอนถัดไปค่ะ",
-    "Quiz"
-  );
-
-}
-
-
-/* =====================================================
-   SIMULATION
-===================================================== */
-
-function startSimulation(){
-
-  showMessage(
-    "ส่วนนี้จะพัฒนาเป็น Interactive Simulation เพื่อให้ผู้ใช้เลือกการตัดสินใจในสถานการณ์จำลองค่ะ",
-    "Simulation"
-  );
-
-}
-
-
-/* =====================================================
-   CHECKLIST
-===================================================== */
-
-function completeChecklist(){
-
-  updateProgress(20);
-
-  showMessage(
-    "บันทึกผลการประเมินเรียบร้อยแล้วค่ะ",
-    "Checklist"
-  );
-
-}
-
-
-/* =====================================================
-   PROGRESS
-===================================================== */
-
-function updateProgress(value){
-
-  const bar =
-    document.getElementById("progressFill");
-
-  const text =
-    document.getElementById("progressText");
-
-  const profile =
-    document.getElementById("profileProgress");
-
-
-  if(bar){
-
-    bar.style.width =
-      value + "%";
-
-  }
-
-
-  if(text){
-
-    text.innerText =
-      value + "%";
-
-  }
-
-
-  if(profile){
-
-    profile.innerText =
-      value + "%";
-
-  }
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function showMessage(text,title){
-
-  document
-    .getElementById("modalTitle")
-    .innerText =
-      title || "SMART FEVER CARE";
-
-
-  document
-    .getElementById("modalText")
-    .innerText =
-      text;
-
-
-  document
-    .getElementById("modal")
-    .classList
-    .remove("hidden");
-
-}
-
-
-function closeModal(){
-
-  document
-    .getElementById("modal")
-    .classList
-    .add("hidden");
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-showWelcome();
+};
 
 </script>
 
