@@ -1,31 +1,528 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMART FEVER CARE</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4fafb;color:#18313a;font-family:Arial,'Noto Sans Thai',sans-serif}.shell{max-width:480px;min-height:100vh;margin:auto;background:#fff}.content{padding:20px}.top{padding:16px;border-bottom:1px solid #dcebee;display:flex;justify-content:space-between;color:#239aa5;font-weight:800}.hero,.card{border:1px solid #dcebee;border-radius:22px;padding:18px;margin-bottom:14px}.hero{text-align:center;background:#eaf7f8}.logo{font-size:30px;font-weight:800;color:#239aa5}.logo span{color:#ef7474}.illus{font-size:70px;margin:18px}.btn{width:100%;padding:13px;border:0;border-radius:15px;background:#239aa5;color:white;font-weight:800;margin-top:10px}.btn2{background:white;color:#239aa5;border:1px solid #239aa5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.menu{min-height:115px;background:white;border:1px solid #dcebee;border-radius:18px;padding:15px;text-align:left}.menu b{display:block;margin-top:7px}.menu small,.small{color:#6d7d84;line-height:1.6}.option{width:100%;text-align:left;background:white;border:1px solid #dcebee;border-radius:14px;padding:12px;margin:7px 0}.selected{border-color:#239aa5;background:#eaf7f8}.bar{height:10px;background:#e8eff0;border-radius:20px}.bar i{display:block;height:100%;background:#239aa5;border-radius:20px}.check{display:block;border:1px solid #dcebee;border-radius:14px;padding:12px;margin:8px 0}.nav{position:sticky;bottom:0;background:white;border-top:1px solid #dcebee;display:flex;justify-content:space-around;padding:12px}.nav button{border:0;background:none;color:#6d7d84}.nav .active{color:#239aa5;font-weight:800}h1{font-size:22px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,"Noto Sans Thai",sans-serif;
+  background:#eef7f8;
+  color:#173b4d;
+}
+
+.app{
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  background:#ffffff;
+  position:relative;
+  padding-bottom:90px;
+}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg,#0c9fa6,#36c5c9);
+  color:white;
+  padding:28px 22px 32px;
+  border-radius:0 0 28px 28px;
+}
+
+.logo{
+  font-size:13px;
+  letter-spacing:2px;
+  opacity:.9;
+  margin-bottom:12px;
+}
+
+.header h1{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.header p{
+  font-size:14px;
+  line-height:1.6;
+  opacity:.95;
+}
+
+/* Progress */
+.progress-card{
+  background:white;
+  margin:-18px 18px 22px;
+  padding:18px;
+  border-radius:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.progress{
+  height:9px;
+  background:#e7eeee;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:40%;
+  height:100%;
+  background:#16a6ad;
+  border-radius:10px;
+}
+
+/* Content */
+.content{
+  padding:0 18px;
+}
+
+.section-title{
+  font-size:19px;
+  margin:24px 0 13px;
+}
+
+.welcome{
+  background:#f1fbfb;
+  padding:18px;
+  border-radius:20px;
+  margin-bottom:18px;
+}
+
+.welcome h2{
+  font-size:19px;
+  margin-bottom:8px;
+}
+
+.welcome p{
+  font-size:14px;
+  line-height:1.7;
+  color:#58707b;
+}
+
+/* Cards */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.card{
+  border:1px solid #e3eeee;
+  border-radius:20px;
+  padding:18px 15px;
+  min-height:145px;
+  background:white;
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 7px 18px rgba(0,0,0,.08);
+}
+
+.icon{
+  font-size:31px;
+  margin-bottom:12px;
+}
+
+.card h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.card p{
+  font-size:12px;
+  color:#71858d;
+  line-height:1.5;
+}
+
+/* Main button */
+.main-button{
+  width:100%;
+  border:none;
+  background:#0c9fa6;
+  color:white;
+  padding:16px;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:18px;
+  cursor:pointer;
+}
+
+.main-button:hover{
+  background:#078b91;
+}
+
+/* Pages */
+.page{
+  display:none;
+  padding:25px 18px;
+}
+
+.page.active{
+  display:block;
+}
+
+.back{
+  border:none;
+  background:none;
+  color:#0c9fa6;
+  font-size:15px;
+  margin-bottom:20px;
+  cursor:pointer;
+}
+
+.page h2{
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.page p{
+  color:#617780;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.info-box{
+  background:#f1fbfb;
+  border-radius:18px;
+  padding:18px;
+  margin-top:18px;
+}
+
+.info-box h3{
+  margin-bottom:10px;
+}
+
+.step{
+  background:white;
+  border:1px solid #e4eeee;
+  padding:16px;
+  border-radius:16px;
+  margin-top:12px;
+}
+
+.step strong{
+  color:#0c9fa6;
+}
+
+/* Bottom navigation */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(480px,100%);
+  height:75px;
+  background:white;
+  border-top:1px solid #e7eeee;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -5px 18px rgba(0,0,0,.06);
+  z-index:10;
+}
+
+.nav-item{
+  text-align:center;
+  font-size:11px;
+  color:#819399;
+  cursor:pointer;
+}
+
+.nav-icon{
+  font-size:23px;
+  display:block;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:#0c9fa6;
+  font-weight:bold;
+}
+
+@media(min-width:700px){
+  body{
+    padding:30px 0;
+  }
+
+  .app{
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+  }
+
+  .bottom-nav{
+    position:absolute;
+  }
+}
 </style>
 </head>
+
 <body>
-<div id="app"></div>
+
+<div class="app">
+
+<!-- HOME -->
+<div id="home" class="page active" style="padding:0 0 20px;">
+
+  <div class="header">
+    <div class="logo">DIGITAL HEALTH EDUCATION</div>
+    <h1>SMART FEVER CARE</h1>
+    <p>
+      นวัตกรรมสื่อดิจิทัลเพื่อส่งเสริมความรู้
+      และทักษะการดูแลเด็กที่มีไข้
+    </p>
+  </div>
+
+  <div class="progress-card">
+    <div class="progress-top">
+      <span>ความก้าวหน้าของคุณ</span>
+      <strong>40%</strong>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="welcome">
+      <h2>สวัสดีค่ะ 👋</h2>
+      <p>
+        ยินดีต้อนรับสู่ SMART FEVER CARE
+        มาเรียนรู้วิธีดูแลเด็กที่มีไข้
+        ผ่านบทเรียนและกิจกรรมแบบ Interactive
+      </p>
+    </div>
+
+    <h2 class="section-title">เริ่มเรียนรู้</h2>
+
+    <div class="grid">
+
+      <div class="card" onclick="openPage('learn')">
+        <div class="icon">📚</div>
+        <h3>เรียนรู้</h3>
+        <p>ความรู้เกี่ยวกับไข้และการดูแลเด็ก</p>
+      </div>
+
+      <div class="card" onclick="openPage('wipe')">
+        <div class="icon">🛁</div>
+        <h3>การเช็ดตัวลดไข้</h3>
+        <p>เรียนรู้ขั้นตอนการเช็ดตัวอย่างถูกต้อง</p>
+      </div>
+
+      <div class="card" onclick="openPage('quiz')">
+        <div class="icon">🧠</div>
+        <h3>แบบทดสอบ</h3>
+        <p>ทดสอบความรู้และประเมินการเรียนรู้</p>
+      </div>
+
+      <div class="card" onclick="openPage('scenario')">
+        <div class="icon">🩺</div>
+        <h3>สถานการณ์จำลอง</h3>
+        <p>ฝึกตัดสินใจจากสถานการณ์ที่พบได้จริง</p>
+      </div>
+
+    </div>
+
+    <button class="main-button" onclick="openPage('learn')">
+      เริ่มเรียนรู้ →
+    </button>
+
+  </div>
+</div>
+
+
+<!-- LEARN PAGE -->
+<div id="learn" class="page">
+
+  <button class="back" onclick="openPage('home')">← กลับหน้าหลัก</button>
+
+  <h2>📚 เรียนรู้เรื่องไข้</h2>
+
+  <p>
+    เรียนรู้พื้นฐานเกี่ยวกับไข้
+    และแนวทางการดูแลเด็กอย่างเหมาะสม
+  </p>
+
+  <div class="info-box">
+    <h3>บทเรียนที่ 1</h3>
+    <p>
+      ความรู้พื้นฐานเกี่ยวกับไข้ในเด็ก
+    </p>
+  </div>
+
+  <div class="info-box">
+    <h3>บทเรียนที่ 2</h3>
+    <p>
+      การประเมินอาการและการดูแลเด็ก
+    </p>
+  </div>
+
+  <div class="info-box">
+    <h3>บทเรียนที่ 3</h3>
+    <p>
+      การเช็ดตัวลดไข้
+    </p>
+  </div>
+
+</div>
+
+
+<!-- WIPE PAGE -->
+<div id="wipe" class="page">
+
+  <button class="back" onclick="openPage('home')">← กลับหน้าหลัก</button>
+
+  <h2>🛁 การเช็ดตัวลดไข้</h2>
+
+  <p>
+    เรียนรู้ขั้นตอนการเช็ดตัวลดไข้
+    ผ่านรูปแบบ Interactive
+  </p>
+
+  <div class="step">
+    <strong>ขั้นตอนที่ 1</strong>
+    <p>เตรียมอุปกรณ์ที่จำเป็นสำหรับการเช็ดตัว</p>
+  </div>
+
+  <div class="step">
+    <strong>ขั้นตอนที่ 2</strong>
+    <p>จัดสถานที่ให้เหมาะสมและปลอดภัยสำหรับเด็ก</p>
+  </div>
+
+  <div class="step">
+    <strong>ขั้นตอนที่ 3</strong>
+    <p>เช็ดตัวตามขั้นตอนอย่างเหมาะสม</p>
+  </div>
+
+  <div class="step">
+    <strong>ขั้นตอนที่ 4</strong>
+    <p>ประเมินอาการของเด็กหลังการเช็ดตัว</p>
+  </div>
+
+</div>
+
+
+<!-- QUIZ PAGE -->
+<div id="quiz" class="page">
+
+  <button class="back" onclick="openPage('home')">← กลับหน้าหลัก</button>
+
+  <h2>🧠 แบบทดสอบ</h2>
+
+  <p>
+    แบบทดสอบความรู้เกี่ยวกับการดูแลเด็กที่มีไข้
+  </p>
+
+  <div class="info-box">
+    <h3>Pre-test</h3>
+    <p>ประเมินความรู้ก่อนเริ่มเรียนรู้</p>
+    <button class="main-button" onclick="alert('ส่วนแบบทดสอบจะเพิ่มในขั้นตอนถัดไปค่ะ')">
+      เริ่มทำแบบทดสอบ
+    </button>
+  </div>
+
+  <div class="info-box">
+    <h3>Post-test</h3>
+    <p>ประเมินความรู้หลังผ่านกิจกรรมการเรียนรู้</p>
+  </div>
+
+</div>
+
+
+<!-- SCENARIO PAGE -->
+<div id="scenario" class="page">
+
+  <button class="back" onclick="openPage('home')">← กลับหน้าหลัก</button>
+
+  <h2>🩺 สถานการณ์จำลอง</h2>
+
+  <p>
+    ฝึกคิดและตัดสินใจจากสถานการณ์จำลอง
+    เพื่อเชื่อมโยงความรู้กับการปฏิบัติ
+  </p>
+
+  <div class="info-box">
+    <h3>สถานการณ์ที่ 1</h3>
+    <p>
+      เด็กมีไข้ ผู้ปกครองควรประเมินและดูแลอย่างไร?
+    </p>
+
+    <button class="main-button"
+      onclick="alert('ระบบสถานการณ์จำลองจะเพิ่มในขั้นตอนถัดไปค่ะ')">
+      เริ่มสถานการณ์
+    </button>
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <div class="nav-item active" onclick="openPage('home')">
+    <span class="nav-icon">🏠</span>
+    หน้าหลัก
+  </div>
+
+  <div class="nav-item" onclick="openPage('learn')">
+    <span class="nav-icon">📚</span>
+    เรียนรู้
+  </div>
+
+  <div class="nav-item" onclick="openPage('quiz')">
+    <span class="nav-icon">🧠</span>
+    แบบทดสอบ
+  </div>
+
+  <div class="nav-item" onclick="openPage('scenario')">
+    <span class="nav-icon">🩺</span>
+    สถานการณ์
+  </div>
+
+</div>
+
+</div>
+
+
 <script>
-const app=document.getElementById('app');let selected=null,sim=null,checks=[0,0,0,0,0],progress=40;
-function nav(){return `<div class="nav"><button onclick="show('home')">⌂<br>หน้าหลัก</button><button onclick="show('progress')">◔<br>ความก้าวหน้า</button><button onclick="alert('ต้นแบบ: โปรไฟล์จะเพิ่มภายหลัง')">♙<br>โปรไฟล์</button></div>`}
-function wrap(title,body){app.innerHTML=`<div class="shell"><div class="top"><span onclick="show('home')">‹ กลับ</span><span>SMART FEVER CARE</span><span></span></div><main class="content"><h1>${title}</h1>${body}</main>${nav()}</div>`}
-function show(p){
-if(p==='welcome'){app.innerHTML=`<div class="shell"><main class="content"><section class="hero"><div class="logo">SMART<br><span>FEVER CARE</span></div><b>เรียนรู้ เข้าใจ ทำได้<br>ดูแลลูกเมื่อมีไข้ อย่างมั่นใจ</b><div class="illus">👩‍🍼🌡️👶</div><button class="btn" onclick="show('pretest')">เริ่มต้นใช้งาน</button><button class="btn btn2" onclick="alert('Phase 2: เชื่อม LINE OA/LIFF')">เข้าสู่ระบบด้วย LINE</button><p class="small">สำหรับผู้ปกครองเด็กอายุ 1–5 ปี</p></section></main></div>`;return}
-if(p==='pretest'){wrap('แบบประเมินก่อนเรียน',`<div class="card"><p><b>ข้อ 1 / 10</b></p><p>คำถามตัวอย่างสำหรับต้นแบบ</p>${['คำตอบ A','คำตอบ B','คำตอบ C','คำตอบ D'].map((x,i)=>`<button class="option ${selected===i?'selected':''}" onclick="selected=${i};show('pretest')">○ ${x}</button>`).join('')}</div><button class="btn" onclick="show('home')">ไปหน้าหลัก</button><p class="small">ก่อนใช้จริงให้แทนด้วยเครื่องมือวิจัยฉบับที่ผ่านการตรวจสอบ</p>`);return}
-if(p==='home'){wrap('สวัสดีค่ะ 👋',`<p class="small">ยินดีต้อนรับสู่ SMART FEVER CARE</p><div class="card"><b>ความก้าวหน้าของคุณ ${progress}%</b><div class="bar"><i style="width:${progress}%"></i></div></div><div class="grid">${[['📖','เรียนรู้','learn'],['🎥','วิดีโอสาธิต','video'],['🧠','ทดสอบความรู้','quiz'],['🎭','สถานการณ์จำลอง','simulation'],['✅','ประเมินตนเอง','checklist'],['📊','ความก้าวหน้า','progress']].map(x=>`<button class="menu" onclick="show('${x[2]}')"><span style="font-size:30px">${x[0]}</span><b>${x[1]}</b><small>เปิดกิจกรรม</small></button>`).join('')}</div>`);return}
-if(p==='learn'){wrap('บทที่ 1 รู้จักไข้ในเด็ก',`<div class="card"><div class="illus">👶🌡️</div><b>เนื้อหาบทเรียน</b><p class="small">พื้นที่สำหรับใส่เนื้อหาที่ผ่านการตรวจสอบทางวิชาการ แบ่งเป็นข้อความสั้น ภาพ และคำถามระหว่างบทเรียน</p></div><div class="card"><b>หัวข้อย่อย</b><p>1. ความหมายและการประเมินไข้</p><p>2. การดูแลเด็กที่มีไข้</p><p>3. การเช็ดตัวลดไข้</p><p>4. สิ่งที่ควรทำและไม่ควรทำ</p><p>5. อาการเตือน</p></div><button class="btn" onclick="show('video')">ไปดูวิดีโอ</button>`);return}
-if(p==='video'){wrap('วิธีเช็ดตัวลดไข้',`<div class="card" style="text-align:center"><div class="illus">▶️</div><b>พื้นที่สำหรับวิดีโอสาธิต</b><p class="small">นำวิดีโอของทีมวิจัยมาใส่ในขั้นนี้</p></div><div class="card"><b>STEP 1</b> เตรียมอุปกรณ์<br><b>STEP 2</b> ประเมินเด็ก<br><b>STEP 3</b> ปฏิบัติตามขั้นตอน<br><b>STEP 4</b> ประเมินหลังทำ</div><button class="btn" onclick="progress=Math.max(progress,55);show('quiz')">✓ ดูจบแล้ว</button>`);return}
-if(p==='quiz'){wrap('แบบทดสอบความรู้',`<div class="card"><p><b>คำถามตัวอย่าง</b></p><p>ข้อใดควรพิจารณาเมื่อดูแลเด็กที่มีไข้?</p>${['ประเมินอาการและอุณหภูมิ','ห่มผ้าหนา ๆ เสมอ','ใช้น้ำเย็นจัด','ไม่สังเกตอาการ'].map((x,i)=>`<button class="option ${selected===i?'selected':''}" onclick="selected=${i};show('quiz')">○ ${x}</button>`).join('')}${selected!==null?`<p class="small"><b>${selected===0?'✅ ตัวอย่างคำตอบที่เหมาะสม':'💡 ลองทบทวนบทเรียนอีกครั้ง'}</b></p>`:''}</div><button class="btn" onclick="progress=Math.max(progress,65);show('simulation')">ไปสถานการณ์จำลอง</button>`);return}
-if(p==='simulation'){wrap('สถานการณ์จำลอง',`<div class="card"><b>สถานการณ์ 1/3</b><p>เด็กอายุ 3 ปี มีไข้และไม่สบายตัว ผู้ปกครองควรพิจารณาอะไรเป็นอันดับแรก?</p></div>${['เช็ดตัวทันทีโดยไม่ประเมิน','ให้ยาทันทีโดยไม่ประเมิน','ประเมินอาการและวัดไข้ก่อน','ห่มผ้าและรอดูอาการ'].map((x,i)=>`<button class="option ${sim===i?'selected':''}" onclick="sim=${i};show('simulation')">○ ${x}</button>`).join('')}<button class="btn" onclick="progress=Math.max(progress,75);show('checklist')">ส่งคำตอบ</button>`);return}
-if(p==='checklist'){wrap('ฉันมั่นใจว่าฉันสามารถ...',`<p class="small">ต้นแบบ self-efficacy checklist</p>${['เตรียมอุปกรณ์ได้','วัดอุณหภูมิได้','ปฏิบัติตามขั้นตอนได้','สังเกตอาการผิดปกติได้','ตัดสินใจว่าควรไปพบแพทย์เมื่อใด'].map((x,i)=>`<label class="check"><input type="checkbox" ${checks[i]?'checked':''} onchange="checks[${i}]=this.checked?1:0"> ${x}</label>`).join('')}<button class="btn" onclick="progress=Math.max(progress,85);show('progress')">บันทึกผล</button>`);return}
-if(p==='progress'){wrap('ความก้าวหน้าของคุณ',`<div class="card" style="text-align:center"><div style="font-size:44px;color:#239aa5;font-weight:800">${progress}%</div><div class="bar"><i style="width:${progress}%"></i></div></div><div class="card">📖 E-learning — 3/3<br><br>🎥 Video — 1/1<br><br>🧠 Quiz — 1/1<br><br>🎭 Simulation — 1/3<br><br>✅ Checklist — 1/1</div><button class="btn" onclick="show('posttest')">ไป Post-test</button>`);return}
-if(p==='posttest'){wrap('แบบประเมินหลังเรียน',`<div class="card" style="text-align:center"><div class="illus">🎉</div><h2>เรียนครบกิจกรรมแล้ว!</h2><p class="small">หน้านี้เป็นต้นแบบสำหรับนำเครื่องมือวิจัยฉบับจริงมาใส่</p></div><button class="btn" onclick="show('home')">กลับหน้าหลัก</button>`);return}}
-show('welcome');
+
+function openPage(pageId){
+
+  const pages = document.querySelectorAll('.page');
+
+  pages.forEach(function(page){
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
 </script>
+
 </body>
 </html>
