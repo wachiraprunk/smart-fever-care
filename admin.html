@@ -2,17 +2,10 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>SMART FEVER CARE</title>
 
-  <!-- =========================================================
-       SUPABASE
-  ========================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -23,37 +16,29 @@
     }
 
     :root {
-      --primary: #0ea5a4;
-      --primary-dark: #087f7e;
-      --secondary: #14b8a6;
+      --primary: #0f766e;
+      --primary2: #14b8a6;
       --bg: #f0fdfa;
-      --card: #ffffff;
+      --white: #ffffff;
       --text: #173b3a;
       --muted: #64748b;
       --border: #dbe7e7;
-      --danger: #ef4444;
+      --danger: #dc2626;
       --success: #16a34a;
-      --warning: #f59e0b;
-      --shadow: 0 10px 30px rgba(15, 118, 110, 0.12);
     }
 
     body {
       font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
         "Noto Sans Thai",
-        "Tahoma",
+        "Segoe UI",
+        Tahoma,
         sans-serif;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ecfeff 0%,
-          #f0fdfa 45%,
-          #ffffff 100%
-        );
-
+      background: linear-gradient(
+        135deg,
+        #ecfeff,
+        #f0fdfa,
+        #ffffff
+      );
       color: var(--text);
       min-height: 100vh;
     }
@@ -71,18 +56,18 @@
       display: none !important;
     }
 
-    /* =========================================================
+    /* =========================
        LOADING
-    ========================================================== */
+    ========================= */
 
-    #loadingScreen {
+    #loading {
       position: fixed;
       inset: 0;
-      background: #ffffff;
+      z-index: 99999;
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 99999;
     }
 
     .loading-box {
@@ -90,13 +75,13 @@
     }
 
     .spinner {
-      width: 52px;
-      height: 52px;
-      border: 5px solid #d1fae5;
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccfbf1;
       border-top-color: var(--primary);
       border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-      margin: 0 auto 18px;
+      animation: spin .8s linear infinite;
+      margin: auto auto 15px;
     }
 
     @keyframes spin {
@@ -105,221 +90,199 @@
       }
     }
 
-    /* =========================================================
+    /* =========================
        AUTH
-    ========================================================== */
+    ========================= */
 
     #authPage {
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
+      align-items: center;
+      padding: 20px;
     }
 
-    .auth-container {
+    .auth-box {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1000px;
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(15,118,110,.15);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: #ffffff;
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(15, 118, 110, 0.16);
     }
 
-    .auth-banner {
-      padding: 55px 45px;
+    .auth-left {
+      padding: 50px;
+      color: white;
       background:
         linear-gradient(
-          145deg,
+          135deg,
           #0f766e,
           #0d9488,
           #14b8a6
         );
-
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
-    .logo-circle {
-      width: 86px;
-      height: 86px;
+    .logo {
+      width: 80px;
+      height: 80px;
       background: rgba(255,255,255,.18);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 44px;
+      font-size: 40px;
       margin-bottom: 25px;
     }
 
-    .auth-banner h1 {
+    .auth-left h1 {
       font-size: 34px;
-      margin-bottom: 14px;
-      line-height: 1.25;
+      margin-bottom: 15px;
     }
 
-    .auth-banner p {
-      font-size: 16px;
+    .auth-left p {
       line-height: 1.8;
-      opacity: .92;
+      opacity: .95;
     }
 
-    .feature-list {
-      margin-top: 28px;
+    .features {
       list-style: none;
+      margin-top: 25px;
     }
 
-    .feature-list li {
-      margin: 13px 0;
-      font-size: 15px;
+    .features li {
+      margin: 12px 0;
     }
 
-    .auth-form {
+    .auth-right {
       padding: 45px;
     }
 
-    .auth-form h2 {
+    .auth-right h2 {
       font-size: 27px;
       margin-bottom: 8px;
     }
 
-    .auth-subtitle {
+    .subtitle {
       color: var(--muted);
-      margin-bottom: 28px;
+      margin-bottom: 25px;
     }
 
     .tabs {
       display: flex;
+      gap: 5px;
       background: #f1f5f9;
       padding: 5px;
-      border-radius: 12px;
-      margin-bottom: 24px;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
 
     .tab {
       flex: 1;
-      border: 0;
+      border: none;
       padding: 11px;
+      border-radius: 8px;
       background: transparent;
-      border-radius: 9px;
       color: var(--muted);
       font-weight: 600;
-      font-size: 15px;
     }
 
     .tab.active {
-      background: #ffffff;
-      color: var(--primary-dark);
+      background: white;
+      color: var(--primary);
       box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
 
     .form-group {
-      margin-bottom: 17px;
+      margin-bottom: 16px;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 7px;
-      font-size: 14px;
       font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 7px;
     }
 
     .form-group input {
       width: 100%;
+      padding: 13px;
       border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 13px 14px;
-      font-size: 15px;
+      border-radius: 10px;
       outline: none;
-      transition: .2s;
-      background: #fff;
+      font-size: 15px;
     }
 
     .form-group input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(14,165,164,.1);
+      box-shadow: 0 0 0 3px rgba(20,184,166,.1);
     }
 
     .primary-btn {
       width: 100%;
-      border: 0;
-      border-radius: 12px;
+      border: none;
+      border-radius: 10px;
       padding: 14px;
+      color: white;
       background: linear-gradient(
         135deg,
         var(--primary),
-        var(--secondary)
+        var(--primary2)
       );
-      color: white;
-      font-size: 16px;
       font-weight: 700;
-      transition: .2s;
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 7px 18px rgba(14,165,164,.25);
+      font-size: 16px;
     }
 
     .primary-btn:disabled {
       opacity: .6;
-      cursor: not-allowed;
-      transform: none;
     }
 
     .message {
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 9px;
       margin-bottom: 15px;
       font-size: 14px;
-      line-height: 1.6;
     }
 
-    .message.error {
+    .error {
       background: #fef2f2;
       color: #b91c1c;
     }
 
-    .message.success {
+    .success {
       background: #f0fdf4;
       color: #15803d;
     }
 
-    /* =========================================================
-       MAIN APP
-    ========================================================== */
-
-    #appPage {
-      min-height: 100vh;
-    }
+    /* =========================
+       NAVBAR
+    ========================= */
 
     .navbar {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(15px);
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
 
     .navbar-inner {
       max-width: 1200px;
       margin: auto;
-      padding: 13px 20px;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
     }
 
     .brand-icon {
@@ -328,8 +291,8 @@
       border-radius: 12px;
       background: linear-gradient(
         135deg,
-        #0f766e,
-        #14b8a6
+        var(--primary),
+        var(--primary2)
       );
       color: white;
       display: flex;
@@ -338,45 +301,42 @@
       font-size: 22px;
     }
 
-    .brand-text strong {
+    .brand strong {
+      color: var(--primary);
       display: block;
-      font-size: 16px;
-      color: var(--primary-dark);
     }
 
-    .brand-text span {
-      display: block;
-      font-size: 11px;
+    .brand small {
       color: var(--muted);
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
     }
 
     .user-mini {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 6px 10px;
-      border-radius: 12px;
-      background: #f0fdfa;
+      gap: 8px;
+      background: var(--bg);
+      padding: 5px 9px;
+      border-radius: 10px;
     }
 
     .avatar {
-      width: 39px;
-      height: 39px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      object-fit: cover;
       background: #ccfbf1;
+      color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0f766e;
       font-weight: 800;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .avatar img {
@@ -385,48 +345,45 @@
       object-fit: cover;
     }
 
-    .user-mini-info strong {
+    .user-info strong {
       display: block;
       font-size: 13px;
     }
 
-    .user-mini-info span {
-      font-size: 11px;
+    .user-info small {
       color: var(--muted);
+      font-size: 11px;
     }
 
-    .outline-btn {
+    .btn {
       border: 1px solid var(--border);
       background: white;
-      color: var(--text);
-      border-radius: 10px;
-      padding: 9px 13px;
+      border-radius: 9px;
+      padding: 9px 12px;
       font-weight: 600;
+      color: var(--text);
     }
 
-    .outline-btn:hover {
+    .btn:hover {
       border-color: var(--primary);
-      color: var(--primary-dark);
+      color: var(--primary);
     }
 
-    .danger-btn {
-      border: 0;
+    .logout-btn {
       background: #fee2e2;
       color: #b91c1c;
-      border-radius: 10px;
-      padding: 9px 13px;
-      font-weight: 600;
+      border: none;
     }
+
+    /* =========================
+       MAIN
+    ========================= */
 
     .container {
       max-width: 1200px;
       margin: auto;
-      padding: 30px 20px 60px;
+      padding: 30px 20px 50px;
     }
-
-    /* =========================================================
-       HERO
-    ========================================================== */
 
     .hero {
       background:
@@ -436,102 +393,68 @@
           #0d9488,
           #14b8a6
         );
-
       color: white;
-      border-radius: 25px;
       padding: 35px;
+      border-radius: 23px;
       display: grid;
-      grid-template-columns: 1.5fr .8fr;
-      gap: 30px;
-      align-items: center;
+      grid-template-columns: 1.5fr .7fr;
+      gap: 20px;
       margin-bottom: 25px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.08);
-      right: -90px;
-      top: -100px;
     }
 
     .hero h1 {
-      font-size: 34px;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
+      font-size: 32px;
+      margin-bottom: 10px;
     }
 
     .hero p {
       line-height: 1.8;
-      opacity: .92;
-      position: relative;
-      z-index: 1;
     }
 
-    .hero-card {
+    .status-card {
       background: rgba(255,255,255,.13);
       border: 1px solid rgba(255,255,255,.2);
-      border-radius: 18px;
+      border-radius: 15px;
       padding: 20px;
-      position: relative;
-      z-index: 1;
     }
 
-    .hero-card .number {
-      font-size: 31px;
-      font-weight: 800;
-      margin-top: 5px;
+    .status-card strong {
+      display: block;
+      font-size: 28px;
+      margin-top: 8px;
     }
-
-    /* =========================================================
-       CARDS
-    ========================================================== */
 
     .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       margin: 25px 0 15px;
-    }
-
-    .section-title h2 {
-      font-size: 21px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 17px;
     }
 
     .card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 21px;
-      box-shadow: var(--shadow);
+      border-radius: 17px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(15,118,110,.07);
     }
 
     .card-icon {
-      width: 47px;
-      height: 47px;
-      border-radius: 13px;
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
       background: #ccfbf1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 23px;
-      margin-bottom: 14px;
+      font-size: 22px;
+      margin-bottom: 12px;
     }
 
     .card h3 {
-      font-size: 17px;
       margin-bottom: 7px;
     }
 
@@ -541,9 +464,9 @@
       line-height: 1.7;
     }
 
-    /* =========================================================
+    /* =========================
        PROFILE
-    ========================================================== */
+    ========================= */
 
     .profile-layout {
       display: grid;
@@ -555,94 +478,69 @@
       text-align: center;
     }
 
-    .profile-large-avatar {
-      width: 115px;
-      height: 115px;
+    .large-avatar {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      margin: 0 auto 15px;
-      overflow: hidden;
+      margin: auto auto 15px;
       background: #ccfbf1;
+      color: var(--primary);
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 42px;
-      color: #0f766e;
+      align-items: center;
+      font-size: 45px;
       font-weight: 800;
+      overflow: hidden;
     }
 
-    .profile-large-avatar img {
+    .large-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .profile-side h2 {
-      font-size: 20px;
-    }
-
-    .profile-side p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 5px;
-      word-break: break-word;
-    }
-
-    .profile-form {
-      max-width: 700px;
-    }
-
-    .profile-form .form-group {
-      margin-bottom: 20px;
-    }
-
     .save-btn {
-      border: 0;
-      background: var(--primary);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 9px;
       color: white;
-      padding: 12px 22px;
-      border-radius: 10px;
+      background: var(--primary);
       font-weight: 700;
     }
 
-    /* =========================================================
+    /* =========================
        ADMIN
-    ========================================================== */
+    ========================= */
 
     .admin-header {
-      background:
-        linear-gradient(
-          135deg,
-          #172554,
-          #1e3a8a
-        );
-
+      background: linear-gradient(
+        135deg,
+        #172554,
+        #1e3a8a
+      );
       color: white;
-      padding: 28px;
-      border-radius: 20px;
+      border-radius: 18px;
+      padding: 27px;
       margin-bottom: 20px;
-    }
-
-    .admin-header h2 {
-      margin-bottom: 5px;
     }
 
     .table-wrapper {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 17px;
       overflow: auto;
-      box-shadow: var(--shadow);
+      box-shadow: 0 8px 25px rgba(15,118,110,.07);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 750px;
+      min-width: 700px;
     }
 
     th,
     td {
-      padding: 14px 16px;
+      padding: 14px;
       border-bottom: 1px solid #edf2f2;
       text-align: left;
       font-size: 14px;
@@ -651,90 +549,44 @@
     th {
       background: #f8fafc;
       color: #475569;
-      font-size: 13px;
     }
 
-    .role-badge {
+    .badge {
       display: inline-block;
       padding: 5px 9px;
-      border-radius: 99px;
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
     }
 
-    .role-admin {
+    .admin-badge {
       background: #dbeafe;
       color: #1d4ed8;
     }
 
-    .role-user {
+    .user-badge {
       background: #dcfce7;
       color: #15803d;
     }
 
-    /* =========================================================
-       MODAL
-    ========================================================== */
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,.55);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-box {
-      background: white;
-      width: 100%;
-      max-width: 480px;
-      border-radius: 20px;
-      padding: 25px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .close-btn {
-      border: 0;
-      background: #f1f5f9;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      font-size: 19px;
-    }
-
-    /* =========================================================
-       FOOTER
-    ========================================================== */
-
     footer {
       text-align: center;
-      padding: 30px 20px;
       color: var(--muted);
+      padding: 25px;
       font-size: 13px;
     }
 
-    /* =========================================================
+    /* =========================
        RESPONSIVE
-    ========================================================== */
+    ========================= */
 
     @media (max-width: 850px) {
 
-      .auth-container {
+      .auth-box {
         grid-template-columns: 1fr;
       }
 
-      .auth-banner {
+      .auth-left {
         display: none;
       }
 
@@ -754,48 +606,35 @@
         flex-wrap: wrap;
       }
 
-      .user-mini-info {
+      .user-info {
         display: none;
-      }
-
-      .nav-actions {
-        margin-left: auto;
-      }
-
-      .hero h1 {
-        font-size: 27px;
       }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
 
-      #authPage {
-        padding: 12px;
-      }
-
-      .auth-form {
+      .auth-right {
         padding: 25px 20px;
       }
 
       .container {
-        padding: 20px 12px 50px;
+        padding: 20px 12px;
       }
 
       .hero {
         padding: 25px 20px;
-        border-radius: 20px;
       }
 
       .hero h1 {
-        font-size: 24px;
+        font-size: 25px;
       }
 
-      .nav-actions .outline-btn {
+      .nav-actions .btn:not(.logout-btn) {
         display: none;
       }
 
-      .brand-text strong {
-        font-size: 14px;
+      .brand small {
+        display: none;
       }
     }
   </style>
@@ -803,32 +642,40 @@
 
 <body>
 
-  <!-- =========================================================
+  <!-- =========================
        LOADING
-  ========================================================== -->
+  ========================= -->
 
-  <div id="loadingScreen">
+  <div id="loading">
+
     <div class="loading-box">
+
       <div class="spinner"></div>
-      <strong>SMART FEVER CARE</strong>
-      <p style="color:#64748b;margin-top:7px;">
+
+      <strong>
+        SMART FEVER CARE
+      </strong>
+
+      <p style="color:#64748b;margin-top:6px;">
         กำลังโหลดระบบ...
       </p>
+
     </div>
+
   </div>
 
 
-  <!-- =========================================================
+  <!-- =========================
        AUTH PAGE
-  ========================================================== -->
+  ========================= -->
 
   <section id="authPage" class="hidden">
 
-    <div class="auth-container">
+    <div class="auth-box">
 
-      <div class="auth-banner">
+      <div class="auth-left">
 
-        <div class="logo-circle">
+        <div class="logo">
           🩺
         </div>
 
@@ -837,28 +684,28 @@
         </h1>
 
         <p>
-          ระบบดูแลและติดตามข้อมูลเกี่ยวกับไข้
-          เพื่อช่วยให้ผู้ใช้งานสามารถจัดการข้อมูล
-          และเข้าถึงระบบได้อย่างสะดวก
+          ระบบดูแลและติดตามข้อมูลสุขภาพ
+          สำหรับผู้ใช้งานและผู้ดูแลระบบ
         </p>
 
-        <ul class="feature-list">
-          <li>✓ ระบบสมาชิก</li>
-          <li>✓ จัดการโปรไฟล์ส่วนตัว</li>
-          <li>✓ ระบบผู้ดูแลระบบ</li>
-          <li>✓ เชื่อมต่อฐานข้อมูล Supabase</li>
+        <ul class="features">
+          <li>✓ ระบบสมัครสมาชิก</li>
+          <li>✓ ระบบเข้าสู่ระบบ</li>
+          <li>✓ จัดการโปรไฟล์</li>
+          <li>✓ ระบบ Admin</li>
+          <li>✓ เชื่อมต่อ Supabase</li>
         </ul>
 
       </div>
 
 
-      <div class="auth-form">
+      <div class="auth-right">
 
         <h2 id="authTitle">
           เข้าสู่ระบบ
         </h2>
 
-        <p class="auth-subtitle">
+        <p class="subtitle">
           ยินดีต้อนรับเข้าสู่ SMART FEVER CARE
         </p>
 
@@ -954,7 +801,7 @@
             <input
               id="signupName"
               type="text"
-              placeholder="ชื่อของคุณ"
+              placeholder="ชื่อผู้ใช้"
               minlength="2"
               required
             >
@@ -1012,14 +859,11 @@
   </section>
 
 
-  <!-- =========================================================
-       MAIN APP
-  ========================================================== -->
+  <!-- =========================
+       APP
+  ========================= -->
 
   <section id="appPage" class="hidden">
-
-
-    <!-- NAVBAR -->
 
     <nav class="navbar">
 
@@ -1031,16 +875,14 @@
             🩺
           </div>
 
-          <div class="brand-text">
-
+          <div>
             <strong>
               SMART FEVER CARE
             </strong>
 
-            <span>
+            <small>
               ระบบดูแลสุขภาพ
-            </span>
-
+            </small>
           </div>
 
         </div>
@@ -1057,15 +899,15 @@
               U
             </div>
 
-            <div class="user-mini-info">
+            <div class="user-info">
 
               <strong id="navName">
                 ผู้ใช้งาน
               </strong>
 
-              <span id="navEmail">
+              <small id="navEmail">
                 -
-              </span>
+              </small>
 
             </div>
 
@@ -1073,7 +915,7 @@
 
 
           <button
-            class="outline-btn"
+            class="btn"
             onclick="showPage('home')"
           >
             หน้าหลัก
@@ -1081,7 +923,7 @@
 
 
           <button
-            class="outline-btn"
+            class="btn"
             onclick="showPage('profile')"
           >
             โปรไฟล์
@@ -1089,8 +931,8 @@
 
 
           <button
-            id="adminNavButton"
-            class="outline-btn hidden"
+            id="adminButton"
+            class="btn hidden"
             onclick="showPage('admin')"
           >
             👑 Admin
@@ -1098,7 +940,7 @@
 
 
           <button
-            class="danger-btn"
+            class="btn logout-btn"
             onclick="logout()"
           >
             ออกจากระบบ
@@ -1111,9 +953,9 @@
     </nav>
 
 
-    <!-- =======================================================
+    <!-- =========================
          HOME
-    ======================================================== -->
+    ========================= -->
 
     <main
       id="homePage"
@@ -1125,30 +967,28 @@
         <div>
 
           <h1>
-            สวัสดี <span id="welcomeName">ผู้ใช้งาน</span> 👋
+            สวัสดี
+            <span id="welcomeName">
+              ผู้ใช้งาน
+            </span>
+            👋
           </h1>
 
           <p>
-            ยินดีต้อนรับเข้าสู่ระบบ
+            ยินดีต้อนรับเข้าสู่
             SMART FEVER CARE
-            ระบบสำหรับดูแลและติดตามข้อมูลสุขภาพของคุณ
           </p>
 
         </div>
 
 
-        <div class="hero-card">
+        <div class="status-card">
 
-          <div>
-            สถานะบัญชี
-          </div>
+          สถานะบัญชี
 
-          <div
-            class="number"
-            id="accountStatus"
-          >
+          <strong>
             ✓ ใช้งานอยู่
-          </div>
+          </strong>
 
         </div>
 
@@ -1177,8 +1017,8 @@
           </h3>
 
           <p>
-            ติดตามและจัดการข้อมูลที่เกี่ยวข้องกับอุณหภูมิ
-            และอาการไข้ของผู้ใช้งาน
+            ระบบสำหรับติดตามและจัดการข้อมูล
+            ที่เกี่ยวข้องกับอุณหภูมิและอาการไข้
           </p>
 
         </div>
@@ -1195,12 +1035,12 @@
           </h3>
 
           <p>
-            สามารถเปลี่ยนชื่อผู้ใช้
-            และรูปโปรไฟล์ได้
+            เปลี่ยนชื่อผู้ใช้และรูปโปรไฟล์
+            ได้จากเมนูโปรไฟล์
           </p>
 
           <button
-            class="outline-btn"
+            class="btn"
             style="margin-top:15px;"
             onclick="showPage('profile')"
           >
@@ -1221,7 +1061,7 @@
           </h3>
 
           <p>
-            บัญชีของคุณเชื่อมต่อกับระบบ
+            ข้อมูลบัญชีถูกจัดการผ่าน
             Supabase Authentication
           </p>
 
@@ -1229,37 +1069,12 @@
 
       </div>
 
-
-      <div class="section-title">
-
-        <h2>
-          คำแนะนำ
-        </h2>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3 style="margin-bottom:10px;">
-          💡 ดูแลสุขภาพของคุณ
-        </h3>
-
-        <p>
-          หากมีไข้สูงหรือมีอาการผิดปกติ
-          ควรพักผ่อน ดื่มน้ำให้เพียงพอ
-          และปรึกษาบุคลากรทางการแพทย์
-          ตามความเหมาะสม
-        </p>
-
-      </div>
-
     </main>
 
 
-    <!-- =======================================================
+    <!-- =========================
          PROFILE
-    ======================================================== -->
+    ========================= -->
 
     <main
       id="profilePage"
@@ -1282,7 +1097,7 @@
 
           <div
             id="profileAvatar"
-            class="profile-large-avatar"
+            class="large-avatar"
           >
             U
           </div>
@@ -1291,15 +1106,20 @@
             ผู้ใช้งาน
           </h2>
 
-          <p id="profileDisplayEmail">
+          <p
+            id="profileDisplayEmail"
+            style="
+              color:#64748b;
+              margin-top:5px;
+            "
+          >
             -
           </p>
 
           <div
             id="profileRole"
             style="margin-top:12px;"
-          >
-          </div>
+          ></div>
 
         </div>
 
@@ -1307,8 +1127,6 @@
         <div class="card">
 
           <form
-            id="profileForm"
-            class="profile-form"
             onsubmit="saveProfile(event)"
           >
 
@@ -1321,7 +1139,6 @@
               <input
                 id="profileName"
                 type="text"
-                placeholder="ชื่อผู้ใช้"
                 minlength="2"
                 required
               >
@@ -1348,7 +1165,7 @@
             <div class="form-group">
 
               <label>
-                รูปโปรไฟล์
+                URL รูปโปรไฟล์
               </label>
 
               <input
@@ -1357,16 +1174,6 @@
                 placeholder="https://example.com/photo.jpg"
               >
 
-              <small
-                style="
-                  display:block;
-                  margin-top:7px;
-                  color:#64748b;
-                "
-              >
-                ใส่ URL ของรูปภาพที่ต้องการใช้
-              </small>
-
             </div>
 
 
@@ -1374,7 +1181,7 @@
 
 
             <button
-              id="saveProfileButton"
+              id="saveButton"
               class="save-btn"
               type="submit"
             >
@@ -1390,9 +1197,9 @@
     </main>
 
 
-    <!-- =======================================================
+    <!-- =========================
          ADMIN
-    ======================================================== -->
+    ========================= -->
 
     <main
       id="adminPage"
@@ -1405,8 +1212,8 @@
           👑 Admin Dashboard
         </h2>
 
-        <p>
-          จัดการและดูข้อมูลผู้ใช้งานระบบ
+        <p style="margin-top:5px;">
+          ดูข้อมูลผู้ใช้งานระบบ
         </p>
 
       </div>
@@ -1424,17 +1231,15 @@
             ผู้ใช้งานทั้งหมด
           </h3>
 
-          <p
+          <strong
             id="totalUsers"
             style="
               font-size:30px;
-              font-weight:800;
               color:#0f766e;
-              margin-top:5px;
             "
           >
             -
-          </p>
+          </strong>
 
         </div>
 
@@ -1446,20 +1251,18 @@
           </div>
 
           <h3>
-            ผู้ดูแลระบบ
+            Admin
           </h3>
 
-          <p
+          <strong
             id="totalAdmins"
             style="
               font-size:30px;
-              font-weight:800;
               color:#1d4ed8;
-              margin-top:5px;
             "
           >
             -
-          </p>
+          </strong>
 
         </div>
 
@@ -1471,19 +1274,17 @@
           </div>
 
           <h3>
-            สถานะระบบ
+            สถานะ
           </h3>
 
-          <p
+          <strong
             style="
               font-size:20px;
-              font-weight:800;
               color:#16a34a;
-              margin-top:10px;
             "
           >
             Online
-          </p>
+          </strong>
 
         </div>
 
@@ -1497,7 +1298,7 @@
         </h2>
 
         <button
-          class="outline-btn"
+          class="btn"
           onclick="loadAdminUsers()"
         >
           🔄 รีเฟรช
@@ -1513,28 +1314,15 @@
           <thead>
 
             <tr>
-
-              <th>
-                ผู้ใช้
-              </th>
-
-              <th>
-                อีเมล
-              </th>
-
-              <th>
-                บทบาท
-              </th>
-
-              <th>
-                วันที่สมัคร
-              </th>
-
+              <th>ผู้ใช้</th>
+              <th>อีเมล</th>
+              <th>บทบาท</th>
+              <th>วันที่สมัคร</th>
             </tr>
 
           </thead>
 
-          <tbody id="usersTableBody">
+          <tbody id="usersTable">
 
             <tr>
 
@@ -1557,11 +1345,9 @@
 
 
     <footer>
-
       SMART FEVER CARE
       <br>
       ระบบดูแลและติดตามข้อมูลสุขภาพ
-
     </footer>
 
   </section>
@@ -1569,19 +1355,25 @@
 
   <!-- =========================================================
        JAVASCRIPT
-  ========================================================== -->
+  ========================================================= -->
 
   <script>
 
     /* =========================================================
-       SUPABASE CONFIG
-    ========================================================== */
+       1. SUPABASE CONFIG
+       ========================================================= */
 
     const SUPABASE_URL =
       "https://urqkglxfzusdjwvtnizv.supabase.co";
 
+    /*
+      นำ Publishable Key ของ Supabase
+      มาใส่ตรงนี้เพียงจุดเดียว
+    */
+
     const SUPABASE_KEY =
-      "sb_publishable_Lm5h8CK36cVPFT0ctEYHCw_EY6n6197";
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -1591,28 +1383,27 @@
 
 
     /* =========================================================
-       ADMIN EMAIL
-    ========================================================== */
+       2. ADMIN EMAIL
+       =========================================================
+
+       เปลี่ยนเป็นอีเมลที่จะใช้เป็น Admin
+    */
 
     const ADMIN_EMAIL =
       "wachiraprun.k@gmail.com";
 
-
-    /* =========================================================
-       GLOBAL VARIABLES
-    ========================================================== */
 
     let currentUser = null;
     let currentProfile = null;
 
 
     /* =========================================================
-       START
-    ========================================================== */
+       3. START
+       ========================================================= */
 
     document.addEventListener(
       "DOMContentLoaded",
-      async function () {
+      async () => {
 
         try {
 
@@ -1620,11 +1411,15 @@
             data,
             error
           } =
-            await supabaseClient.auth.getSession();
+            await supabaseClient
+              .auth
+              .getSession();
+
 
           if (error) {
             throw error;
           }
+
 
           if (data.session) {
 
@@ -1634,7 +1429,7 @@
 
           } else {
 
-            showAuthPage();
+            showAuth();
 
           }
 
@@ -1642,29 +1437,34 @@
 
           console.error(error);
 
-          showAuthPage();
+          showAuth();
+
+        } finally {
+
+          document
+            .getElementById("loading")
+            .classList.add("hidden");
 
         }
-
-        document
-          .getElementById("loadingScreen")
-          .classList.add("hidden");
 
       }
     );
 
 
     /* =========================================================
-       AUTH STATE
-    ========================================================== */
+       4. AUTH STATE
+       ========================================================= */
 
     supabaseClient.auth.onAuthStateChange(
-      async function (
+      async (
         event,
         session
-      ) {
+      ) => {
 
-        if (session && session.user) {
+        if (
+          session &&
+          session.user
+        ) {
 
           await initializeUser(
             session.user
@@ -1675,7 +1475,7 @@
           currentUser = null;
           currentProfile = null;
 
-          showAuthPage();
+          showAuth();
 
         }
 
@@ -1684,10 +1484,10 @@
 
 
     /* =========================================================
-       SHOW AUTH
-    ========================================================== */
+       5. SHOW AUTH
+       ========================================================= */
 
-    function showAuthPage() {
+    function showAuth() {
 
       document
         .getElementById("authPage")
@@ -1701,8 +1501,8 @@
 
 
     /* =========================================================
-       SHOW APP
-    ========================================================== */
+       6. SHOW APP
+       ========================================================= */
 
     function showApp() {
 
@@ -1718,50 +1518,87 @@
 
 
     /* =========================================================
-       SWITCH AUTH
-    ========================================================== */
+       7. SWITCH LOGIN / SIGNUP
+       ========================================================= */
 
     function switchAuth(type) {
 
-      const loginForm =
-        document.getElementById("loginForm");
+      const login =
+        document.getElementById(
+          "loginForm"
+        );
 
-      const signupForm =
-        document.getElementById("signupForm");
+      const signup =
+        document.getElementById(
+          "signupForm"
+        );
 
       const loginTab =
-        document.getElementById("loginTab");
+        document.getElementById(
+          "loginTab"
+        );
 
       const signupTab =
-        document.getElementById("signupTab");
+        document.getElementById(
+          "signupTab"
+        );
 
-      const title =
-        document.getElementById("authTitle");
 
-
-      clearAuthMessage();
+      document
+        .getElementById(
+          "authMessage"
+        )
+        .innerHTML = "";
 
 
       if (type === "login") {
 
-        loginForm.classList.remove("hidden");
-        signupForm.classList.add("hidden");
+        login.classList.remove(
+          "hidden"
+        );
 
-        loginTab.classList.add("active");
-        signupTab.classList.remove("active");
+        signup.classList.add(
+          "hidden"
+        );
 
-        title.textContent =
+        loginTab.classList.add(
+          "active"
+        );
+
+        signupTab.classList.remove(
+          "active"
+        );
+
+        document
+          .getElementById(
+            "authTitle"
+          )
+          .textContent =
           "เข้าสู่ระบบ";
 
       } else {
 
-        loginForm.classList.add("hidden");
-        signupForm.classList.remove("hidden");
+        login.classList.add(
+          "hidden"
+        );
 
-        loginTab.classList.remove("active");
-        signupTab.classList.add("active");
+        signup.classList.remove(
+          "hidden"
+        );
 
-        title.textContent =
+        loginTab.classList.remove(
+          "active"
+        );
+
+        signupTab.classList.add(
+          "active"
+        );
+
+        document
+          .getElementById(
+            "authTitle"
+          )
+          .textContent =
           "สมัครสมาชิก";
 
       }
@@ -1770,31 +1607,41 @@
 
 
     /* =========================================================
-       LOGIN
-    ========================================================== */
+       8. LOGIN
+       ========================================================= */
 
     async function login(event) {
 
       event.preventDefault();
 
+
       const button =
-        document.getElementById("loginButton");
+        document.getElementById(
+          "loginButton"
+        );
+
 
       const email =
-        document.getElementById("loginEmail")
+        document
+          .getElementById(
+            "loginEmail"
+          )
           .value
           .trim();
 
+
       const password =
-        document.getElementById("loginPassword")
+        document
+          .getElementById(
+            "loginPassword"
+          )
           .value;
 
 
       button.disabled = true;
+
       button.textContent =
         "กำลังเข้าสู่ระบบ...";
-
-      clearAuthMessage();
 
 
       try {
@@ -1803,10 +1650,14 @@
           data,
           error
         } =
-          await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
+          await supabaseClient
+            .auth
+            .signInWithPassword({
+
+              email,
+              password
+
+            });
 
 
         if (error) {
@@ -1824,16 +1675,15 @@
 
       } catch (error) {
 
-        console.error(error);
-
         showAuthMessage(
-          getErrorMessage(error),
+          error.message,
           "error"
         );
 
       } finally {
 
         button.disabled = false;
+
         button.textContent =
           "เข้าสู่ระบบ";
 
@@ -1843,36 +1693,50 @@
 
 
     /* =========================================================
-       SIGN UP
-    ========================================================== */
+       9. SIGN UP
+       ========================================================= */
 
     async function signup(event) {
 
       event.preventDefault();
 
+
       const button =
-        document.getElementById("signupButton");
+        document.getElementById(
+          "signupButton"
+        );
+
 
       const name =
-        document.getElementById("signupName")
+        document
+          .getElementById(
+            "signupName"
+          )
           .value
           .trim();
+
 
       const email =
-        document.getElementById("signupEmail")
+        document
+          .getElementById(
+            "signupEmail"
+          )
           .value
           .trim();
 
+
       const password =
-        document.getElementById("signupPassword")
+        document
+          .getElementById(
+            "signupPassword"
+          )
           .value;
 
 
       button.disabled = true;
+
       button.textContent =
         "กำลังสมัครสมาชิก...";
-
-      clearAuthMessage();
 
 
       try {
@@ -1881,25 +1745,27 @@
           data,
           error
         } =
-          await supabaseClient.auth.signUp({
+          await supabaseClient
+            .auth
+            .signUp({
 
-            email: email,
+              email,
 
-            password: password,
+              password,
 
-            options: {
+              options: {
 
-              data: {
+                data: {
 
-                name: name,
+                  name,
 
-                full_name: name
+                  full_name: name
+
+                }
 
               }
 
-            }
-
-          });
+            });
 
 
         if (error) {
@@ -1907,13 +1773,9 @@
         }
 
 
-        /*
-         * สร้างข้อมูลใน profiles
-         */
-
         if (data.user) {
 
-          await createOrUpdateProfile(
+          await saveProfileToDatabase(
             data.user,
             name,
             ""
@@ -1922,10 +1784,7 @@
         }
 
 
-        if (
-          data.session &&
-          data.user
-        ) {
+        if (data.session) {
 
           await initializeUser(
             data.user
@@ -1934,7 +1793,7 @@
         } else {
 
           showAuthMessage(
-            "สมัครสมาชิกสำเร็จ กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี ก่อนเข้าสู่ระบบ",
+            "สมัครสมาชิกสำเร็จ กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี",
             "success"
           );
 
@@ -1942,19 +1801,17 @@
 
         }
 
-
       } catch (error) {
 
-        console.error(error);
-
         showAuthMessage(
-          getErrorMessage(error),
+          error.message,
           "error"
         );
 
       } finally {
 
         button.disabled = false;
+
         button.textContent =
           "สมัครสมาชิก";
 
@@ -1964,52 +1821,39 @@
 
 
     /* =========================================================
-       INITIALIZE USER
-    ========================================================== */
+       10. INITIALIZE USER
+       ========================================================= */
 
     async function initializeUser(user) {
-
-      if (!user) {
-        return;
-      }
 
       currentUser = user;
 
 
-      /*
-       * ดึงข้อมูล profile
-       */
+      await loadProfile();
 
-      await loadCurrentProfile();
-
-
-      /*
-       * ถ้ายังไม่มี profile
-       * สร้างจากข้อมูล Auth
-       */
 
       if (!currentProfile) {
 
-        const fallbackName =
+        const name =
           user.user_metadata?.name ||
           user.user_metadata?.full_name ||
           user.email?.split("@")[0] ||
           "ผู้ใช้งาน";
 
 
-        await createOrUpdateProfile(
+        await saveProfileToDatabase(
           user,
-          fallbackName,
-          user.user_metadata?.avatar_url || ""
+          name,
+          ""
         );
 
 
-        await loadCurrentProfile();
+        await loadProfile();
 
       }
 
 
-      updateUserInterface();
+      updateUI();
 
       showApp();
 
@@ -2019,13 +1863,13 @@
 
 
     /* =========================================================
-       LOAD CURRENT PROFILE
-    ========================================================== */
+       11. LOAD PROFILE
+       ========================================================= */
 
-    async function loadCurrentProfile() {
+    async function loadProfile() {
 
       if (!currentUser) {
-        return null;
+        return;
       }
 
 
@@ -2038,35 +1882,34 @@
           await supabaseClient
             .from("profiles")
             .select("*")
-            .eq("id", currentUser.id)
+            .eq(
+              "id",
+              currentUser.id
+            )
             .maybeSingle();
 
 
         if (error) {
 
           console.warn(
-            "ไม่สามารถอ่าน profiles:",
+            "Profile error:",
             error.message
           );
 
           currentProfile = null;
 
-          return null;
+          return;
 
         }
 
 
         currentProfile = data;
 
-        return data;
-
       } catch (error) {
 
-        console.warn(error);
+        console.error(error);
 
         currentProfile = null;
-
-        return null;
 
       }
 
@@ -2074,13 +1917,13 @@
 
 
     /* =========================================================
-       CREATE / UPDATE PROFILE
-    ========================================================== */
+       12. SAVE PROFILE DATABASE
+       ========================================================= */
 
-    async function createOrUpdateProfile(
+    async function saveProfileToDatabase(
       user,
       name,
-      photoUrl
+      photo
     ) {
 
       if (!user) {
@@ -2088,63 +1931,50 @@
       }
 
 
-      try {
-
-        const profileData = {
-
-          id: user.id,
-
-          name:
-            name ||
-            user.user_metadata?.name ||
-            user.email?.split("@")[0] ||
-            "ผู้ใช้งาน",
-
-          email:
-            user.email || "",
-
-          photo_url:
-            photoUrl ||
-            user.user_metadata?.avatar_url ||
-            "",
-
-          role:
-            user.email?.toLowerCase() ===
-            ADMIN_EMAIL.toLowerCase()
-              ? "admin"
-              : "user",
-
-          updated_at:
-            new Date().toISOString()
-
-        };
+      const role =
+        user.email?.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+          ? "admin"
+          : "user";
 
 
-        const {
-          error
-        } =
-          await supabaseClient
-            .from("profiles")
-            .upsert(
-              profileData,
-              {
-                onConflict: "id"
-              }
-            );
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("profiles")
+          .upsert({
+
+            id: user.id,
+
+            name:
+              name ||
+              "ผู้ใช้งาน",
+
+            email:
+              user.email || "",
+
+            photo_url:
+              photo || "",
+
+            role,
+
+            updated_at:
+              new Date().toISOString()
+
+          }, {
+
+            onConflict: "id"
+
+          });
 
 
-        if (error) {
+      if (error) {
 
-          console.warn(
-            "ไม่สามารถบันทึก profiles:",
-            error.message
-          );
-
-        }
-
-      } catch (error) {
-
-        console.warn(error);
+        console.warn(
+          "ไม่สามารถบันทึก profile:",
+          error.message
+        );
 
       }
 
@@ -2152,10 +1982,10 @@
 
 
     /* =========================================================
-       UPDATE USER INTERFACE
-    ========================================================== */
+       13. UPDATE UI
+       ========================================================= */
 
-    function updateUserInterface() {
+    function updateUI() {
 
       if (!currentUser) {
         return;
@@ -2184,117 +2014,125 @@
         "";
 
 
-      const isAdmin =
-        email.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase() ||
-        currentProfile?.role === "admin";
+      const admin =
+        isAdmin();
 
-
-      /*
-       * NAV
-       */
 
       document
-        .getElementById("navName")
-        .textContent = name;
+        .getElementById(
+          "navName"
+        )
+        .textContent =
+        name;
+
 
       document
-        .getElementById("navEmail")
-        .textContent = email;
+        .getElementById(
+          "navEmail"
+        )
+        .textContent =
+        email;
+
+
+      document
+        .getElementById(
+          "welcomeName"
+        )
+        .textContent =
+        name;
 
 
       setAvatar(
-        document.getElementById("navAvatar"),
-        name,
-        photo
-      );
-
-
-      /*
-       * HOME
-       */
-
-      document
-        .getElementById("welcomeName")
-        .textContent = name;
-
-
-      /*
-       * PROFILE
-       */
-
-      document
-        .getElementById("profileDisplayName")
-        .textContent = name;
-
-      document
-        .getElementById("profileDisplayEmail")
-        .textContent = email;
-
-      document
-        .getElementById("profileName")
-        .value = name;
-
-      document
-        .getElementById("profileEmail")
-        .value = email;
-
-      document
-        .getElementById("profilePhoto")
-        .value = photo;
-
-
-      setAvatar(
-        document.getElementById("profileAvatar"),
-        name,
-        photo
-      );
-
-
-      /*
-       * ROLE
-       */
-
-      const roleBox =
-        document.getElementById("profileRole");
-
-
-      roleBox.innerHTML =
-        isAdmin
-          ? '<span class="role-badge role-admin">👑 ADMIN</span>'
-          : '<span class="role-badge role-user">USER</span>';
-
-
-      /*
-       * ADMIN BUTTON
-       */
-
-      const adminButton =
         document.getElementById(
-          "adminNavButton"
+          "navAvatar"
+        ),
+        name,
+        photo
+      );
+
+
+      document
+        .getElementById(
+          "profileDisplayName"
+        )
+        .textContent =
+        name;
+
+
+      document
+        .getElementById(
+          "profileDisplayEmail"
+        )
+        .textContent =
+        email;
+
+
+      document
+        .getElementById(
+          "profileName"
+        )
+        .value =
+        name;
+
+
+      document
+        .getElementById(
+          "profileEmail"
+        )
+        .value =
+        email;
+
+
+      document
+        .getElementById(
+          "profilePhoto"
+        )
+        .value =
+        photo;
+
+
+      setAvatar(
+        document.getElementById(
+          "profileAvatar"
+        ),
+        name,
+        photo
+      );
+
+
+      document
+        .getElementById(
+          "profileRole"
+        )
+        .innerHTML =
+        admin
+          ? `
+            <span class="badge admin-badge">
+              👑 ADMIN
+            </span>
+          `
+          : `
+            <span class="badge user-badge">
+              USER
+            </span>
+          `;
+
+
+      document
+        .getElementById(
+          "adminButton"
+        )
+        .classList.toggle(
+          "hidden",
+          !admin
         );
-
-
-      if (isAdmin) {
-
-        adminButton.classList.remove(
-          "hidden"
-        );
-
-      } else {
-
-        adminButton.classList.add(
-          "hidden"
-        );
-
-      }
 
     }
 
 
     /* =========================================================
-       AVATAR
-    ========================================================== */
+       14. AVATAR
+       ========================================================= */
 
     function setAvatar(
       element,
@@ -2302,14 +2140,8 @@
       photo
     ) {
 
-      if (!element) {
-        return;
-      }
-
-
-      const firstLetter =
+      const letter =
         (name || "U")
-          .trim()
           .charAt(0)
           .toUpperCase();
 
@@ -2317,16 +2149,20 @@
       if (photo) {
 
         element.innerHTML =
-          `<img
+          `
+          <img
             src="${escapeHtml(photo)}"
-            alt="Profile"
-            onerror="this.parentElement.innerHTML='${firstLetter}'"
-          >`;
+            alt="profile"
+            onerror="
+              this.parentElement.textContent='${letter}'
+            "
+          >
+          `;
 
       } else {
 
         element.textContent =
-          firstLetter;
+          letter;
 
       }
 
@@ -2334,8 +2170,8 @@
 
 
     /* =========================================================
-       SAVE PROFILE
-    ========================================================== */
+       15. SAVE PROFILE
+       ========================================================= */
 
     async function saveProfile(event) {
 
@@ -2349,39 +2185,30 @@
 
       const button =
         document.getElementById(
-          "saveProfileButton"
+          "saveButton"
         );
 
 
       const name =
-        document.getElementById(
-          "profileName"
-        )
-        .value
-        .trim();
+        document
+          .getElementById(
+            "profileName"
+          )
+          .value
+          .trim();
 
 
       const photo =
-        document.getElementById(
-          "profilePhoto"
-        )
-        .value
-        .trim();
-
-
-      if (name.length < 2) {
-
-        showProfileMessage(
-          "กรุณากรอกชื่อผู้ใช้อย่างน้อย 2 ตัวอักษร",
-          "error"
-        );
-
-        return;
-
-      }
+        document
+          .getElementById(
+            "profilePhoto"
+          )
+          .value
+          .trim();
 
 
       button.disabled = true;
+
       button.textContent =
         "กำลังบันทึก...";
 
@@ -2389,25 +2216,27 @@
       try {
 
         /*
-         * บันทึก metadata ใน Auth
-         */
+          บันทึกใน Supabase Auth
+        */
 
         const {
           error: authError
         } =
-          await supabaseClient.auth.updateUser({
+          await supabaseClient
+            .auth
+            .updateUser({
 
-            data: {
+              data: {
 
-              name: name,
+                name,
 
-              full_name: name,
+                full_name: name,
 
-              avatar_url: photo
+                avatar_url: photo
 
-            }
+              }
 
-          });
+            });
 
 
         if (authError) {
@@ -2416,11 +2245,11 @@
 
 
         /*
-         * บันทึก profiles
-         */
+          บันทึกใน profiles
+        */
 
         const {
-          error: profileError
+          error
         } =
           await supabaseClient
             .from("profiles")
@@ -2428,7 +2257,7 @@
 
               id: currentUser.id,
 
-              name: name,
+              name,
 
               email:
                 currentUser.email || "",
@@ -2438,9 +2267,7 @@
               role:
                 currentProfile?.role ||
                 (
-                  currentUser.email
-                    ?.toLowerCase() ===
-                  ADMIN_EMAIL.toLowerCase()
+                  isAdmin()
                     ? "admin"
                     : "user"
                 ),
@@ -2455,37 +2282,15 @@
             });
 
 
-        if (profileError) {
-
-          console.warn(
-            "profiles update:",
-            profileError.message
-          );
-
+        if (error) {
+          throw error;
         }
 
 
-        /*
-         * โหลดข้อมูลใหม่
-         */
-
-        const {
-          data
-        } =
-          await supabaseClient.auth.getUser();
+        await loadProfile();
 
 
-        if (data.user) {
-
-          currentUser =
-            data.user;
-
-        }
-
-
-        await loadCurrentProfile();
-
-        updateUserInterface();
+        updateUI();
 
 
         showProfileMessage(
@@ -2496,16 +2301,15 @@
 
       } catch (error) {
 
-        console.error(error);
-
         showProfileMessage(
-          getErrorMessage(error),
+          error.message,
           "error"
         );
 
       } finally {
 
         button.disabled = false;
+
         button.textContent =
           "💾 บันทึกโปรไฟล์";
 
@@ -2515,10 +2319,10 @@
 
 
     /* =========================================================
-       ADMIN CHECK
-    ========================================================== */
+       16. IS ADMIN
+       ========================================================= */
 
-    function isCurrentUserAdmin() {
+    function isAdmin() {
 
       if (!currentUser) {
         return false;
@@ -2539,70 +2343,78 @@
 
 
     /* =========================================================
-       SHOW PAGE
-    ========================================================== */
+       17. PAGE NAVIGATION
+       ========================================================= */
 
     function showPage(page) {
 
-      const home =
-        document.getElementById(
-          "homePage"
-        );
-
-      const profile =
-        document.getElementById(
-          "profilePage"
-        );
-
-      const admin =
-        document.getElementById(
-          "adminPage"
-        );
+      const pages = [
+        "homePage",
+        "profilePage",
+        "adminPage"
+      ];
 
 
-      home.classList.add("hidden");
-      profile.classList.add("hidden");
-      admin.classList.add("hidden");
+      pages.forEach(id => {
+
+        document
+          .getElementById(id)
+          .classList.add("hidden");
+
+      });
 
 
       if (page === "home") {
 
-        home.classList.remove(
-          "hidden"
-        );
+        document
+          .getElementById(
+            "homePage"
+          )
+          .classList.remove(
+            "hidden"
+          );
 
       }
 
 
       if (page === "profile") {
 
-        profile.classList.remove(
-          "hidden"
-        );
+        document
+          .getElementById(
+            "profilePage"
+          )
+          .classList.remove(
+            "hidden"
+          );
 
-        updateUserInterface();
+        updateUI();
 
       }
 
 
       if (page === "admin") {
 
-        if (!isCurrentUserAdmin()) {
-
-          showPage("home");
+        if (!isAdmin()) {
 
           alert(
-            "คุณไม่มีสิทธิ์เข้าถึงหน้า Admin"
+            "คุณไม่มีสิทธิ์เข้าใช้งาน Admin"
           );
+
+          showPage("home");
 
           return;
 
         }
 
 
-        admin.classList.remove(
-          "hidden"
-        );
+        document
+          .getElementById(
+            "adminPage"
+          )
+          .classList.remove(
+            "hidden"
+          );
+
 
         loadAdminUsers();
 
@@ -2612,30 +2424,32 @@
 
 
     /* =========================================================
-       ADMIN USERS
-    ========================================================== */
+       18. ADMIN USERS
+       ========================================================= */
 
     async function loadAdminUsers() {
 
-      if (!isCurrentUserAdmin()) {
+      if (!isAdmin()) {
         return;
       }
 
 
-      const tbody =
+      const table =
         document.getElementById(
-          "usersTableBody"
+          "usersTable"
         );
 
 
-      tbody.innerHTML =
+      table.innerHTML =
         `
-          <tr>
-            <td colspan="4"
-              style="text-align:center;">
-              กำลังโหลดข้อมูล...
-            </td>
-          </tr>
+        <tr>
+          <td
+            colspan="4"
+            style="text-align:center;"
+          >
+            กำลังโหลดข้อมูล...
+          </td>
+        </tr>
         `;
 
 
@@ -2681,22 +2495,23 @@
           )
           .textContent =
           users.filter(
-            u => u.role === "admin"
+            user =>
+              user.role === "admin"
           ).length;
 
 
-        if (users.length === 0) {
+        if (!users.length) {
 
-          tbody.innerHTML =
+          table.innerHTML =
             `
-              <tr>
-                <td
-                  colspan="4"
-                  style="text-align:center;"
-                >
-                  ยังไม่มีข้อมูลผู้ใช้
-                </td>
-              </tr>
+            <tr>
+              <td
+                colspan="4"
+                style="text-align:center;"
+              >
+                ยังไม่มีข้อมูลผู้ใช้งาน
+              </td>
+            </tr>
             `;
 
           return;
@@ -2704,140 +2519,114 @@
         }
 
 
-        tbody.innerHTML =
-          users
-            .map(
-              user => {
+        table.innerHTML =
+          users.map(user => {
 
-                const name =
-                  user.name ||
-                  "ผู้ใช้งาน";
+            const name =
+              user.name ||
+              "ผู้ใช้งาน";
 
 
-                const role =
-                  user.role ||
-                  "user";
+            const role =
+              user.role ||
+              "user";
 
 
-                const date =
-                  user.created_at
-                    ? new Date(
-                        user.created_at
-                      ).toLocaleDateString(
-                        "th-TH",
-                        {
-                          year:
-                            "numeric",
-                          month:
-                            "short",
-                          day:
-                            "numeric"
-                        }
-                      )
-                    : "-";
+            const date =
+              user.created_at
+                ? new Date(
+                    user.created_at
+                  ).toLocaleDateString(
+                    "th-TH"
+                  )
+                : "-";
 
 
-                const avatar =
-                  user.photo_url
-                    ? `
-                      <img
-                        src="${escapeHtml(user.photo_url)}"
-                        style="
-                          width:38px;
-                          height:38px;
-                          border-radius:50%;
-                          object-fit:cover;
-                        "
-                      >
-                    `
-                    : `
-                      <div
-                        style="
-                          width:38px;
-                          height:38px;
-                          border-radius:50%;
-                          background:#ccfbf1;
-                          display:flex;
-                          align-items:center;
-                          justify-content:center;
-                          color:#0f766e;
-                          font-weight:800;
-                        "
-                      >
-                        ${escapeHtml(
-                          name
-                            .charAt(0)
-                            .toUpperCase()
-                        )}
-                      </div>
-                    `;
+            return `
+              <tr>
+
+                <td>
+
+                  <div
+                    style="
+                      display:flex;
+                      align-items:center;
+                      gap:10px;
+                    "
+                  >
+
+                    ${
+                      user.photo_url
+                        ? `
+                          <img
+                            src="${escapeHtml(user.photo_url)}"
+                            style="
+                              width:38px;
+                              height:38px;
+                              border-radius:50%;
+                              object-fit:cover;
+                            "
+                          >
+                        `
+                        : `
+                          <div
+                            class="avatar"
+                          >
+                            ${escapeHtml(
+                              name
+                                .charAt(0)
+                                .toUpperCase()
+                            )}
+                          </div>
+                        `
+                    }
+
+                    <strong>
+                      ${escapeHtml(name)}
+                    </strong>
+
+                  </div>
+
+                </td>
 
 
-                return `
-
-                  <tr>
-
-                    <td>
-
-                      <div
-                        style="
-                          display:flex;
-                          align-items:center;
-                          gap:10px;
-                        "
-                      >
-
-                        ${avatar}
-
-                        <strong>
-                          ${escapeHtml(name)}
-                        </strong>
-
-                      </div>
-
-                    </td>
+                <td>
+                  ${escapeHtml(
+                    user.email || "-"
+                  )}
+                </td>
 
 
-                    <td>
-                      ${escapeHtml(
-                        user.email || "-"
-                      )}
-                    </td>
+                <td>
+
+                  <span
+                    class="
+                      badge
+                      ${
+                        role === "admin"
+                          ? "admin-badge"
+                          : "user-badge"
+                      }
+                    "
+                  >
+                    ${
+                      role === "admin"
+                        ? "👑 ADMIN"
+                        : "USER"
+                    }
+                  </span>
+
+                </td>
 
 
-                    <td>
+                <td>
+                  ${date}
+                </td>
 
-                      <span
-                        class="
-                          role-badge
-                          ${
-                            role === "admin"
-                              ? "role-admin"
-                              : "role-user"
-                          }
-                        "
-                      >
-                        ${
-                          role === "admin"
-                            ? "👑 ADMIN"
-                            : "USER"
-                        }
-                      </span>
+              </tr>
+            `;
 
-                    </td>
-
-
-                    <td>
-                      ${date}
-                    </td>
-
-                  </tr>
-
-                `;
-
-              }
-            )
-            .join("");
+          }).join("");
 
 
       } catch (error) {
@@ -2845,46 +2634,32 @@
         console.error(error);
 
 
-        document
-          .getElementById(
-            "totalUsers"
-          )
-          .textContent = "-";
-
-
-        document
-          .getElementById(
-            "totalAdmins"
-          )
-          .textContent = "-";
-
-
-        tbody.innerHTML =
+        table.innerHTML =
           `
-            <tr>
+          <tr>
 
-              <td
-                colspan="4"
-                style="
-                  text-align:center;
-                  color:#b91c1c;
-                  padding:30px;
-                "
-              >
+            <td
+              colspan="4"
+              style="
+                text-align:center;
+                color:#b91c1c;
+                padding:25px;
+              "
+            >
 
-                ไม่สามารถโหลดรายชื่อผู้ใช้ได้
+              ไม่สามารถโหลดข้อมูลได้
 
-                <br>
+              <br>
 
-                <small>
-                  ${escapeHtml(
-                    error.message || ""
-                  )}
-                </small>
+              <small>
+                ${escapeHtml(
+                  error.message
+                )}
+              </small>
 
-              </td>
+            </td>
 
-            </tr>
+          </tr>
           `;
 
       }
@@ -2893,148 +2668,63 @@
 
 
     /* =========================================================
-       LOGOUT
-    ========================================================== */
+       19. LOGOUT
+       ========================================================= */
 
     async function logout() {
 
-      try {
-
-        await supabaseClient.auth.signOut();
-
-      } catch (error) {
-
-        console.error(error);
-
-      }
+      await supabaseClient
+        .auth
+        .signOut();
 
     }
 
 
     /* =========================================================
-       AUTH MESSAGE
-    ========================================================== */
+       20. MESSAGES
+       ========================================================= */
 
     function showAuthMessage(
-      message,
+      text,
       type
     ) {
-
-      const box =
-        document.getElementById(
-          "authMessage"
-        );
-
-
-      box.innerHTML =
-        `
-          <div class="message ${type}">
-            ${escapeHtml(message)}
-          </div>
-        `;
-
-    }
-
-
-    function clearAuthMessage() {
 
       document
         .getElementById(
           "authMessage"
         )
-        .innerHTML = "";
+        .innerHTML =
+        `
+        <div class="message ${type}">
+          ${escapeHtml(text)}
+        </div>
+        `;
 
     }
 
 
-    /* =========================================================
-       PROFILE MESSAGE
-    ========================================================== */
-
     function showProfileMessage(
-      message,
+      text,
       type
     ) {
 
-      const box =
-        document.getElementById(
+      document
+        .getElementById(
           "profileMessage"
-        );
-
-
-      box.innerHTML =
+        )
+        .innerHTML =
         `
-          <div class="message ${type}">
-            ${escapeHtml(message)}
-          </div>
+        <div class="message ${type}">
+          ${escapeHtml(text)}
+        </div>
         `;
 
     }
 
 
     /* =========================================================
-       ERROR MESSAGE
-    ========================================================== */
-
-    function getErrorMessage(error) {
-
-      const message =
-        error?.message || "";
-
-
-      if (
-        message
-          .toLowerCase()
-          .includes("invalid login credentials")
-      ) {
-
-        return "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-
-      }
-
-
-      if (
-        message
-          .toLowerCase()
-          .includes("email not confirmed")
-      ) {
-
-        return "กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ";
-
-      }
-
-
-      if (
-        message
-          .toLowerCase()
-          .includes("user already registered")
-      ) {
-
-        return "อีเมลนี้มีบัญชีอยู่แล้ว";
-
-      }
-
-
-      if (
-        message
-          .toLowerCase()
-          .includes("password should be at least")
-      ) {
-
-        return "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
-
-      }
-
-
-      return message ||
-        "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
-
-    }
-
-
-    /* =========================================================
-       ESCAPE HTML
-    ========================================================== */
+       21. ESCAPE HTML
+       ========================================================= */
 
     function escapeHtml(value) {
 
