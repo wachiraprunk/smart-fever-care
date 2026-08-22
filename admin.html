@@ -33,12 +33,13 @@
         "Segoe UI",
         Tahoma,
         sans-serif;
-      background: linear-gradient(
-        135deg,
-        #ecfeff,
-        #f0fdfa,
-        #ffffff
-      );
+      background:
+        linear-gradient(
+          135deg,
+          #ecfeff,
+          #f0fdfa,
+          #ffffff
+        );
       color: var(--text);
       min-height: 100vh;
     }
@@ -50,6 +51,11 @@
 
     button {
       cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .6;
     }
 
     .hidden {
@@ -108,7 +114,8 @@
       background: white;
       border-radius: 25px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(15,118,110,.15);
+      box-shadow:
+        0 20px 60px rgba(15,118,110,.15);
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
@@ -217,7 +224,8 @@
 
     .form-group input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(20,184,166,.1);
+      box-shadow:
+        0 0 0 3px rgba(20,184,166,.1);
     }
 
     .primary-btn {
@@ -226,17 +234,14 @@
       border-radius: 10px;
       padding: 14px;
       color: white;
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        var(--primary2)
-      );
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary2)
+        );
       font-weight: 700;
       font-size: 16px;
-    }
-
-    .primary-btn:disabled {
-      opacity: .6;
     }
 
     .message {
@@ -254,6 +259,11 @@
     .success {
       background: #f0fdf4;
       color: #15803d;
+    }
+
+    .info {
+      background: #eff6ff;
+      color: #1d4ed8;
     }
 
     /* =========================
@@ -289,11 +299,12 @@
       width: 43px;
       height: 43px;
       border-radius: 12px;
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        var(--primary2)
-      );
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary2)
+        );
       color: white;
       display: flex;
       align-items: center;
@@ -426,6 +437,10 @@
 
     .section-title {
       margin: 25px 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .grid {
@@ -439,7 +454,8 @@
       border: 1px solid var(--border);
       border-radius: 17px;
       padding: 20px;
-      box-shadow: 0 8px 25px rgba(15,118,110,.07);
+      box-shadow:
+        0 8px 25px rgba(15,118,110,.07);
     }
 
     .card-icon {
@@ -508,16 +524,30 @@
       font-weight: 700;
     }
 
+    .photo-preview {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .photo-preview img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ccfbf1;
+    }
+
     /* =========================
        ADMIN
     ========================= */
 
     .admin-header {
-      background: linear-gradient(
-        135deg,
-        #172554,
-        #1e3a8a
-      );
+      background:
+        linear-gradient(
+          135deg,
+          #172554,
+          #1e3a8a
+        );
       color: white;
       border-radius: 18px;
       padding: 27px;
@@ -529,7 +559,8 @@
       border: 1px solid var(--border);
       border-radius: 17px;
       overflow: auto;
-      box-shadow: 0 8px 25px rgba(15,118,110,.07);
+      box-shadow:
+        0 8px 25px rgba(15,118,110,.07);
     }
 
     table {
@@ -636,160 +667,520 @@
       .brand small {
         display: none;
       }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-       LOADING
-  ========================= -->
+<!-- =========================================================
+     LOADING
+========================================================= -->
 
-  <div id="loading">
+<div id="loading">
 
-    <div class="loading-box">
+  <div class="loading-box">
 
-      <div class="spinner"></div>
+    <div class="spinner"></div>
 
-      <strong>
+    <strong>
+      SMART FEVER CARE
+    </strong>
+
+    <p style="color:#64748b;margin-top:6px;">
+      กำลังโหลดระบบ...
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     AUTH PAGE
+========================================================= -->
+
+<section id="authPage" class="hidden">
+
+  <div class="auth-box">
+
+    <div class="auth-left">
+
+      <div class="logo">
+        🩺
+      </div>
+
+      <h1>
         SMART FEVER CARE
-      </strong>
+      </h1>
 
-      <p style="color:#64748b;margin-top:6px;">
-        กำลังโหลดระบบ...
+      <p>
+        ระบบดูแลและติดตามข้อมูลสุขภาพ
+        สำหรับผู้ใช้งานและผู้ดูแลระบบ
       </p>
+
+      <ul class="features">
+        <li>✓ ระบบสมัครสมาชิก</li>
+        <li>✓ ระบบเข้าสู่ระบบ</li>
+        <li>✓ จัดการโปรไฟล์</li>
+        <li>✓ เปลี่ยนชื่อผู้ใช้</li>
+        <li>✓ เปลี่ยนรูปโปรไฟล์</li>
+        <li>✓ ระบบ Admin</li>
+        <li>✓ เชื่อมต่อ Supabase</li>
+      </ul>
+
+    </div>
+
+
+    <div class="auth-right">
+
+      <h2 id="authTitle">
+        เข้าสู่ระบบ
+      </h2>
+
+      <p class="subtitle">
+        ยินดีต้อนรับเข้าสู่ SMART FEVER CARE
+      </p>
+
+
+      <div class="tabs">
+
+        <button
+          id="loginTab"
+          class="tab active"
+          onclick="switchAuth('login')"
+        >
+          เข้าสู่ระบบ
+        </button>
+
+        <button
+          id="signupTab"
+          class="tab"
+          onclick="switchAuth('signup')"
+        >
+          สมัครสมาชิก
+        </button>
+
+      </div>
+
+
+      <div id="authMessage"></div>
+
+
+      <!-- LOGIN -->
+
+      <form
+        id="loginForm"
+        onsubmit="login(event)"
+      >
+
+        <div class="form-group">
+
+          <label>
+            อีเมล
+          </label>
+
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="example@email.com"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            รหัสผ่าน
+          </label>
+
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="รหัสผ่าน"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          id="loginButton"
+          class="primary-btn"
+          type="submit"
+        >
+          เข้าสู่ระบบ
+        </button>
+
+      </form>
+
+
+      <!-- SIGNUP -->
+
+      <form
+        id="signupForm"
+        class="hidden"
+        onsubmit="signup(event)"
+      >
+
+        <div class="form-group">
+
+          <label>
+            ชื่อผู้ใช้
+          </label>
+
+          <input
+            id="signupName"
+            type="text"
+            placeholder="ชื่อผู้ใช้"
+            minlength="2"
+            maxlength="100"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            อีเมล
+          </label>
+
+          <input
+            id="signupEmail"
+            type="email"
+            placeholder="example@email.com"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            รหัสผ่าน
+          </label>
+
+          <input
+            id="signupPassword"
+            type="password"
+            placeholder="อย่างน้อย 6 ตัวอักษร"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          id="signupButton"
+          class="primary-btn"
+          type="submit"
+        >
+          สมัครสมาชิก
+        </button>
+
+      </form>
 
     </div>
 
   </div>
 
+</section>
 
-  <!-- =========================
-       AUTH PAGE
-  ========================= -->
 
-  <section id="authPage" class="hidden">
+<!-- =========================================================
+     APP
+========================================================= -->
 
-    <div class="auth-box">
+<section id="appPage" class="hidden">
 
-      <div class="auth-left">
+  <nav class="navbar">
 
-        <div class="logo">
+    <div class="navbar-inner">
+
+      <div class="brand">
+
+        <div class="brand-icon">
           🩺
         </div>
 
-        <h1>
-          SMART FEVER CARE
-        </h1>
+        <div>
 
-        <p>
-          ระบบดูแลและติดตามข้อมูลสุขภาพ
-          สำหรับผู้ใช้งานและผู้ดูแลระบบ
-        </p>
+          <strong>
+            SMART FEVER CARE
+          </strong>
 
-        <ul class="features">
-          <li>✓ ระบบสมัครสมาชิก</li>
-          <li>✓ ระบบเข้าสู่ระบบ</li>
-          <li>✓ จัดการโปรไฟล์</li>
-          <li>✓ ระบบ Admin</li>
-          <li>✓ เชื่อมต่อ Supabase</li>
-        </ul>
+          <small>
+            ระบบดูแลสุขภาพ
+          </small>
+
+        </div>
 
       </div>
 
 
-      <div class="auth-right">
+      <div class="nav-actions">
 
-        <h2 id="authTitle">
-          เข้าสู่ระบบ
-        </h2>
+        <div class="user-mini">
 
-        <p class="subtitle">
-          ยินดีต้อนรับเข้าสู่ SMART FEVER CARE
-        </p>
-
-
-        <div class="tabs">
-
-          <button
-            id="loginTab"
-            class="tab active"
-            onclick="switchAuth('login')"
+          <div
+            id="navAvatar"
+            class="avatar"
           >
-            เข้าสู่ระบบ
-          </button>
+            U
+          </div>
 
-          <button
-            id="signupTab"
-            class="tab"
-            onclick="switchAuth('signup')"
-          >
-            สมัครสมาชิก
-          </button>
+          <div class="user-info">
+
+            <strong id="navName">
+              ผู้ใช้งาน
+            </strong>
+
+            <small id="navEmail">
+              -
+            </small>
+
+          </div>
 
         </div>
 
 
-        <div id="authMessage"></div>
-
-
-        <!-- LOGIN -->
-
-        <form
-          id="loginForm"
-          onsubmit="login(event)"
+        <button
+          class="btn"
+          onclick="showPage('home')"
         >
-
-          <div class="form-group">
-
-            <label>
-              อีเมล
-            </label>
-
-            <input
-              id="loginEmail"
-              type="email"
-              placeholder="example@email.com"
-              required
-            >
-
-          </div>
+          หน้าหลัก
+        </button>
 
 
-          <div class="form-group">
-
-            <label>
-              รหัสผ่าน
-            </label>
-
-            <input
-              id="loginPassword"
-              type="password"
-              placeholder="รหัสผ่าน"
-              required
-            >
-
-          </div>
+        <button
+          class="btn"
+          onclick="showPage('profile')"
+        >
+          โปรไฟล์
+        </button>
 
 
-          <button
-            id="loginButton"
-            class="primary-btn"
-            type="submit"
-          >
-            เข้าสู่ระบบ
-          </button>
-
-        </form>
+        <button
+          id="adminButton"
+          class="btn hidden"
+          onclick="showPage('admin')"
+        >
+          👑 Admin
+        </button>
 
 
-        <!-- SIGNUP -->
+        <button
+          class="btn logout-btn"
+          onclick="logout()"
+        >
+          ออกจากระบบ
+        </button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =======================================================
+       HOME
+  ======================================================== -->
+
+  <main
+    id="homePage"
+    class="container"
+  >
+
+    <div class="hero">
+
+      <div>
+
+        <h1>
+          สวัสดี
+          <span id="welcomeName">
+            ผู้ใช้งาน
+          </span>
+          👋
+        </h1>
+
+        <p>
+          ยินดีต้อนรับเข้าสู่
+          SMART FEVER CARE
+        </p>
+
+      </div>
+
+
+      <div class="status-card">
+
+        สถานะบัญชี
+
+        <strong>
+          ✓ ใช้งานอยู่
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+
+      <h2>
+        เมนูหลัก
+      </h2>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="card-icon">
+          🌡️
+        </div>
+
+        <h3>
+          ข้อมูลไข้
+        </h3>
+
+        <p>
+          ระบบสำหรับติดตามและจัดการข้อมูล
+          ที่เกี่ยวข้องกับอุณหภูมิและอาการไข้
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          👤
+        </div>
+
+        <h3>
+          โปรไฟล์ของฉัน
+        </h3>
+
+        <p>
+          เปลี่ยนชื่อผู้ใช้และรูปโปรไฟล์
+          ได้จากเมนูโปรไฟล์
+        </p>
+
+        <button
+          class="btn"
+          style="margin-top:15px;"
+          onclick="showPage('profile')"
+        >
+          แก้ไขโปรไฟล์
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          🔐
+        </div>
+
+        <h3>
+          บัญชีผู้ใช้
+        </h3>
+
+        <p>
+          ข้อมูลบัญชีถูกจัดการผ่าน
+          Supabase Authentication
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =======================================================
+       PROFILE
+  ======================================================== -->
+
+  <main
+    id="profilePage"
+    class="container hidden"
+  >
+
+    <div class="section-title">
+
+      <h2>
+        👤 โปรไฟล์ของฉัน
+      </h2>
+
+    </div>
+
+
+    <div class="profile-layout">
+
+
+      <!-- PROFILE CARD -->
+
+      <div class="card profile-side">
+
+        <div
+          id="profileAvatar"
+          class="large-avatar"
+        >
+          U
+        </div>
+
+        <h2 id="profileDisplayName">
+          ผู้ใช้งาน
+        </h2>
+
+        <p
+          id="profileDisplayEmail"
+          style="
+            color:#64748b;
+            margin-top:5px;
+          "
+        >
+          -
+        </p>
+
+        <div
+          id="profileRole"
+          style="margin-top:12px;"
+        ></div>
+
+      </div>
+
+
+      <!-- EDIT PROFILE -->
+
+      <div class="card">
+
+        <h3 style="margin-bottom:20px;">
+          แก้ไขข้อมูลโปรไฟล์
+        </h3>
 
         <form
-          id="signupForm"
-          class="hidden"
-          onsubmit="signup(event)"
+          onsubmit="saveProfile(event)"
         >
 
           <div class="form-group">
@@ -799,10 +1190,10 @@
             </label>
 
             <input
-              id="signupName"
+              id="profileName"
               type="text"
-              placeholder="ชื่อผู้ใช้"
               minlength="2"
+              maxlength="100"
               required
             >
 
@@ -816,10 +1207,10 @@
             </label>
 
             <input
-              id="signupEmail"
+              id="profileEmail"
               type="email"
-              placeholder="example@email.com"
-              required
+              readonly
+              style="background:#f8fafc;"
             >
 
           </div>
@@ -828,26 +1219,40 @@
           <div class="form-group">
 
             <label>
-              รหัสผ่าน
+              URL รูปโปรไฟล์
             </label>
 
             <input
-              id="signupPassword"
-              type="password"
-              placeholder="อย่างน้อย 6 ตัวอักษร"
-              minlength="6"
-              required
+              id="profilePhoto"
+              type="url"
+              placeholder="https://example.com/photo.jpg"
+              oninput="previewPhoto()"
             >
 
           </div>
 
 
+          <div
+            id="photoPreview"
+            class="photo-preview"
+          >
+            <img
+              id="photoPreviewImage"
+              src=""
+              alt="ตัวอย่างรูปโปรไฟล์"
+            >
+          </div>
+
+
+          <div id="profileMessage"></div>
+
+
           <button
-            id="signupButton"
-            class="primary-btn"
+            id="saveButton"
+            class="save-btn"
             type="submit"
           >
-            สมัครสมาชิก
+            💾 บันทึกโปรไฟล์
           </button>
 
         </form>
@@ -856,1888 +1261,2419 @@
 
     </div>
 
-  </section>
+  </main>
 
 
-  <!-- =========================
-       APP
-  ========================= -->
+  <!-- =======================================================
+       ADMIN
+  ======================================================== -->
 
-  <section id="appPage" class="hidden">
+  <main
+    id="adminPage"
+    class="container hidden"
+  >
 
-    <nav class="navbar">
+    <div class="admin-header">
 
-      <div class="navbar-inner">
+      <h2>
+        👑 Admin Dashboard
+      </h2>
 
-        <div class="brand">
+      <p style="margin-top:5px;">
+        ดูข้อมูลผู้ใช้งานระบบ
+      </p>
 
-          <div class="brand-icon">
-            🩺
-          </div>
+    </div>
 
-          <div>
-            <strong>
-              SMART FEVER CARE
-            </strong>
 
-            <small>
-              ระบบดูแลสุขภาพ
-            </small>
-          </div>
+    <div class="grid">
 
+      <div class="card">
+
+        <div class="card-icon">
+          👥
         </div>
 
-
-        <div class="nav-actions">
-
-          <div class="user-mini">
-
-            <div
-              id="navAvatar"
-              class="avatar"
-            >
-              U
-            </div>
-
-            <div class="user-info">
-
-              <strong id="navName">
-                ผู้ใช้งาน
-              </strong>
-
-              <small id="navEmail">
-                -
-              </small>
-
-            </div>
-
-          </div>
-
-
-          <button
-            class="btn"
-            onclick="showPage('home')"
-          >
-            หน้าหลัก
-          </button>
-
-
-          <button
-            class="btn"
-            onclick="showPage('profile')"
-          >
-            โปรไฟล์
-          </button>
-
-
-          <button
-            id="adminButton"
-            class="btn hidden"
-            onclick="showPage('admin')"
-          >
-            👑 Admin
-          </button>
-
-
-          <button
-            class="btn logout-btn"
-            onclick="logout()"
-          >
-            ออกจากระบบ
-          </button>
-
-        </div>
-
-      </div>
-
-    </nav>
-
-
-    <!-- =========================
-         HOME
-    ========================= -->
-
-    <main
-      id="homePage"
-      class="container"
-    >
-
-      <div class="hero">
-
-        <div>
-
-          <h1>
-            สวัสดี
-            <span id="welcomeName">
-              ผู้ใช้งาน
-            </span>
-            👋
-          </h1>
-
-          <p>
-            ยินดีต้อนรับเข้าสู่
-            SMART FEVER CARE
-          </p>
-
-        </div>
-
-
-        <div class="status-card">
-
-          สถานะบัญชี
-
-          <strong>
-            ✓ ใช้งานอยู่
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-title">
-
-        <h2>
-          เมนูหลัก
-        </h2>
-
-      </div>
-
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="card-icon">
-            🌡️
-          </div>
-
-          <h3>
-            ข้อมูลไข้
-          </h3>
-
-          <p>
-            ระบบสำหรับติดตามและจัดการข้อมูล
-            ที่เกี่ยวข้องกับอุณหภูมิและอาการไข้
-          </p>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            👤
-          </div>
-
-          <h3>
-            โปรไฟล์ของฉัน
-          </h3>
-
-          <p>
-            เปลี่ยนชื่อผู้ใช้และรูปโปรไฟล์
-            ได้จากเมนูโปรไฟล์
-          </p>
-
-          <button
-            class="btn"
-            style="margin-top:15px;"
-            onclick="showPage('profile')"
-          >
-            แก้ไขโปรไฟล์
-          </button>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            🔐
-          </div>
-
-          <h3>
-            บัญชีผู้ใช้
-          </h3>
-
-          <p>
-            ข้อมูลบัญชีถูกจัดการผ่าน
-            Supabase Authentication
-          </p>
-
-        </div>
-
-      </div>
-
-    </main>
-
-
-    <!-- =========================
-         PROFILE
-    ========================= -->
-
-    <main
-      id="profilePage"
-      class="container hidden"
-    >
-
-      <div class="section-title">
-
-        <h2>
-          👤 โปรไฟล์ของฉัน
-        </h2>
-
-      </div>
-
-
-      <div class="profile-layout">
-
-
-        <div class="card profile-side">
-
-          <div
-            id="profileAvatar"
-            class="large-avatar"
-          >
-            U
-          </div>
-
-          <h2 id="profileDisplayName">
-            ผู้ใช้งาน
-          </h2>
-
-          <p
-            id="profileDisplayEmail"
-            style="
-              color:#64748b;
-              margin-top:5px;
-            "
-          >
-            -
-          </p>
-
-          <div
-            id="profileRole"
-            style="margin-top:12px;"
-          ></div>
-
-        </div>
-
-
-        <div class="card">
-
-          <form
-            onsubmit="saveProfile(event)"
-          >
-
-            <div class="form-group">
-
-              <label>
-                ชื่อผู้ใช้
-              </label>
-
-              <input
-                id="profileName"
-                type="text"
-                minlength="2"
-                required
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label>
-                อีเมล
-              </label>
-
-              <input
-                id="profileEmail"
-                type="email"
-                readonly
-                style="background:#f8fafc;"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label>
-                URL รูปโปรไฟล์
-              </label>
-
-              <input
-                id="profilePhoto"
-                type="url"
-                placeholder="https://example.com/photo.jpg"
-              >
-
-            </div>
-
-
-            <div id="profileMessage"></div>
-
-
-            <button
-              id="saveButton"
-              class="save-btn"
-              type="submit"
-            >
-              💾 บันทึกโปรไฟล์
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
-
-    </main>
-
-
-    <!-- =========================
-         ADMIN
-    ========================= -->
-
-    <main
-      id="adminPage"
-      class="container hidden"
-    >
-
-      <div class="admin-header">
-
-        <h2>
-          👑 Admin Dashboard
-        </h2>
-
-        <p style="margin-top:5px;">
-          ดูข้อมูลผู้ใช้งานระบบ
-        </p>
-
-      </div>
-
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="card-icon">
-            👥
-          </div>
-
-          <h3>
-            ผู้ใช้งานทั้งหมด
-          </h3>
-
-          <strong
-            id="totalUsers"
-            style="
-              font-size:30px;
-              color:#0f766e;
-            "
-          >
-            -
-          </strong>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            👑
-          </div>
-
-          <h3>
-            Admin
-          </h3>
-
-          <strong
-            id="totalAdmins"
-            style="
-              font-size:30px;
-              color:#1d4ed8;
-            "
-          >
-            -
-          </strong>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-icon">
-            🟢
-          </div>
-
-          <h3>
-            สถานะ
-          </h3>
-
-          <strong
-            style="
-              font-size:20px;
-              color:#16a34a;
-            "
-          >
-            Online
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-title">
-
-        <h2>
-          รายชื่อผู้ใช้งาน
-        </h2>
-
-        <button
-          class="btn"
-          onclick="loadAdminUsers()"
+        <h3>
+          ผู้ใช้งานทั้งหมด
+        </h3>
+
+        <strong
+          id="totalUsers"
+          style="
+            font-size:30px;
+            color:#0f766e;
+          "
         >
-          🔄 รีเฟรช
-        </button>
+          -
+        </strong>
 
       </div>
 
 
-      <div class="table-wrapper">
+      <div class="card">
 
-        <table>
+        <div class="card-icon">
+          👑
+        </div>
 
-          <thead>
+        <h3>
+          Admin
+        </h3>
 
-            <tr>
-              <th>ผู้ใช้</th>
-              <th>อีเมล</th>
-              <th>บทบาท</th>
-              <th>วันที่สมัคร</th>
-            </tr>
-
-          </thead>
-
-          <tbody id="usersTable">
-
-            <tr>
-
-              <td
-                colspan="4"
-                style="text-align:center;"
-              >
-                กำลังโหลด...
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
+        <strong
+          id="totalAdmins"
+          style="
+            font-size:30px;
+            color:#1d4ed8;
+          "
+        >
+          -
+        </strong>
 
       </div>
 
-    </main>
 
+      <div class="card">
 
-    <footer>
-      SMART FEVER CARE
-      <br>
-      ระบบดูแลและติดตามข้อมูลสุขภาพ
-    </footer>
+        <div class="card-icon">
+          🟢
+        </div>
 
-  </section>
+        <h3>
+          สถานะ
+        </h3>
 
+        <strong
+          style="
+            font-size:20px;
+            color:#16a34a;
+          "
+        >
+          Online
+        </strong>
 
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================= -->
+      </div>
 
-  <script>
+    </div>
 
-    /* =========================================================
-       1. SUPABASE CONFIG
-       ========================================================= */
 
-    const SUPABASE_URL =
-      "https://urqkglxfzusdjwvtnizv.supabase.co";
+    <div class="section-title">
 
-    /*
-      นำ Publishable Key ของ Supabase
-      มาใส่ตรงนี้เพียงจุดเดียว
-    */
+      <h2>
+        รายชื่อผู้ใช้งาน
+      </h2>
 
-    const SUPABASE_KEY =
-      "sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97";
+      <button
+        class="btn"
+        onclick="loadAdminUsers()"
+      >
+        🔄 รีเฟรช
+      </button>
 
+    </div>
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
 
+    <div class="table-wrapper">
 
-    /* =========================================================
-       2. ADMIN EMAIL
-       =========================================================
+      <table>
 
-       เปลี่ยนเป็นอีเมลที่จะใช้เป็น Admin
-    */
+        <thead>
 
-    const ADMIN_EMAIL =
-      "wachiraprun.k@gmail.com";
+          <tr>
+            <th>ผู้ใช้</th>
+            <th>อีเมล</th>
+            <th>บทบาท</th>
+            <th>วันที่สมัคร</th>
+          </tr>
 
+        </thead>
 
-    let currentUser = null;
-    let currentProfile = null;
+        <tbody id="usersTable">
 
-
-    /* =========================================================
-       3. START
-       ========================================================= */
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      async () => {
-
-        try {
-
-          const {
-            data,
-            error
-          } =
-            await supabaseClient
-              .auth
-              .getSession();
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          if (data.session) {
-
-            await initializeUser(
-              data.session.user
-            );
-
-          } else {
-
-            showAuth();
-
-          }
-
-        } catch (error) {
-
-          console.error(error);
-
-          showAuth();
-
-        } finally {
-
-          document
-            .getElementById("loading")
-            .classList.add("hidden");
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       4. AUTH STATE
-       ========================================================= */
-
-    supabaseClient.auth.onAuthStateChange(
-      async (
-        event,
-        session
-      ) => {
-
-        if (
-          session &&
-          session.user
-        ) {
-
-          await initializeUser(
-            session.user
-          );
-
-        } else {
-
-          currentUser = null;
-          currentProfile = null;
-
-          showAuth();
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       5. SHOW AUTH
-       ========================================================= */
-
-    function showAuth() {
-
-      document
-        .getElementById("authPage")
-        .classList.remove("hidden");
-
-      document
-        .getElementById("appPage")
-        .classList.add("hidden");
-
-    }
-
-
-    /* =========================================================
-       6. SHOW APP
-       ========================================================= */
-
-    function showApp() {
-
-      document
-        .getElementById("authPage")
-        .classList.add("hidden");
-
-      document
-        .getElementById("appPage")
-        .classList.remove("hidden");
-
-    }
-
-
-    /* =========================================================
-       7. SWITCH LOGIN / SIGNUP
-       ========================================================= */
-
-    function switchAuth(type) {
-
-      const login =
-        document.getElementById(
-          "loginForm"
-        );
-
-      const signup =
-        document.getElementById(
-          "signupForm"
-        );
-
-      const loginTab =
-        document.getElementById(
-          "loginTab"
-        );
-
-      const signupTab =
-        document.getElementById(
-          "signupTab"
-        );
-
-
-      document
-        .getElementById(
-          "authMessage"
-        )
-        .innerHTML = "";
-
-
-      if (type === "login") {
-
-        login.classList.remove(
-          "hidden"
-        );
-
-        signup.classList.add(
-          "hidden"
-        );
-
-        loginTab.classList.add(
-          "active"
-        );
-
-        signupTab.classList.remove(
-          "active"
-        );
-
-        document
-          .getElementById(
-            "authTitle"
-          )
-          .textContent =
-          "เข้าสู่ระบบ";
-
-      } else {
-
-        login.classList.add(
-          "hidden"
-        );
-
-        signup.classList.remove(
-          "hidden"
-        );
-
-        loginTab.classList.remove(
-          "active"
-        );
-
-        signupTab.classList.add(
-          "active"
-        );
-
-        document
-          .getElementById(
-            "authTitle"
-          )
-          .textContent =
-          "สมัครสมาชิก";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       8. LOGIN
-       ========================================================= */
-
-    async function login(event) {
-
-      event.preventDefault();
-
-
-      const button =
-        document.getElementById(
-          "loginButton"
-        );
-
-
-      const email =
-        document
-          .getElementById(
-            "loginEmail"
-          )
-          .value
-          .trim();
-
-
-      const password =
-        document
-          .getElementById(
-            "loginPassword"
-          )
-          .value;
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "กำลังเข้าสู่ระบบ...";
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .auth
-            .signInWithPassword({
-
-              email,
-              password
-
-            });
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (data.user) {
-
-          await initializeUser(
-            data.user
-          );
-
-        }
-
-      } catch (error) {
-
-        showAuthMessage(
-          error.message,
-          "error"
-        );
-
-      } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-          "เข้าสู่ระบบ";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       9. SIGN UP
-       ========================================================= */
-
-    async function signup(event) {
-
-      event.preventDefault();
-
-
-      const button =
-        document.getElementById(
-          "signupButton"
-        );
-
-
-      const name =
-        document
-          .getElementById(
-            "signupName"
-          )
-          .value
-          .trim();
-
-
-      const email =
-        document
-          .getElementById(
-            "signupEmail"
-          )
-          .value
-          .trim();
-
-
-      const password =
-        document
-          .getElementById(
-            "signupPassword"
-          )
-          .value;
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "กำลังสมัครสมาชิก...";
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .auth
-            .signUp({
-
-              email,
-
-              password,
-
-              options: {
-
-                data: {
-
-                  name,
-
-                  full_name: name
-
-                }
-
-              }
-
-            });
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (data.user) {
-
-          await saveProfileToDatabase(
-            data.user,
-            name,
-            ""
-          );
-
-        }
-
-
-        if (data.session) {
-
-          await initializeUser(
-            data.user
-          );
-
-        } else {
-
-          showAuthMessage(
-            "สมัครสมาชิกสำเร็จ กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี",
-            "success"
-          );
-
-          switchAuth("login");
-
-        }
-
-      } catch (error) {
-
-        showAuthMessage(
-          error.message,
-          "error"
-        );
-
-      } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-          "สมัครสมาชิก";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       10. INITIALIZE USER
-       ========================================================= */
-
-    async function initializeUser(user) {
-
-      currentUser = user;
-
-
-      await loadProfile();
-
-
-      if (!currentProfile) {
-
-        const name =
-          user.user_metadata?.name ||
-          user.user_metadata?.full_name ||
-          user.email?.split("@")[0] ||
-          "ผู้ใช้งาน";
-
-
-        await saveProfileToDatabase(
-          user,
-          name,
-          ""
-        );
-
-
-        await loadProfile();
-
-      }
-
-
-      updateUI();
-
-      showApp();
-
-      showPage("home");
-
-    }
-
-
-    /* =========================================================
-       11. LOAD PROFILE
-       ========================================================= */
-
-    async function loadProfile() {
-
-      if (!currentUser) {
-        return;
-      }
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq(
-              "id",
-              currentUser.id
-            )
-            .maybeSingle();
-
-
-        if (error) {
-
-          console.warn(
-            "Profile error:",
-            error.message
-          );
-
-          currentProfile = null;
-
-          return;
-
-        }
-
-
-        currentProfile = data;
-
-      } catch (error) {
-
-        console.error(error);
-
-        currentProfile = null;
-
-      }
-
-    }
-
-
-    /* =========================================================
-       12. SAVE PROFILE DATABASE
-       ========================================================= */
-
-    async function saveProfileToDatabase(
-      user,
-      name,
-      photo
-    ) {
-
-      if (!user) {
-        return;
-      }
-
-
-      const role =
-        user.email?.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase()
-          ? "admin"
-          : "user";
-
-
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("profiles")
-          .upsert({
-
-            id: user.id,
-
-            name:
-              name ||
-              "ผู้ใช้งาน",
-
-            email:
-              user.email || "",
-
-            photo_url:
-              photo || "",
-
-            role,
-
-            updated_at:
-              new Date().toISOString()
-
-          }, {
-
-            onConflict: "id"
-
-          });
-
-
-      if (error) {
-
-        console.warn(
-          "ไม่สามารถบันทึก profile:",
-          error.message
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       13. UPDATE UI
-       ========================================================= */
-
-    function updateUI() {
-
-      if (!currentUser) {
-        return;
-      }
-
-
-      const metadata =
-        currentUser.user_metadata || {};
-
-
-      const name =
-        currentProfile?.name ||
-        metadata.name ||
-        metadata.full_name ||
-        currentUser.email?.split("@")[0] ||
-        "ผู้ใช้งาน";
-
-
-      const email =
-        currentUser.email || "";
-
-
-      const photo =
-        currentProfile?.photo_url ||
-        metadata.avatar_url ||
-        "";
-
-
-      const admin =
-        isAdmin();
-
-
-      document
-        .getElementById(
-          "navName"
-        )
-        .textContent =
-        name;
-
-
-      document
-        .getElementById(
-          "navEmail"
-        )
-        .textContent =
-        email;
-
-
-      document
-        .getElementById(
-          "welcomeName"
-        )
-        .textContent =
-        name;
-
-
-      setAvatar(
-        document.getElementById(
-          "navAvatar"
-        ),
-        name,
-        photo
-      );
-
-
-      document
-        .getElementById(
-          "profileDisplayName"
-        )
-        .textContent =
-        name;
-
-
-      document
-        .getElementById(
-          "profileDisplayEmail"
-        )
-        .textContent =
-        email;
-
-
-      document
-        .getElementById(
-          "profileName"
-        )
-        .value =
-        name;
-
-
-      document
-        .getElementById(
-          "profileEmail"
-        )
-        .value =
-        email;
-
-
-      document
-        .getElementById(
-          "profilePhoto"
-        )
-        .value =
-        photo;
-
-
-      setAvatar(
-        document.getElementById(
-          "profileAvatar"
-        ),
-        name,
-        photo
-      );
-
-
-      document
-        .getElementById(
-          "profileRole"
-        )
-        .innerHTML =
-        admin
-          ? `
-            <span class="badge admin-badge">
-              👑 ADMIN
-            </span>
-          `
-          : `
-            <span class="badge user-badge">
-              USER
-            </span>
-          `;
-
-
-      document
-        .getElementById(
-          "adminButton"
-        )
-        .classList.toggle(
-          "hidden",
-          !admin
-        );
-
-    }
-
-
-    /* =========================================================
-       14. AVATAR
-       ========================================================= */
-
-    function setAvatar(
-      element,
-      name,
-      photo
-    ) {
-
-      const letter =
-        (name || "U")
-          .charAt(0)
-          .toUpperCase();
-
-
-      if (photo) {
-
-        element.innerHTML =
-          `
-          <img
-            src="${escapeHtml(photo)}"
-            alt="profile"
-            onerror="
-              this.parentElement.textContent='${letter}'
-            "
-          >
-          `;
-
-      } else {
-
-        element.textContent =
-          letter;
-
-      }
-
-    }
-
-
-    /* =========================================================
-       15. SAVE PROFILE
-       ========================================================= */
-
-    async function saveProfile(event) {
-
-      event.preventDefault();
-
-
-      if (!currentUser) {
-        return;
-      }
-
-
-      const button =
-        document.getElementById(
-          "saveButton"
-        );
-
-
-      const name =
-        document
-          .getElementById(
-            "profileName"
-          )
-          .value
-          .trim();
-
-
-      const photo =
-        document
-          .getElementById(
-            "profilePhoto"
-          )
-          .value
-          .trim();
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "กำลังบันทึก...";
-
-
-      try {
-
-        /*
-          บันทึกใน Supabase Auth
-        */
-
-        const {
-          error: authError
-        } =
-          await supabaseClient
-            .auth
-            .updateUser({
-
-              data: {
-
-                name,
-
-                full_name: name,
-
-                avatar_url: photo
-
-              }
-
-            });
-
-
-        if (authError) {
-          throw authError;
-        }
-
-
-        /*
-          บันทึกใน profiles
-        */
-
-        const {
-          error
-        } =
-          await supabaseClient
-            .from("profiles")
-            .upsert({
-
-              id: currentUser.id,
-
-              name,
-
-              email:
-                currentUser.email || "",
-
-              photo_url: photo,
-
-              role:
-                currentProfile?.role ||
-                (
-                  isAdmin()
-                    ? "admin"
-                    : "user"
-                ),
-
-              updated_at:
-                new Date().toISOString()
-
-            }, {
-
-              onConflict: "id"
-
-            });
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        await loadProfile();
-
-
-        updateUI();
-
-
-        showProfileMessage(
-          "บันทึกโปรไฟล์เรียบร้อยแล้ว ✓",
-          "success"
-        );
-
-
-      } catch (error) {
-
-        showProfileMessage(
-          error.message,
-          "error"
-        );
-
-      } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-          "💾 บันทึกโปรไฟล์";
-
-      }
-
-    }
-
-
-    /* =========================================================
-       16. IS ADMIN
-       ========================================================= */
-
-    function isAdmin() {
-
-      if (!currentUser) {
-        return false;
-      }
-
-
-      const email =
-        currentUser.email || "";
-
-
-      return (
-        email.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase()
-      ) ||
-      currentProfile?.role === "admin";
-
-    }
-
-
-    /* =========================================================
-       17. PAGE NAVIGATION
-       ========================================================= */
-
-    function showPage(page) {
-
-      const pages = [
-        "homePage",
-        "profilePage",
-        "adminPage"
-      ];
-
-
-      pages.forEach(id => {
-
-        document
-          .getElementById(id)
-          .classList.add("hidden");
-
-      });
-
-
-      if (page === "home") {
-
-        document
-          .getElementById(
-            "homePage"
-          )
-          .classList.remove(
-            "hidden"
-          );
-
-      }
-
-
-      if (page === "profile") {
-
-        document
-          .getElementById(
-            "profilePage"
-          )
-          .classList.remove(
-            "hidden"
-          );
-
-        updateUI();
-
-      }
-
-
-      if (page === "admin") {
-
-        if (!isAdmin()) {
-
-          alert(
-            "คุณไม่มีสิทธิ์เข้าใช้งาน Admin"
-          );
-
-          showPage("home");
-
-          return;
-
-        }
-
-
-        document
-          .getElementById(
-            "adminPage"
-          )
-          .classList.remove(
-            "hidden"
-          );
-
-
-        loadAdminUsers();
-
-      }
-
-    }
-
-
-    /* =========================================================
-       18. ADMIN USERS
-       ========================================================= */
-
-    async function loadAdminUsers() {
-
-      if (!isAdmin()) {
-        return;
-      }
-
-
-      const table =
-        document.getElementById(
-          "usersTable"
-        );
-
-
-      table.innerHTML =
-        `
-        <tr>
-          <td
-            colspan="4"
-            style="text-align:center;"
-          >
-            กำลังโหลดข้อมูล...
-          </td>
-        </tr>
-        `;
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("profiles")
-            .select(
-              "id,name,email,photo_url,role,created_at"
-            )
-            .order(
-              "created_at",
-              {
-                ascending: false
-              }
-            );
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        const users =
-          data || [];
-
-
-        document
-          .getElementById(
-            "totalUsers"
-          )
-          .textContent =
-          users.length;
-
-
-        document
-          .getElementById(
-            "totalAdmins"
-          )
-          .textContent =
-          users.filter(
-            user =>
-              user.role === "admin"
-          ).length;
-
-
-        if (!users.length) {
-
-          table.innerHTML =
-            `
-            <tr>
-              <td
-                colspan="4"
-                style="text-align:center;"
-              >
-                ยังไม่มีข้อมูลผู้ใช้งาน
-              </td>
-            </tr>
-            `;
-
-          return;
-
-        }
-
-
-        table.innerHTML =
-          users.map(user => {
-
-            const name =
-              user.name ||
-              "ผู้ใช้งาน";
-
-
-            const role =
-              user.role ||
-              "user";
-
-
-            const date =
-              user.created_at
-                ? new Date(
-                    user.created_at
-                  ).toLocaleDateString(
-                    "th-TH"
-                  )
-                : "-";
-
-
-            return `
-              <tr>
-
-                <td>
-
-                  <div
-                    style="
-                      display:flex;
-                      align-items:center;
-                      gap:10px;
-                    "
-                  >
-
-                    ${
-                      user.photo_url
-                        ? `
-                          <img
-                            src="${escapeHtml(user.photo_url)}"
-                            style="
-                              width:38px;
-                              height:38px;
-                              border-radius:50%;
-                              object-fit:cover;
-                            "
-                          >
-                        `
-                        : `
-                          <div
-                            class="avatar"
-                          >
-                            ${escapeHtml(
-                              name
-                                .charAt(0)
-                                .toUpperCase()
-                            )}
-                          </div>
-                        `
-                    }
-
-                    <strong>
-                      ${escapeHtml(name)}
-                    </strong>
-
-                  </div>
-
-                </td>
-
-
-                <td>
-                  ${escapeHtml(
-                    user.email || "-"
-                  )}
-                </td>
-
-
-                <td>
-
-                  <span
-                    class="
-                      badge
-                      ${
-                        role === "admin"
-                          ? "admin-badge"
-                          : "user-badge"
-                      }
-                    "
-                  >
-                    ${
-                      role === "admin"
-                        ? "👑 ADMIN"
-                        : "USER"
-                    }
-                  </span>
-
-                </td>
-
-
-                <td>
-                  ${date}
-                </td>
-
-              </tr>
-            `;
-
-          }).join("");
-
-
-      } catch (error) {
-
-        console.error(error);
-
-
-        table.innerHTML =
-          `
           <tr>
 
             <td
               colspan="4"
-              style="
-                text-align:center;
-                color:#b91c1c;
-                padding:25px;
-              "
+              style="text-align:center;"
             >
-
-              ไม่สามารถโหลดข้อมูลได้
-
-              <br>
-
-              <small>
-                ${escapeHtml(
-                  error.message
-                )}
-              </small>
-
+              กำลังโหลด...
             </td>
 
           </tr>
-          `;
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+
+    SMART FEVER CARE
+    <br>
+
+    ระบบดูแลและติดตามข้อมูลสุขภาพ
+
+  </footer>
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   1. SUPABASE CONFIG
+========================================================= */
+
+const SUPABASE_URL =
+  "https://urqkglxfzusdjwvtnizv.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================================================
+   2. ADMIN CONFIG
+========================================================= */
+
+const ADMIN_EMAIL =
+  "wachiraprun.k@gmail.com";
+
+
+/* =========================================================
+   3. GLOBAL VARIABLES
+========================================================= */
+
+let currentUser = null;
+let currentProfile = null;
+
+let initializingUser = false;
+let initializedUserId = null;
+
+
+/* =========================================================
+   4. START APPLICATION
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  startApp
+);
+
+
+async function startApp() {
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (
+      data &&
+      data.session &&
+      data.session.user
+    ) {
+
+      await initializeUser(
+        data.session.user
+      );
+
+    } else {
+
+      showAuth();
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "START ERROR:",
+      error
+    );
+
+    showAuth();
+
+  } finally {
+
+    hideLoading();
+
+  }
+
+}
+
+
+/* =========================================================
+   5. AUTH STATE CHANGE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    /*
+      SIGNED_IN / INITIAL_SESSION
+      จะถูกจัดการที่ startApp อยู่แล้ว
+      จึงไม่โหลดซ้ำโดยไม่จำเป็น
+    */
+
+    if (
+      session &&
+      session.user
+    ) {
+
+      if (
+        initializedUserId !==
+        session.user.id
+      ) {
+
+        await initializeUser(
+          session.user
+        );
+
+      }
+
+    } else {
+
+      currentUser = null;
+      currentProfile = null;
+      initializedUserId = null;
+
+      showAuth();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   6. LOADING
+========================================================= */
+
+function hideLoading() {
+
+  const loading =
+    document.getElementById(
+      "loading"
+    );
+
+  if (loading) {
+
+    loading.classList.add(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   7. SHOW AUTH
+========================================================= */
+
+function showAuth() {
+
+  document
+    .getElementById(
+      "authPage"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "appPage"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   8. SHOW APP
+========================================================= */
+
+function showApp() {
+
+  document
+    .getElementById(
+      "authPage"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "appPage"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   9. SWITCH AUTH
+========================================================= */
+
+function switchAuth(type) {
+
+  const login =
+    document.getElementById(
+      "loginForm"
+    );
+
+  const signup =
+    document.getElementById(
+      "signupForm"
+    );
+
+  const loginTab =
+    document.getElementById(
+      "loginTab"
+    );
+
+  const signupTab =
+    document.getElementById(
+      "signupTab"
+    );
+
+
+  document
+    .getElementById(
+      "authMessage"
+    )
+    .innerHTML = "";
+
+
+  if (type === "login") {
+
+    login.classList.remove(
+      "hidden"
+    );
+
+    signup.classList.add(
+      "hidden"
+    );
+
+    loginTab.classList.add(
+      "active"
+    );
+
+    signupTab.classList.remove(
+      "active"
+    );
+
+    document
+      .getElementById(
+        "authTitle"
+      )
+      .textContent =
+      "เข้าสู่ระบบ";
+
+  } else {
+
+    login.classList.add(
+      "hidden"
+    );
+
+    signup.classList.remove(
+      "hidden"
+    );
+
+    loginTab.classList.remove(
+      "active"
+    );
+
+    signupTab.classList.add(
+      "active"
+    );
+
+    document
+      .getElementById(
+        "authTitle"
+      )
+      .textContent =
+      "สมัครสมาชิก";
+
+  }
+
+}
+
+
+/* =========================================================
+   10. LOGIN
+========================================================= */
+
+async function login(event) {
+
+  event.preventDefault();
+
+
+  const button =
+    document.getElementById(
+      "loginButton"
+    );
+
+
+  const email =
+    document
+      .getElementById(
+        "loginEmail"
+      )
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById(
+        "loginPassword"
+      )
+      .value;
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "กำลังเข้าสู่ระบบ...";
+
+
+  clearAuthMessage();
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .auth
+        .signInWithPassword({
+
+          email,
+          password
+
+        });
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (
+      data &&
+      data.user
+    ) {
+
+      await initializeUser(
+        data.user
+      );
+
+    }
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showAuthMessage(
+      getFriendlyError(error),
+      "error"
+    );
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      "เข้าสู่ระบบ";
+
+  }
+
+}
+
+
+/* =========================================================
+   11. SIGN UP
+========================================================= */
+
+async function signup(event) {
+
+  event.preventDefault();
+
+
+  const button =
+    document.getElementById(
+      "signupButton"
+    );
+
+
+  const name =
+    document
+      .getElementById(
+        "signupName"
+      )
+      .value
+      .trim();
+
+
+  const email =
+    document
+      .getElementById(
+        "signupEmail"
+      )
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById(
+        "signupPassword"
+      )
+      .value;
+
+
+  if (name.length < 2) {
+
+    showAuthMessage(
+      "กรุณากรอกชื่อผู้ใช้อย่างน้อย 2 ตัวอักษร",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "กำลังสมัครสมาชิก...";
+
+
+  clearAuthMessage();
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .auth
+        .signUp({
+
+          email,
+
+          password,
+
+          options: {
+
+            data: {
+
+              name: name,
+
+              full_name: name
+
+            }
+
+          }
+
+        });
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (
+      data &&
+      data.user
+    ) {
+
+      /*
+        พยายามสร้าง profile
+      */
+
+      await saveProfileToDatabase(
+        data.user,
+        name,
+        ""
+      );
+
+    }
+
+
+    /*
+      ถ้า Supabase เปิด Email Confirmation
+    */
+
+    if (
+      !data ||
+      !data.session
+    ) {
+
+      showAuthMessage(
+        "สมัครสมาชิกสำเร็จ กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชีก่อนเข้าสู่ระบบ",
+        "success"
+      );
+
+      switchAuth("login");
+
+      return;
+
+    }
+
+
+    /*
+      ถ้า Login ให้อัตโนมัติ
+    */
+
+    await initializeUser(
+      data.user
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showAuthMessage(
+      getFriendlyError(error),
+      "error"
+    );
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      "สมัครสมาชิก";
+
+  }
+
+}
+
+
+/* =========================================================
+   12. INITIALIZE USER
+========================================================= */
+
+async function initializeUser(user) {
+
+  if (!user) {
+    return;
+  }
+
+
+  /*
+    ป้องกัน initialize ซ้ำ
+  */
+
+  if (
+    initializingUser &&
+    currentUser &&
+    currentUser.id === user.id
+  ) {
+
+    return;
+
+  }
+
+
+  initializingUser = true;
+
+
+  try {
+
+    currentUser = user;
+
+
+    /*
+      โหลด profile
+    */
+
+    await loadProfile();
+
+
+    /*
+      ถ้ายังไม่มี profile
+      ให้สร้างให้อัตโนมัติ
+    */
+
+    if (!currentProfile) {
+
+      const name =
+        user.user_metadata?.name ||
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "ผู้ใช้งาน";
+
+
+      await saveProfileToDatabase(
+        user,
+        name,
+        ""
+      );
+
+
+      await loadProfile();
+
+    }
+
+
+    updateUI();
+
+    showApp();
+
+    initializedUserId =
+      user.id;
+
+
+    showPage("home");
+
+
+  } catch (error) {
+
+    console.error(
+      "INITIALIZE ERROR:",
+      error
+    );
+
+    /*
+      แม้ profile มีปัญหา
+      ยังให้เข้าแอปได้
+    */
+
+    updateUI();
+
+    showApp();
+
+  } finally {
+
+    initializingUser = false;
+
+  }
+
+}
+
+
+/* =========================================================
+   13. LOAD PROFILE
+========================================================= */
+
+async function loadProfile() {
+
+  if (!currentUser) {
+
+    currentProfile = null;
+
+    return;
+
+  }
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq(
+          "id",
+          currentUser.id
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.warn(
+        "PROFILE LOAD:",
+        error.message
+      );
+
+      currentProfile = null;
+
+      return;
+
+    }
+
+
+    currentProfile =
+      data || null;
+
+
+  } catch (error) {
+
+    console.error(
+      "PROFILE ERROR:",
+      error
+    );
+
+    currentProfile = null;
+
+  }
+
+}
+
+
+/* =========================================================
+   14. SAVE PROFILE DATABASE
+========================================================= */
+
+async function saveProfileToDatabase(
+  user,
+  name,
+  photo
+) {
+
+  if (!user) {
+    return false;
+  }
+
+
+  const role =
+    isAdminEmail(user.email)
+      ? "admin"
+      : "user";
+
+
+  try {
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .upsert({
+
+          id:
+            user.id,
+
+          name:
+            name ||
+            "ผู้ใช้งาน",
+
+          email:
+            user.email ||
+            "",
+
+          photo_url:
+            photo ||
+            "",
+
+          role:
+            role,
+
+          updated_at:
+            new Date().toISOString()
+
+        }, {
+
+          onConflict:
+            "id"
+
+        });
+
+
+    if (error) {
+
+      console.warn(
+        "SAVE PROFILE:",
+        error.message
+      );
+
+      return false;
+
+    }
+
+
+    return true;
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   15. UPDATE UI
+========================================================= */
+
+function updateUI() {
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const metadata =
+    currentUser.user_metadata ||
+    {};
+
+
+  const name =
+    currentProfile?.name ||
+    metadata.name ||
+    metadata.full_name ||
+    currentUser.email?.split("@")[0] ||
+    "ผู้ใช้งาน";
+
+
+  const email =
+    currentUser.email ||
+    "";
+
+
+  const photo =
+    currentProfile?.photo_url ||
+    metadata.avatar_url ||
+    "";
+
+
+  const admin =
+    isAdmin();
+
+
+  /*
+    NAV
+  */
+
+  document
+    .getElementById(
+      "navName"
+    )
+    .textContent =
+    name;
+
+
+  document
+    .getElementById(
+      "navEmail"
+    )
+    .textContent =
+    email;
+
+
+  setAvatar(
+    document.getElementById(
+      "navAvatar"
+    ),
+    name,
+    photo
+  );
+
+
+  /*
+    HOME
+  */
+
+  document
+    .getElementById(
+      "welcomeName"
+    )
+    .textContent =
+    name;
+
+
+  /*
+    PROFILE
+  */
+
+  document
+    .getElementById(
+      "profileDisplayName"
+    )
+    .textContent =
+    name;
+
+
+  document
+    .getElementById(
+      "profileDisplayEmail"
+    )
+    .textContent =
+    email;
+
+
+  document
+    .getElementById(
+      "profileName"
+    )
+    .value =
+    name;
+
+
+  document
+    .getElementById(
+      "profileEmail"
+    )
+    .value =
+    email;
+
+
+  document
+    .getElementById(
+      "profilePhoto"
+    )
+    .value =
+    photo;
+
+
+  setAvatar(
+    document.getElementById(
+      "profileAvatar"
+    ),
+    name,
+    photo
+  );
+
+
+  /*
+    ROLE
+  */
+
+  document
+    .getElementById(
+      "profileRole"
+    )
+    .innerHTML =
+    admin
+      ? `
+        <span class="badge admin-badge">
+          👑 ADMIN
+        </span>
+      `
+      : `
+        <span class="badge user-badge">
+          USER
+        </span>
+      `;
+
+
+  /*
+    ADMIN BUTTON
+  */
+
+  document
+    .getElementById(
+      "adminButton"
+    )
+    .classList.toggle(
+      "hidden",
+      !admin
+    );
+
+}
+
+
+/* =========================================================
+   16. AVATAR
+========================================================= */
+
+function setAvatar(
+  element,
+  name,
+  photo
+) {
+
+  if (!element) {
+    return;
+  }
+
+
+  const letter =
+    (name || "U")
+      .trim()
+      .charAt(0)
+      .toUpperCase() ||
+    "U";
+
+
+  /*
+    ไม่มีรูป
+  */
+
+  if (!photo) {
+
+    element.textContent =
+      letter;
+
+    return;
+
+  }
+
+
+  /*
+    ตรวจ URL ก่อน
+  */
+
+  if (
+    !isValidImageUrl(photo)
+  ) {
+
+    element.textContent =
+      letter;
+
+    return;
+
+  }
+
+
+  element.innerHTML = "";
+
+
+  const img =
+    document.createElement(
+      "img"
+    );
+
+
+  img.src =
+    photo;
+
+
+  img.alt =
+    "profile";
+
+
+  img.onload = () => {
+
+    element.innerHTML = "";
+
+    element.appendChild(
+      img
+    );
+
+  };
+
+
+  img.onerror = () => {
+
+    element.textContent =
+      letter;
+
+  };
+
+
+  element.appendChild(
+    img
+  );
+
+}
+
+
+/* =========================================================
+   17. PREVIEW PHOTO
+========================================================= */
+
+function previewPhoto() {
+
+  const url =
+    document
+      .getElementById(
+        "profilePhoto"
+      )
+      .value
+      .trim();
+
+
+  const preview =
+    document.getElementById(
+      "photoPreview"
+    );
+
+
+  const image =
+    document.getElementById(
+      "photoPreviewImage"
+    );
+
+
+  if (
+    !url ||
+    !isValidImageUrl(url)
+  ) {
+
+    preview.style.display =
+      "none";
+
+    image.src = "";
+
+    return;
+
+  }
+
+
+  image.onload = () => {
+
+    preview.style.display =
+      "block";
+
+  };
+
+
+  image.onerror = () => {
+
+    preview.style.display =
+      "none";
+
+  };
+
+
+  image.src =
+    url;
+
+}
+
+
+/* =========================================================
+   18. SAVE PROFILE
+========================================================= */
+
+async function saveProfile(event) {
+
+  event.preventDefault();
+
+
+  if (!currentUser) {
+
+    showProfileMessage(
+      "ไม่พบข้อมูลผู้ใช้งาน",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "saveButton"
+    );
+
+
+  const name =
+    document
+      .getElementById(
+        "profileName"
+      )
+      .value
+      .trim();
+
+
+  const photo =
+    document
+      .getElementById(
+        "profilePhoto"
+      )
+      .value
+      .trim();
+
+
+  if (name.length < 2) {
+
+    showProfileMessage(
+      "กรุณากรอกชื่ออย่างน้อย 2 ตัวอักษร",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    photo &&
+    !isValidImageUrl(photo)
+  ) {
+
+    showProfileMessage(
+      "URL รูปโปรไฟล์ไม่ถูกต้อง",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "กำลังบันทึก...";
+
+
+  clearProfileMessage();
+
+
+  try {
+
+    /*
+      1. Update Supabase Auth metadata
+    */
+
+    const {
+      error: authError
+    } =
+      await supabaseClient
+        .auth
+        .updateUser({
+
+          data: {
+
+            name:
+              name,
+
+            full_name:
+              name,
+
+            avatar_url:
+              photo
+
+          }
+
+        });
+
+
+    if (authError) {
+      throw authError;
+    }
+
+
+    /*
+      2. Update profiles
+    */
+
+    const role =
+      isAdmin()
+        ? "admin"
+        : "user";
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .upsert({
+
+          id:
+            currentUser.id,
+
+          name:
+            name,
+
+          email:
+            currentUser.email ||
+            "",
+
+          photo_url:
+            photo,
+
+          role:
+            role,
+
+          updated_at:
+            new Date().toISOString()
+
+        }, {
+
+          onConflict:
+            "id"
+
+        });
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    /*
+      3. Refresh session user
+    */
+
+    const {
+      data:
+        sessionData
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+
+    if (
+      sessionData &&
+      sessionData.session &&
+      sessionData.session.user
+    ) {
+
+      currentUser =
+        sessionData.session.user;
+
+    }
+
+
+    /*
+      4. Reload profile
+    */
+
+    await loadProfile();
+
+
+    /*
+      5. Update UI
+    */
+
+    updateUI();
+
+    previewPhoto();
+
+
+    showProfileMessage(
+      "บันทึกโปรไฟล์เรียบร้อยแล้ว ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showProfileMessage(
+      getFriendlyError(error),
+      "error"
+    );
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      "💾 บันทึกโปรไฟล์";
+
+  }
+
+}
+
+
+/* =========================================================
+   19. ADMIN CHECK
+========================================================= */
+
+function isAdminEmail(email) {
+
+  if (!email) {
+    return false;
+  }
+
+
+  return (
+    email
+      .trim()
+      .toLowerCase() ===
+    ADMIN_EMAIL
+      .trim()
+      .toLowerCase()
+  );
+
+}
+
+
+function isAdmin() {
+
+  if (!currentUser) {
+    return false;
+  }
+
+
+  /*
+    Admin จากอีเมล
+  */
+
+  if (
+    isAdminEmail(
+      currentUser.email
+    )
+  ) {
+
+    return true;
+
+  }
+
+
+  /*
+    Admin จาก profile
+  */
+
+  if (
+    currentProfile &&
+    currentProfile.role ===
+      "admin"
+  ) {
+
+    return true;
+
+  }
+
+
+  return false;
+
+}
+
+
+/* =========================================================
+   20. PAGE NAVIGATION
+========================================================= */
+
+function showPage(page) {
+
+  const pages = [
+    "homePage",
+    "profilePage",
+    "adminPage"
+  ];
+
+
+  pages.forEach(
+    id => {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+      if (element) {
+
+        element.classList.add(
+          "hidden"
+        );
 
       }
 
     }
+  );
 
 
-    /* =========================================================
-       19. LOGOUT
-       ========================================================= */
+  /*
+    HOME
+  */
 
-    async function logout() {
+  if (
+    page === "home"
+  ) {
 
+    document
+      .getElementById(
+        "homePage"
+      )
+      .classList.remove(
+        "hidden"
+      );
+
+    return;
+
+  }
+
+
+  /*
+    PROFILE
+  */
+
+  if (
+    page === "profile"
+  ) {
+
+    document
+      .getElementById(
+        "profilePage"
+      )
+      .classList.remove(
+        "hidden"
+      );
+
+    updateUI();
+
+    previewPhoto();
+
+    return;
+
+  }
+
+
+  /*
+    ADMIN
+  */
+
+  if (
+    page === "admin"
+  ) {
+
+    if (!isAdmin()) {
+
+      alert(
+        "คุณไม่มีสิทธิ์เข้าใช้งาน Admin"
+      );
+
+      showPage("home");
+
+      return;
+
+    }
+
+
+    document
+      .getElementById(
+        "adminPage"
+      )
+      .classList.remove(
+        "hidden"
+      );
+
+
+    loadAdminUsers();
+
+  }
+
+}
+
+
+/* =========================================================
+   21. LOAD ADMIN USERS
+========================================================= */
+
+async function loadAdminUsers() {
+
+  if (!isAdmin()) {
+
+    alert(
+      "คุณไม่มีสิทธิ์เข้าใช้งาน Admin"
+    );
+
+    showPage("home");
+
+    return;
+
+  }
+
+
+  const table =
+    document.getElementById(
+      "usersTable"
+    );
+
+
+  table.innerHTML =
+    `
+      <tr>
+        <td
+          colspan="4"
+          style="
+            text-align:center;
+            padding:25px;
+          "
+        >
+          กำลังโหลดข้อมูล...
+        </td>
+      </tr>
+    `;
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id,name,email,photo_url,role,created_at"
+        )
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    const users =
+      data || [];
+
+
+    /*
+      TOTAL USERS
+    */
+
+    document
+      .getElementById(
+        "totalUsers"
+      )
+      .textContent =
+      users.length;
+
+
+    /*
+      TOTAL ADMINS
+    */
+
+    document
+      .getElementById(
+        "totalAdmins"
+      )
+      .textContent =
+      users.filter(
+        user =>
+          user.role ===
+          "admin"
+      ).length;
+
+
+    /*
+      EMPTY
+    */
+
+    if (
+      users.length === 0
+    ) {
+
+      table.innerHTML =
+        `
+          <tr>
+            <td
+              colspan="4"
+              style="
+                text-align:center;
+                padding:25px;
+              "
+            >
+              ยังไม่มีข้อมูลผู้ใช้งาน
+            </td>
+          </tr>
+        `;
+
+      return;
+
+    }
+
+
+    /*
+      CREATE ROWS
+    */
+
+    table.innerHTML = "";
+
+
+    users.forEach(
+      user => {
+
+        const row =
+          document.createElement(
+            "tr"
+          );
+
+
+        /*
+          NAME
+        */
+
+        const nameCell =
+          document.createElement(
+            "td"
+          );
+
+
+        const userBox =
+          document.createElement(
+            "div"
+          );
+
+
+        userBox.style.display =
+          "flex";
+
+        userBox.style.alignItems =
+          "center";
+
+        userBox.style.gap =
+          "10px";
+
+
+        /*
+          Avatar
+        */
+
+        const avatar =
+          document.createElement(
+            "div"
+          );
+
+
+        avatar.className =
+          "avatar";
+
+
+        setAvatar(
+          avatar,
+          user.name ||
+            "ผู้ใช้งาน",
+          user.photo_url ||
+            ""
+        );
+
+
+        /*
+          Name
+        */
+
+        const strong =
+          document.createElement(
+            "strong"
+          );
+
+
+        strong.textContent =
+          user.name ||
+          "ผู้ใช้งาน";
+
+
+        userBox.appendChild(
+          avatar
+        );
+
+        userBox.appendChild(
+          strong
+        );
+
+
+        nameCell.appendChild(
+          userBox
+        );
+
+
+        /*
+          EMAIL
+        */
+
+        const emailCell =
+          document.createElement(
+            "td"
+          );
+
+
+        emailCell.textContent =
+          user.email ||
+          "-";
+
+
+        /*
+          ROLE
+        */
+
+        const roleCell =
+          document.createElement(
+            "td"
+          );
+
+
+        const badge =
+          document.createElement(
+            "span"
+          );
+
+
+        badge.className =
+          "badge " +
+          (
+            user.role ===
+            "admin"
+              ? "admin-badge"
+              : "user-badge"
+          );
+
+
+        badge.textContent =
+          user.role ===
+          "admin"
+            ? "👑 ADMIN"
+            : "USER";
+
+
+        roleCell.appendChild(
+          badge
+        );
+
+
+        /*
+          DATE
+        */
+
+        const dateCell =
+          document.createElement(
+            "td"
+          );
+
+
+        dateCell.textContent =
+          formatDate(
+            user.created_at
+          );
+
+
+        /*
+          ADD ROW
+        */
+
+        row.appendChild(
+          nameCell
+        );
+
+        row.appendChild(
+          emailCell
+        );
+
+        row.appendChild(
+          roleCell
+        );
+
+        row.appendChild(
+          dateCell
+        );
+
+
+        table.appendChild(
+          row
+        );
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "ADMIN USERS ERROR:",
+      error
+    );
+
+
+    document
+      .getElementById(
+        "totalUsers"
+      )
+      .textContent =
+      "-";
+
+
+    document
+      .getElementById(
+        "totalAdmins"
+      )
+      .textContent =
+      "-";
+
+
+    table.innerHTML =
+      `
+        <tr>
+
+          <td
+            colspan="4"
+            style="
+              text-align:center;
+              color:#b91c1c;
+              padding:25px;
+            "
+          >
+
+            ไม่สามารถโหลดข้อมูลได้
+
+            <br>
+
+            <small>
+              ${escapeHtml(
+                getFriendlyError(error)
+              )}
+            </small>
+
+          </td>
+
+        </tr>
+      `;
+
+  }
+
+}
+
+
+/* =========================================================
+   22. LOGOUT
+========================================================= */
+
+async function logout() {
+
+  try {
+
+    const {
+      error
+    } =
       await supabaseClient
         .auth
         .signOut();
 
+
+    if (error) {
+      throw error;
     }
 
 
-    /* =========================================================
-       20. MESSAGES
-       ========================================================= */
-
-    function showAuthMessage(
-      text,
-      type
-    ) {
-
-      document
-        .getElementById(
-          "authMessage"
-        )
-        .innerHTML =
-        `
-        <div class="message ${type}">
-          ${escapeHtml(text)}
-        </div>
-        `;
-
-    }
+    currentUser = null;
+    currentProfile = null;
+    initializedUserId = null;
 
 
-    function showProfileMessage(
-      text,
-      type
-    ) {
-
-      document
-        .getElementById(
-          "profileMessage"
-        )
-        .innerHTML =
-        `
-        <div class="message ${type}">
-          ${escapeHtml(text)}
-        </div>
-        `;
-
-    }
+    showAuth();
 
 
-    /* =========================================================
-       21. ESCAPE HTML
-       ========================================================= */
+    switchAuth(
+      "login"
+    );
 
-    function escapeHtml(value) {
 
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+  } catch (error) {
 
-    }
+    console.error(error);
 
-  </script>
+    alert(
+      getFriendlyError(error)
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   23. AUTH MESSAGE
+========================================================= */
+
+function showAuthMessage(
+  text,
+  type
+) {
+
+  document
+    .getElementById(
+      "authMessage"
+    )
+    .innerHTML =
+    `
+      <div class="message ${type}">
+        ${escapeHtml(text)}
+      </div>
+    `;
+
+}
+
+
+function clearAuthMessage() {
+
+  document
+    .getElementById(
+      "authMessage"
+    )
+    .innerHTML =
+    "";
+
+}
+
+
+/* =========================================================
+   24. PROFILE MESSAGE
+========================================================= */
+
+function showProfileMessage(
+  text,
+  type
+) {
+
+  document
+    .getElementById(
+      "profileMessage"
+    )
+    .innerHTML =
+    `
+      <div class="message ${type}">
+        ${escapeHtml(text)}
+      </div>
+    `;
+
+}
+
+
+function clearProfileMessage() {
+
+  document
+    .getElementById(
+      "profileMessage"
+    )
+    .innerHTML =
+    "";
+
+}
+
+
+/* =========================================================
+   25. FRIENDLY ERROR
+========================================================= */
+
+function getFriendlyError(
+  error
+) {
+
+  const message =
+    error?.message ||
+    String(error || "");
+
+
+  const lower =
+    message.toLowerCase();
+
+
+  if (
+    lower.includes(
+      "invalid login credentials"
+    )
+  ) {
+
+    return "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+
+  }
+
+
+  if (
+    lower.includes(
+      "email not confirmed"
+    )
+  ) {
+
+    return "กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ";
+
+  }
+
+
+  if (
+    lower.includes(
+      "user already registered"
+    )
+  ) {
+
+    return "อีเมลนี้สมัครสมาชิกไว้แล้ว";
+
+  }
+
+
+  if (
+    lower.includes(
+      "password"
+    ) &&
+    lower.includes(
+      "6"
+    )
+  ) {
+
+    return "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร";
+
+  }
+
+
+  if (
+    lower.includes(
+      "duplicate"
+    )
+  ) {
+
+    return "ข้อมูลนี้มีอยู่ในระบบแล้ว";
+
+  }
+
+
+  if (
+    lower.includes(
+      "row-level security"
+    )
+  ) {
+
+    return "Supabase ปฏิเสธการเข้าถึงข้อมูล กรุณาตรวจสอบ RLS Policy ของตาราง profiles";
+
+  }
+
+
+  return message ||
+    "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
+
+}
+
+
+/* =========================================================
+   26. VALIDATE IMAGE URL
+========================================================= */
+
+function isValidImageUrl(
+  url
+) {
+
+  try {
+
+    const parsed =
+      new URL(url);
+
+
+    return (
+      parsed.protocol ===
+        "http:" ||
+      parsed.protocol ===
+        "https:"
+    );
+
+  } catch {
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   27. FORMAT DATE
+========================================================= */
+
+function formatDate(
+  value
+) {
+
+  if (!value) {
+    return "-";
+  }
+
+
+  try {
+
+    return new Date(
+      value
+    ).toLocaleDateString(
+      "th-TH",
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }
+    );
+
+  } catch {
+
+    return "-";
+
+  }
+
+}
+
+
+/* =========================================================
+   28. ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+</script>
 
 </body>
 </html>
