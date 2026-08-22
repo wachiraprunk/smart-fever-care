@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -5,18 +6,22 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
 <title>SMART FEVER CARE</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+      rel="stylesheet">
 
 
 <style>
@@ -26,20 +31,36 @@ rel="stylesheet">
 ========================================================= */
 
 :root{
+
     --blue:#073B66;
     --blue2:#0B5D8F;
+
     --orange:#F28C28;
     --orange2:#FFB45C;
+
     --light:#F5F8FB;
     --white:#FFFFFF;
+
     --text:#183247;
     --muted:#718096;
+
     --border:#E4EBF2;
+
     --success:#2E8B68;
     --danger:#D9534F;
-    --shadow:0 12px 35px rgba(7,59,102,.10);
+
+    --line:#06C755;
+
+    --shadow:
+        0 12px 35px rgba(7,59,102,.10);
+
     --radius:22px;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -52,26 +73,41 @@ html{
 }
 
 body{
+
     font-family:"Prompt",sans-serif;
+
     background:var(--light);
+
     color:var(--text);
+
     min-height:100vh;
 }
 
-button,input{
+button,
+input{
+
     font-family:inherit;
 }
 
 button{
+
     cursor:pointer;
 }
 
+
+/* =========================================================
+   PAGE
+========================================================= */
+
 .page{
+
     display:none;
+
     min-height:100vh;
 }
 
 .page.active{
+
     display:block;
 }
 
@@ -81,433 +117,1032 @@ button{
 ========================================================= */
 
 #welcome{
+
     background:
-        radial-gradient(circle at 90% 10%,
-        rgba(255,180,92,.35),
-        transparent 28%),
-        linear-gradient(135deg,
-        #073B66 0%,
-        #0B5D8F 58%,
-        #F28C28 130%);
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(255,180,92,.35),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #073B66 0%,
+            #0B5D8F 58%,
+            #F28C28 130%
+        );
+
     color:white;
+
     overflow:hidden;
+
     position:relative;
 }
 
+
+/* decorative circles */
+
 #welcome:before{
+
     content:"";
+
     position:absolute;
-    width:420px;
-    height:420px;
+
+    width:360px;
+
+    height:360px;
+
     border-radius:50%;
-    background:rgba(255,255,255,.05);
-    right:-160px;
-    bottom:-180px;
-    animation:floatCircle 7s ease-in-out infinite;
+
+    right:-130px;
+
+    bottom:-120px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    animation:
+        floatCircle 8s ease-in-out infinite;
 }
 
 #welcome:after{
+
     content:"";
+
     position:absolute;
+
     width:180px;
+
     height:180px;
+
     border-radius:50%;
-    border:1px solid rgba(255,255,255,.12);
-    left:-80px;
-    top:18%;
-    animation:floatCircle 6s ease-in-out infinite reverse;
+
+    left:-70px;
+
+    top:35%;
+
+    background:
+        rgba(255,180,92,.08);
+
+    animation:
+        floatCircle 7s ease-in-out infinite reverse;
 }
 
 @keyframes floatCircle{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-18px);}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-18px);
+    }
 }
+
+
+/* HEADER */
 
 .welcome-header{
+
     padding:24px 6%;
+
     display:flex;
-    align-items:center;
-    position:relative;
-    z-index:3;
-}
 
-.welcome-logo{
-    width:135px;
-    height:auto;
-    background:white;
-    padding:9px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
-}
-
-.welcome-content{
-    max-width:1180px;
-    margin:auto;
-    padding:45px 6% 85px;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
     align-items:center;
-    gap:60px;
+
     position:relative;
+
     z-index:2;
 }
 
-.medical-label{
-    display:inline-flex;
+
+/* LOGO */
+
+.welcome-logo{
+
+    width:135px;
+
+    height:auto;
+
+    background:white;
+
+    padding:9px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+}
+
+
+/* WELCOME CONTENT */
+
+.welcome-content{
+
+    max-width:1180px;
+
+    margin:auto;
+
+    padding:
+        45px 6% 85px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.05fr .95fr;
+
     align-items:center;
+
+    gap:60px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* LABEL */
+
+.medical-label{
+
+    display:inline-flex;
+
+    align-items:center;
+
     gap:8px;
-    padding:8px 15px;
+
+    padding:
+        8px 15px;
+
     border-radius:100px;
-    background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.25);
+
+    background:
+        rgba(255,255,255,.14);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
     margin-bottom:20px;
+
     font-size:13px;
+
     letter-spacing:.4px;
+
     backdrop-filter:blur(10px);
 }
 
-.medical-label:before{
-    content:"✦";
-    color:#FFD39D;
-}
+
+/* TITLE */
 
 .welcome-title{
-    font-size:clamp(40px,6vw,72px);
+
+    font-size:
+        clamp(40px,6vw,72px);
+
     line-height:1.05;
+
     font-weight:700;
+
     letter-spacing:-1px;
 }
 
 .welcome-title span{
+
     color:#FFD39D;
 }
 
+
+/* SUBTITLE */
+
 .welcome-subtitle{
+
     margin-top:22px;
+
     font-size:19px;
+
     line-height:1.8;
+
     opacity:.92;
+
     max-width:620px;
 }
 
+
+/* BUTTONS */
+
 .welcome-buttons{
+
     display:flex;
+
     flex-wrap:wrap;
+
     gap:14px;
+
     margin-top:35px;
 }
 
 .btn{
+
     border:none;
+
     border-radius:14px;
-    padding:14px 22px;
+
+    padding:
+        14px 22px;
+
     font-size:15px;
+
     font-weight:500;
+
     transition:.25s;
 }
 
 .btn:hover{
-    transform:translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
 
 .btn-primary{
-    background:var(--orange);
+
+    background:
+        var(--orange);
+
     color:white;
-    box-shadow:0 8px 25px rgba(242,140,40,.3);
+
+    box-shadow:
+        0 8px 25px
+        rgba(242,140,40,.3);
 }
 
 .btn-secondary{
+
     background:white;
+
     color:var(--blue);
 }
 
 .btn-outline{
+
     background:transparent;
+
     color:var(--blue);
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
 }
 
+
+/* WELCOME VISUAL */
+
 .welcome-visual{
+
     position:relative;
 }
 
 .hero-card{
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.2);
+
+    background:
+        rgba(255,255,255,.12);
+
+    backdrop-filter:
+        blur(18px);
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
     border-radius:32px;
+
     padding:18px;
-    box-shadow:0 25px 60px rgba(0,0,0,.18);
-    animation:heroFloat 5s ease-in-out infinite;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.18);
+
+    animation:
+        heroFloat 5s ease-in-out infinite;
 }
 
 @keyframes heroFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-7px);}
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
 }
 
 .hero-card img{
+
     width:100%;
+
     height:430px;
+
     object-fit:cover;
+
     border-radius:23px;
 }
 
-.floating-card{
-    position:absolute;
-    background:white;
-    color:var(--text);
-    padding:15px 18px;
-    border-radius:17px;
-    box-shadow:var(--shadow);
-    font-size:13px;
-    animation:cardFloat 4s ease-in-out infinite;
-}
 
-@keyframes cardFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-8px);}
+/* FLOATING INFO */
+
+.floating-card{
+
+    position:absolute;
+
+    background:white;
+
+    color:var(--text);
+
+    padding:
+        15px 18px;
+
+    border-radius:17px;
+
+    box-shadow:var(--shadow);
+
+    font-size:13px;
+
+    animation:
+        floatInfo 4s ease-in-out infinite;
 }
 
 .floating-card strong{
+
     display:block;
+
     font-size:18px;
+
     color:var(--blue);
 }
 
 .float-one{
+
     left:-25px;
+
     bottom:55px;
 }
 
 .float-two{
+
     right:-20px;
+
     top:45px;
+
     animation-delay:1s;
+}
+
+@keyframes floatInfo{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
 }
 
 
 /* =========================================================
-   EMAIL LOGIN OVERLAY
+   LOGIN PAGE
 ========================================================= */
 
-.login-overlay{
-    position:fixed;
-    inset:0;
-    z-index:5000;
+#loginPage{
+
+    min-height:100vh;
+
     display:none;
+
     align-items:center;
+
     justify-content:center;
-    padding:20px;
-    background:rgba(3,24,40,.72);
-    backdrop-filter:blur(14px);
-}
 
-.login-overlay.show{
-    display:flex;
-    animation:fadeIn .25s ease;
-}
+    padding:30px 20px;
 
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
-}
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(11,93,143,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(242,140,40,.15),
+            transparent 30%
+        ),
+        #F5F8FB;
 
-.login-card{
-    width:min(470px,100%);
-    background:rgba(255,255,255,.97);
-    border:1px solid rgba(255,255,255,.8);
-    border-radius:30px;
-    padding:34px;
-    color:var(--text);
-    box-shadow:0 30px 90px rgba(0,0,0,.3);
-    animation:loginIn .35s ease;
     position:relative;
+
+    overflow:hidden;
 }
 
-@keyframes loginIn{
-    from{
-        opacity:0;
-        transform:translateY(25px) scale(.96);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
+#loginPage.active{
 
-.login-close{
-    position:absolute;
-    top:17px;
-    right:17px;
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:12px;
-    background:#F2F6F9;
-    color:var(--blue);
-    font-size:21px;
-    transition:.2s;
-}
-
-.login-close:hover{
-    background:#E8EFF4;
-    transform:rotate(5deg);
-}
-
-.login-icon{
-    width:64px;
-    height:64px;
-    border-radius:20px;
     display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#073B66,#0B5D8F);
-    color:white;
-    font-size:28px;
-    box-shadow:0 10px 25px rgba(7,59,102,.2);
-    margin-bottom:20px;
 }
 
-.login-card h2{
-    color:var(--blue);
-    font-size:25px;
-}
 
-.login-card-subtitle{
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.8;
-    margin-top:7px;
-}
+/* floating decoration */
 
-.email-form{
-    margin-top:25px;
-}
+.login-decoration{
 
-.email-label{
-    display:block;
-    color:var(--blue);
-    font-size:12px;
-    font-weight:500;
-    margin-bottom:8px;
-}
-
-.email-input-wrap{
-    position:relative;
-}
-
-.email-input-icon{
     position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#8495A5;
-    font-size:17px;
+
+    border-radius:50%;
+
     pointer-events:none;
 }
 
-.email-input{
-    width:100%;
-    height:52px;
-    padding:0 15px 0 45px;
-    border:1px solid var(--border);
-    border-radius:15px;
-    outline:none;
-    color:var(--text);
-    font-size:14px;
-    background:#FBFCFD;
+.login-decoration.one{
+
+    width:280px;
+
+    height:280px;
+
+    right:-100px;
+
+    top:-100px;
+
+    background:
+        rgba(11,93,143,.08);
+}
+
+.login-decoration.two{
+
+    width:220px;
+
+    height:220px;
+
+    left:-90px;
+
+    bottom:-80px;
+
+    background:
+        rgba(242,140,40,.09);
+}
+
+
+/* LOGIN CARD */
+
+.login-card{
+
+    width:
+        min(450px,100%);
+
+    background:white;
+
+    border:
+        1px solid
+        rgba(228,235,242,.9);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(7,59,102,.13);
+
+    position:relative;
+
+    z-index:2;
+
+    animation:
+        loginIn .45s ease;
+}
+
+@keyframes loginIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* login logo */
+
+.login-logo{
+
+    text-align:center;
+
+    margin-bottom:20px;
+}
+
+.login-logo img{
+
+    width:75px;
+
+    height:75px;
+
+    object-fit:contain;
+
+    border-radius:20px;
+
+    padding:6px;
+
+    background:#fff;
+
+    box-shadow:
+        0 8px 25px
+        rgba(7,59,102,.1);
+}
+
+
+.login-title{
+
+    text-align:center;
+
+    color:var(--blue);
+
+    font-size:27px;
+
+    font-weight:700;
+}
+
+.login-subtitle{
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    margin-top:5px;
+
+    margin-bottom:27px;
+}
+
+
+/* login tabs */
+
+.login-tabs{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:5px;
+
+    padding:5px;
+
+    background:#F2F6F9;
+
+    border-radius:14px;
+
+    margin-bottom:20px;
+}
+
+.login-tab{
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    padding:11px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
     transition:.25s;
 }
 
-.email-input:focus{
+.login-tab.active{
+
     background:white;
-    border-color:var(--orange);
-    box-shadow:0 0 0 4px rgba(242,140,40,.10);
+
+    color:var(--blue);
+
+    font-weight:600;
+
+    box-shadow:
+        0 3px 10px
+        rgba(7,59,102,.08);
 }
 
-.email-input.invalid{
-    border-color:var(--danger);
-    box-shadow:0 0 0 4px rgba(217,83,79,.08);
-}
 
-.email-error{
+/* login method */
+
+.login-method{
+
     display:none;
-    color:var(--danger);
-    font-size:11px;
-    margin-top:7px;
+
+    animation:
+        fadeIn .25s ease;
 }
 
-.email-error.show{
+.login-method.active{
+
     display:block;
 }
 
-.remember-row{
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(5px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* INPUT */
+
+.login-form-group{
+
+    margin-bottom:16px;
+
+    position:relative;
+}
+
+.login-form-group label{
+
+    display:block;
+
+    color:var(--blue);
+
+    font-size:12px;
+
+    margin-bottom:7px;
+
+    font-weight:500;
+}
+
+.login-input-wrap{
+
+    position:relative;
+}
+
+.login-input{
+
+    width:100%;
+
+    height:49px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    padding:
+        0 15px;
+
+    outline:none;
+
+    font-size:13px;
+
+    color:var(--text);
+
+    background:#FBFCFD;
+
+    transition:.25s;
+}
+
+.login-input:focus{
+
+    border-color:var(--blue2);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(11,93,143,.08);
+}
+
+
+/* password toggle */
+
+.password-toggle{
+
+    position:absolute;
+
+    right:10px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:#EEF4F8;
+
+    color:var(--blue);
+
+    border-radius:8px;
+
+    padding:6px 8px;
+
+    font-size:10px;
+}
+
+
+/* remember */
+
+.login-options{
+
     display:flex;
+
+    justify-content:space-between;
+
     align-items:center;
-    gap:8px;
-    margin-top:13px;
-    color:var(--muted);
+
+    margin:
+        5px 0 18px;
+
     font-size:11px;
 }
 
-.remember-row input{
+.remember{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    color:var(--muted);
+}
+
+.remember input{
+
     accent-color:var(--blue);
 }
 
-.login-submit{
-    width:100%;
-    margin-top:20px;
-    height:52px;
+.forgot{
+
     border:none;
-    border-radius:15px;
-    background:linear-gradient(135deg,#F28C28,#FFB45C);
+
+    background:none;
+
+    color:var(--blue2);
+
+    font-size:11px;
+}
+
+
+/* login main button */
+
+.login-submit{
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            #F6A94F
+        );
+
     color:white;
+
     font-size:14px;
+
     font-weight:600;
-    box-shadow:0 10px 25px rgba(242,140,40,.25);
+
+    box-shadow:
+        0 10px 25px
+        rgba(242,140,40,.25);
+
     transition:.25s;
 }
 
 .login-submit:hover{
+
     transform:translateY(-2px);
-    box-shadow:0 14px 30px rgba(242,140,40,.32);
+
+    box-shadow:
+        0 13px 30px
+        rgba(242,140,40,.32);
 }
 
-.login-submit.loading{
-    pointer-events:none;
-    opacity:.75;
-}
 
-.login-footer{
-    text-align:center;
+/* divider */
+
+.login-divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
     color:#9AA7B3;
+
     font-size:10px;
+
+    margin:20px 0;
+}
+
+.login-divider:before,
+.login-divider:after{
+
+    content:"";
+
+    height:1px;
+
+    background:var(--border);
+
+    flex:1;
+}
+
+
+/* LINE */
+
+.line-login-btn{
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--line);
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    box-shadow:
+        0 9px 22px
+        rgba(6,199,85,.18);
+
+    transition:.25s;
+}
+
+.line-login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 13px 28px
+        rgba(6,199,85,.25);
+}
+
+.line-icon{
+
+    width:25px;
+
+    height:25px;
+
+    border-radius:7px;
+
+    background:white;
+
+    color:var(--line);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+/* back */
+
+.login-back{
+
+    width:100%;
+
     margin-top:18px;
+
+    border:none;
+
+    background:none;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    padding:8px;
+}
+
+.login-back:hover{
+
+    color:var(--blue);
+}
+
+
+/* security */
+
+.login-security{
+
+    text-align:center;
+
+    color:#9AA7B3;
+
+    font-size:9px;
+
+    margin-top:15px;
+
     line-height:1.7;
 }
 
-.login-feature{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:22px;
+
+/* loading */
+
+.login-loading{
+
+    display:none;
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        rgba(255,255,255,.85);
+
+    backdrop-filter:blur(3px);
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:30px;
+
+    z-index:10;
 }
 
-.login-feature-item{
-    padding:10px 6px;
-    border-radius:12px;
-    background:#F5F8FB;
-    text-align:center;
-    font-size:9px;
-    color:var(--muted);
+.login-loading.show{
+
+    display:flex;
 }
 
-.login-feature-item strong{
-    display:block;
-    color:var(--blue);
-    font-size:14px;
-    margin-bottom:2px;
+.spinner{
+
+    width:35px;
+
+    height:35px;
+
+    border:
+        3px solid
+        #DDE7EE;
+
+    border-top-color:
+        var(--orange);
+
+    border-radius:50%;
+
+    animation:
+        spin .7s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 
@@ -516,86 +1151,150 @@ button{
 ========================================================= */
 
 .app{
+
     min-height:100vh;
 }
 
 .app-header{
+
     background:white;
-    border-bottom:1px solid var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
     position:sticky;
+
     top:0;
+
     z-index:100;
 }
 
 .header-inner{
+
     max-width:1200px;
+
     margin:auto;
+
     min-height:78px;
-    padding:10px 5%;
+
+    padding:
+        10px 5%;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     gap:20px;
 }
 
 .brand{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
 }
 
 .brand img{
+
     width:52px;
+
     height:52px;
+
     object-fit:contain;
 }
 
 .brand-title{
+
     font-weight:700;
+
     color:var(--blue);
+
     font-size:17px;
 }
 
 .brand-subtitle{
+
     font-size:10px;
+
     color:var(--muted);
 }
 
+
+/* USER */
+
 .user-mini{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     flex-wrap:wrap;
 }
 
 .avatar{
+
     width:43px;
+
     height:43px;
+
     border-radius:50%;
+
     object-fit:cover;
-    border:2px solid white;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
+
+    border:
+        2px solid white;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.12);
 }
 
 .user-name{
+
     font-size:13px;
+
     font-weight:500;
 }
 
+
+/* LOGOUT */
+
 .logout-btn{
-    border:1px solid #F0D5C8;
-    background:#FFF7F3;
+
+    border:
+        1px solid
+        #F0D5C8;
+
+    background:
+        #FFF7F3;
+
     color:#B84B3E;
+
     border-radius:12px;
-    padding:9px 13px;
+
+    padding:
+        9px 13px;
+
     font-size:12px;
+
     font-weight:500;
+
     transition:.2s;
 }
 
 .logout-btn:hover{
+
     background:#FFF0EB;
-    transform:translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
 
 
@@ -604,330 +1303,582 @@ button{
 ========================================================= */
 
 .main{
+
     max-width:1200px;
+
     margin:auto;
-    padding:35px 5% 120px;
+
+    padding:
+        35px 5% 120px;
 }
 
 .page-heading{
+
     margin-bottom:28px;
 }
 
 .page-heading small{
+
     color:var(--orange);
+
     font-weight:600;
+
     font-size:12px;
+
     letter-spacing:.5px;
 }
 
 .page-heading h1{
+
     color:var(--blue);
+
     font-size:32px;
+
     margin-top:4px;
 }
 
 .page-heading p{
+
     color:var(--muted);
+
     font-size:14px;
+
     margin-top:5px;
+
     line-height:1.7;
 }
 
 
 /* =========================================================
-   DASHBOARD
+   DASHBOARD HERO
 ========================================================= */
 
 .dashboard-hero{
-    background:linear-gradient(120deg,#073B66,#0B5D8F);
+
+    background:
+        linear-gradient(
+            120deg,
+            #073B66,
+            #0B5D8F
+        );
+
     color:white;
+
     border-radius:27px;
+
     padding:32px;
+
     position:relative;
+
     overflow:hidden;
+
     box-shadow:var(--shadow);
 }
 
 .dashboard-hero:after{
+
     content:"";
+
     width:250px;
+
     height:250px;
+
     position:absolute;
+
     right:-70px;
+
     top:-100px;
+
     border-radius:50%;
-    background:rgba(242,140,40,.4);
+
+    background:
+        rgba(242,140,40,.4);
 }
 
 .dashboard-hero h1{
+
     font-size:28px;
+
     position:relative;
+
     z-index:2;
 }
 
 .dashboard-hero p{
+
     opacity:.82;
+
     font-size:14px;
+
     margin-top:5px;
+
     position:relative;
+
     z-index:2;
 }
 
 .progress-box{
+
     margin-top:25px;
+
     max-width:550px;
+
     position:relative;
+
     z-index:2;
 }
 
 .progress-info{
+
     display:flex;
+
     justify-content:space-between;
+
     font-size:12px;
+
     margin-bottom:8px;
 }
 
 .progress{
+
     height:9px;
-    background:rgba(255,255,255,.18);
+
+    background:
+        rgba(255,255,255,.18);
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .progress-bar{
+
     height:100%;
-    background:linear-gradient(90deg,#F28C28,#FFD39D);
+
+    background:
+        linear-gradient(
+            90deg,
+            #F28C28,
+            #FFD39D
+        );
+
     border-radius:20px;
+
     transition:.5s;
 }
 
+
+/* =========================================================
+   STATS
+========================================================= */
+
 .stats{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:16px;
+
     margin:22px 0;
 }
 
 .stat{
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:20px;
+
     padding:20px;
-    box-shadow:0 5px 20px rgba(7,59,102,.05);
+
+    box-shadow:
+        0 5px 20px
+        rgba(7,59,102,.05);
 }
 
 .stat-label{
+
     color:var(--muted);
+
     font-size:12px;
 }
 
 .stat-number{
+
     color:var(--blue);
+
     font-size:28px;
+
     font-weight:700;
+
     margin-top:5px;
 }
 
+
+/* =========================================================
+   SECTION
+========================================================= */
+
 .section-title{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    margin:32px 0 15px;
+
+    margin:
+        32px 0 15px;
 }
 
 .section-title h2{
+
     font-size:20px;
+
     color:var(--blue);
 }
 
 .section-description{
+
     color:var(--muted);
+
     font-size:12px;
+
     margin-top:4px;
-    line-height:1.7;
-}
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 5px 18px rgba(7,59,102,.05);
-    transition:.25s;
-}
-
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow);
-}
-
-.card-image{
-    height:170px;
-    width:100%;
-    object-fit:cover;
-}
-
-.card-body{
-    padding:20px;
-}
-
-.card-number{
-    color:var(--orange);
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:.5px;
-}
-
-.card h3{
-    color:var(--blue);
-    margin:5px 0;
-    font-size:17px;
-}
-
-.card p{
-    color:var(--muted);
-    font-size:13px;
     line-height:1.7;
 }
 
 
 /* =========================================================
-   VIDEO
+   CARDS
+========================================================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.card{
+
+    background:white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 18px
+        rgba(7,59,102,.05);
+
+    transition:.25s;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:var(--shadow);
+}
+
+.card-image{
+
+    height:170px;
+
+    width:100%;
+
+    object-fit:cover;
+}
+
+.card-body{
+
+    padding:20px;
+}
+
+.card-number{
+
+    color:var(--orange);
+
+    font-size:11px;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+}
+
+.card h3{
+
+    color:var(--blue);
+
+    margin:
+        5px 0;
+
+    font-size:17px;
+}
+
+.card p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   VIDEO LEARNING
 ========================================================= */
 
 .video-learning-grid{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:18px;
+
     margin-top:5px;
 }
 
 .video-card{
+
     overflow:hidden;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:22px;
+
     background:white;
-    box-shadow:0 5px 18px rgba(7,59,102,.05);
-    transition:transform .25s ease,box-shadow .25s ease;
+
+    box-shadow:
+        0 5px 18px
+        rgba(7,59,102,.05);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .video-card:hover{
-    transform:translateY(-5px);
+
+    transform:
+        translateY(-5px);
+
     box-shadow:var(--shadow);
 }
 
 .video-thumbnail{
+
     position:relative;
+
     height:190px;
+
     overflow:hidden;
-    background:var(--blue);
+
+    background:
+        var(--blue);
 }
 
 .video-thumbnail img{
+
     width:100%;
+
     height:100%;
+
     object-fit:cover;
-    transition:transform .4s ease;
+
+    transition:
+        transform .4s ease;
 }
 
-.video-card:hover .video-thumbnail img{
-    transform:scale(1.04);
+.video-card:hover
+.video-thumbnail img{
+
+    transform:
+        scale(1.04);
 }
 
 .video-thumbnail:after{
+
     content:"";
+
     position:absolute;
+
     inset:0;
-    background:linear-gradient(to bottom,transparent 40%,rgba(7,59,102,.5));
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 40%,
+            rgba(7,59,102,.5)
+        );
+
     pointer-events:none;
 }
 
 .video-play{
+
     position:absolute;
+
     z-index:3;
+
     left:50%;
+
     top:50%;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     width:60px;
+
     height:60px;
+
     border:none;
+
     border-radius:50%;
+
     color:white;
-    background:rgba(7,59,102,.94);
-    box-shadow:0 8px 25px rgba(0,0,0,.25);
+
+    background:
+        rgba(7,59,102,.94);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.25);
+
     font-size:20px;
+
     transition:.25s;
 }
 
 .video-play:hover{
-    transform:translate(-50%,-50%) scale(1.08);
-    background:var(--orange);
+
+    transform:
+        translate(-50%,-50%)
+        scale(1.08);
+
+    background:
+        var(--orange);
 }
 
 .video-duration{
+
     position:absolute;
+
     z-index:4;
+
     right:12px;
+
     bottom:11px;
-    padding:4px 8px;
+
+    padding:
+        4px 8px;
+
     border-radius:6px;
+
     color:white;
-    background:rgba(0,0,0,.65);
+
+    background:
+        rgba(0,0,0,.65);
+
     font-size:10px;
 }
 
 .video-body{
+
     padding:20px;
 }
 
 .video-category{
+
     color:var(--orange);
+
     font-size:9px;
+
     font-weight:600;
+
     letter-spacing:.7px;
 }
 
 .video-body h3{
+
     color:var(--blue);
+
     font-size:16px;
-    margin:6px 0;
+
+    margin:
+        6px 0;
 }
 
 .video-body p{
+
     color:var(--muted);
+
     font-size:11px;
+
     line-height:1.8;
+
     min-height:58px;
 }
 
 .video-link{
+
     margin-top:13px;
+
     padding:0;
+
     border:none;
+
     background:none;
+
     color:var(--blue);
+
     font-family:inherit;
+
     font-size:11px;
+
     font-weight:600;
 }
 
 .video-link:hover{
+
     color:var(--orange);
 }
 
 .video-complete{
+
     display:inline-block;
+
     margin-top:10px;
-    padding:4px 8px;
+
+    padding:
+        4px 8px;
+
     border-radius:6px;
+
     background:#EAF7F1;
+
     color:var(--success);
+
     font-size:9px;
 }
 
@@ -937,99 +1888,169 @@ button{
 ========================================================= */
 
 .video-modal{
+
     position:fixed;
+
     inset:0;
-    background:rgba(3,24,40,.82);
-    backdrop-filter:blur(8px);
+
+    background:
+        rgba(3,24,40,.82);
+
+    backdrop-filter:
+        blur(8px);
+
     display:none;
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
+
     z-index:1000;
 }
 
 .video-modal.show{
+
     display:flex;
 }
 
 .video-modal-content{
-    width:min(900px,100%);
+
+    width:
+        min(900px,100%);
+
     background:white;
+
     border-radius:25px;
+
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-    animation:modalIn .25s ease;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.35);
+
+    animation:
+        modalIn .25s ease;
 }
 
 @keyframes modalIn{
+
     from{
+
         opacity:0;
-        transform:translateY(15px) scale(.98);
+
+        transform:
+            translateY(15px)
+            scale(.98);
     }
+
     to{
+
         opacity:1;
-        transform:translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
 .video-modal-header{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    padding:17px 20px;
-    border-bottom:1px solid var(--border);
+
+    padding:
+        17px 20px;
+
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .video-modal-header h3{
+
     color:var(--blue);
+
     font-size:16px;
 }
 
 .close-video{
+
     width:36px;
+
     height:36px;
+
     border:none;
+
     border-radius:10px;
+
     background:#F3F6F8;
+
     color:var(--blue);
+
     font-size:18px;
 }
 
 .video-player{
+
     aspect-ratio:16/9;
+
     background:#061D2D;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 }
 
 .video-player iframe{
+
     width:100%;
+
     height:100%;
+
     border:0;
 }
 
 .video-placeholder{
+
     color:white;
+
     text-align:center;
+
     padding:30px;
 }
 
 .video-placeholder h4{
+
     font-size:20px;
+
     margin-bottom:8px;
 }
 
 .video-placeholder p{
+
     opacity:.75;
+
     font-size:12px;
+
     line-height:1.8;
 }
 
 .video-modal-footer{
-    padding:15px 20px;
+
+    padding:
+        15px 20px;
+
     color:var(--muted);
+
     font-size:11px;
+
     line-height:1.7;
 }
 
@@ -1039,56 +2060,88 @@ button{
 ========================================================= */
 
 .lesson-list{
+
     display:grid;
+
     gap:16px;
 }
 
 .lesson{
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:20px;
+
     padding:20px;
+
     display:flex;
+
     align-items:center;
+
     gap:18px;
+
     transition:.2s;
 }
 
 .lesson:hover{
+
     border-color:#BCD3E2;
+
     box-shadow:var(--shadow);
 }
 
 .lesson-number{
+
     width:48px;
+
     height:48px;
+
     border-radius:14px;
+
     background:#EAF3F8;
+
     color:var(--blue);
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-weight:700;
 }
 
 .lesson-content{
+
     flex:1;
 }
 
 .lesson-content h3{
+
     color:var(--blue);
+
     font-size:16px;
 }
 
 .lesson-content p{
+
     color:var(--muted);
+
     font-size:12px;
+
     margin-top:3px;
+
     line-height:1.7;
 }
 
 .status{
+
     font-size:11px;
+
     color:var(--success);
 }
 
@@ -1098,88 +2151,142 @@ button{
 ========================================================= */
 
 .scenario-container{
+
     max-width:850px;
+
     margin:auto;
 }
 
 .scenario-card{
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:25px;
+
     padding:30px;
+
     box-shadow:var(--shadow);
 }
 
 .scenario-label{
+
     color:var(--orange);
+
     font-size:12px;
+
     font-weight:600;
 }
 
 .scenario-card h2{
+
     color:var(--blue);
-    margin:8px 0 14px;
+
+    margin:
+        8px 0 14px;
+
     font-size:22px;
 }
 
 .scenario-text{
+
     background:#F5F8FB;
-    border-left:4px solid var(--orange);
+
+    border-left:
+        4px solid
+        var(--orange);
+
     padding:18px;
+
     border-radius:10px;
+
     font-size:14px;
+
     line-height:1.8;
 }
 
 .options{
+
     display:grid;
+
     gap:12px;
+
     margin-top:22px;
 }
 
 .option{
+
     width:100%;
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:14px;
+
     padding:15px;
+
     text-align:left;
+
     color:var(--text);
+
     transition:.2s;
+
     font-size:13px;
+
     line-height:1.6;
 }
 
 .option:hover{
+
     border-color:var(--orange);
+
     background:#FFF9F3;
 }
 
 .option.correct{
+
     background:#EAF7F1;
+
     border-color:var(--success);
 }
 
 .option.wrong{
+
     background:#FFF0EF;
+
     border-color:var(--danger);
 }
 
 .option:disabled{
+
     cursor:default;
 }
 
 .feedback{
+
     display:none;
+
     margin-top:20px;
+
     padding:18px;
+
     border-radius:15px;
+
     background:#F5F8FB;
+
     line-height:1.8;
+
     font-size:13px;
 }
 
 .feedback.show{
+
     display:block;
 }
 
@@ -1189,57 +2296,98 @@ button{
 ========================================================= */
 
 .question-card{
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:22px;
+
     padding:25px;
+
     margin-bottom:18px;
 }
 
 .question-number{
+
     color:var(--orange);
+
     font-size:12px;
+
     font-weight:600;
 }
 
 .question-card h3{
+
     color:var(--blue);
+
     font-size:16px;
-    margin:7px 0 18px;
+
+    margin:
+        7px 0 18px;
 }
 
 .assessment-option{
+
     padding:13px;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:12px;
+
     margin-bottom:9px;
+
     display:flex;
+
     gap:10px;
+
     font-size:13px;
+
     cursor:pointer;
+
     line-height:1.6;
 }
 
 .assessment-option:hover{
+
     background:#F8FBFD;
 }
 
 .result-box{
+
     display:none;
-    background:linear-gradient(120deg,#073B66,#0B5D8F);
+
+    background:
+        linear-gradient(
+            120deg,
+            #073B66,
+            #0B5D8F
+        );
+
     color:white;
+
     padding:30px;
+
     border-radius:25px;
+
     text-align:center;
 }
 
 .result-box.show{
+
     display:block;
 }
 
 .result-score{
+
     font-size:50px;
+
     font-weight:700;
+
     color:#FFD39D;
 }
 
@@ -1249,80 +2397,142 @@ button{
 ========================================================= */
 
 .profile-card{
+
     max-width:700px;
+
     margin:auto;
+
     background:white;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:28px;
+
     padding:35px;
+
     box-shadow:var(--shadow);
 }
 
 .profile-photo-wrap{
+
     text-align:center;
+
     position:relative;
+
     margin-bottom:28px;
 }
 
 .profile-photo{
+
     width:120px;
+
     height:120px;
+
     border-radius:50%;
+
     object-fit:cover;
-    border:5px solid white;
-    box-shadow:0 8px 30px rgba(7,59,102,.15);
+
+    border:
+        5px solid white;
+
+    box-shadow:
+        0 8px 30px
+        rgba(7,59,102,.15);
 }
 
 .change-photo{
+
     display:block;
-    margin:12px auto 0;
+
+    margin:
+        12px auto 0;
+
     color:var(--blue2);
+
     background:none;
+
     border:none;
+
     font-size:12px;
 }
 
 .form-group{
+
     margin-bottom:17px;
 }
 
 .form-group label{
+
     display:block;
+
     color:var(--blue);
+
     font-size:12px;
+
     margin-bottom:7px;
 }
 
 .form-group input{
+
     width:100%;
-    padding:13px 15px;
-    border:1px solid var(--border);
+
+    padding:
+        13px 15px;
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:12px;
+
     outline:none;
+
     font-size:13px;
 }
 
 .form-group input:focus{
+
     border-color:var(--orange);
 }
 
+
+/* =========================================================
+   LINE
+========================================================= */
+
 .line-box{
+
     margin-top:25px;
+
     padding:20px;
+
     border-radius:18px;
+
     background:#F5F8FB;
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
 }
 
 .line-box h3{
+
     color:var(--blue);
+
     font-size:16px;
 }
 
 .line-box p{
+
     color:var(--muted);
+
     font-size:12px;
-    margin:5px 0 13px;
+
+    margin:
+        5px 0 13px;
+
     line-height:1.7;
 }
 
@@ -1332,43 +2542,78 @@ button{
 ========================================================= */
 
 .page-navigation{
+
     max-width:850px;
-    margin:32px auto 5px;
+
+    margin:
+        32px auto 5px;
+
     padding-top:18px;
-    border-top:1px solid var(--border);
+
+    border-top:
+        1px solid
+        var(--border);
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     gap:12px;
 }
 
 .page-nav-btn{
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     background:white;
+
     color:var(--blue);
+
     border-radius:14px;
-    padding:11px 18px;
+
+    padding:
+        11px 18px;
+
     font-size:13px;
+
     font-weight:500;
-    box-shadow:0 4px 14px rgba(7,59,102,.05);
+
+    box-shadow:
+        0 4px 14px
+        rgba(7,59,102,.05);
+
     transition:.2s;
 }
 
 .page-nav-btn:hover{
+
     border-color:#BCD3E2;
-    transform:translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
 
 .page-nav-btn:disabled{
+
     opacity:.38;
+
     cursor:not-allowed;
+
     transform:none;
 }
 
 .page-nav-label{
+
     color:var(--muted);
+
     font-size:12px;
+
     text-align:center;
+
     flex:1;
 }
 
@@ -1378,57 +2623,99 @@ button{
 ========================================================= */
 
 .bottom-nav{
+
     position:fixed;
+
     bottom:0;
+
     left:0;
+
     right:0;
+
     height:75px;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(15px);
-    border-top:1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.96);
+
+    backdrop-filter:
+        blur(15px);
+
+    border-top:
+        1px solid
+        var(--border);
+
     display:flex;
+
     justify-content:center;
+
     z-index:200;
 }
 
 .nav-inner{
+
     width:100%;
+
     max-width:750px;
+
     display:grid;
-    grid-template-columns:repeat(5,1fr);
+
+    grid-template-columns:
+        repeat(5,1fr);
 }
 
 .nav-item{
+
     border:none;
+
     background:none;
+
     color:#8291A0;
+
     font-size:10px;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
+
     gap:5px;
 }
 
 .nav-item.active{
+
     color:var(--blue);
+
     font-weight:600;
 }
 
 .nav-icon{
+
     width:30px;
+
     height:30px;
+
     border-radius:10px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:10px;
+
     font-weight:700;
+
     background:#F1F5F8;
 }
 
 .nav-item.active .nav-icon{
+
     background:#E7F1F7;
+
     color:var(--orange);
 }
 
@@ -1438,26 +2725,47 @@ button{
 ========================================================= */
 
 .toast{
+
     position:fixed;
+
     left:50%;
+
     bottom:95px;
-    transform:translate(-50%,20px);
+
+    transform:
+        translate(-50%,20px);
+
     background:#073B66;
+
     color:white;
-    padding:12px 20px;
+
+    padding:
+        12px 20px;
+
     border-radius:12px;
+
     font-size:12px;
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.3s;
-    z-index:6000;
-    max-width:calc(100% - 30px);
+
+    z-index:1500;
+
+    max-width:
+        calc(100% - 30px);
+
     text-align:center;
 }
 
 .toast.show{
+
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(-50%,0);
 }
 
 
@@ -1468,136 +2776,186 @@ button{
 @media(max-width:900px){
 
     .welcome-content{
+
         grid-template-columns:1fr;
+
         padding-top:30px;
     }
 
     .welcome-visual{
+
         max-width:600px;
+
         margin:auto;
     }
 
     .cards{
-        grid-template-columns:1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .video-learning-grid{
-        grid-template-columns:1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .stats{
-        grid-template-columns:1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 }
+
 
 @media(max-width:600px){
 
     .welcome-header{
-        padding:18px 5%;
+
+        padding:
+            18px 5%;
     }
 
     .welcome-logo{
+
         width:105px;
     }
 
     .welcome-title{
+
         font-size:42px;
     }
 
     .welcome-subtitle{
+
         font-size:15px;
     }
 
     .hero-card img{
+
         height:320px;
     }
 
     .float-one{
+
         left:-5px;
+
         bottom:25px;
     }
 
     .float-two{
+
         right:-5px;
+
         top:25px;
     }
 
     .cards{
+
         grid-template-columns:1fr;
     }
 
     .video-learning-grid{
+
         grid-template-columns:1fr;
     }
 
     .stats{
-        grid-template-columns:1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .stat{
+
         padding:15px;
     }
 
     .stat-number{
+
         font-size:23px;
     }
 
     .main{
+
         padding-left:4%;
+
         padding-right:4%;
     }
 
     .user-name{
+
         display:none;
     }
 
     .lesson{
+
         padding:15px;
     }
 
     .lesson-number{
+
         width:42px;
+
         height:42px;
+
         flex-shrink:0;
     }
 
     .profile-card{
+
         padding:23px;
     }
 
     .logout-btn{
-        padding:8px 10px;
+
+        padding:
+            8px 10px;
+
         font-size:11px;
     }
 
     .page-navigation{
+
         margin-top:25px;
     }
 
     .page-nav-btn{
-        padding:10px 13px;
+
+        padding:
+            10px 13px;
+
         font-size:12px;
     }
 
     .login-card{
-        padding:28px 22px;
+
+        padding:25px 20px;
+
         border-radius:25px;
     }
 
-    .login-card h2{
-        font-size:22px;
+    .login-title{
+
+        font-size:24px;
     }
 
-    .login-feature-item{
-        font-size:8px;
-    }
 }
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
     *{
+
         scroll-behavior:auto !important;
+
         transition:none !important;
+
         animation:none !important;
     }
 }
@@ -1616,254 +2974,405 @@ button{
 
 <section id="welcome" class="page active">
 
-<header class="welcome-header">
+    <header class="welcome-header">
 
-    <img
-        class="welcome-logo"
-        src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
-        alt="ตราคณะพยาบาลศาสตร์อัครราชกุมารี ราชวิทยาลัยจุฬาภรณ์">
+        <img
+            class="welcome-logo"
+            src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
+            alt="ตราคณะพยาบาลศาสตร์อัครราชกุมารี ราชวิทยาลัยจุฬาภรณ์">
 
-</header>
-
-
-<div class="welcome-content">
+    </header>
 
 
-    <div>
+    <div class="welcome-content">
 
-        <div class="medical-label">
-            SMART HEALTH EDUCATION
+
+        <div>
+
+            <div class="medical-label">
+
+                ✦ SMART HEALTH EDUCATION
+
+            </div>
+
+
+            <h1 class="welcome-title">
+
+                SMART<br>
+
+                <span>FEVER CARE</span>
+
+            </h1>
+
+
+            <p class="welcome-subtitle">
+
+                ระบบการเรียนรู้ดิจิทัล
+                เพื่อเสริมสร้างความรู้และความมั่นใจ
+                ในการดูแลเด็กที่มีไข้สำหรับผู้ปกครอง
+
+            </p>
+
+
+            <div class="welcome-buttons">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="showLoginPage()">
+
+                    เข้าสู่ระบบ
+
+                </button>
+
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="showLoginInfo()">
+
+                    ช่องทางการเข้าสู่ระบบ
+
+                </button>
+
+            </div>
+
         </div>
 
 
-        <h1 class="welcome-title">
 
-            SMART<br>
+        <div class="welcome-visual">
 
-            <span>FEVER CARE</span>
+            <div class="hero-card">
 
-        </h1>
+                <img
+                    src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=1000&q=85"
+                    alt="การดูแลเด็กเมื่อมีไข้">
 
-
-        <p class="welcome-subtitle">
-
-            ระบบการเรียนรู้ดิจิทัลเพื่อเสริมสร้างความรู้
-            และความมั่นใจในการดูแลเด็กที่มีไข้
-            สำหรับผู้ปกครอง
-
-        </p>
+            </div>
 
 
-        <div class="welcome-buttons">
+            <div class="floating-card float-one">
 
-            <button
-                class="btn btn-primary"
-                onclick="openLogin()">
+                <strong>1–5 ปี</strong>
 
-                เข้าสู่ระบบ
+                กลุ่มผู้ปกครองเด็ก
 
-            </button>
+            </div>
 
 
-            <button
-                class="btn btn-secondary"
-                onclick="showLoginInfo()">
+            <div class="floating-card float-two">
 
-                ช่องทางการเข้าสู่ระบบ
+                <strong>Digital Health</strong>
 
-            </button>
+                Nursing Innovation
+
+            </div>
 
         </div>
 
     </div>
-
-
-    <div class="welcome-visual">
-
-        <div class="hero-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=1000&q=85"
-                alt="การดูแลเด็กเมื่อมีไข้">
-
-        </div>
-
-
-        <div class="floating-card float-one">
-
-            <strong>1–5 ปี</strong>
-
-            กลุ่มผู้ปกครองเด็ก
-
-        </div>
-
-
-        <div class="floating-card float-two">
-
-            <strong>Digital Health</strong>
-
-            Nursing Innovation
-
-        </div>
-
-    </div>
-
-</div>
 
 </section>
 
 
 
 <!-- =====================================================
-     EMAIL LOGIN
+     LOGIN PAGE
 ===================================================== -->
 
-<div
-    id="loginOverlay"
-    class="login-overlay"
-    onclick="closeLoginOutside(event)">
+<section id="loginPage" class="page">
+
+    <div class="login-decoration one"></div>
+
+    <div class="login-decoration two"></div>
+
 
     <div class="login-card">
 
-        <button
-            class="login-close"
-            onclick="closeLogin()">
 
-            ×
+        <div
+            id="loginLoading"
+            class="login-loading">
 
-        </button>
+            <div class="spinner"></div>
 
-
-        <div class="login-icon">
-            ✉
         </div>
 
 
-        <h2>
-            ยินดีต้อนรับกลับมา
-        </h2>
+        <div class="login-logo">
+
+            <img
+                src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
+                alt="ตราคณะพยาบาลศาสตร์">
+
+        </div>
 
 
-        <p class="login-card-subtitle">
+        <h1 class="login-title">
 
-            กรุณากรอกอีเมลของคุณเพื่อเข้าสู่
-            SMART FEVER CARE
-            และเริ่มต้นการเรียนรู้
+            ยินดีต้อนรับ
+
+        </h1>
+
+
+        <p class="login-subtitle">
+
+            เข้าสู่ระบบ SMART FEVER CARE<br>
+
+            เพื่อเริ่มต้นการเรียนรู้ของคุณ
 
         </p>
 
 
-        <form
-            class="email-form"
-            id="loginForm"
-            onsubmit="submitLogin(event)">
+        <!-- LOGIN TABS -->
 
-
-            <label
-                class="email-label"
-                for="loginEmail">
-
-                อีเมล
-
-            </label>
-
-
-            <div class="email-input-wrap">
-
-                <span class="email-input-icon">
-                    @
-                </span>
-
-                <input
-                    id="loginEmail"
-                    class="email-input"
-                    type="email"
-                    autocomplete="email"
-                    placeholder="example@email.com">
-
-            </div>
-
-
-            <div
-                id="emailError"
-                class="email-error">
-
-                กรุณากรอกอีเมลให้ถูกต้อง
-
-            </div>
-
-
-            <label class="remember-row">
-
-                <input
-                    type="checkbox"
-                    id="rememberEmail"
-                    checked>
-
-                จดจำอีเมลของฉัน
-
-            </label>
-
+        <div class="login-tabs">
 
             <button
-                id="loginSubmit"
-                class="login-submit"
-                type="submit">
+                id="emailTab"
+                class="login-tab active"
+                onclick="switchLoginMethod('email')">
 
-                เข้าสู่ SMART FEVER CARE
-                →
+                ✉ Email
 
             </button>
 
-        </form>
 
+            <button
+                id="lineTab"
+                class="login-tab"
+                onclick="switchLoginMethod('line')">
 
-        <div class="login-feature">
+                LINE
 
-            <div class="login-feature-item">
-
-                <strong>01</strong>
-
-                เรียนรู้
-
-            </div>
-
-
-            <div class="login-feature-item">
-
-                <strong>02</strong>
-
-                ฝึกปฏิบัติ
-
-            </div>
-
-
-            <div class="login-feature-item">
-
-                <strong>03</strong>
-
-                ประเมินผล
-
-            </div>
+            </button>
 
         </div>
 
 
-        <div class="login-footer">
 
-            ระบบการเรียนรู้ดิจิทัล
-            SMART FEVER CARE
+        <!-- EMAIL LOGIN -->
 
-            <br>
+        <div
+            id="emailLogin"
+            class="login-method active">
 
-            สำหรับการเสริมสร้างความรู้
-            ในการดูแลเด็กที่มีไข้
+
+            <div class="login-form-group">
+
+                <label>
+                    อีเมล
+                </label>
+
+                <input
+                    id="loginEmail"
+                    class="login-input"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="กรอกอีเมลของคุณ">
+
+            </div>
+
+
+            <div class="login-form-group">
+
+                <label>
+                    รหัสผ่าน
+                </label>
+
+                <div class="login-input-wrap">
+
+                    <input
+                        id="loginPassword"
+                        class="login-input"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="กรอกรหัสผ่าน">
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword()">
+
+                        แสดง
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="login-options">
+
+                <label class="remember">
+
+                    <input
+                        id="rememberMe"
+                        type="checkbox">
+
+                    จดจำการเข้าสู่ระบบ
+
+                </label>
+
+
+                <button
+                    type="button"
+                    class="forgot"
+                    onclick="forgotPassword()">
+
+                    ลืมรหัสผ่าน?
+
+                </button>
+
+            </div>
+
+
+            <button
+                class="login-submit"
+                onclick="loginWithEmail()">
+
+                เข้าสู่ระบบด้วย Email
+
+            </button>
+
+
+            <div class="login-divider">
+
+                หรือ
+
+            </div>
+
+
+            <button
+                class="line-login-btn"
+                onclick="switchLoginMethod('line')">
+
+                <span class="line-icon">
+                    L
+                </span>
+
+                เข้าสู่ระบบด้วย LINE
+
+            </button>
+
 
         </div>
+
+
+
+        <!-- LINE LOGIN -->
+
+        <div
+            id="lineLogin"
+            class="login-method">
+
+
+            <div
+                style="
+                    text-align:center;
+                    padding:10px 0 20px;
+                ">
+
+                <div
+                    style="
+                        width:75px;
+                        height:75px;
+                        margin:0 auto 15px;
+                        border-radius:22px;
+                        background:#E9FFF1;
+                        color:#06C755;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:30px;
+                        font-weight:700;
+                    ">
+
+                    L
+
+                </div>
+
+
+                <h3
+                    style="
+                        color:#073B66;
+                        font-size:18px;
+                        margin-bottom:7px;
+                    ">
+
+                    เข้าสู่ระบบด้วย LINE
+
+                </h3>
+
+
+                <p
+                    style="
+                        color:#718096;
+                        font-size:11px;
+                        line-height:1.8;
+                    ">
+
+                    เชื่อมต่อบัญชี LINE
+                    เพื่อเข้าสู่ SMART FEVER CARE
+                    ได้อย่างสะดวกและรวดเร็ว
+
+                </p>
+
+            </div>
+
+
+            <button
+                class="line-login-btn"
+                onclick="loginWithLine()">
+
+                <span class="line-icon">
+                    L
+                </span>
+
+                ดำเนินการต่อด้วย LINE
+
+            </button>
+
+
+            <div class="login-divider">
+
+                หรือ
+
+            </div>
+
+
+            <button
+                class="login-submit"
+                onclick="switchLoginMethod('email')">
+
+                ใช้ Email แทน
+
+            </button>
+
+        </div>
+
+
+
+        <button
+            class="login-back"
+            onclick="backToWelcome()">
+
+            ← กลับหน้าหลัก
+
+        </button>
+
+
+        <div class="login-security">
+
+            🔒 ข้อมูลการเข้าสู่ระบบจะถูกจัดเก็บ
+            ตามการตั้งค่าของระบบ
+
+        </div>
+
 
     </div>
 
-</div>
+</section>
 
 
 
@@ -1876,6 +3385,10 @@ button{
 
 <div class="app">
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="app-header">
 
@@ -1891,16 +3404,21 @@ button{
         <div>
 
             <div class="brand-title">
+
                 SMART FEVER CARE
+
             </div>
 
             <div class="brand-subtitle">
+
                 Digital Nursing Innovation
+
             </div>
 
         </div>
 
     </div>
+
 
 
     <div class="user-mini">
@@ -1961,8 +3479,10 @@ button{
 
 
         <p>
+
             ยินดีต้อนรับเข้าสู่
             SMART FEVER CARE
+
         </p>
 
 
@@ -1987,6 +3507,7 @@ button{
                     id="progressBar"
                     class="progress-bar"
                     style="width:0%">
+
                 </div>
 
             </div>
@@ -2205,6 +3726,7 @@ button{
             </div>
 
         </div>
+
 
     </div>
 
@@ -2431,6 +3953,8 @@ button{
 
     </div>
 
+
+
 </div>
 
 
@@ -2446,8 +3970,11 @@ button{
     </button>
 
 
-    <span class="page-nav-label">
+    <span
+        class="page-nav-label">
+
         หน้า 1 / 5
+
     </span>
 
 
@@ -2460,6 +3987,7 @@ button{
     </button>
 
 </div>
+
 
 </main>
 
@@ -2475,6 +4003,7 @@ button{
     style="display:none">
 
 <div class="main">
+
 
     <div class="page-heading">
 
@@ -2513,8 +4042,10 @@ button{
                 </h3>
 
                 <p>
+
                     ความหมาย สาเหตุ
                     และการประเมินอาการเบื้องต้น
+
                 </p>
 
             </div>
@@ -2524,6 +4055,7 @@ button{
             </span>
 
         </div>
+
 
 
         <div class="lesson">
@@ -2539,8 +4071,10 @@ button{
                 </h3>
 
                 <p>
+
                     การประเมินอุณหภูมิ
                     อาการร่วม และภาวะเสี่ยง
+
                 </p>
 
             </div>
@@ -2550,6 +4084,7 @@ button{
             </span>
 
         </div>
+
 
 
         <div class="lesson">
@@ -2565,8 +4100,10 @@ button{
                 </h3>
 
                 <p>
+
                     หลักการ วิธีปฏิบัติ
                     และข้อควรระวัง
+
                 </p>
 
             </div>
@@ -2576,6 +4113,7 @@ button{
             </span>
 
         </div>
+
 
 
         <div class="lesson">
@@ -2591,9 +4129,11 @@ button{
                 </h3>
 
                 <p>
+
                     การดูแลทั่วไป
                     การให้สารน้ำ
                     และการสังเกตอาการ
+
                 </p>
 
             </div>
@@ -2603,6 +4143,7 @@ button{
             </span>
 
         </div>
+
 
 
         <div class="lesson">
@@ -2618,8 +4159,10 @@ button{
                 </h3>
 
                 <p>
+
                     การสังเกตอาการผิดปกติ
                     และแนวทางการส่งต่อ
+
                 </p>
 
             </div>
@@ -2675,6 +4218,7 @@ button{
 
 <div class="main">
 
+
     <div class="page-heading">
 
         <small>
@@ -2686,26 +4230,37 @@ button{
         </h1>
 
         <p>
+
             ฝึกการคิดวิเคราะห์
             และตัดสินใจผ่านสถานการณ์
             การดูแลเด็กที่มีไข้
+
         </p>
 
     </div>
 
 
+
     <div class="scenario-container">
+
 
         <div class="scenario-card">
 
+
             <div class="scenario-label">
+
                 SCENARIO 01
+
             </div>
 
+
             <h2>
+
                 เด็กมีไข้สูง
                 และผู้ปกครองต้องการเช็ดตัว
+
             </h2>
+
 
             <div class="scenario-text">
 
@@ -2718,6 +4273,7 @@ button{
 
 
             <div class="options">
+
 
                 <button
                     class="option"
@@ -2758,6 +4314,7 @@ button{
 
                 </button>
 
+
             </div>
 
 
@@ -2778,6 +4335,7 @@ button{
                 ที่เหมาะสมกับสถานการณ์
 
             </div>
+
 
         </div>
 
@@ -2826,6 +4384,7 @@ button{
 
 <div class="main">
 
+
     <div class="page-heading">
 
         <small>
@@ -2837,10 +4396,13 @@ button{
         </h1>
 
         <p>
+
             แบบประเมินหลังการเรียนรู้
+
         </p>
 
     </div>
+
 
 
     <form id="assessmentForm">
@@ -2853,8 +4415,10 @@ button{
             </div>
 
             <h3>
+
                 การประเมินเด็กที่มีไข้
                 ควรให้ความสำคัญกับสิ่งใด
+
             </h3>
 
 
@@ -2905,8 +4469,10 @@ button{
             </div>
 
             <h3>
+
                 เมื่อเด็กมีไข้
                 ผู้ปกครองควรสังเกตสิ่งใดร่วมด้วย
+
             </h3>
 
 
@@ -2957,8 +4523,10 @@ button{
             </div>
 
             <h3>
+
                 การดูแลเด็กที่มีไข้
                 ควรดำเนินการอย่างไร
+
             </h3>
 
 
@@ -3012,6 +4580,7 @@ button{
         </button>
 
 
+
         <div
             id="assessmentResult"
             class="result-box"
@@ -3030,7 +4599,9 @@ button{
             </div>
 
             <p>
+
                 ผลคะแนนถูกบันทึกไว้ในระบบ
+
             </p>
 
         </div>
@@ -3081,6 +4652,7 @@ button{
 
 <div class="main">
 
+
     <div class="page-heading">
 
         <small>
@@ -3092,11 +4664,14 @@ button{
         </h1>
 
         <p>
+
             จัดการข้อมูลส่วนตัว
             และการเชื่อมต่อบัญชี
+
         </p>
 
     </div>
+
 
 
     <div class="profile-card">
@@ -3174,7 +4749,9 @@ button{
         <div class="line-box">
 
             <h3>
+
                 LINE Official Account
+
             </h3>
 
             <p>
@@ -3337,7 +4914,9 @@ button{
         <div class="video-modal-header">
 
             <h3 id="videoModalTitle">
+
                 วิดีโอเพื่อการเรียนรู้
+
             </h3>
 
 
@@ -3360,7 +4939,9 @@ button{
             <div class="video-placeholder">
 
                 <h4 id="videoPlaceholderTitle">
+
                     วิดีโอเพื่อการเรียนรู้
+
                 </h4>
 
                 <p>
@@ -3399,13 +4980,12 @@ button{
 
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
+<!-- TOAST -->
 
 <div
     id="toast"
     class="toast">
+
 </div>
 
 
@@ -3434,236 +5014,380 @@ let user = {
 };
 
 
-
 /* =========================================================
-   EMAIL LOGIN
+   WELCOME → LOGIN
 ========================================================= */
 
-function openLogin(){
-
-    const overlay =
-        document.getElementById("loginOverlay");
-
-    const emailInput =
-        document.getElementById("loginEmail");
-
-    const savedEmail =
-        localStorage.getItem("sfc_email");
-
-    if(savedEmail){
-
-        emailInput.value =
-            savedEmail;
-
-    }else{
-
-        emailInput.value =
-            "";
-
-    }
+function showLoginPage(){
 
     document
-        .getElementById("emailError")
-        .classList.remove("show");
+        .getElementById("welcome")
+        .classList.remove("active");
 
-    emailInput.classList.remove("invalid");
+    document
+        .getElementById("app")
+        .classList.remove("active");
 
-    overlay.classList.add("show");
+    document
+        .getElementById("loginPage")
+        .classList.add("active");
 
-    document.body.style.overflow =
-        "hidden";
+    document.body.style.overflow = "";
 
     setTimeout(()=>{
 
-        emailInput.focus();
+        const email =
+            localStorage.getItem("sfc_email");
+
+        if(email){
+
+            document
+                .getElementById("loginEmail")
+                .value = email;
+
+        }
+
+        document
+            .getElementById("loginEmail")
+            .focus();
+
+    },200);
+
+}
+
+
+/* =========================================================
+   BACK TO WELCOME
+========================================================= */
+
+function backToWelcome(){
+
+    document
+        .getElementById("loginPage")
+        .classList.remove("active");
+
+    document
+        .getElementById("app")
+        .classList.remove("active");
+
+    document
+        .getElementById("welcome")
+        .classList.add("active");
+
+}
+
+
+/* =========================================================
+   LOGIN INFO
+========================================================= */
+
+function showLoginInfo(){
+
+    showLoginPage();
+
+    setTimeout(()=>{
+
+        showToast(
+            "สามารถเข้าสู่ระบบได้ 2 ช่องทาง: Email หรือ LINE"
+        );
 
     },250);
 
 }
 
 
+/* =========================================================
+   LOGIN TAB
+========================================================= */
 
-function closeLogin(){
+function switchLoginMethod(method){
 
-    document
-        .getElementById("loginOverlay")
-        .classList.remove("show");
+    const emailMethod =
+        document.getElementById("emailLogin");
 
-    document.body.style.overflow =
-        "";
+    const lineMethod =
+        document.getElementById("lineLogin");
 
-}
+    const emailTab =
+        document.getElementById("emailTab");
+
+    const lineTab =
+        document.getElementById("lineTab");
 
 
+    emailMethod.classList.remove("active");
 
-function closeLoginOutside(event){
+    lineMethod.classList.remove("active");
 
-    if(
-        event.target.id ===
-        "loginOverlay"
-    ){
+    emailTab.classList.remove("active");
 
-        closeLogin();
+    lineTab.classList.remove("active");
+
+
+    if(method === "email"){
+
+        emailMethod.classList.add("active");
+
+        emailTab.classList.add("active");
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("loginEmail")
+                .focus();
+
+        },100);
+
+    }else{
+
+        lineMethod.classList.add("active");
+
+        lineTab.classList.add("active");
 
     }
 
 }
 
 
+/* =========================================================
+   PASSWORD
+========================================================= */
 
-function isValidEmail(email){
+function togglePassword(){
 
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-        email
-    );
+    const input =
+        document.getElementById("loginPassword");
+
+    const button =
+        document.querySelector(".password-toggle");
+
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        button.innerText = "ซ่อน";
+
+    }else{
+
+        input.type = "password";
+
+        button.innerText = "แสดง";
+
+    }
 
 }
 
 
+/* =========================================================
+   EMAIL LOGIN
+========================================================= */
 
-function submitLogin(event){
-
-    event.preventDefault();
-
-    const emailInput =
-        document.getElementById(
-            "loginEmail"
-        );
-
-    const error =
-        document.getElementById(
-            "emailError"
-        );
-
-    const submit =
-        document.getElementById(
-            "loginSubmit"
-        );
-
-    const remember =
-        document.getElementById(
-            "rememberEmail"
-        );
+function loginWithEmail(){
 
     const email =
-        emailInput.value.trim();
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("loginPassword")
+            .value;
+
+    const remember =
+        document
+            .getElementById("rememberMe")
+            .checked;
 
 
-    if(!isValidEmail(email)){
+    if(!email){
 
-        emailInput.classList.add(
-            "invalid"
+        showToast(
+            "กรุณากรอกอีเมล"
         );
 
-        error.classList.add(
-            "show"
-        );
-
-        emailInput.focus();
+        document
+            .getElementById("loginEmail")
+            .focus();
 
         return;
 
     }
 
 
-    emailInput.classList.remove(
-        "invalid"
-    );
-
-    error.classList.remove(
-        "show"
-    );
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-    submit.classList.add(
-        "loading"
-    );
+    if(!emailPattern.test(email)){
 
-    submit.innerText =
-        "กำลังเข้าสู่ระบบ...";
-
-
-    /*
-       จำอีเมล
-    */
-
-    if(remember.checked){
-
-        localStorage.setItem(
-            "sfc_email",
-            email
+        showToast(
+            "กรุณากรอกอีเมลให้ถูกต้อง"
         );
 
-    }else{
+        document
+            .getElementById("loginEmail")
+            .focus();
 
-        localStorage.removeItem(
-            "sfc_email"
-        );
+        return;
 
     }
 
 
-    user.email =
-        email;
+    if(!password){
+
+        showToast(
+            "กรุณากรอกรหัสผ่าน"
+        );
+
+        document
+            .getElementById("loginPassword")
+            .focus();
+
+        return;
+
+    }
+
+
+    if(password.length < 6){
+
+        showToast(
+            "รหัสผ่านควรมีอย่างน้อย 6 ตัวอักษร"
+        );
+
+        return;
+
+    }
+
+
+    showLoginLoading(true);
 
 
     /*
-       ตั้งชื่อจากอีเมล
-       หากยังไม่มีชื่อ
+       ส่วนนี้เป็นระบบ Login ฝั่งหน้าเว็บ
+       สำหรับ Demo / Prototype
+
+       หากต้องการ Login จริง
+       ให้เชื่อมต่อ Backend / Firebase
+       / Supabase / ระบบฐานข้อมูล
+       ในฟังก์ชันนี้
     */
 
-    if(
-        !localStorage.getItem(
-            "sfc_name"
-        )
-    ){
+    setTimeout(()=>{
 
-        const emailName =
-            email
-            .split("@")[0]
-            .replace(/[._-]+/g," ");
+        user.email = email;
 
         user.name =
-            emailName || "ผู้ใช้งาน";
+            email
+                .split("@")[0]
+                .replace(/[._-]/g," ")
+                .replace(/\b\w/g,c=>c.toUpperCase());
+
+
+        localStorage.setItem(
+            "sfc_email",
+            user.email
+        );
 
         localStorage.setItem(
             "sfc_name",
             user.name
         );
 
-    }
+
+        if(remember){
+
+            localStorage.setItem(
+                "sfc_login",
+                "email"
+            );
+
+        }else{
+
+            localStorage.removeItem(
+                "sfc_login"
+            );
+
+        }
 
 
-    setTimeout(()=>{
+        showLoginLoading(false);
 
-        submit.classList.remove(
-            "loading"
-        );
+        enterApplication();
 
-        submit.innerText =
-            "เข้าสู่ SMART FEVER CARE →";
-
-
-        closeLogin();
-
-        loginSystem();
-
-    },650);
+    },700);
 
 }
 
 
-
 /* =========================================================
-   LOGIN SYSTEM
+   LINE LOGIN
 ========================================================= */
 
-function loginSystem(){
+function loginWithLine(){
+
+    showLoginLoading(true);
+
+
+    /*
+       IMPORTANT
+
+       ฟังก์ชันนี้เป็น Demo UI
+
+       สำหรับ LINE Login จริง
+       ต้องนำ LIFF ID หรือ LINE Login
+       Channel ID มาใส่ และเชื่อมต่อ
+       LINE Developers / LIFF
+
+       ตัวอย่างในอนาคต:
+
+       liff.init({
+           liffId:"YOUR_LIFF_ID"
+       })
+
+    */
+
+
+    setTimeout(()=>{
+
+        user.name =
+            localStorage.getItem("sfc_name")
+            || "ผู้ใช้งาน LINE";
+
+        localStorage.setItem(
+            "sfc_name",
+            user.name
+        );
+
+        localStorage.setItem(
+            "sfc_login",
+            "line"
+        );
+
+        showLoginLoading(false);
+
+        enterApplication();
+
+    },900);
+
+}
+
+
+/* =========================================================
+   ENTER APP
+========================================================= */
+
+function enterApplication(){
 
     document
         .getElementById("welcome")
         .classList.remove("active");
 
+    document
+        .getElementById("loginPage")
+        .classList.remove("active");
 
     document
         .getElementById("app")
@@ -3674,22 +5398,67 @@ function loginSystem(){
 
     openPage("home");
 
+
     showToast(
-        "เข้าสู่ SMART FEVER CARE แล้ว"
+        "เข้าสู่ SMART FEVER CARE เรียบร้อยแล้ว"
     );
 
 }
 
 
+/* =========================================================
+   LOGIN LOADING
+========================================================= */
 
-function showLoginInfo(){
+function showLoginLoading(show){
 
-    showToast(
-        "เข้าสู่ระบบด้วยอีเมลของคุณได้ทันที"
-    );
+    const loading =
+        document.getElementById(
+            "loginLoading"
+        );
+
+    if(show){
+
+        loading.classList.add("show");
+
+    }else{
+
+        loading.classList.remove("show");
+
+    }
 
 }
 
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+function forgotPassword(){
+
+    const email =
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+
+    if(!email){
+
+        showToast(
+            "กรุณากรอกอีเมลก่อน"
+        );
+
+        return;
+
+    }
+
+
+    showToast(
+        "ระบบ Demo: สามารถเพิ่มระบบส่งลิงก์รีเซ็ตรหัสผ่านทาง Email ได้ในขั้นตอนเชื่อมต่อ Backend"
+    );
+
+}
 
 
 /* =========================================================
@@ -3699,13 +5468,16 @@ function showLoginInfo(){
 const pageOrder = [
 
     "home",
+
     "lessons",
+
     "scenario",
+
     "assessment",
+
     "profile"
 
 ];
-
 
 
 /* =========================================================
@@ -3751,7 +5523,9 @@ function navigatePage(direction){
         showToast(
 
             direction < 0
+
             ? "คุณอยู่หน้าแรกแล้ว"
+
             : "คุณอยู่หน้าสุดท้ายแล้ว"
 
         );
@@ -3768,9 +5542,8 @@ function navigatePage(direction){
 }
 
 
-
 /* =========================================================
-   UPDATE NAVIGATION
+   UPDATE PAGE NAV
 ========================================================= */
 
 function updatePageNavigation(page){
@@ -3808,7 +5581,8 @@ function updatePageNavigation(page){
     nextButtons.forEach(btn=>{
 
         btn.disabled =
-            index >= pageOrder.length - 1;
+            index >=
+            pageOrder.length - 1;
 
     });
 
@@ -3821,7 +5595,6 @@ function updatePageNavigation(page){
     });
 
 }
-
 
 
 /* =========================================================
@@ -3877,18 +5650,20 @@ function openPage(page){
         });
 
 
-    updatePageNavigation(page);
+    updatePageNavigation(
+        page
+    );
 
 
     window.scrollTo({
 
         top:0,
+
         behavior:"smooth"
 
     });
 
 }
-
 
 
 /* =========================================================
@@ -3916,47 +5691,13 @@ function logoutSystem(){
 
 
     document
+        .getElementById("loginPage")
+        .classList.remove("active");
+
+
+    document
         .getElementById("welcome")
         .classList.add("active");
-
-
-    document
-        .querySelectorAll(".app-page")
-        .forEach(el=>{
-
-            el.style.display =
-                "none";
-
-        });
-
-
-    document
-        .getElementById("homePage")
-        .style.display =
-            "block";
-
-
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(el=>{
-
-            el.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    document
-        .querySelector(
-            '.nav-item[data-page="home"]'
-        )
-        .classList.add(
-            "active"
-        );
-
-
-    updatePageNavigation("home");
 
 
     showToast(
@@ -3964,7 +5705,6 @@ function logoutSystem(){
     );
 
 }
-
 
 
 /* =========================================================
@@ -4014,7 +5754,6 @@ function updateUser(){
     updateVideoStatus();
 
 }
-
 
 
 /* =========================================================
@@ -4067,9 +5806,8 @@ function saveProfile(){
 }
 
 
-
 /* =========================================================
-   CHANGE PHOTO
+   PHOTO
 ========================================================= */
 
 function changePhoto(event){
@@ -4086,7 +5824,9 @@ function changePhoto(event){
 
 
     if(
-        !file.type.startsWith("image/")
+        !file.type.startsWith(
+            "image/"
+        )
     ){
 
         showToast(
@@ -4125,10 +5865,11 @@ function changePhoto(event){
         };
 
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(
+        file
+    );
 
 }
-
 
 
 /* =========================================================
@@ -4158,6 +5899,7 @@ function answerScenario(
             "correct"
         );
 
+
         showToast(
             "คำตอบถูกต้อง"
         );
@@ -4167,6 +5909,7 @@ function answerScenario(
         button.classList.add(
             "wrong"
         );
+
 
         showToast(
             "คำตอบยังไม่ถูกต้อง"
@@ -4193,7 +5936,6 @@ function answerScenario(
     updateProgress();
 
 }
-
 
 
 /* =========================================================
@@ -4286,7 +6028,6 @@ function submitAssessment(){
 }
 
 
-
 /* =========================================================
    VIDEO DATA
 ========================================================= */
@@ -4294,25 +6035,47 @@ function submitAssessment(){
 const videoData = {
 
     assessment:{
-        title:"หลักการประเมินเด็กที่มีไข้",
-        placeholder:"หลักการประเมินเด็กที่มีไข้",
-        key:"assessment"
+
+        title:
+            "หลักการประเมินเด็กที่มีไข้",
+
+        placeholder:
+            "หลักการประเมินเด็กที่มีไข้",
+
+        key:
+            "assessment"
+
     },
+
 
     tepid:{
-        title:"แนวทางการเช็ดตัวลดไข้",
-        placeholder:"แนวทางการเช็ดตัวลดไข้",
-        key:"tepid"
+
+        title:
+            "แนวทางการเช็ดตัวลดไข้",
+
+        placeholder:
+            "แนวทางการเช็ดตัวลดไข้",
+
+        key:
+            "tepid"
+
     },
 
+
     warning:{
-        title:"การเฝ้าระวังอาการผิดปกติ",
-        placeholder:"การเฝ้าระวังอาการผิดปกติ",
-        key:"warning"
+
+        title:
+            "การเฝ้าระวังอาการผิดปกติ",
+
+        placeholder:
+            "การเฝ้าระวังอาการผิดปกติ",
+
+        key:
+            "warning"
+
     }
 
 };
-
 
 
 /* =========================================================
@@ -4376,7 +6139,6 @@ function openVideo(type){
 }
 
 
-
 /* =========================================================
    CLOSE VIDEO
 ========================================================= */
@@ -4400,7 +6162,6 @@ function closeVideo(){
 }
 
 
-
 /* =========================================================
    CLOSE VIDEO OUTSIDE
 ========================================================= */
@@ -4419,7 +6180,6 @@ function closeVideoOutside(event){
 }
 
 
-
 /* =========================================================
    VIDEO STATUS
 ========================================================= */
@@ -4427,9 +6187,13 @@ function closeVideoOutside(event){
 function updateVideoStatus(){
 
     const items = [
+
         "assessment",
+
         "tepid",
+
         "warning"
+
     ];
 
 
@@ -4461,7 +6225,6 @@ function updateVideoStatus(){
     });
 
 }
-
 
 
 /* =========================================================
@@ -4502,7 +6265,9 @@ function updateProgress(){
     const videoCount = [
 
         "assessment",
+
         "tepid",
+
         "warning"
 
     ].filter(type=>{
@@ -4563,19 +6328,19 @@ function updateProgress(){
 }
 
 
-
 /* =========================================================
    LINE OA
 ========================================================= */
 
 function connectLine(){
 
+    switchLoginMethod("line");
+
     showToast(
-        "LINE OA จะสามารถเชื่อมต่อได้เมื่อสร้าง LINE Official Account และตั้งค่า LIFF หรือ LINE Login แล้ว"
+        "กรุณาเข้าสู่ระบบด้วย LINE เพื่อเชื่อมต่อบัญชี"
     );
 
 }
-
 
 
 /* =========================================================
@@ -4616,9 +6381,8 @@ function showToast(message){
 }
 
 
-
 /* =========================================================
-   KEYBOARD
+   ESC CLOSE MODAL
 ========================================================= */
 
 document.addEventListener(
@@ -4631,8 +6395,6 @@ document.addEventListener(
 
             closeVideo();
 
-            closeLogin();
-
         }
 
     }
@@ -4640,30 +6402,41 @@ document.addEventListener(
 
 
 /* =========================================================
-   REMOVE EMAIL ERROR WHILE TYPING
+   ENTER KEY LOGIN
 ========================================================= */
 
-document
-    .getElementById("loginEmail")
-    .addEventListener(
-        "input",
-        function(){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-            this.classList.remove(
-                "invalid"
+        const loginPage =
+            document.getElementById(
+                "loginPage"
             );
 
-            document
-                .getElementById(
-                    "emailError"
-                )
-                .classList.remove(
-                    "show"
-                );
+
+        if(
+            event.key === "Enter" &&
+            loginPage.classList.contains("active")
+        ){
+
+            const emailMethod =
+                document
+                    .getElementById("emailLogin")
+                    .classList
+                    .contains("active");
+
+
+            if(emailMethod){
+
+                loginWithEmail();
+
+            }
 
         }
-    );
 
+    }
+);
 
 
 /* =========================================================
@@ -4679,3 +6452,4 @@ openPage("home");
 
 </body>
 </html>
+```
