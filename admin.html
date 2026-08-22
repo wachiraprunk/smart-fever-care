@@ -1,0 +1,3053 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>SMART FEVER CARE</title>
+
+  <!-- =========================================================
+       SUPABASE
+  ========================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #0ea5a4;
+      --primary-dark: #087f7e;
+      --secondary: #14b8a6;
+      --bg: #f0fdfa;
+      --card: #ffffff;
+      --text: #173b3a;
+      --muted: #64748b;
+      --border: #dbe7e7;
+      --danger: #ef4444;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --shadow: 0 10px 30px rgba(15, 118, 110, 0.12);
+    }
+
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans Thai",
+        "Tahoma",
+        sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ecfeff 0%,
+          #f0fdfa 45%,
+          #ffffff 100%
+        );
+
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================================================
+       LOADING
+    ========================================================== */
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .loading-box {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border: 5px solid #d1fae5;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto 18px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================================================
+       AUTH
+    ========================================================== */
+
+    #authPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 1050px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #ffffff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(15, 118, 110, 0.16);
+    }
+
+    .auth-banner {
+      padding: 55px 45px;
+      background:
+        linear-gradient(
+          145deg,
+          #0f766e,
+          #0d9488,
+          #14b8a6
+        );
+
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo-circle {
+      width: 86px;
+      height: 86px;
+      background: rgba(255,255,255,.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      margin-bottom: 25px;
+    }
+
+    .auth-banner h1 {
+      font-size: 34px;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+
+    .auth-banner p {
+      font-size: 16px;
+      line-height: 1.8;
+      opacity: .92;
+    }
+
+    .feature-list {
+      margin-top: 28px;
+      list-style: none;
+    }
+
+    .feature-list li {
+      margin: 13px 0;
+      font-size: 15px;
+    }
+
+    .auth-form {
+      padding: 45px;
+    }
+
+    .auth-form h2 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f1f5f9;
+      padding: 5px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    .tab {
+      flex: 1;
+      border: 0;
+      padding: 11px;
+      background: transparent;
+      border-radius: 9px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .tab.active {
+      background: #ffffff;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 14px;
+      font-size: 15px;
+      outline: none;
+      transition: .2s;
+      background: #fff;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(14,165,164,.1);
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px;
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+      );
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 7px 18px rgba(14,165,164,.25);
+    }
+
+    .primary-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .message.error {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .message.success {
+      background: #f0fdf4;
+      color: #15803d;
+    }
+
+    /* =========================================================
+       MAIN APP
+    ========================================================== */
+
+    #appPage {
+      min-height: 100vh;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 12px;
+      background: linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+      );
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 16px;
+      color: var(--primary-dark);
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: #f0fdfa;
+    }
+
+    .avatar {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ccfbf1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f766e;
+      font-weight: 800;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-mini-info strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .user-mini-info span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .outline-btn {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 9px 13px;
+      font-weight: 600;
+    }
+
+    .outline-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    .danger-btn {
+      border: 0;
+      background: #fee2e2;
+      color: #b91c1c;
+      border-radius: 10px;
+      padding: 9px 13px;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px 60px;
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================== */
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #0f766e,
+          #0d9488,
+          #14b8a6
+        );
+
+      color: white;
+      border-radius: 25px;
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 25px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      right: -90px;
+      top: -100px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      line-height: 1.8;
+      opacity: .92;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 18px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card .number {
+      font-size: 31px;
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    /* =========================================================
+       CARDS
+    ========================================================== */
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 25px 0 15px;
+    }
+
+    .section-title h2 {
+      font-size: 21px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 21px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-icon {
+      width: 47px;
+      height: 47px;
+      border-radius: 13px;
+      background: #ccfbf1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       PROFILE
+    ========================================================== */
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+    }
+
+    .profile-side {
+      text-align: center;
+    }
+
+    .profile-large-avatar {
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      overflow: hidden;
+      background: #ccfbf1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: #0f766e;
+      font-weight: 800;
+    }
+
+    .profile-large-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-side h2 {
+      font-size: 20px;
+    }
+
+    .profile-side p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+      word-break: break-word;
+    }
+
+    .profile-form {
+      max-width: 700px;
+    }
+
+    .profile-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .save-btn {
+      border: 0;
+      background: var(--primary);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       ADMIN
+    ========================================================== */
+
+    .admin-header {
+      background:
+        linear-gradient(
+          135deg,
+          #172554,
+          #1e3a8a
+        );
+
+      color: white;
+      padding: 28px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .admin-header h2 {
+      margin-bottom: 5px;
+    }
+
+    .table-wrapper {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: auto;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 750px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #edf2f2;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .role-admin {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .role-user {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.55);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: white;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 25px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      border: 0;
+      background: #f1f5f9;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 19px;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================== */
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 850px) {
+
+      .auth-container {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-banner {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar-inner {
+        flex-wrap: wrap;
+      }
+
+      .user-mini-info {
+        display: none;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      #authPage {
+        padding: 12px;
+      }
+
+      .auth-form {
+        padding: 25px 20px;
+      }
+
+      .container {
+        padding: 20px 12px 50px;
+      }
+
+      .hero {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .nav-actions .outline-btn {
+        display: none;
+      }
+
+      .brand-text strong {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================================
+       LOADING
+  ========================================================== -->
+
+  <div id="loadingScreen">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <strong>SMART FEVER CARE</strong>
+      <p style="color:#64748b;margin-top:7px;">
+        กำลังโหลดระบบ...
+      </p>
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       AUTH PAGE
+  ========================================================== -->
+
+  <section id="authPage" class="hidden">
+
+    <div class="auth-container">
+
+      <div class="auth-banner">
+
+        <div class="logo-circle">
+          🩺
+        </div>
+
+        <h1>
+          SMART FEVER CARE
+        </h1>
+
+        <p>
+          ระบบดูแลและติดตามข้อมูลเกี่ยวกับไข้
+          เพื่อช่วยให้ผู้ใช้งานสามารถจัดการข้อมูล
+          และเข้าถึงระบบได้อย่างสะดวก
+        </p>
+
+        <ul class="feature-list">
+          <li>✓ ระบบสมาชิก</li>
+          <li>✓ จัดการโปรไฟล์ส่วนตัว</li>
+          <li>✓ ระบบผู้ดูแลระบบ</li>
+          <li>✓ เชื่อมต่อฐานข้อมูล Supabase</li>
+        </ul>
+
+      </div>
+
+
+      <div class="auth-form">
+
+        <h2 id="authTitle">
+          เข้าสู่ระบบ
+        </h2>
+
+        <p class="auth-subtitle">
+          ยินดีต้อนรับเข้าสู่ SMART FEVER CARE
+        </p>
+
+
+        <div class="tabs">
+
+          <button
+            id="loginTab"
+            class="tab active"
+            onclick="switchAuth('login')"
+          >
+            เข้าสู่ระบบ
+          </button>
+
+          <button
+            id="signupTab"
+            class="tab"
+            onclick="switchAuth('signup')"
+          >
+            สมัครสมาชิก
+          </button>
+
+        </div>
+
+
+        <div id="authMessage"></div>
+
+
+        <!-- LOGIN -->
+
+        <form
+          id="loginForm"
+          onsubmit="login(event)"
+        >
+
+          <div class="form-group">
+
+            <label>
+              อีเมล
+            </label>
+
+            <input
+              id="loginEmail"
+              type="email"
+              placeholder="example@email.com"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              รหัสผ่าน
+            </label>
+
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="รหัสผ่าน"
+              required
+            >
+
+          </div>
+
+
+          <button
+            id="loginButton"
+            class="primary-btn"
+            type="submit"
+          >
+            เข้าสู่ระบบ
+          </button>
+
+        </form>
+
+
+        <!-- SIGNUP -->
+
+        <form
+          id="signupForm"
+          class="hidden"
+          onsubmit="signup(event)"
+        >
+
+          <div class="form-group">
+
+            <label>
+              ชื่อผู้ใช้
+            </label>
+
+            <input
+              id="signupName"
+              type="text"
+              placeholder="ชื่อของคุณ"
+              minlength="2"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              อีเมล
+            </label>
+
+            <input
+              id="signupEmail"
+              type="email"
+              placeholder="example@email.com"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              รหัสผ่าน
+            </label>
+
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="อย่างน้อย 6 ตัวอักษร"
+              minlength="6"
+              required
+            >
+
+          </div>
+
+
+          <button
+            id="signupButton"
+            class="primary-btn"
+            type="submit"
+          >
+            สมัครสมาชิก
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       MAIN APP
+  ========================================================== -->
+
+  <section id="appPage" class="hidden">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+      <div class="navbar-inner">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            🩺
+          </div>
+
+          <div class="brand-text">
+
+            <strong>
+              SMART FEVER CARE
+            </strong>
+
+            <span>
+              ระบบดูแลสุขภาพ
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+          <div class="user-mini">
+
+            <div
+              id="navAvatar"
+              class="avatar"
+            >
+              U
+            </div>
+
+            <div class="user-mini-info">
+
+              <strong id="navName">
+                ผู้ใช้งาน
+              </strong>
+
+              <span id="navEmail">
+                -
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="outline-btn"
+            onclick="showPage('home')"
+          >
+            หน้าหลัก
+          </button>
+
+
+          <button
+            class="outline-btn"
+            onclick="showPage('profile')"
+          >
+            โปรไฟล์
+          </button>
+
+
+          <button
+            id="adminNavButton"
+            class="outline-btn hidden"
+            onclick="showPage('admin')"
+          >
+            👑 Admin
+          </button>
+
+
+          <button
+            class="danger-btn"
+            onclick="logout()"
+          >
+            ออกจากระบบ
+          </button>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+
+    <!-- =======================================================
+         HOME
+    ======================================================== -->
+
+    <main
+      id="homePage"
+      class="container"
+    >
+
+      <div class="hero">
+
+        <div>
+
+          <h1>
+            สวัสดี <span id="welcomeName">ผู้ใช้งาน</span> 👋
+          </h1>
+
+          <p>
+            ยินดีต้อนรับเข้าสู่ระบบ
+            SMART FEVER CARE
+            ระบบสำหรับดูแลและติดตามข้อมูลสุขภาพของคุณ
+          </p>
+
+        </div>
+
+
+        <div class="hero-card">
+
+          <div>
+            สถานะบัญชี
+          </div>
+
+          <div
+            class="number"
+            id="accountStatus"
+          >
+            ✓ ใช้งานอยู่
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+
+        <h2>
+          เมนูหลัก
+        </h2>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="card-icon">
+            🌡️
+          </div>
+
+          <h3>
+            ข้อมูลไข้
+          </h3>
+
+          <p>
+            ติดตามและจัดการข้อมูลที่เกี่ยวข้องกับอุณหภูมิ
+            และอาการไข้ของผู้ใช้งาน
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-icon">
+            👤
+          </div>
+
+          <h3>
+            โปรไฟล์ของฉัน
+          </h3>
+
+          <p>
+            สามารถเปลี่ยนชื่อผู้ใช้
+            และรูปโปรไฟล์ได้
+          </p>
+
+          <button
+            class="outline-btn"
+            style="margin-top:15px;"
+            onclick="showPage('profile')"
+          >
+            แก้ไขโปรไฟล์
+          </button>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-icon">
+            🔐
+          </div>
+
+          <h3>
+            บัญชีผู้ใช้
+          </h3>
+
+          <p>
+            บัญชีของคุณเชื่อมต่อกับระบบ
+            Supabase Authentication
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+
+        <h2>
+          คำแนะนำ
+        </h2>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3 style="margin-bottom:10px;">
+          💡 ดูแลสุขภาพของคุณ
+        </h3>
+
+        <p>
+          หากมีไข้สูงหรือมีอาการผิดปกติ
+          ควรพักผ่อน ดื่มน้ำให้เพียงพอ
+          และปรึกษาบุคลากรทางการแพทย์
+          ตามความเหมาะสม
+        </p>
+
+      </div>
+
+    </main>
+
+
+    <!-- =======================================================
+         PROFILE
+    ======================================================== -->
+
+    <main
+      id="profilePage"
+      class="container hidden"
+    >
+
+      <div class="section-title">
+
+        <h2>
+          👤 โปรไฟล์ของฉัน
+        </h2>
+
+      </div>
+
+
+      <div class="profile-layout">
+
+
+        <div class="card profile-side">
+
+          <div
+            id="profileAvatar"
+            class="profile-large-avatar"
+          >
+            U
+          </div>
+
+          <h2 id="profileDisplayName">
+            ผู้ใช้งาน
+          </h2>
+
+          <p id="profileDisplayEmail">
+            -
+          </p>
+
+          <div
+            id="profileRole"
+            style="margin-top:12px;"
+          >
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <form
+            id="profileForm"
+            class="profile-form"
+            onsubmit="saveProfile(event)"
+          >
+
+            <div class="form-group">
+
+              <label>
+                ชื่อผู้ใช้
+              </label>
+
+              <input
+                id="profileName"
+                type="text"
+                placeholder="ชื่อผู้ใช้"
+                minlength="2"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                อีเมล
+              </label>
+
+              <input
+                id="profileEmail"
+                type="email"
+                readonly
+                style="background:#f8fafc;"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                รูปโปรไฟล์
+              </label>
+
+              <input
+                id="profilePhoto"
+                type="url"
+                placeholder="https://example.com/photo.jpg"
+              >
+
+              <small
+                style="
+                  display:block;
+                  margin-top:7px;
+                  color:#64748b;
+                "
+              >
+                ใส่ URL ของรูปภาพที่ต้องการใช้
+              </small>
+
+            </div>
+
+
+            <div id="profileMessage"></div>
+
+
+            <button
+              id="saveProfileButton"
+              class="save-btn"
+              type="submit"
+            >
+              💾 บันทึกโปรไฟล์
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </main>
+
+
+    <!-- =======================================================
+         ADMIN
+    ======================================================== -->
+
+    <main
+      id="adminPage"
+      class="container hidden"
+    >
+
+      <div class="admin-header">
+
+        <h2>
+          👑 Admin Dashboard
+        </h2>
+
+        <p>
+          จัดการและดูข้อมูลผู้ใช้งานระบบ
+        </p>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="card-icon">
+            👥
+          </div>
+
+          <h3>
+            ผู้ใช้งานทั้งหมด
+          </h3>
+
+          <p
+            id="totalUsers"
+            style="
+              font-size:30px;
+              font-weight:800;
+              color:#0f766e;
+              margin-top:5px;
+            "
+          >
+            -
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-icon">
+            👑
+          </div>
+
+          <h3>
+            ผู้ดูแลระบบ
+          </h3>
+
+          <p
+            id="totalAdmins"
+            style="
+              font-size:30px;
+              font-weight:800;
+              color:#1d4ed8;
+              margin-top:5px;
+            "
+          >
+            -
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-icon">
+            🟢
+          </div>
+
+          <h3>
+            สถานะระบบ
+          </h3>
+
+          <p
+            style="
+              font-size:20px;
+              font-weight:800;
+              color:#16a34a;
+              margin-top:10px;
+            "
+          >
+            Online
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+
+        <h2>
+          รายชื่อผู้ใช้งาน
+        </h2>
+
+        <button
+          class="outline-btn"
+          onclick="loadAdminUsers()"
+        >
+          🔄 รีเฟรช
+        </button>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                ผู้ใช้
+              </th>
+
+              <th>
+                อีเมล
+              </th>
+
+              <th>
+                บทบาท
+              </th>
+
+              <th>
+                วันที่สมัคร
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="usersTableBody">
+
+            <tr>
+
+              <td
+                colspan="4"
+                style="text-align:center;"
+              >
+                กำลังโหลด...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </main>
+
+
+    <footer>
+
+      SMART FEVER CARE
+      <br>
+      ระบบดูแลและติดตามข้อมูลสุขภาพ
+
+    </footer>
+
+  </section>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script>
+
+    /* =========================================================
+       SUPABASE CONFIG
+    ========================================================== */
+
+    const SUPABASE_URL =
+      "https://urqkglxfzusdjwvtnizv.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_Lm5h8CK36cVPFT0ctEYHCw_EY6n6197";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    /* =========================================================
+       ADMIN EMAIL
+    ========================================================== */
+
+    const ADMIN_EMAIL =
+      "wachiraprun.k@gmail.com";
+
+
+    /* =========================================================
+       GLOBAL VARIABLES
+    ========================================================== */
+
+    let currentUser = null;
+    let currentProfile = null;
+
+
+    /* =========================================================
+       START
+    ========================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth.getSession();
+
+          if (error) {
+            throw error;
+          }
+
+          if (data.session) {
+
+            await initializeUser(
+              data.session.user
+            );
+
+          } else {
+
+            showAuthPage();
+
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+          showAuthPage();
+
+        }
+
+        document
+          .getElementById("loadingScreen")
+          .classList.add("hidden");
+
+      }
+    );
+
+
+    /* =========================================================
+       AUTH STATE
+    ========================================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+      async function (
+        event,
+        session
+      ) {
+
+        if (session && session.user) {
+
+          await initializeUser(
+            session.user
+          );
+
+        } else {
+
+          currentUser = null;
+          currentProfile = null;
+
+          showAuthPage();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       SHOW AUTH
+    ========================================================== */
+
+    function showAuthPage() {
+
+      document
+        .getElementById("authPage")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("appPage")
+        .classList.add("hidden");
+
+    }
+
+
+    /* =========================================================
+       SHOW APP
+    ========================================================== */
+
+    function showApp() {
+
+      document
+        .getElementById("authPage")
+        .classList.add("hidden");
+
+      document
+        .getElementById("appPage")
+        .classList.remove("hidden");
+
+    }
+
+
+    /* =========================================================
+       SWITCH AUTH
+    ========================================================== */
+
+    function switchAuth(type) {
+
+      const loginForm =
+        document.getElementById("loginForm");
+
+      const signupForm =
+        document.getElementById("signupForm");
+
+      const loginTab =
+        document.getElementById("loginTab");
+
+      const signupTab =
+        document.getElementById("signupTab");
+
+      const title =
+        document.getElementById("authTitle");
+
+
+      clearAuthMessage();
+
+
+      if (type === "login") {
+
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+
+        title.textContent =
+          "เข้าสู่ระบบ";
+
+      } else {
+
+        loginForm.classList.add("hidden");
+        signupForm.classList.remove("hidden");
+
+        loginTab.classList.remove("active");
+        signupTab.classList.add("active");
+
+        title.textContent =
+          "สมัครสมาชิก";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOGIN
+    ========================================================== */
+
+    async function login(event) {
+
+      event.preventDefault();
+
+      const button =
+        document.getElementById("loginButton");
+
+      const email =
+        document.getElementById("loginEmail")
+          .value
+          .trim();
+
+      const password =
+        document.getElementById("loginPassword")
+          .value;
+
+
+      button.disabled = true;
+      button.textContent =
+        "กำลังเข้าสู่ระบบ...";
+
+      clearAuthMessage();
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        if (data.user) {
+
+          await initializeUser(
+            data.user
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        showAuthMessage(
+          getErrorMessage(error),
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+        button.textContent =
+          "เข้าสู่ระบบ";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SIGN UP
+    ========================================================== */
+
+    async function signup(event) {
+
+      event.preventDefault();
+
+      const button =
+        document.getElementById("signupButton");
+
+      const name =
+        document.getElementById("signupName")
+          .value
+          .trim();
+
+      const email =
+        document.getElementById("signupEmail")
+          .value
+          .trim();
+
+      const password =
+        document.getElementById("signupPassword")
+          .value;
+
+
+      button.disabled = true;
+      button.textContent =
+        "กำลังสมัครสมาชิก...";
+
+      clearAuthMessage();
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+              data: {
+
+                name: name,
+
+                full_name: name
+
+              }
+
+            }
+
+          });
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        /*
+         * สร้างข้อมูลใน profiles
+         */
+
+        if (data.user) {
+
+          await createOrUpdateProfile(
+            data.user,
+            name,
+            ""
+          );
+
+        }
+
+
+        if (
+          data.session &&
+          data.user
+        ) {
+
+          await initializeUser(
+            data.user
+          );
+
+        } else {
+
+          showAuthMessage(
+            "สมัครสมาชิกสำเร็จ กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี ก่อนเข้าสู่ระบบ",
+            "success"
+          );
+
+          switchAuth("login");
+
+        }
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showAuthMessage(
+          getErrorMessage(error),
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+        button.textContent =
+          "สมัครสมาชิก";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE USER
+    ========================================================== */
+
+    async function initializeUser(user) {
+
+      if (!user) {
+        return;
+      }
+
+      currentUser = user;
+
+
+      /*
+       * ดึงข้อมูล profile
+       */
+
+      await loadCurrentProfile();
+
+
+      /*
+       * ถ้ายังไม่มี profile
+       * สร้างจากข้อมูล Auth
+       */
+
+      if (!currentProfile) {
+
+        const fallbackName =
+          user.user_metadata?.name ||
+          user.user_metadata?.full_name ||
+          user.email?.split("@")[0] ||
+          "ผู้ใช้งาน";
+
+
+        await createOrUpdateProfile(
+          user,
+          fallbackName,
+          user.user_metadata?.avatar_url || ""
+        );
+
+
+        await loadCurrentProfile();
+
+      }
+
+
+      updateUserInterface();
+
+      showApp();
+
+      showPage("home");
+
+    }
+
+
+    /* =========================================================
+       LOAD CURRENT PROFILE
+    ========================================================== */
+
+    async function loadCurrentProfile() {
+
+      if (!currentUser) {
+        return null;
+      }
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id", currentUser.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+          console.warn(
+            "ไม่สามารถอ่าน profiles:",
+            error.message
+          );
+
+          currentProfile = null;
+
+          return null;
+
+        }
+
+
+        currentProfile = data;
+
+        return data;
+
+      } catch (error) {
+
+        console.warn(error);
+
+        currentProfile = null;
+
+        return null;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CREATE / UPDATE PROFILE
+    ========================================================== */
+
+    async function createOrUpdateProfile(
+      user,
+      name,
+      photoUrl
+    ) {
+
+      if (!user) {
+        return;
+      }
+
+
+      try {
+
+        const profileData = {
+
+          id: user.id,
+
+          name:
+            name ||
+            user.user_metadata?.name ||
+            user.email?.split("@")[0] ||
+            "ผู้ใช้งาน",
+
+          email:
+            user.email || "",
+
+          photo_url:
+            photoUrl ||
+            user.user_metadata?.avatar_url ||
+            "",
+
+          role:
+            user.email?.toLowerCase() ===
+            ADMIN_EMAIL.toLowerCase()
+              ? "admin"
+              : "user",
+
+          updated_at:
+            new Date().toISOString()
+
+        };
+
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .from("profiles")
+            .upsert(
+              profileData,
+              {
+                onConflict: "id"
+              }
+            );
+
+
+        if (error) {
+
+          console.warn(
+            "ไม่สามารถบันทึก profiles:",
+            error.message
+          );
+
+        }
+
+      } catch (error) {
+
+        console.warn(error);
+
+      }
+
+    }
+
+
+    /* =========================================================
+       UPDATE USER INTERFACE
+    ========================================================== */
+
+    function updateUserInterface() {
+
+      if (!currentUser) {
+        return;
+      }
+
+
+      const metadata =
+        currentUser.user_metadata || {};
+
+
+      const name =
+        currentProfile?.name ||
+        metadata.name ||
+        metadata.full_name ||
+        currentUser.email?.split("@")[0] ||
+        "ผู้ใช้งาน";
+
+
+      const email =
+        currentUser.email || "";
+
+
+      const photo =
+        currentProfile?.photo_url ||
+        metadata.avatar_url ||
+        "";
+
+
+      const isAdmin =
+        email.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase() ||
+        currentProfile?.role === "admin";
+
+
+      /*
+       * NAV
+       */
+
+      document
+        .getElementById("navName")
+        .textContent = name;
+
+      document
+        .getElementById("navEmail")
+        .textContent = email;
+
+
+      setAvatar(
+        document.getElementById("navAvatar"),
+        name,
+        photo
+      );
+
+
+      /*
+       * HOME
+       */
+
+      document
+        .getElementById("welcomeName")
+        .textContent = name;
+
+
+      /*
+       * PROFILE
+       */
+
+      document
+        .getElementById("profileDisplayName")
+        .textContent = name;
+
+      document
+        .getElementById("profileDisplayEmail")
+        .textContent = email;
+
+      document
+        .getElementById("profileName")
+        .value = name;
+
+      document
+        .getElementById("profileEmail")
+        .value = email;
+
+      document
+        .getElementById("profilePhoto")
+        .value = photo;
+
+
+      setAvatar(
+        document.getElementById("profileAvatar"),
+        name,
+        photo
+      );
+
+
+      /*
+       * ROLE
+       */
+
+      const roleBox =
+        document.getElementById("profileRole");
+
+
+      roleBox.innerHTML =
+        isAdmin
+          ? '<span class="role-badge role-admin">👑 ADMIN</span>'
+          : '<span class="role-badge role-user">USER</span>';
+
+
+      /*
+       * ADMIN BUTTON
+       */
+
+      const adminButton =
+        document.getElementById(
+          "adminNavButton"
+        );
+
+
+      if (isAdmin) {
+
+        adminButton.classList.remove(
+          "hidden"
+        );
+
+      } else {
+
+        adminButton.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       AVATAR
+    ========================================================== */
+
+    function setAvatar(
+      element,
+      name,
+      photo
+    ) {
+
+      if (!element) {
+        return;
+      }
+
+
+      const firstLetter =
+        (name || "U")
+          .trim()
+          .charAt(0)
+          .toUpperCase();
+
+
+      if (photo) {
+
+        element.innerHTML =
+          `<img
+            src="${escapeHtml(photo)}"
+            alt="Profile"
+            onerror="this.parentElement.innerHTML='${firstLetter}'"
+          >`;
+
+      } else {
+
+        element.textContent =
+          firstLetter;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SAVE PROFILE
+    ========================================================== */
+
+    async function saveProfile(event) {
+
+      event.preventDefault();
+
+
+      if (!currentUser) {
+        return;
+      }
+
+
+      const button =
+        document.getElementById(
+          "saveProfileButton"
+        );
+
+
+      const name =
+        document.getElementById(
+          "profileName"
+        )
+        .value
+        .trim();
+
+
+      const photo =
+        document.getElementById(
+          "profilePhoto"
+        )
+        .value
+        .trim();
+
+
+      if (name.length < 2) {
+
+        showProfileMessage(
+          "กรุณากรอกชื่อผู้ใช้อย่างน้อย 2 ตัวอักษร",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      button.disabled = true;
+      button.textContent =
+        "กำลังบันทึก...";
+
+
+      try {
+
+        /*
+         * บันทึก metadata ใน Auth
+         */
+
+        const {
+          error: authError
+        } =
+          await supabaseClient.auth.updateUser({
+
+            data: {
+
+              name: name,
+
+              full_name: name,
+
+              avatar_url: photo
+
+            }
+
+          });
+
+
+        if (authError) {
+          throw authError;
+        }
+
+
+        /*
+         * บันทึก profiles
+         */
+
+        const {
+          error: profileError
+        } =
+          await supabaseClient
+            .from("profiles")
+            .upsert({
+
+              id: currentUser.id,
+
+              name: name,
+
+              email:
+                currentUser.email || "",
+
+              photo_url: photo,
+
+              role:
+                currentProfile?.role ||
+                (
+                  currentUser.email
+                    ?.toLowerCase() ===
+                  ADMIN_EMAIL.toLowerCase()
+                    ? "admin"
+                    : "user"
+                ),
+
+              updated_at:
+                new Date().toISOString()
+
+            }, {
+
+              onConflict: "id"
+
+            });
+
+
+        if (profileError) {
+
+          console.warn(
+            "profiles update:",
+            profileError.message
+          );
+
+        }
+
+
+        /*
+         * โหลดข้อมูลใหม่
+         */
+
+        const {
+          data
+        } =
+          await supabaseClient.auth.getUser();
+
+
+        if (data.user) {
+
+          currentUser =
+            data.user;
+
+        }
+
+
+        await loadCurrentProfile();
+
+        updateUserInterface();
+
+
+        showProfileMessage(
+          "บันทึกโปรไฟล์เรียบร้อยแล้ว ✓",
+          "success"
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showProfileMessage(
+          getErrorMessage(error),
+          "error"
+        );
+
+      } finally {
+
+        button.disabled = false;
+        button.textContent =
+          "💾 บันทึกโปรไฟล์";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       ADMIN CHECK
+    ========================================================== */
+
+    function isCurrentUserAdmin() {
+
+      if (!currentUser) {
+        return false;
+      }
+
+
+      const email =
+        currentUser.email || "";
+
+
+      return (
+        email.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+      ) ||
+      currentProfile?.role === "admin";
+
+    }
+
+
+    /* =========================================================
+       SHOW PAGE
+    ========================================================== */
+
+    function showPage(page) {
+
+      const home =
+        document.getElementById(
+          "homePage"
+        );
+
+      const profile =
+        document.getElementById(
+          "profilePage"
+        );
+
+      const admin =
+        document.getElementById(
+          "adminPage"
+        );
+
+
+      home.classList.add("hidden");
+      profile.classList.add("hidden");
+      admin.classList.add("hidden");
+
+
+      if (page === "home") {
+
+        home.classList.remove(
+          "hidden"
+        );
+
+      }
+
+
+      if (page === "profile") {
+
+        profile.classList.remove(
+          "hidden"
+        );
+
+        updateUserInterface();
+
+      }
+
+
+      if (page === "admin") {
+
+        if (!isCurrentUserAdmin()) {
+
+          showPage("home");
+
+          alert(
+            "คุณไม่มีสิทธิ์เข้าถึงหน้า Admin"
+          );
+
+          return;
+
+        }
+
+
+        admin.classList.remove(
+          "hidden"
+        );
+
+        loadAdminUsers();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       ADMIN USERS
+    ========================================================== */
+
+    async function loadAdminUsers() {
+
+      if (!isCurrentUserAdmin()) {
+        return;
+      }
+
+
+      const tbody =
+        document.getElementById(
+          "usersTableBody"
+        );
+
+
+      tbody.innerHTML =
+        `
+          <tr>
+            <td colspan="4"
+              style="text-align:center;">
+              กำลังโหลดข้อมูล...
+            </td>
+          </tr>
+        `;
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("profiles")
+            .select(
+              "id,name,email,photo_url,role,created_at"
+            )
+            .order(
+              "created_at",
+              {
+                ascending: false
+              }
+            );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        const users =
+          data || [];
+
+
+        document
+          .getElementById(
+            "totalUsers"
+          )
+          .textContent =
+          users.length;
+
+
+        document
+          .getElementById(
+            "totalAdmins"
+          )
+          .textContent =
+          users.filter(
+            u => u.role === "admin"
+          ).length;
+
+
+        if (users.length === 0) {
+
+          tbody.innerHTML =
+            `
+              <tr>
+                <td
+                  colspan="4"
+                  style="text-align:center;"
+                >
+                  ยังไม่มีข้อมูลผู้ใช้
+                </td>
+              </tr>
+            `;
+
+          return;
+
+        }
+
+
+        tbody.innerHTML =
+          users
+            .map(
+              user => {
+
+                const name =
+                  user.name ||
+                  "ผู้ใช้งาน";
+
+
+                const role =
+                  user.role ||
+                  "user";
+
+
+                const date =
+                  user.created_at
+                    ? new Date(
+                        user.created_at
+                      ).toLocaleDateString(
+                        "th-TH",
+                        {
+                          year:
+                            "numeric",
+                          month:
+                            "short",
+                          day:
+                            "numeric"
+                        }
+                      )
+                    : "-";
+
+
+                const avatar =
+                  user.photo_url
+                    ? `
+                      <img
+                        src="${escapeHtml(user.photo_url)}"
+                        style="
+                          width:38px;
+                          height:38px;
+                          border-radius:50%;
+                          object-fit:cover;
+                        "
+                      >
+                    `
+                    : `
+                      <div
+                        style="
+                          width:38px;
+                          height:38px;
+                          border-radius:50%;
+                          background:#ccfbf1;
+                          display:flex;
+                          align-items:center;
+                          justify-content:center;
+                          color:#0f766e;
+                          font-weight:800;
+                        "
+                      >
+                        ${escapeHtml(
+                          name
+                            .charAt(0)
+                            .toUpperCase()
+                        )}
+                      </div>
+                    `;
+
+
+                return `
+
+                  <tr>
+
+                    <td>
+
+                      <div
+                        style="
+                          display:flex;
+                          align-items:center;
+                          gap:10px;
+                        "
+                      >
+
+                        ${avatar}
+
+                        <strong>
+                          ${escapeHtml(name)}
+                        </strong>
+
+                      </div>
+
+                    </td>
+
+
+                    <td>
+                      ${escapeHtml(
+                        user.email || "-"
+                      )}
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        class="
+                          role-badge
+                          ${
+                            role === "admin"
+                              ? "role-admin"
+                              : "role-user"
+                          }
+                        "
+                      >
+                        ${
+                          role === "admin"
+                            ? "👑 ADMIN"
+                            : "USER"
+                        }
+                      </span>
+
+                    </td>
+
+
+                    <td>
+                      ${date}
+                    </td>
+
+                  </tr>
+
+                `;
+
+              }
+            )
+            .join("");
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        document
+          .getElementById(
+            "totalUsers"
+          )
+          .textContent = "-";
+
+
+        document
+          .getElementById(
+            "totalAdmins"
+          )
+          .textContent = "-";
+
+
+        tbody.innerHTML =
+          `
+            <tr>
+
+              <td
+                colspan="4"
+                style="
+                  text-align:center;
+                  color:#b91c1c;
+                  padding:30px;
+                "
+              >
+
+                ไม่สามารถโหลดรายชื่อผู้ใช้ได้
+
+                <br>
+
+                <small>
+                  ${escapeHtml(
+                    error.message || ""
+                  )}
+                </small>
+
+              </td>
+
+            </tr>
+          `;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+    ========================================================== */
+
+    async function logout() {
+
+      try {
+
+        await supabaseClient.auth.signOut();
+
+      } catch (error) {
+
+        console.error(error);
+
+      }
+
+    }
+
+
+    /* =========================================================
+       AUTH MESSAGE
+    ========================================================== */
+
+    function showAuthMessage(
+      message,
+      type
+    ) {
+
+      const box =
+        document.getElementById(
+          "authMessage"
+        );
+
+
+      box.innerHTML =
+        `
+          <div class="message ${type}">
+            ${escapeHtml(message)}
+          </div>
+        `;
+
+    }
+
+
+    function clearAuthMessage() {
+
+      document
+        .getElementById(
+          "authMessage"
+        )
+        .innerHTML = "";
+
+    }
+
+
+    /* =========================================================
+       PROFILE MESSAGE
+    ========================================================== */
+
+    function showProfileMessage(
+      message,
+      type
+    ) {
+
+      const box =
+        document.getElementById(
+          "profileMessage"
+        );
+
+
+      box.innerHTML =
+        `
+          <div class="message ${type}">
+            ${escapeHtml(message)}
+          </div>
+        `;
+
+    }
+
+
+    /* =========================================================
+       ERROR MESSAGE
+    ========================================================== */
+
+    function getErrorMessage(error) {
+
+      const message =
+        error?.message || "";
+
+
+      if (
+        message
+          .toLowerCase()
+          .includes("invalid login credentials")
+      ) {
+
+        return "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+
+      }
+
+
+      if (
+        message
+          .toLowerCase()
+          .includes("email not confirmed")
+      ) {
+
+        return "กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ";
+
+      }
+
+
+      if (
+        message
+          .toLowerCase()
+          .includes("user already registered")
+      ) {
+
+        return "อีเมลนี้มีบัญชีอยู่แล้ว";
+
+      }
+
+
+      if (
+        message
+          .toLowerCase()
+          .includes("password should be at least")
+      ) {
+
+        return "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
+
+      }
+
+
+      return message ||
+        "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
+
+    }
+
+
+    /* =========================================================
+       ESCAPE HTML
+    ========================================================== */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+  </script>
+
+</body>
+</html>
