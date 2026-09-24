@@ -1077,7 +1077,7 @@ async function completeLineLogin(){
 function getLineLoginConfig(){
     const cfg = getAuthConfig();
     return {
-        channelId: cfg.channelId || localStorage.getItem("sfc_line_channel_id") || "",
+        channelId: cfg.channelId || localStorage.getItem("sfc_line_channel_id") || "2011734553",
         channelSecret: cfg.channelSecret || localStorage.getItem("sfc_line_channel_secret") || ""
     };
 }
@@ -1206,9 +1206,12 @@ function updatePageNavigation(page){
 }
 function logoutSystem(){
     if(!confirm("ต้องการออกจากระบบ SMART FEVER CARE หรือไม่?")) return;
+    ["sfc_logged_in","sfc_line_login","sfc_auth_method","sfc_line_state","sfc_line_verifier"].forEach(k=>localStorage.removeItem(k));
+    sessionStorage.removeItem("sfc_line_state");
+    sessionStorage.removeItem("sfc_line_verifier");
     app.classList.remove("active");
     welcome.classList.add("active");
-    showToast("ออกจากระบบเรียบร้อยแล้ว");
+    showToast("ออกจากระบบแล้ว กรุณาเข้าสู่ระบบใหม่");
 }
 function updateUser(){
     homeUserName.innerText=user.name;
@@ -1702,10 +1705,11 @@ updateUser();
             });
         }
     }catch(e){}
-    if(localStorage.getItem("sfc_logged_in") || localStorage.getItem("sfc_line_login")){
+    if(localStorage.getItem("sfc_logged_in")==="true" || localStorage.getItem("sfc_line_login")==="true"){
         loginSuccess();
     }else{
-        openPage("home");
+        welcome.classList.add("active");
+        app.classList.remove("active");
     }
 })();
 </script>
