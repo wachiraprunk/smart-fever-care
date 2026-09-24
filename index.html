@@ -1078,7 +1078,7 @@ function getLineLoginConfig(){
     const cfg = getAuthConfig();
     return {
         channelId: cfg.channelId || localStorage.getItem("sfc_line_channel_id") || "2011734553",
-        channelSecret: cfg.channelSecret || localStorage.getItem("sfc_line_channel_secret") || ""
+        channelSecret: cfg.channelSecret || localStorage.getItem("sfc_line_channel_secret") || "75d9e42f8a19737775b1964503cd2bca"
     };
 }
 function saveLineLoginConfig(channelId, channelSecret){
@@ -1090,7 +1090,7 @@ function saveLineLoginConfig(channelId, channelSecret){
     localStorage.setItem("sfc_auth_config", JSON.stringify(cfg));
 }
 function lineRedirectUri(){
-    return location.origin + location.pathname;
+    return "https://wachiraprunk.github.io/smart-fever-care/";
 }
 async function makePkce(){
     const bytes = crypto.getRandomValues(new Uint8Array(32));
@@ -1102,16 +1102,11 @@ async function makePkce(){
 }
 async function loginWithLine(){
     let {channelId, channelSecret} = getLineLoginConfig();
-    if(!channelId){
-        channelId = window.prompt("ใส่ LINE Login Channel ID");
-        if(!channelId){ showToast("ต้องมี Channel ID ของ LINE Login"); return; }
-        saveLineLoginConfig(channelId.trim(), channelSecret);
+    if(!channelId || !channelSecret){
+        showToast("ยังตั้งค่า LINE Login ไม่ครบ");
+        return;
     }
-    if(!channelSecret){
-        channelSecret = window.prompt("ใส่ LINE Login Channel Secret");
-        if(!channelSecret){ showToast("ต้องมี Channel Secret เพื่อดึงชื่อและรูป"); return; }
-        saveLineLoginConfig(channelId.trim(), channelSecret.trim());
-    }
+    saveLineLoginConfig(channelId.trim(), channelSecret.trim());
     const {verifier, challenge} = await makePkce();
     const state = Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);
     sessionStorage.setItem("sfc_line_state", state);
@@ -1151,7 +1146,8 @@ async function handleLineOAuthReturn(){
         });
         const token = await tokenRes.json();
         if(!token.access_token){
-            showToast("แลกโทเค็น LINE ไม่สำเร็จ ตรวจ Channel ID Secret และ Callback URL");
+            const reason = token.error_description || token.error || "unknown";
+            showToast("LINE: "+reason);
             console.error(token);
             return false;
         }
