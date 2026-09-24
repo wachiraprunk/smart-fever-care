@@ -221,6 +221,7 @@ button,input{font-family:inherit} button{cursor:pointer}
         <div class="welcome-buttons">
             <button class="btn btn-primary" onclick="openLogin('email')">เข้าสู่ระบบ</button>
             <button class="btn btn-secondary" onclick="openLogin('register')">ลงทะเบียน</button>
+            <button class="btn btn-secondary" onclick="openLogin('line')">เข้าสู่ระบบผ่าน LINE</button>
         </div>
     </div>
     <div class="welcome-visual">
@@ -353,11 +354,11 @@ button,input{font-family:inherit} button{cursor:pointer}
 <div class="main">
 <div class="page-heading"><small>LEARNING MODULE</small><h1>Learning</h1><p>เรียนรู้เนื้อหาอย่างเป็นระบบ เพื่อเสริมสร้างความรู้ในการดูแลเด็กที่มีไข้</p></div>
 <div class="lesson-list">
-    <div class="lesson" onclick="openLesson(1)" style="cursor:pointer"><div class="lesson-number">01</div><div class="lesson-content"><h3>ความรู้พื้นฐานเกี่ยวกับไข้</h3><p>ความหมาย สาเหตุ และการประเมินอาการเบื้องต้น</p></div><span class="status" id="lessonStatus1">พร้อมเรียน</span></div>
-    <div class="lesson" onclick="openLesson(2)" style="cursor:pointer"><div class="lesson-number">02</div><div class="lesson-content"><h3>การประเมินเด็กที่มีไข้</h3><p>การประเมินอุณหภูมิ อาการร่วม และภาวะเสี่ยง</p></div><span class="status" id="lessonStatus2">พร้อมเรียน</span></div>
-    <div class="lesson" onclick="openLesson(3)" style="cursor:pointer"><div class="lesson-number">03</div><div class="lesson-content"><h3>หลักการเช็ดตัวลดไข้</h3><p>หลักการ วิธีปฏิบัติ และข้อควรระวัง</p></div><span class="status" id="lessonStatus3">พร้อมเรียน</span></div>
-    <div class="lesson" onclick="openLesson(4)" style="cursor:pointer"><div class="lesson-number">04</div><div class="lesson-content"><h3>การดูแลเด็กที่บ้าน</h3><p>การดูแลทั่วไป การให้สารน้ำ และการสังเกตอาการ</p></div><span class="status" id="lessonStatus4">พร้อมเรียน</span></div>
-    <div class="lesson" onclick="openLesson(5)" style="cursor:pointer"><div class="lesson-number">05</div><div class="lesson-content"><h3>อาการเตือนที่ควรพบแพทย์</h3><p>การสังเกตอาการผิดปกติ และแนวทางการส่งต่อ</p></div><span class="status" id="lessonStatus5">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(1)" style="cursor:pointer"><div class="lesson-number">01</div><div class="lesson-content"><h3>ความรู้พื้นฐานเกี่ยวกับไข้</h3><p>ความหมายของไข้ ความกลัวไข้ และเป้าหมายความสุขสบาย</p></div><span class="status" id="lessonStatus1">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(2)" style="cursor:pointer"><div class="lesson-number">02</div><div class="lesson-content"><h3>การประเมินเด็กที่มีไข้</h3><p>วิธีวัดไข้ ดูอาการร่วม และเลือกยาลดไข้</p></div><span class="status" id="lessonStatus2">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(3)" style="cursor:pointer"><div class="lesson-number">03</div><div class="lesson-content"><h3>หลักการเช็ดตัวลดไข้</h3><p>วิธีที่ถูก ความเชื่อที่ผิด และสิ่งที่ห้ามทำ</p></div><span class="status" id="lessonStatus3">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(4)" style="cursor:pointer"><div class="lesson-number">04</div><div class="lesson-content"><h3>การดูแลเด็กที่บ้าน</h3><p>การดูแลทั่วไป และพฤติกรรมที่ควรหยุด</p></div><span class="status" id="lessonStatus4">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(5)" style="cursor:pointer"><div class="lesson-number">05</div><div class="lesson-content"><h3>อาการเตือนที่ควรพบแพทย์</h3><p>สัญญาณอันตราย และเมื่อใดควรพบแพทย์</p></div><span class="status" id="lessonStatus5">พร้อมเรียน</span></div>
 </div>
 <div id="lessonDetail" class="scenario-card" style="display:none;margin-top:18px">
     <div class="scenario-label" id="lessonDetailNo">LESSON</div>
@@ -823,9 +824,10 @@ button,input{font-family:inherit} button{cursor:pointer}
     <h2>เข้าสู่ SMART FEVER CARE</h2>
     <p>เลือกช่องทางที่ต้องการเข้าสู่ระบบ</p>
 </div>
-<div class="login-tabs">
+<div class="login-tabs" style="grid-template-columns:1fr 1fr 1fr">
     <button id="emailTab" class="login-tab active" onclick="switchLogin('email')">เข้าสู่ระบบ</button>
-    <button id="lineTab" class="login-tab" onclick="switchLogin('register')">ลงทะเบียน</button>
+    <button id="registerTab" class="login-tab" onclick="switchLogin('register')">ลงทะเบียน</button>
+    <button id="lineTab" class="login-tab" onclick="switchLogin('line')">LINE</button>
 </div>
 <div id="emailLogin" class="login-form active">
     <label class="login-label">ชื่อ</label>
@@ -837,7 +839,7 @@ button,input{font-family:inherit} button{cursor:pointer}
     <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="loginWithAccount()">เข้าสู่ระบบ</button>
     <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">กรอกชื่อ นามสกุล และรหัสผ่านที่ตั้งไว้ตอนลงทะเบียน</p>
 </div>
-<div id="lineLogin" class="login-form">
+<div id="registerLogin" class="login-form">
     <label class="login-label">ชื่อ</label>
     <input id="regFirstName" class="login-input" type="text" placeholder="ชื่อ" autocomplete="given-name">
     <label class="login-label">นามสกุล</label>
@@ -848,6 +850,11 @@ button,input{font-family:inherit} button{cursor:pointer}
     <input id="regPassword2" class="login-input" type="password" placeholder="พิมพ์รหัสผ่านอีกครั้ง" autocomplete="new-password">
     <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="registerWithAccount()">ลงทะเบียน</button>
     <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">ผู้ใช้ใหม่ตั้งรหัสผ่านเองได้ ระบบจะบันทึกบัญชีไว้ในเครื่องนี้</p>
+</div>
+<div id="lineLogin" class="login-form">
+    <p style="color:var(--muted);font-size:12px;line-height:1.8;margin-bottom:15px">กดปุ่มเพื่อไปที่บัญชี LINE ของท่าน ยืนยันการอนุญาต แล้วระบบจะนำเข้าแอป</p>
+    <button class="line-login" onclick="loginWithLine()">เข้าสู่ระบบด้วย LINE</button>
+    <a href="https://line.me/R/ti/p/@538gcahu" target="_blank" rel="noopener" class="contact-btn line-btn" style="display:block;text-align:center;margin-top:10px;text-decoration:none">เพิ่มเพื่อน @538gcahu</a>
 </div>
 
 <button class="login-close" onclick="closeLogin()">ยกเลิก</button>
@@ -990,11 +997,17 @@ function closeLogin(){
 }
 function closeLoginOutside(event){ if(event.target.id==="loginModal") closeLogin(); }
 function switchLogin(type){
-    const register = type==="register" || type==="line";
-    emailTab.classList.toggle("active", !register);
-    lineTab.classList.toggle("active", register);
-    emailLogin.classList.toggle("active", !register);
-    lineLogin.classList.toggle("active", register);
+    const isEmail = type==="email";
+    const isReg = type==="register";
+    const isLine = type==="line";
+    emailTab.classList.toggle("active", isEmail);
+    const registerTab = document.getElementById("registerTab");
+    if(registerTab) registerTab.classList.toggle("active", isReg);
+    lineTab.classList.toggle("active", isLine);
+    emailLogin.classList.toggle("active", isEmail);
+    const registerLogin = document.getElementById("registerLogin");
+    if(registerLogin) registerLogin.classList.toggle("active", isReg);
+    lineLogin.classList.toggle("active", isLine);
 }
 function accountKey(first, last){
     return (first||"").trim().toLowerCase()+"|"+(last||"").trim().toLowerCase();
@@ -1005,6 +1018,62 @@ function loadAccounts(){
 function saveAccounts(list){
     localStorage.setItem("sfc_accounts", JSON.stringify(list));
 }
+function currentUserKey(){
+    return localStorage.getItem("sfc_user_key") || localStorage.getItem("sfc_email") || "";
+}
+function readAllResults(){
+    try{ return JSON.parse(localStorage.getItem("sfc_all_results")||"{}"); }catch(e){ return {}; }
+}
+function snapshotProgress(){
+    const lessons={};
+    for(let i=1;i<=5;i++) lessons[i]=localStorage.getItem("sfc_lesson_"+i)||"";
+    const videos={};
+    ["assessment","tepid","warning"].forEach(k=>videos[k]=localStorage.getItem("sfc_video_"+k)||"");
+    let scenarioAnswers={};
+    try{ scenarioAnswers=JSON.parse(localStorage.getItem("sfc_scenario_answers")||"{}"); }catch(e){}
+    let pre=null, post=null, detail=null;
+    try{ pre=JSON.parse(localStorage.getItem("sfc_score_pre")||"null"); }catch(e){}
+    try{ post=JSON.parse(localStorage.getItem("sfc_score_post")||"null"); }catch(e){}
+    try{ detail=JSON.parse(localStorage.getItem("sfc_score_detail")||"null"); }catch(e){}
+    return {
+        name: localStorage.getItem("sfc_name")||"",
+        email: localStorage.getItem("sfc_email")||"",
+        photo: localStorage.getItem("sfc_photo")||"",
+        first: localStorage.getItem("sfc_first")||"",
+        last: localStorage.getItem("sfc_last")||"",
+        lessons, videos, scenarioAnswers, pre, post, detail,
+        score: localStorage.getItem("sfc_score")||"",
+        updatedAt: new Date().toISOString()
+    };
+}
+function persistUserData(){
+    const key=currentUserKey();
+    if(!key) return;
+    const all=readAllResults();
+    all[key]=snapshotProgress();
+    localStorage.setItem("sfc_all_results", JSON.stringify(all));
+    localStorage.setItem("sfc_last_saved", new Date().toISOString());
+}
+function restoreUserData(key){
+    if(!key) return;
+    localStorage.setItem("sfc_user_key", key);
+    const data=readAllResults()[key];
+    if(!data) return;
+    for(let i=1;i<=5;i++){
+        if(data.lessons && data.lessons[i]) localStorage.setItem("sfc_lesson_"+i, data.lessons[i]);
+        else localStorage.removeItem("sfc_lesson_"+i);
+    }
+    ["assessment","tepid","warning"].forEach(k=>{
+        if(data.videos && data.videos[k]) localStorage.setItem("sfc_video_"+k, data.videos[k]);
+        else localStorage.removeItem("sfc_video_"+k);
+    });
+    localStorage.setItem("sfc_scenario_answers", JSON.stringify(data.scenarioAnswers||{}));
+    if(data.pre) localStorage.setItem("sfc_score_pre", JSON.stringify(data.pre));
+    if(data.post) localStorage.setItem("sfc_score_post", JSON.stringify(data.post));
+    if(data.detail) localStorage.setItem("sfc_score_detail", JSON.stringify(data.detail));
+    if(data.score) localStorage.setItem("sfc_score", data.score);
+    if(data.photo) localStorage.setItem("sfc_photo", data.photo);
+}
 function finishLocalSession(first, last){
     user.name = (first+" "+last).trim() || "ผู้ใช้งาน";
     user.email = accountKey(first,last)+"@smartfever.care";
@@ -1014,6 +1083,9 @@ function finishLocalSession(first, last){
     localStorage.setItem("sfc_last", last.trim());
     localStorage.setItem("sfc_logged_in","true");
     localStorage.setItem("sfc_auth_method","account");
+    localStorage.setItem("sfc_user_key", accountKey(first,last));
+    restoreUserData(accountKey(first,last));
+    persistUserData();
     closeLogin(); loginSuccess();
 }
 function loginWithAccount(){
@@ -1100,6 +1172,19 @@ function loginAsGuest(){
     localStorage.setItem("sfc_logged_in","true");
     closeLogin(); loginSuccess();
 }
+function decodeLineIdToken(idToken){
+    try{
+        const payload = idToken.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");
+        const json = JSON.parse(decodeURIComponent(atob(payload).split("").map(function(c){
+            return "%"+("00"+c.charCodeAt(0).toString(16)).slice(-2);
+        }).join("")));
+        return {
+            displayName: json.name || json.displayName || "",
+            pictureUrl: json.picture || json.pictureUrl || "",
+            email: json.email || ""
+        };
+    }catch(e){ return {}; }
+}
 function applyLineProfile(profile, email){
     user.name = (profile && profile.displayName) || "ผู้ใช้งาน LINE";
     user.email = email || "line-user@smartfever.care";
@@ -1110,6 +1195,9 @@ function applyLineProfile(profile, email){
     localStorage.setItem("sfc_line_login","true");
     localStorage.setItem("sfc_logged_in","true");
     localStorage.setItem("sfc_auth_method","line");
+    localStorage.setItem("sfc_user_key", "line:"+(user.name||"user"));
+    restoreUserData(localStorage.getItem("sfc_user_key"));
+    persistUserData();
     closeLogin();
     loginSuccess();
     showToast("เข้าสู่ระบบด้วย LINE แล้ว: "+user.name);
@@ -1210,18 +1298,21 @@ async function handleLineOAuthReturn(){
             token = await exchange(redirect, false);
             if(token.access_token) break;
         }
-        if(token.access_token){
+        if(token.access_token || token.id_token){
+            const fromId = decodeLineIdToken(token.id_token||"");
             let profile = {};
-            try{
-                const profRes = await fetch("https://api.line.me/v2/profile", {
-                    headers:{Authorization:"Bearer "+token.access_token}
-                });
-                profile = await profRes.json();
-            }catch(e){}
+            if(token.access_token){
+                try{
+                    const profRes = await fetch("https://api.line.me/v2/profile", {
+                        headers:{Authorization:"Bearer "+token.access_token}
+                    });
+                    profile = await profRes.json();
+                }catch(e){}
+            }
             applyLineProfile({
-                displayName: profile.displayName || "ผู้ใช้ LINE",
-                pictureUrl: profile.pictureUrl || ""
-            }, "");
+                displayName: profile.displayName || fromId.displayName || "ผู้ใช้ LINE",
+                pictureUrl: profile.pictureUrl || fromId.pictureUrl || ""
+            }, fromId.email || "");
             history.replaceState({}, document.title, lineRedirectUri());
             return true;
         }
@@ -1274,6 +1365,7 @@ function updatePageNavigation(page){
 }
 function logoutSystem(){
     if(!confirm("ต้องการออกจากระบบ SMART FEVER CARE หรือไม่?")) return;
+    persistUserData();
     ["sfc_logged_in","sfc_line_login","sfc_auth_method","sfc_line_state","sfc_line_verifier"].forEach(k=>localStorage.removeItem(k));
     sessionStorage.removeItem("sfc_line_state");
     sessionStorage.removeItem("sfc_line_verifier");
@@ -1295,6 +1387,7 @@ function saveProfile(){
     user.email = profileEmail.value.trim();
     localStorage.setItem("sfc_name", user.name);
     localStorage.setItem("sfc_email", user.email);
+    persistUserData();
     updateUser();
     showToast("บันทึกข้อมูลโปรไฟล์เรียบร้อยแล้ว");
 }
@@ -1361,6 +1454,7 @@ function answerScenario(choice){
     const item = scenarios[scenarioIndex];
     scenarioAnswers[scenarioIndex] = choice;
     localStorage.setItem("sfc_scenario_answers", JSON.stringify(scenarioAnswers));
+    persistUserData();
     const doneCount = Object.keys(scenarioAnswers).length;
     if(doneCount>=1) localStorage.setItem("sfc_scenario","completed");
     if(doneCount>=scenarios.length) localStorage.setItem("sfc_scenario_all","completed");
@@ -1461,17 +1555,18 @@ function submitAssessment(phase){
     localStorage.setItem("sfc_score", knowledgePct);
     localStorage.setItem("sfc_score_detail", JSON.stringify(payload));
     localStorage.setItem(phase==="post" ? "sfc_score_post" : "sfc_score_pre", JSON.stringify(payload));
+    persistUserData();
     updateProgress(); updateOutcome();
     showToast(phase==="post" ? "บันทึกผลหลังเรียนแล้ว" : "บันทึกผลก่อนเรียนแล้ว");
 }
 
 
 const lessonContent = {
-1:{title:"ความรู้พื้นฐานเกี่ยวกับไข้", body:"ไข้หมายถึงอุณหภูมิร่างกายสูงกว่าปกติ\nถือว่ามีไข้เมื่อวัดทางหูหรือหน้าผาก ≥ 38°C หรือทางปาก ≥ 37.8°C หรือทางรักแร้ประมาณ 37.2–37.5°C\nไข้เป็นการตอบสนองตามธรรมชาติต่อการติดเชื้อหรือสาเหตุอื่น ไม่ใช่โรคโดยตัวเอง\nเป้าหมายการดูแลคือความสุขสบายของเด็ก ไม่จำเป็นต้องทำให้อุณหภูมิกลับปกติเสมอไปหากเด็กยังสบายดี"},
-2:{title:"การประเมินเด็กที่มีไข้", body:"ประเมินทั้งตัวเลขอุณหภูมิและอาการร่วม เช่น การกิน การเล่น การรู้สึกตัว การหายใจ\nดูภาวะทั่วไปของเด็ก ไม่ตัดสินจากอุณหภูมิเพียงอย่างเดียว\nยาลดไข้ที่แนะนำคือพาราเซตามอลตามน้ำหนักตัว\nหลีกเลี่ยง NSAIDs หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะอาหาร"},
-3:{title:"หลักการเช็ดตัวลดไข้", body:"การเช็ดตัวเป็นทางเลือก ไม่ใช่สิ่งที่ต้องทำทุกครั้งที่มีไข้\nอาจช่วยให้ไข้ลงเร็วขึ้นในช่วง 1–2 ชั่วโมงแรกเมื่อใช้ร่วมกับพาราเซตามอล แต่หลังจาก 2 ชั่วโมงระดับไข้ไม่แตกต่างกัน\nวิธีที่ถูกต้อง: ผ้าชุบน้ำอุณหภูมิห้องหรือน้ำอุ่น เช็ดเบาที่รักแร้ ซอกคอ ขาหนีบ\nหากหนาวสั่น ร้องมาก หรือไม่สุขสบาย ให้หยุดทันที\nห้ามน้ำเย็นจัด น้ำแข็ง แอลกอฮอล์ และห้ามเช็ดถูแรง"},
-4:{title:"การดูแลเด็กที่บ้าน", body:"ให้ดื่มน้ำหรือนมเพียงพอ\nสวมเสื้อผ้าที่ระบายอากาศได้ดี\nอยู่ในห้องที่อากาศถ่ายเท ไม่ร้อนจัดหรือเย็นจัด\nให้ยาลดไข้เมื่อเด็กไม่สบายตัว ตามน้ำหนักและคำแนะนำทางการแพทย์\nสังเกตอาการต่อเนื่อง และบันทึกอุณหภูมิเมื่อทำได้"},
-5:{title:"อาการเตือนที่ควรพบแพทย์", body:"เด็กอายุน้อยกว่า 3 เดือนที่มีไข้\nซึม ชัก ไม่ดื่มนมหรือน้ำ หายใจลำบาก หอบเหนื่อย\nมีผื่นหรือจุดเลือดออก ปลายมือปลายเท้าเย็น ซีด หรือคล้ายช็อก\nไข้ไม่ลดใน 2–3 วัน หรือไข้กลับมาใน 1–2 สัปดาห์\nกรณีฉุกเฉินโทร 1669"}
+1:{title:"ความรู้พื้นฐานเกี่ยวกับไข้", body:"ที่มาและความสำคัญ\nผู้ปกครองจำนวนมากมีภาวะกลัวไข้ (fever phobia) ทำให้ดูแลลูกไม่ถูกวิธี เช่น เช็ดตัวด้วยน้ำเย็นจัด ให้ยาลดไข้ผิดขนาด หรือพาไปโรงพยาบาลช้า อาจทำให้โรครุนแรงขึ้นและเกิดภาวะแทรกซ้อน\n\nไข้คืออะไร\nไข้คือภาวะที่อุณหภูมิร่างกายสูงกว่าปกติ ไม่ใช่โรคโดยตัวเอง แต่เป็นการตอบสนองของร่างกายเมื่อพบเชื้อโรค\nตามแนวทางราชวิทยาลัยกุมารแพทย์แห่งประเทศไทย พ.ศ. 2568 ถือว่ามีไข้เมื่อ\n• วัดทางหูหรือหน้าผาก ≥ 38°C\n• วัดทางปาก ≥ 37.8°C\n• วัดทางรักแร้ประมาณ 37.2–37.5°C\n\nทำไมเด็กจึงเป็นไข้อง่ายกว่าผู้ใหญ่\nระบบภูมิคุ้มกันของเด็กยังพัฒนาไม่เต็มที่ เมื่อมีเชื้อเข้าสู่ร่างกายจึงตอบสนองเร็ว ไข้ช่วยยับยั้งการเติบโตของเชื้อและกระตุ้นภูมิคุ้มกันให้ทำงานดีขึ้น\n\nเป้าหมายการดูแล\nเพื่อให้เด็กสุขสบาย ไม่จำเป็นต้องทำให้ไข้ลงหรืออุณหภูมิกลับเป็นปกติเสมอไป หากเด็กยังเล่นได้ กินได้ และสุขสบายดี"},
+2:{title:"การประเมินเด็กที่มีไข้", body:"ประเมินทั้งตัวเลขอุณหภูมิและอาการของเด็ก\nอย่าตัดสินจากอุณหภูมิเพียงอย่างเดียว ให้ดูการกิน การเล่น การรู้สึกตัว การหายใจ หน้าแดง หรืออาการกระสับกระส่ายร่วมด้วย\n\nวิธีวัดอุณหภูมิ\n• ทางหูหรือหน้าผาก ≥ 38°C จึงถือว่ามีไข้\n• ทางปาก ≥ 37.8°C ไม่ควรวัดทันทีหลังดื่มน้ำอุ่นหรือน้ำเย็น\n• ทางรักแร้ประมาณ 37.2–37.5°C\nหากทำได้ วัดซ้ำเป็นระยะ เช่น ทุก 4 ชั่วโมง และจดอาการร่วม\n\nยาลดไข้ที่แนะนำ\nใช้พาราเซตามอลตามน้ำหนักตัวเด็ก เมื่อเด็กไม่สุขสบาย\nห้ามให้ถี่เกิน 4–6 ชั่วโมง และห้ามให้เกินขนาดที่กำหนด\nหลีกเลี่ยงยาในกลุ่ม NSAIDs เช่น ไอบูโพรเฟน หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะอาหาร\n\nความเข้าใจเรื่องชักจากไข้\nยังไม่มีหลักฐานชัดเจนว่ายาลดไข้หรือการเช็ดตัวป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้"},
+3:{title:"หลักการเช็ดตัวลดไข้", body:"การเช็ดตัวเป็นทางเลือก ไม่ใช่สิ่งที่ต้องทำทุกครั้งที่มีไข้\nแนวทางปี 2568 ระบุว่ายังไม่มีหลักฐานชัดว่าเช็ดตัวช่วยลดไข้ได้ดีเสมอไป และอาจทำให้เด็กหนาวสั่น ตกใจกลัว โดยรวมด้อยกว่าพาราเซตามอล\nอาจช่วยในช่วง 1–2 ชั่วโมงแรกเมื่อใช้ร่วมกับยา หลังจากนั้นระดับไข้ไม่แตกต่างกัน\n\nวิธีที่ถูกต้อง\n• ใช้น้ำอุณหภูมิห้องหรืออุ่นเล็กน้อย\n• เช็ดเบาบริเวณที่เลือดไหลเวียนดี เช่น รักแร้ ซอกคอ ขาหนีบ ลำตัว\n• สังเกตเด็กระหว่างเช็ด หากหนาวสั่น ร้องมาก หรือไม่สุขสบาย ให้หยุดทันที\n\nห้ามทำ\n• น้ำเย็นจัด น้ำแข็ง แอลกอฮอล์\n• เช็ดถูแรง หรือใช้น้ำร้อน\n• เช็ดตอนเด็กกำลังหนาวสั่น\n• เช็ดขณะสวมเสื้อผ้าหนาเกินไป\n• เช็ดเฉพาะใบหน้าหรือบริเวณเล็ก ๆ\n• ใช้ยาหม่อง การบูร หรือสมุนไพรทาผิวก่อนเช็ดตัว\n\nความเชื่อที่ควรปรับ\nน้ำเย็นจัดไม่ได้ลดไข้เร็วกว่า น้ำเย็นทำให้เส้นเลือดหด ตัวสั่น และร่างกายสร้างความร้อนเพิ่ม\nกินยาอย่างเดียวทำได้ แต่ยาพร้อมการเช็ดตัวด้วยน้ำอุณหภูมิห้องอย่างถูกวิธีจะช่วยให้เด็กสบายขึ้นได้ในบางกรณี"},
+4:{title:"การดูแลเด็กที่บ้าน", body:"หลักการดูแลที่บ้าน\nให้น้ำหรือนมเพียงพอ ใส่เสื้อผ้าที่ระบายอากาศได้ดี อยู่ในห้องที่อากาศถ่ายเท ไม่ร้อนจัดหรือเย็นจัด\nให้พาราเซตามอลตามน้ำหนักเมื่อเด็กไม่สุขสบาย ตามคำแนะนำทางการแพทย์\n\nพฤติกรรมที่ควรหยุด\n• ใช้น้ำเย็นจัดหรือน้ำแข็งเช็ดตัว\n• เช็ดตัวตอนลูกหนาวสั่น\n• เช็ดด้วยน้ำร้อนเพราะคิดว่าร้อนจะออกเร็ว\n• เช็ดขณะสวมเสื้อหนามาก\n• เช็ดแค่หน้าผาก\n• ให้ยาของผู้ใหญ่หรือให้ยาถี่เกินกำหนด\n\nสื่อสารกับผู้ปกครอง\nไข้ในเด็กที่ยังเล่นได้ กินได้ โดยทั่วไปไม่ได้เป็นอันตรายในตัวเอง\nบันทึกอุณหภูมิและอาการเมื่อทำได้ เพื่อติดตามว่าดีขึ้นหรือมีอาการเตือน\nความรู้ที่ถูกต้องช่วยลดความกลัวไข้ และลดการดูแลที่ผิดวิธี"},
+5:{title:"อาการเตือนที่ควรพบแพทย์", body:"ควรพาเด็กพบแพทย์เมื่อมีอาการเตือน เช่น\n• ทารกอายุน้อยกว่า 3 เดือนที่มีไข้\n• ซึม ชัก ตัวเกร็ง ไม่ดื่มนมหรือน้ำ กินไม่ได้\n• หายใจลำบาก หอบเหนื่อย หน้าอกบุ๋ม หายใจเร็วกว่าปกติ\n• มีผื่นหรือจุดเลือดออก ปลายมือปลายเท้าเย็น ซีด หรืออาการคล้ายช็อก\n• อาเจียนตลอดเวลา\n• ปวดศีรษะรุนแรง คอแข็ง ร้องกวนผิดปกติ\n• ไข้สูงเกิน 39°C หรือไข้เกิน 48–72 ชั่วโมงแล้วยังไม่ดีขึ้น\n• ไข้ไม่ลดใน 2–3 วัน หรือไข้กลับมาใน 1–2 สัปดาห์\n\nกรณีฉุกเฉินโทร 1669 และพาไปสถานพยาบาลทันที\nหากไม่แน่ใจ ให้พบแพทย์เพื่อความปลอดภัยของเด็ก"}
 };
 function refreshLessonStatus(){
     for(let i=1;i<=5;i++){
@@ -1492,6 +1587,7 @@ function openLesson(id){
 function completeLesson(){
     if(!window.currentLesson) return;
     localStorage.setItem("sfc_lesson_"+window.currentLesson,"done");
+    persistUserData();
     refreshLessonStatus();
     updateProgress(); updateOutcome();
     showToast("บันทึกว่าเรียนบทนี้แล้ว");
@@ -1594,6 +1690,7 @@ function updateOutcome(){
         }else{
             sumEl.innerText =
 `SMART FEVER CARE – สรุปผลพร้อมใช้
+ผู้ใช้: ${user.name||"-"} | บันทึกล่าสุด: ${localStorage.getItem("sfc_last_saved")||"เพิ่งบันทึก"}
 เรียนแล้ว: ${doneParts.join(" | ")||"-"}
 ยังไม่เรียน: ${pendingParts.join(" | ")||"-"}
 จุดที่ควรพัฒนา: ${weak.join(" | ")}
@@ -1691,6 +1788,7 @@ function openVideo(type){
     videoModal.classList.add("show");
     document.body.style.overflow="hidden";
     localStorage.setItem("sfc_video_"+type,"completed");
+    persistUserData();
     updateVideoStatus(); updateProgress(); updateOutcome();
 }
 function closeVideo(){
@@ -1783,3 +1881,4 @@ updateUser();
 </script>
 </body>
 </html>
+
