@@ -2,3283 +2,1712 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SMART FEVER CARE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* =========================================================
-   ROOT
-========================================================= */
 :root{
-    --blue:#073B66;
-    --blue2:#0B5D8F;
-    --orange:#F28C28;
-    --orange2:#FFB45C;
-    --light:#F5F8FB;
-    --white:#FFFFFF;
-    --text:#183247;
-    --muted:#718096;
-    --border:#E4EBF2;
-    --success:#2E8B68;
-    --danger:#D9534F;
-    --purple:#6658B5;
-    --shadow:0 12px 35px rgba(7,59,102,.10);
-    --radius:22px;
-}
-/* =========================================================
-   RESET
-========================================================= */
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-html{
-    scroll-behavior:smooth;
-}
-body{
-    font-family:"Prompt",sans-serif;
-    background:var(--light);
-    color:var(--text);
-    min-height:100vh;
-}
-button,
-input{
-    font-family:inherit;
-}
-button{
-    cursor:pointer;
-}
-/* =========================================================
-   PAGE
-========================================================= */
-.page{
-    display:none;
-    min-height:100vh;
-}
-.page.active{
-    display:block;
-}
-/* =========================================================
-   WELCOME
-========================================================= */
-#welcome{
-    background:
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(255,180,92,.35),
-            transparent 28%
-        ),
-        linear-gradient(
-            135deg,
-            #073B66 0%,
-            #0B5D8F 58%,
-            #F28C28 130%
-        );
-    color:white;
-    overflow:hidden;
-}
-.welcome-header{
-    padding:24px 6%;
-    display:flex;
-    align-items:center;
-}
-.welcome-logo{
-    width:135px;
-    height:auto;
-    background:white;
-    padding:9px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
-}
-.welcome-content{
-    max-width:1180px;
-    margin:auto;
-    padding:45px 6% 85px;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    align-items:center;
-    gap:60px;
-}
-.medical-label{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 15px;
-    border-radius:100px;
-    background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.25);
-    margin-bottom:20px;
-    font-size:13px;
-    letter-spacing:.4px;
-}
-.welcome-title{
-    font-size:clamp(40px,6vw,72px);
-    line-height:1.05;
-    font-weight:700;
-    letter-spacing:-1px;
-}
-.welcome-title span{
-    color:#FFD39D;
-}
-.welcome-subtitle{
-    margin-top:22px;
-    font-size:19px;
-    line-height:1.8;
-    opacity:.92;
-    max-width:620px;
-}
-.welcome-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-    margin-top:35px;
-}
-.btn{
-    border:none;
-    border-radius:14px;
-    padding:14px 22px;
-    font-size:15px;
-    font-weight:500;
-    transition:.25s;
-}
-.btn:hover{
-    transform:translateY(-2px);
-}
-.btn-primary{
-    background:var(--orange);
-    color:white;
-    box-shadow:0 8px 25px rgba(242,140,40,.3);
-}
-.btn-secondary{
-    background:white;
-    color:var(--blue);
-}
-.btn-outline{
-    background:transparent;
-    color:var(--blue);
-    border:1px solid var(--border);
-}
-.welcome-visual{
-    position:relative;
-}
-.hero-card{
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.2);
-    border-radius:32px;
-    padding:18px;
-    box-shadow:0 25px 60px rgba(0,0,0,.18);
-}
-.hero-card img{
-    width:100%;
-    height:430px;
-    object-fit:cover;
-    border-radius:23px;
-}
-/* กล่องลอยข้างรูปถูกลบออกตามคำขอ */
-/* =========================================================
-   LOGIN MODAL
-========================================================= */
-.login-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(3,24,40,.78);
-    backdrop-filter:blur(10px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:2000;
-}
-.login-modal.show{
-    display:flex;
-}
-.login-box{
-    width:min(440px,100%);
-    background:white;
-    border-radius:28px;
-    padding:30px;
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-    animation:loginIn .3s ease;
-}
-@keyframes loginIn{
-    from{
-        opacity:0;
-        transform:translateY(20px) scale(.97);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-.login-head{
-    text-align:center;
-    margin-bottom:25px;
-}
-.login-icon{
-    width:62px;
-    height:62px;
-    border-radius:20px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#E7F1F7;
-    color:var(--blue);
-    font-size:25px;
-    font-weight:700;
-}
-.login-head h2{
-    color:var(--blue);
-    margin-top:13px;
-    font-size:23px;
-}
-.login-head p{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:5px;
-    line-height:1.7;
-}
-.login-tabs{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    padding:5px;
-    background:#F3F6F8;
-    border-radius:13px;
-    margin-bottom:20px;
-}
-.login-tab{
-    border:none;
-    background:transparent;
-    border-radius:10px;
-    padding:10px;
-    color:var(--muted);
-    font-size:12px;
-}
-.login-tab.active{
-    background:white;
-    color:var(--blue);
-    font-weight:600;
-    box-shadow:0 3px 10px rgba(0,0,0,.06);
-}
-.login-form{
-    display:none;
-}
-.login-form.active{
-    display:block;
-}
-.login-label{
-    display:block;
-    color:var(--blue);
-    font-size:12px;
-    margin-bottom:7px;
-}
-.login-input{
-    width:100%;
-    padding:14px 15px;
-    border:1px solid var(--border);
-    border-radius:13px;
-    outline:none;
-    font-size:13px;
-    margin-bottom:13px;
-}
-.login-input:focus{
-    border-color:var(--orange);
-    box-shadow:0 0 0 3px rgba(242,140,40,.10);
-}
-.line-login{
-    width:100%;
-    border:none;
-    padding:14px;
-    border-radius:13px;
-    background:#06C755;
-    color:white;
-    font-weight:600;
-    font-size:14px;
-}
-.login-close{
-    width:100%;
-    border:none;
-    background:#F3F6F8;
-    color:var(--muted);
-    border-radius:13px;
-    padding:12px;
-    margin-top:10px;
-    font-size:12px;
-}
-/* =========================================================
-   APP HEADER
-========================================================= */
-.app{
-    min-height:100vh;
-}
-.app-header{
-    background:white;
-    border-bottom:1px solid var(--border);
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-.header-inner{
-    max-width:1200px;
-    margin:auto;
-    min-height:78px;
-    padding:10px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-.brand img{
-    width:52px;
-    height:52px;
-    object-fit:contain;
-}
-.brand-title{
-    font-weight:700;
-    color:var(--blue);
-    font-size:17px;
-}
-.brand-subtitle{
-    font-size:10px;
-    color:var(--muted);
-}
-.user-mini{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-.avatar{
-    width:43px;
-    height:43px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid white;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
-}
-.user-name{
-    font-size:13px;
-    font-weight:500;
-}
-.logout-btn{
-    border:1px solid #F0D5C8;
-    background:#FFF7F3;
-    color:#B84B3E;
-    border-radius:12px;
-    padding:9px 13px;
-    font-size:12px;
-    font-weight:500;
-    transition:.2s;
-}
-.logout-btn:hover{
-    background:#FFF0EB;
-    transform:translateY(-1px);
-}
-/* =========================================================
-   MAIN
-========================================================= */
-.main{
-    max-width:1200px;
-    margin:auto;
-    padding:35px 5% 125px;
-}
-.page-heading{
-    margin-bottom:28px;
-}
-.page-heading small{
-    color:var(--orange);
-    font-weight:600;
-    font-size:12px;
-    letter-spacing:.5px;
-}
-.page-heading h1{
-    color:var(--blue);
-    font-size:32px;
-    margin-top:4px;
-}
-.page-heading p{
-    color:var(--muted);
-    font-size:14px;
-    margin-top:5px;
-    line-height:1.7;
-}
-/* =========================================================
-   DASHBOARD HERO
-========================================================= */
-.dashboard-hero{
-    background:linear-gradient(120deg,#073B66,#0B5D8F);
-    color:white;
-    border-radius:27px;
-    padding:32px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-}
-.dashboard-hero:after{
-    content:"";
-    width:250px;
-    height:250px;
-    position:absolute;
-    right:-70px;
-    top:-100px;
-    border-radius:50%;
-    background:rgba(242,140,40,.4);
-}
-.dashboard-hero h1{
-    font-size:28px;
-    position:relative;
-    z-index:2;
-}
-.dashboard-hero p{
-    opacity:.82;
-    font-size:14px;
-    margin-top:5px;
-    position:relative;
-    z-index:2;
-}
-.progress-box{
-    margin-top:25px;
-    max-width:550px;
-    position:relative;
-    z-index:2;
-}
-.progress-info{
-    display:flex;
-    justify-content:space-between;
-    font-size:12px;
-    margin-bottom:8px;
-}
-.progress{
-    height:9px;
-    background:rgba(255,255,255,.18);
-    border-radius:20px;
-    overflow:hidden;
-}
-.progress-bar{
-    height:100%;
-    background:linear-gradient(90deg,#F28C28,#FFD39D);
-    border-radius:20px;
-    transition:.5s;
-}
-/* =========================================================
-   STATS
-========================================================= */
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-    margin:22px 0;
-}
-.stat{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 5px 20px rgba(7,59,102,.05);
-}
-.stat-label{
-    color:var(--muted);
-    font-size:12px;
-}
-.stat-number{
-    color:var(--blue);
-    font-size:28px;
-    font-weight:700;
-    margin-top:5px;
-}
-/* =========================================================
-   SECTION
-========================================================= */
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:32px 0 15px;
-}
-.section-title h2{
-    font-size:20px;
-    color:var(--blue);
-}
-.section-description{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:4px;
-    line-height:1.7;
-}
-/* =========================================================
-   CARDS
-========================================================= */
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-.card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 5px 18px rgba(7,59,102,.05);
-    transition:.25s;
-}
-.card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow);
-}
-.card-image{
-    height:170px;
-    width:100%;
-    object-fit:cover;
-}
-.card-body{
-    padding:20px;
-}
-.card-number{
-    color:var(--orange);
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:.5px;
-}
-.card h3{
-    color:var(--blue);
-    margin:5px 0;
-    font-size:17px;
-}
-.card p{
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.7;
-}
-/* =========================================================
-   VIDEO
-========================================================= */
-.video-learning-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-top:5px;
-}
-.video-card{
-    overflow:hidden;
-    border:1px solid var(--border);
-    border-radius:22px;
-    background:white;
-    box-shadow:0 5px 18px rgba(7,59,102,.05);
-    transition:.25s;
-}
-.video-card:hover{
-    transform:translateY(-5px);
-    box-shadow:var(--shadow);
-}
-.video-thumbnail{
-    position:relative;
-    height:190px;
-    overflow:hidden;
-    background:var(--blue);
-}
-.video-thumbnail img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.4s;
-}
-.video-card:hover .video-thumbnail img{
-    transform:scale(1.04);
-}
-.video-thumbnail:after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to bottom,transparent 40%,rgba(7,59,102,.5));
-    pointer-events:none;
-}
-.video-play{
-    position:absolute;
-    z-index:3;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    width:60px;
-    height:60px;
-    border:none;
-    border-radius:50%;
-    color:white;
-    background:rgba(7,59,102,.94);
-    box-shadow:0 8px 25px rgba(0,0,0,.25);
-    font-size:20px;
-}
-.video-play:hover{
-    transform:translate(-50%,-50%) scale(1.08);
-    background:var(--orange);
-}
-.video-duration{
-    position:absolute;
-    z-index:4;
-    right:12px;
-    bottom:11px;
-    padding:4px 8px;
-    border-radius:6px;
-    color:white;
-    background:rgba(0,0,0,.65);
-    font-size:10px;
-}
-.video-body{
-    padding:20px;
-}
-.video-category{
-    color:var(--orange);
-    font-size:9px;
-    font-weight:600;
-    letter-spacing:.7px;
-}
-.video-body h3{
-    color:var(--blue);
-    font-size:16px;
-    margin:6px 0;
-}
-.video-body p{
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.8;
-    min-height:58px;
-}
-.video-link{
-    margin-top:13px;
-    padding:0;
-    border:none;
-    background:none;
-    color:var(--blue);
-    font-family:inherit;
-    font-size:11px;
-    font-weight:600;
-}
-.video-complete{
-    display:inline-block;
-    margin-top:10px;
-    padding:4px 8px;
-    border-radius:6px;
-    background:#EAF7F1;
-    color:var(--success);
-    font-size:9px;
-}
-/* =========================================================
-   VIDEO MODAL
-========================================================= */
-.video-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(3,24,40,.82);
-    backdrop-filter:blur(8px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:1000;
-}
-.video-modal.show{
-    display:flex;
-}
-.video-modal-content{
-    width:min(900px,100%);
-    background:white;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-}
-.video-modal-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:17px 20px;
-    border-bottom:1px solid var(--border);
-}
-.video-modal-header h3{
-    color:var(--blue);
-    font-size:16px;
-}
-.close-video{
-    width:36px;
-    height:36px;
-    border:none;
-    border-radius:10px;
-    background:#F3F6F8;
-    color:var(--blue);
-    font-size:18px;
-}
-.video-player{
-    aspect-ratio:16/9;
-    background:#061D2D;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.video-placeholder{
-    color:white;
-    text-align:center;
-    padding:30px;
-}
-.video-placeholder h4{
-    font-size:20px;
-    margin-bottom:8px;
-}
-.video-placeholder p{
-    opacity:.75;
-    font-size:12px;
-    line-height:1.8;
-}
-.video-modal-footer{
-    padding:15px 20px;
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.7;
-}
-/* =========================================================
-   LESSON
-========================================================= */
-.lesson-list{
-    display:grid;
-    gap:16px;
-}
-.lesson{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:20px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    transition:.2s;
-}
-.lesson:hover{
-    border-color:#BCD3E2;
-    box-shadow:var(--shadow);
-}
-.lesson-number{
-    width:48px;
-    height:48px;
-    border-radius:14px;
-    background:#EAF3F8;
-    color:var(--blue);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-}
-.lesson-content{
-    flex:1;
-}
-.lesson-content h3{
-    color:var(--blue);
-    font-size:16px;
-}
-.lesson-content p{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:3px;
-    line-height:1.7;
-}
-.status{
-    font-size:11px;
-    color:var(--success);
-}
-/* =========================================================
-   SCENARIO
-========================================================= */
-.scenario-container{
-    max-width:850px;
-    margin:auto;
-}
-.scenario-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:25px;
-    padding:30px;
-    box-shadow:var(--shadow);
-}
-.scenario-label{
-    color:var(--orange);
-    font-size:12px;
-    font-weight:600;
-}
-.scenario-card h2{
-    color:var(--blue);
-    margin:8px 0 14px;
-    font-size:22px;
-}
-.scenario-text{
-    background:#F5F8FB;
-    border-left:4px solid var(--orange);
-    padding:18px;
-    border-radius:10px;
-    font-size:14px;
-    line-height:1.8;
-}
-.options{
-    display:grid;
-    gap:12px;
-    margin-top:22px;
-}
-.option{
-    width:100%;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:15px;
-    text-align:left;
-    color:var(--text);
-    transition:.2s;
-    font-size:13px;
-    line-height:1.6;
-}
-.option:hover{
-    border-color:var(--orange);
-    background:#FFF9F3;
-}
-.option.correct{
-    background:#EAF7F1;
-    border-color:var(--success);
-}
-.option.wrong{
-    background:#FFF0EF;
-    border-color:var(--danger);
-}
-.option:disabled{
-    cursor:default;
-}
-.feedback{
-    display:none;
-    margin-top:20px;
-    padding:18px;
-    border-radius:15px;
-    background:#F5F8FB;
-    line-height:1.8;
-    font-size:13px;
-}
-.feedback.show{
-    display:block;
-}
-/* =========================================================
-   ASSESSMENT
-========================================================= */
-.question-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:25px;
-    margin-bottom:18px;
-}
-.question-number{
-    color:var(--orange);
-    font-size:12px;
-    font-weight:600;
-}
-.question-card h3{
-    color:var(--blue);
-    font-size:16px;
-    margin:7px 0 18px;
-}
-.assessment-option{
-    padding:13px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    margin-bottom:9px;
-    display:flex;
-    gap:10px;
-    font-size:13px;
-    cursor:pointer;
-    line-height:1.6;
-}
-.assessment-option:hover{
-    background:#F8FBFD;
-}
-.result-box{
-    display:none;
-    background:linear-gradient(120deg,#073B66,#0B5D8F);
-    color:white;
-    padding:30px;
-    border-radius:25px;
-    text-align:center;
-}
-.result-box.show{
-    display:block;
-}
-.result-score{
-    font-size:50px;
-    font-weight:700;
-    color:#FFD39D;
-}
-/* =========================================================
-   OUTCOME
-========================================================= */
-.outcome-grid{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:20px;
-}
-.outcome-card{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:24px;
-    padding:25px;
-    box-shadow:0 5px 20px rgba(7,59,102,.05);
-}
-.outcome-card h2{
-    color:var(--blue);
-    font-size:19px;
-    margin-bottom:6px;
-}
-.outcome-card p{
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.8;
-}
-.knowledge-level{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin-top:20px;
-}
-.level-circle{
-    width:105px;
-    height:105px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:linear-gradient(135deg,#073B66,#0B5D8F);
-    color:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    box-shadow:0 12px 30px rgba(7,59,102,.18);
-}
-.level-circle strong{
-    font-size:28px;
-}
-.level-circle span{
-    font-size:9px;
-    opacity:.8;
-}
-.level-title{
-    color:var(--blue);
-    font-size:19px;
-    font-weight:600;
-}
-.level-description{
-    margin-top:5px;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.7;
-}
-.outcome-list{
-    display:grid;
-    gap:11px;
-    margin-top:17px;
-}
-.outcome-item{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    padding:13px;
-    border-radius:14px;
-    background:#F7FAFC;
-}
-.outcome-dot{
-    width:28px;
-    height:28px;
-    flex-shrink:0;
-    border-radius:9px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#E7F1F7;
-    color:var(--blue);
-    font-size:11px;
-    font-weight:700;
-}
-.outcome-item strong{
-    display:block;
-    color:var(--blue);
-    font-size:12px;
-}
-.outcome-item span{
-    display:block;
-    color:var(--muted);
-    font-size:11px;
-    margin-top:2px;
-    line-height:1.6;
-}
-.need-card{
-    border-left:4px solid var(--orange);
-}
-.need-card.good{
-    border-left-color:var(--success);
-}
-.need-card h3{
-    color:var(--blue);
-    font-size:15px;
-}
-.learning-recommendation{
-    margin-top:18px;
-    padding:15px;
-    background:#FFF8F0;
-    border-radius:15px;
-}
-.learning-recommendation strong{
-    color:#B96718;
-    font-size:12px;
-}
-.learning-recommendation p{
-    margin-top:5px;
-}
-/* =========================================================
-   PROFILE
-========================================================= */
-.profile-card{
-    max-width:700px;
-    margin:auto;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:28px;
-    padding:35px;
-    box-shadow:var(--shadow);
-}
-.profile-photo-wrap{
-    text-align:center;
-    position:relative;
-    margin-bottom:28px;
-}
-.profile-photo{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    border:5px solid white;
-    box-shadow:0 8px 30px rgba(7,59,102,.15);
-}
-.change-photo{
-    display:block;
-    margin:12px auto 0;
-    color:var(--blue2);
-    background:none;
-    border:none;
-    font-size:12px;
-}
-.form-group{
-    margin-bottom:17px;
-}
-.form-group label{
-    display:block;
-    color:var(--blue);
-    font-size:12px;
-    margin-bottom:7px;
-}
-.form-group input{
-    width:100%;
-    padding:13px 15px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    outline:none;
-    font-size:13px;
-}
-.form-group input:focus{
-    border-color:var(--orange);
-}
-.contact-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:20px;
-}
-.contact-box{
-    padding:18px;
-    border-radius:17px;
-    border:1px solid var(--border);
-    background:#F8FAFC;
-}
-.contact-icon{
-    width:40px;
-    height:40px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:10px;
-    font-weight:700;
-}
-.line-icon{
-    background:#DDF7E6;
-    color:#06A747;
-}
-.phone-icon{
-    background:#E7F1F7;
-    color:var(--blue);
-}
-.contact-box h3{
-    color:var(--blue);
-    font-size:14px;
-}
-.contact-box p{
-    color:var(--muted);
-    font-size:11px;
-    margin:4px 0 12px;
-    line-height:1.6;
-}
-.contact-btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    text-decoration:none;
-    border:none;
-    padding:10px;
-    border-radius:11px;
-    font-size:11px;
-    font-weight:500;
-}
-.line-btn{
-    background:#06C755;
-    color:white;
-}
-.phone-btn{
-    background:var(--blue);
-    color:white;
-}
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
-.page-navigation{
-    max-width:850px;
-    margin:32px auto 5px;
-    padding-top:18px;
-    border-top:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-}
-.page-nav-btn{
-    border:1px solid var(--border);
-    background:white;
-    color:var(--blue);
-    border-radius:14px;
-    padding:11px 18px;
-    font-size:13px;
-    font-weight:500;
-    box-shadow:0 4px 14px rgba(7,59,102,.05);
-    transition:.2s;
-}
-.page-nav-btn:hover{
-    border-color:#BCD3E2;
-    transform:translateY(-1px);
-}
-.page-nav-btn:disabled{
-    opacity:.38;
-    cursor:not-allowed;
-    transform:none;
-}
-.page-nav-label{
-    color:var(--muted);
-    font-size:12px;
-    text-align:center;
-    flex:1;
-}
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:78px;
-    background:rgba(255,255,255,.97);
-    backdrop-filter:blur(15px);
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:center;
-    z-index:200;
-}
-.nav-inner{
-    width:100%;
-    max-width:850px;
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-}
-.nav-item{
-    border:none;
-    background:none;
-    color:#8291A0;
-    font-size:9px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:4px;
-    transition:.2s;
-}
-.nav-item:hover{
-    color:var(--blue);
-}
-.nav-item.active{
-    color:var(--blue);
-    font-weight:600;
-}
-.nav-icon{
-    width:30px;
-    height:30px;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    font-weight:700;
-    background:#F1F5F8;
-}
-.nav-item.active .nav-icon{
-    background:#E7F1F7;
-    color:var(--orange);
-}
-/* =========================================================
-   TOAST
-========================================================= */
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:100px;
-    transform:translate(-50%,20px);
-    background:#073B66;
-    color:white;
-    padding:12px 20px;
-    border-radius:12px;
-    font-size:12px;
-    opacity:0;
-    pointer-events:none;
-    transition:.3s;
-    z-index:2500;
-    max-width:calc(100% - 30px);
-    text-align:center;
-}
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+    --blue:#073B66; --blue2:#0B5D8F; --orange:#F28C28; --orange2:#FFB45C;
+    --light:#F5F8FB; --white:#FFFFFF; --text:#183247; --muted:#718096;
+    --border:#E4EBF2; --success:#2E8B68; --danger:#D9534F; --purple:#6658B5;
+    --shadow:0 12px 35px rgba(7,59,102,.10); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Prompt",sans-serif;background:var(--light);color:var(--text);min-height:100vh}
+button,input{font-family:inherit} button{cursor:pointer}
+.page{display:none;min-height:100vh} .page.active{display:block}
+#welcome{background:radial-gradient(circle at 90% 10%,rgba(255,180,92,.35),transparent 28%),linear-gradient(135deg,#073B66 0%,#0B5D8F 58%,#F28C28 130%);color:white;overflow:hidden}
+.welcome-header{padding:24px 6%;display:flex;align-items:center}
+.welcome-logo{width:135px;height:auto;background:white;padding:9px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.welcome-content{max-width:1180px;margin:auto;padding:45px 6% 85px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:60px}
+.medical-label{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:100px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);margin-bottom:20px;font-size:13px;letter-spacing:.4px}
+.welcome-title{font-size:clamp(40px,6vw,72px);line-height:1.05;font-weight:700;letter-spacing:-1px}
+.welcome-title span{color:#FFD39D}
+.welcome-subtitle{margin-top:22px;font-size:19px;line-height:1.8;opacity:.92;max-width:620px}
+.welcome-buttons{display:flex;flex-wrap:wrap;gap:14px;margin-top:35px}
+.btn{border:none;border-radius:14px;padding:14px 22px;font-size:15px;font-weight:500;transition:.25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--orange);color:white;box-shadow:0 8px 25px rgba(242,140,40,.3)}
+.btn-secondary{background:white;color:var(--blue)}
+.btn-outline{background:transparent;color:var(--blue);border:1px solid var(--border)}
+.welcome-visual{position:relative}
+.hero-card{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.2);border-radius:32px;padding:18px;box-shadow:0 25px 60px rgba(0,0,0,.18)}
+.hero-card img{width:100%;height:430px;object-fit:cover;border-radius:23px}
+.login-modal,.video-modal{position:fixed;inset:0;background:rgba(3,24,40,.82);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;z-index:2000}
+.login-modal.show,.video-modal.show{display:flex}
+.login-box{width:min(440px,100%);background:white;border-radius:28px;padding:30px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.login-head{text-align:center;margin-bottom:25px}
+.login-icon{width:62px;height:62px;border-radius:20px;margin:auto;display:flex;align-items:center;justify-content:center;background:#E7F1F7;color:var(--blue);font-size:25px;font-weight:700}
+.login-head h2{color:var(--blue);margin-top:13px;font-size:23px}
+.login-head p{color:var(--muted);font-size:12px;margin-top:5px;line-height:1.7}
+.login-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;background:#F3F6F8;border-radius:13px;margin-bottom:20px}
+.login-tab{border:none;background:transparent;border-radius:10px;padding:10px;color:var(--muted);font-size:12px}
+.login-tab.active{background:white;color:var(--blue);font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.06)}
+.login-form{display:none}.login-form.active{display:block}
+.login-label{display:block;color:var(--blue);font-size:12px;margin-bottom:7px}
+.login-input{width:100%;padding:14px 15px;border:1px solid var(--border);border-radius:13px;outline:none;font-size:13px;margin-bottom:13px}
+.login-input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,140,40,.10)}
+.line-login{width:100%;border:none;padding:14px;border-radius:13px;background:#06C755;color:white;font-weight:600;font-size:14px}
+.login-close{width:100%;border:none;background:#F3F6F8;color:var(--muted);border-radius:13px;padding:12px;margin-top:10px;font-size:12px}
+.app{min-height:100vh}
+.app-header{background:white;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1200px;margin:auto;min-height:78px;padding:10px 5%;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:52px;height:52px;object-fit:contain}
+.brand-title{font-weight:700;color:var(--blue);font-size:17px}
+.brand-subtitle{font-size:10px;color:var(--muted)}
+.user-mini{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.avatar{width:43px;height:43px;border-radius:50%;object-fit:cover;border:2px solid white;box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.user-name{font-size:13px;font-weight:500}
+.logout-btn{border:1px solid #F0D5C8;background:#FFF7F3;color:#B84B3E;border-radius:12px;padding:9px 13px;font-size:12px;font-weight:500}
+.main{max-width:1200px;margin:auto;padding:35px 5% 125px}
+.page-heading{margin-bottom:28px}
+.page-heading small{color:var(--orange);font-weight:600;font-size:12px;letter-spacing:.5px}
+.page-heading h1{color:var(--blue);font-size:32px;margin-top:4px}
+.page-heading p{color:var(--muted);font-size:14px;margin-top:5px;line-height:1.7}
+.dashboard-hero{background:linear-gradient(120deg,#073B66,#0B5D8F);color:white;border-radius:27px;padding:32px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.dashboard-hero:after{content:"";width:250px;height:250px;position:absolute;right:-70px;top:-100px;border-radius:50%;background:rgba(242,140,40,.4)}
+.dashboard-hero h1,.dashboard-hero p,.progress-box{position:relative;z-index:2}
+.dashboard-hero h1{font-size:28px}
+.dashboard-hero p{opacity:.82;font-size:14px;margin-top:5px}
+.progress-box{margin-top:25px;max-width:550px}
+.progress-info{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
+.progress{height:9px;background:rgba(255,255,255,.18);border-radius:20px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#F28C28,#FFD39D);border-radius:20px;transition:.5s}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}
+.stat{background:white;border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 5px 20px rgba(7,59,102,.05)}
+.stat-label{color:var(--muted);font-size:12px}
+.stat-number{color:var(--blue);font-size:28px;font-weight:700;margin-top:5px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:32px 0 15px}
+.section-title h2{font-size:20px;color:var(--blue)}
+.section-description{color:var(--muted);font-size:12px;margin-top:4px;line-height:1.7}
+.cards,.video-learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card,.video-card{background:white;border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:0 5px 18px rgba(7,59,102,.05);transition:.25s}
+.card:hover,.video-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card-image{height:170px;width:100%;object-fit:cover}
+.card-body{padding:20px}
+.card-number{color:var(--orange);font-size:11px;font-weight:600;letter-spacing:.5px}
+.card h3{color:var(--blue);margin:5px 0;font-size:17px}
+.card p{color:var(--muted);font-size:13px;line-height:1.7}
+.video-thumbnail{position:relative;height:190px;overflow:hidden;background:var(--blue)}
+.video-thumbnail img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.video-card:hover .video-thumbnail img{transform:scale(1.04)}
+.video-thumbnail:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(7,59,102,.5));pointer-events:none}
+.video-play{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border:none;border-radius:50%;color:white;background:rgba(7,59,102,.94);box-shadow:0 8px 25px rgba(0,0,0,.25);font-size:20px}
+.video-play:hover{transform:translate(-50%,-50%) scale(1.08);background:var(--orange)}
+.video-duration{position:absolute;z-index:4;right:12px;bottom:11px;padding:4px 8px;border-radius:6px;color:white;background:rgba(0,0,0,.65);font-size:10px}
+.video-body{padding:20px}
+.video-category{color:var(--orange);font-size:9px;font-weight:600;letter-spacing:.7px}
+.video-body h3{color:var(--blue);font-size:16px;margin:6px 0}
+.video-body p{color:var(--muted);font-size:11px;line-height:1.8;min-height:58px}
+.video-link{margin-top:13px;padding:0;border:none;background:none;color:var(--blue);font-family:inherit;font-size:11px;font-weight:600}
+.video-complete{display:inline-block;margin-top:10px;padding:4px 8px;border-radius:6px;background:#EAF7F1;color:var(--success);font-size:9px}
+.video-modal-content{width:min(920px,100%);background:white;border-radius:25px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.video-modal-header{display:flex;justify-content:space-between;align-items:center;padding:17px 20px;border-bottom:1px solid var(--border)}
+.video-modal-header h3{color:var(--blue);font-size:16px}
+.close-video{width:36px;height:36px;border:none;border-radius:10px;background:#F3F6F8;color:var(--blue);font-size:18px}
+.video-player{aspect-ratio:16/9;background:#061D2D;position:relative;overflow:hidden}
+.video-slide{position:absolute;inset:0;padding:28px 32px 90px;color:white;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,#05253a 0%,#0B5D8F 55%,#8a4a12 140%)}
+.video-slide small{color:#FFD39D;font-size:12px;letter-spacing:.6px;font-weight:600}
+.video-slide h4{font-size:clamp(20px,3vw,30px);margin:10px 0 14px;line-height:1.35}
+.video-slide p{font-size:15px;line-height:1.85;opacity:.95;max-width:720px}
+.video-controls{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;align-items:center;gap:10px}
+.video-ctrl{border:none;background:rgba(255,255,255,.15);color:white;border-radius:10px;padding:8px 12px;font-size:12px}
+.video-track{flex:1;height:6px;background:rgba(255,255,255,.22);border-radius:20px;overflow:hidden}
+.video-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#F28C28,#FFD39D)}
+.video-time{color:white;font-size:11px;min-width:70px;text-align:right}
+.video-modal-footer{padding:15px 20px;color:var(--muted);font-size:11px;line-height:1.7}
+.lesson-list{display:grid;gap:16px}
+.lesson{background:white;border:1px solid var(--border);border-radius:20px;padding:20px;display:flex;align-items:center;gap:18px}
+.lesson-number{width:48px;height:48px;border-radius:14px;background:#EAF3F8;color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700}
+.lesson-content{flex:1}
+.lesson-content h3{color:var(--blue);font-size:16px}
+.lesson-content p{color:var(--muted);font-size:12px;margin-top:3px;line-height:1.7}
+.status{font-size:11px;color:var(--success)}
+.scenario-container{max-width:850px;margin:auto}
+.scenario-card{background:white;border:1px solid var(--border);border-radius:25px;padding:30px;box-shadow:var(--shadow)}
+.scenario-label{color:var(--orange);font-size:12px;font-weight:600}
+.scenario-card h2{color:var(--blue);margin:8px 0 14px;font-size:22px}
+.scenario-text{background:#F5F8FB;border-left:4px solid var(--orange);padding:18px;border-radius:10px;font-size:14px;line-height:1.8}
+.options{display:grid;gap:12px;margin-top:22px}
+.option{width:100%;background:white;border:1px solid var(--border);border-radius:14px;padding:15px;text-align:left;color:var(--text);font-size:13px;line-height:1.6}
+.option:hover{border-color:var(--orange);background:#FFF9F3}
+.option.correct{background:#EAF7F1;border-color:var(--success)}
+.option.wrong{background:#FFF0EF;border-color:var(--danger)}
+.option:disabled{cursor:default}
+.feedback{display:none;margin-top:20px;padding:18px;border-radius:15px;background:#F5F8FB;line-height:1.8;font-size:13px}
+.feedback.show{display:block}
+.question-card{background:white;border:1px solid var(--border);border-radius:22px;padding:25px;margin-bottom:18px}
+.question-number{color:var(--orange);font-size:12px;font-weight:600}
+.question-card h3{color:var(--blue);font-size:16px;margin:7px 0 18px}
+.assessment-option{padding:13px;border:1px solid var(--border);border-radius:12px;margin-bottom:9px;display:flex;gap:10px;font-size:13px;cursor:pointer;line-height:1.6}
+.result-box{display:none;background:linear-gradient(120deg,#073B66,#0B5D8F);color:white;padding:30px;border-radius:25px;text-align:center}
+.result-box.show{display:block}
+.result-score{font-size:50px;font-weight:700;color:#FFD39D}
+.outcome-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+.outcome-card{background:white;border:1px solid var(--border);border-radius:24px;padding:25px}
+.outcome-card h2{color:var(--blue);font-size:19px;margin-bottom:6px}
+.outcome-card p{color:var(--muted);font-size:12px;line-height:1.8}
+.knowledge-level{display:flex;align-items:center;gap:18px;margin-top:20px}
+.level-circle{width:105px;height:105px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#073B66,#0B5D8F);color:white;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.level-circle strong{font-size:28px}
+.level-title{color:var(--blue);font-size:19px;font-weight:600}
+.level-description{margin-top:5px;color:var(--muted);font-size:12px;line-height:1.7}
+.outcome-list{display:grid;gap:11px;margin-top:17px}
+.outcome-item{display:flex;gap:12px;align-items:flex-start;padding:13px;border-radius:14px;background:#F7FAFC}
+.outcome-dot{width:28px;height:28px;flex-shrink:0;border-radius:9px;display:flex;align-items:center;justify-content:center;background:#E7F1F7;color:var(--blue);font-size:11px;font-weight:700}
+.outcome-item strong{display:block;color:var(--blue);font-size:12px}
+.outcome-item span{display:block;color:var(--muted);font-size:11px;margin-top:2px;line-height:1.6}
+.need-card{border-left:4px solid var(--orange)}
+.learning-recommendation{margin-top:18px;padding:15px;background:#FFF8F0;border-radius:15px}
+.learning-recommendation strong{color:#B96718;font-size:12px}
+.profile-card{max-width:700px;margin:auto;background:white;border:1px solid var(--border);border-radius:28px;padding:35px;box-shadow:var(--shadow)}
+.profile-photo-wrap{text-align:center;margin-bottom:28px}
+.profile-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:5px solid white;box-shadow:0 8px 30px rgba(7,59,102,.15)}
+.change-photo{display:block;margin:12px auto 0;color:var(--blue2);background:none;border:none;font-size:12px}
+.form-group{margin-bottom:17px}
+.form-group label{display:block;color:var(--blue);font-size:12px;margin-bottom:7px}
+.form-group input{width:100%;padding:13px 15px;border:1px solid var(--border);border-radius:12px;outline:none;font-size:13px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.contact-box{padding:18px;border-radius:17px;border:1px solid var(--border);background:#F8FAFC}
+.contact-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-weight:700}
+.line-icon{background:#DDF7E6;color:#06A747}
+.phone-icon{background:#E7F1F7;color:var(--blue)}
+.contact-box h3{color:var(--blue);font-size:14px}
+.contact-box p{color:var(--muted);font-size:11px;margin:4px 0 12px;line-height:1.6}
+.contact-btn{display:block;width:100%;text-align:center;text-decoration:none;border:none;padding:10px;border-radius:11px;font-size:11px;font-weight:500}
+.line-btn{background:#06C755;color:white}
+.phone-btn{background:var(--blue);color:white}
+.page-navigation{max-width:850px;margin:32px auto 5px;padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.page-nav-btn{border:1px solid var(--border);background:white;color:var(--blue);border-radius:14px;padding:11px 18px;font-size:13px;font-weight:500}
+.page-nav-btn:disabled{opacity:.38;cursor:not-allowed}
+.page-nav-label{color:var(--muted);font-size:12px;text-align:center;flex:1}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:78px;background:rgba(255,255,255,.97);backdrop-filter:blur(15px);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:200}
+.nav-inner{width:100%;max-width:850px;display:grid;grid-template-columns:repeat(6,1fr)}
+.nav-item{border:none;background:none;color:#8291A0;font-size:9px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.nav-item.active{color:var(--blue);font-weight:600}
+.nav-icon{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#F1F5F8}
+.nav-item.active .nav-icon{background:#E7F1F7;color:var(--orange)}
+.toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,20px);background:#073B66;color:white;padding:12px 20px;border-radius:12px;font-size:12px;opacity:0;pointer-events:none;transition:.3s;z-index:2500;max-width:calc(100% - 30px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:900px){
-    .welcome-content{
-        grid-template-columns:1fr;
-        padding-top:30px;
-    }
-    .welcome-visual{
-        max-width:600px;
-        margin:auto;
-    }
-    .cards{
-        grid-template-columns:1fr 1fr;
-    }
-    .video-learning-grid{
-        grid-template-columns:1fr 1fr;
-    }
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-    .outcome-grid{
-        grid-template-columns:1fr;
-    }
+    .welcome-content{grid-template-columns:1fr;padding-top:30px}
+    .cards,.video-learning-grid{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .outcome-grid{grid-template-columns:1fr}
 }
 @media(max-width:600px){
-    .welcome-header{
-        padding:18px 5%;
-    }
-    .welcome-logo{
-        width:105px;
-    }
-    .welcome-title{
-        font-size:42px;
-    }
-    .welcome-subtitle{
-        font-size:15px;
-    }
-    .hero-card img{
-        height:320px;
-    }
-    .cards,
-    .video-learning-grid{
-        grid-template-columns:1fr;
-    }
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-    .stat{
-        padding:15px;
-    }
-    .stat-number{
-        font-size:23px;
-    }
-    .main{
-        padding-left:4%;
-        padding-right:4%;
-    }
-    .user-name{
-        display:none;
-    }
-    .lesson{
-        padding:15px;
-    }
-    .lesson-number{
-        width:42px;
-        height:42px;
-        flex-shrink:0;
-    }
-    .profile-card{
-        padding:23px;
-    }
-    .logout-btn{
-        padding:8px 10px;
-        font-size:11px;
-    }
-    .page-navigation{
-        margin-top:25px;
-    }
-    .page-nav-btn{
-        padding:10px 13px;
-        font-size:12px;
-    }
-    .nav-item{
-        font-size:8px;
-    }
-    .nav-icon{
-        width:28px;
-        height:28px;
-    }
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-    .knowledge-level{
-        align-items:flex-start;
-    }
-}
-@media(prefers-reduced-motion:reduce){
-    *{
-        scroll-behavior:auto !important;
-        transition:none !important;
-        animation:none !important;
-    }
+    .welcome-title{font-size:42px}
+    .hero-card img{height:320px}
+    .cards,.video-learning-grid,.contact-grid{grid-template-columns:1fr}
+    .user-name{display:none}
+    .main{padding-left:4%;padding-right:4%}
 }
 </style>
 </head>
 <body>
-<!-- =====================================================
-     WELCOME
-===================================================== -->
 <section id="welcome" class="page active">
 <header class="welcome-header">
-    <img
-        class="welcome-logo"
-        src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
-        alt="ตราคณะพยาบาลศาสตร์อัครราชกุมารี ราชวิทยาลัยจุฬาภรณ์">
+    <img class="welcome-logo" src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png" alt="ตราคณะพยาบาลศาสตร์">
 </header>
 <div class="welcome-content">
     <div>
-        <div class="medical-label">
-            SMART HEALTH EDUCATION
-        </div>
-        <h1 class="welcome-title">
-            SMART<br>
-            <span>FEVER CARE</span>
-        </h1>
-        <p class="welcome-subtitle">
-            ระบบการเรียนรู้ดิจิทัลเพื่อเสริมสร้างความรู้
-            และความมั่นใจในการดูแลเด็กที่มีไข้
-            สำหรับผู้ปกครอง
-        </p>
+        <div class="medical-label">SMART HEALTH EDUCATION</div>
+        <h1 class="welcome-title">SMART<br><span>FEVER CARE</span></h1>
+        <p class="welcome-subtitle">ระบบการเรียนรู้ดิจิทัลเพื่อเสริมสร้างความรู้และความมั่นใจในการดูแลเด็กที่มีไข้ สำหรับผู้ปกครอง</p>
         <div class="welcome-buttons">
-            <button
-                class="btn btn-primary"
-                onclick="openLogin('email')">
-                เข้าสู่ระบบ
-            </button>
-            <button
-                class="btn btn-secondary"
-                onclick="openLogin('line')">
-                เข้าสู่ระบบผ่าน LINE
-            </button>
+            <button class="btn btn-primary" onclick="openLogin('email')">เข้าสู่ระบบ</button>
+            <button class="btn btn-secondary" onclick="openLogin('line')">เข้าสู่ระบบผ่าน LINE</button>
         </div>
     </div>
     <div class="welcome-visual">
         <div class="hero-card">
-            <img
-                src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=1000&q=85"
-                alt="การดูแลเด็กเมื่อมีไข้">
+            <img src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=1000&q=85" alt="การดูแลเด็กเมื่อมีไข้">
         </div>
     </div>
 </div>
 </section>
-<!-- =====================================================
-     APP
-===================================================== -->
+
 <section id="app" class="page">
 <div class="app">
 <header class="app-header">
 <div class="header-inner">
     <div class="brand">
-        <img
-            src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png"
-            alt="ตราคณะพยาบาลศาสตร์">
+        <img src="https://nurse.cra.ac.th/wp-content/uploads/2022/08/Logo-Thai.png" alt="ตราคณะพยาบาลศาสตร์">
         <div>
-            <div class="brand-title">
-                SMART FEVER CARE
-            </div>
-            <div class="brand-subtitle">
-                Digital Nursing Innovation
-            </div>
+            <div class="brand-title">SMART FEVER CARE</div>
+            <div class="brand-subtitle">Digital Nursing Innovation</div>
         </div>
     </div>
     <div class="user-mini">
-        <div
-            class="user-name"
-            id="headerUserName">
-            ผู้ใช้งาน
-        </div>
-        <img
-            class="avatar"
-            id="headerAvatar"
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80"
-            alt="รูปโปรไฟล์">
-        <button
-            class="logout-btn"
-            onclick="logoutSystem()">
-            ออกจากระบบ
-        </button>
+        <div class="user-name" id="headerUserName">ผู้ใช้งาน</div>
+        <img class="avatar" id="headerAvatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="รูปโปรไฟล์">
+        <button class="logout-btn" onclick="logoutSystem()">ออกจากระบบ</button>
     </div>
 </div>
 </header>
-<!-- =====================================================
-     HOME
-===================================================== -->
+
 <main id="homePage" class="app-page">
 <div class="main">
 <div class="dashboard-hero">
-    <h1>
-        สวัสดีค่ะ
-        <span id="homeUserName">ผู้ใช้งาน</span>
-    </h1>
-    <p>
-        ยินดีต้อนรับเข้าสู่ SMART FEVER CARE
-    </p>
+    <h1>สวัสดีค่ะ <span id="homeUserName">ผู้ใช้งาน</span></h1>
+    <p>ยินดีต้อนรับเข้าสู่ SMART FEVER CARE</p>
     <div class="progress-box">
-        <div class="progress-info">
-            <span>ความก้าวหน้าการเรียนรู้</span>
-            <span id="progressText">0%</span>
-        </div>
-        <div class="progress">
-            <div
-                id="progressBar"
-                class="progress-bar"
-                style="width:0%">
-            </div>
-        </div>
+        <div class="progress-info"><span>ความก้าวหน้าการเรียนรู้</span><span id="progressText">0%</span></div>
+        <div class="progress"><div id="progressBar" class="progress-bar" style="width:0%"></div></div>
     </div>
 </div>
 <div class="stats">
-    <div class="stat">
-        <div class="stat-label">
-            บทเรียน
-        </div>
-        <div class="stat-number">
-            05
-        </div>
-    </div>
-    <div class="stat">
-        <div class="stat-label">
-            สถานการณ์
-        </div>
-        <div class="stat-number">
-            01
-        </div>
-    </div>
-    <div class="stat">
-        <div class="stat-label">
-            คะแนนล่าสุด
-        </div>
-        <div
-            class="stat-number"
-            id="lastScore">
-            —
-        </div>
-    </div>
-    <div class="stat">
-        <div class="stat-label">
-            ความก้าวหน้า
-        </div>
-        <div
-            class="stat-number"
-            id="progressNumber">
-            0%
-        </div>
-    </div>
+    <div class="stat"><div class="stat-label">บทเรียน</div><div class="stat-number">05</div></div>
+    <div class="stat"><div class="stat-label">สถานการณ์</div><div class="stat-number">10</div></div>
+    <div class="stat"><div class="stat-label">คะแนนล่าสุด</div><div class="stat-number" id="lastScore">—</div></div>
+    <div class="stat"><div class="stat-label">ความก้าวหน้า</div><div class="stat-number" id="progressNumber">0%</div></div>
 </div>
-<div class="section-title">
-    <div>
-        <h2>
-            เริ่มต้นการเรียนรู้
-        </h2>
-        <p class="section-description">
-            เลือกกิจกรรมการเรียนรู้ตามลำดับ
-            เพื่อเสริมสร้างความรู้และทักษะ
-            ในการดูแลเด็กที่มีไข้
-        </p>
-    </div>
-</div>
+<div class="section-title"><div><h2>เริ่มต้นการเรียนรู้</h2><p class="section-description">เลือกกิจกรรมการเรียนรู้ตามลำดับ เพื่อเสริมสร้างความรู้และทักษะในการดูแลเด็กที่มีไข้</p></div></div>
 <div class="cards">
     <div class="card">
-        <img
-            class="card-image"
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85"
-            alt="บทเรียน">
+        <img class="card-image" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85" alt="บทเรียน">
         <div class="card-body">
-            <div class="card-number">
-                LEARNING MODULE
-            </div>
-            <h3>
-                บทเรียน
-            </h3>
-            <p>
-                เรียนรู้หลักการประเมินเด็ก
-                การดูแลเด็กที่มีไข้
-                และหลักการเช็ดตัวลดไข้
-            </p>
-            <button
-                class="btn btn-primary"
-                style="margin-top:15px"
-                onclick="openPage('lessons')">
-                เริ่มเรียน
-            </button>
+            <div class="card-number">LEARNING MODULE</div>
+            <h3>บทเรียน</h3>
+            <p>เรียนรู้หลักการประเมินเด็ก การดูแลเด็กที่มีไข้ และหลักการเช็ดตัวลดไข้</p>
+            <button class="btn btn-primary" style="margin-top:15px" onclick="openPage('lessons')">เริ่มเรียน</button>
         </div>
     </div>
     <div class="card">
-        <img
-            class="card-image"
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85"
-            alt="สถานการณ์จำลอง">
+        <img class="card-image" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85" alt="สถานการณ์จำลอง">
         <div class="card-body">
-            <div class="card-number">
-                CLINICAL SIMULATION
-            </div>
-            <h3>
-                สถานการณ์จำลอง
-            </h3>
-            <p>
-                ฝึกการคิดวิเคราะห์
-                และเลือกแนวทางการดูแล
-                ที่เหมาะสมกับสถานการณ์
-            </p>
-            <button
-                class="btn btn-primary"
-                style="margin-top:15px"
-                onclick="openPage('scenario')">
-                เริ่มสถานการณ์
-            </button>
+            <div class="card-number">CLINICAL SIMULATION</div>
+            <h3>สถานการณ์จำลอง</h3>
+            <p>ฝึกการคิดวิเคราะห์ และเลือกแนวทางการดูแลที่เหมาะสมกับสถานการณ์</p>
+            <button class="btn btn-primary" style="margin-top:15px" onclick="openPage('scenario')">เริ่มสถานการณ์</button>
         </div>
     </div>
     <div class="card">
-        <img
-            class="card-image"
-            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=85"
-            alt="แบบประเมิน">
+        <img class="card-image" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=85" alt="แบบประเมิน">
         <div class="card-body">
-            <div class="card-number">
-                KNOWLEDGE ASSESSMENT
-            </div>
-            <h3>
-                แบบประเมินความรู้
-            </h3>
-            <p>
-                ประเมินความรู้หลังเรียน
-                และติดตามพัฒนาการ
-                ของผู้เรียน
-            </p>
-            <button
-                class="btn btn-primary"
-                style="margin-top:15px"
-                onclick="openPage('assessment')">
-                ทำแบบประเมิน
-            </button>
+            <div class="card-number">KNOWLEDGE ASSESSMENT</div>
+            <h3>แบบประเมินความรู้</h3>
+            <p>ประเมินความรู้หลังเรียน และติดตามพัฒนาการของผู้เรียน</p>
+            <button class="btn btn-primary" style="margin-top:15px" onclick="openPage('assessment')">ทำแบบประเมิน</button>
         </div>
     </div>
 </div>
-<div class="section-title">
-    <div>
-        <h2>
-            วิดีโอเพื่อการเรียนรู้
-        </h2>
-        <p class="section-description">
-            สื่อวิดีทัศน์ประกอบการเรียนรู้
-            เพื่อเสริมความเข้าใจเกี่ยวกับการประเมิน
-            และการดูแลเด็กที่มีไข้
-        </p>
-    </div>
-</div>
+<div class="section-title"><div><h2>วิดีโอเพื่อการเรียนรู้</h2><p class="section-description">สื่อวิดีทัศน์ประกอบการเรียนรู้ ตามคำแนะนำราชวิทยาลัยกุมารแพทย์แห่งประเทศไทยและสมาคมกุมารแพทย์แห่งประเทศไทย 26 กรกฎาคม 2568</p></div></div>
 <div class="video-learning-grid">
     <div class="video-card">
         <div class="video-thumbnail">
-            <img
-                src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=85"
-                alt="หลักการประเมินเด็กที่มีไข้">
-            <button
-                class="video-play"
-                onclick="openVideo('assessment')">
-                ▶
-            </button>
-            <span class="video-duration">
-                05:20
-            </span>
+            <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=85" alt="หลักการประเมินเด็กที่มีไข้">
+            <button class="video-play" onclick="openVideo('assessment')">▶</button>
+            <span class="video-duration">05:20</span>
         </div>
         <div class="video-body">
-            <span class="video-category">
-                VIDEO LESSON 01
-            </span>
-            <h3>
-                หลักการประเมินเด็กที่มีไข้
-            </h3>
-            <p>
-                เรียนรู้หลักการประเมินอุณหภูมิ
-                อาการร่วม และปัจจัยที่ควรเฝ้าระวัง
-            </p>
-            <button
-                class="video-link"
-                onclick="openVideo('assessment')">
-                รับชมวิดีโอ →
-            </button>
-            <span
-                id="videoCompleteAssessment"
-                class="video-complete"
-                style="display:none">
-                รับชมแล้ว
-            </span>
+            <span class="video-category">VIDEO LESSON 01</span>
+            <h3>หลักการประเมินเด็กที่มีไข้</h3>
+            <p>เรียนรู้หลักการประเมินอุณหภูมิ อาการร่วม และปัจจัยที่ควรเฝ้าระวัง</p>
+            <button class="video-link" onclick="openVideo('assessment')">รับชมวิดีโอ →</button>
+            <span id="videoCompleteAssessment" class="video-complete" style="display:none">รับชมแล้ว</span>
         </div>
     </div>
     <div class="video-card">
         <div class="video-thumbnail">
-            <img
-                src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=85"
-                alt="แนวทางการเช็ดตัวลดไข้">
-            <button
-                class="video-play"
-                onclick="openVideo('tepid')">
-                ▶
-            </button>
-            <span class="video-duration">
-                07:15
-            </span>
+            <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=85" alt="แนวทางการเช็ดตัวลดไข้">
+            <button class="video-play" onclick="openVideo('tepid')">▶</button>
+            <span class="video-duration">07:15</span>
         </div>
         <div class="video-body">
-            <span class="video-category">
-                VIDEO LESSON 02
-            </span>
-            <h3>
-                แนวทางการเช็ดตัวลดไข้
-            </h3>
-            <p>
-                ศึกษาหลักการ ขั้นตอนการปฏิบัติ
-                และข้อควรระวัง
-            </p>
-            <button
-                class="video-link"
-                onclick="openVideo('tepid')">
-                รับชมวิดีโอ →
-            </button>
-            <span
-                id="videoCompleteTepid"
-                class="video-complete"
-                style="display:none">
-                รับชมแล้ว
-            </span>
+            <span class="video-category">VIDEO LESSON 02</span>
+            <h3>แนวทางการเช็ดตัวลดไข้</h3>
+            <p>ศึกษาหลักการ ขั้นตอนการปฏิบัติ และข้อควรระวัง</p>
+            <button class="video-link" onclick="openVideo('tepid')">รับชมวิดีโอ →</button>
+            <span id="videoCompleteTepid" class="video-complete" style="display:none">รับชมแล้ว</span>
         </div>
     </div>
     <div class="video-card">
         <div class="video-thumbnail">
-            <img
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85"
-                alt="การเฝ้าระวังอาการผิดปกติ">
-            <button
-                class="video-play"
-                onclick="openVideo('warning')">
-                ▶
-            </button>
-            <span class="video-duration">
-                06:40
-            </span>
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85" alt="การเฝ้าระวังอาการผิดปกติ">
+            <button class="video-play" onclick="openVideo('warning')">▶</button>
+            <span class="video-duration">06:40</span>
         </div>
         <div class="video-body">
-            <span class="video-category">
-                VIDEO LESSON 03
-            </span>
-            <h3>
-                การเฝ้าระวังอาการผิดปกติ
-            </h3>
-            <p>
-                เรียนรู้การสังเกตอาการเตือน
-                และแนวทางการขอรับบริการทางการแพทย์
-            </p>
-            <button
-                class="video-link"
-                onclick="openVideo('warning')">
-                รับชมวิดีโอ →
-            </button>
-            <span
-                id="videoCompleteWarning"
-                class="video-complete"
-                style="display:none">
-                รับชมแล้ว
-            </span>
+            <span class="video-category">VIDEO LESSON 03</span>
+            <h3>การเฝ้าระวังอาการผิดปกติ</h3>
+            <p>เรียนรู้การสังเกตอาการเตือน และแนวทางการขอรับบริการทางการแพทย์</p>
+            <button class="video-link" onclick="openVideo('warning')">รับชมวิดีโอ →</button>
+            <span id="videoCompleteWarning" class="video-complete" style="display:none">รับชมแล้ว</span>
         </div>
     </div>
 </div>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 1 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 1 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     LEARNING
-===================================================== -->
+
 <main id="lessonsPage" class="app-page" style="display:none">
 <div class="main">
-<div class="page-heading">
-    <small>
-        LEARNING MODULE
-    </small>
-    <h1>
-        Learning
-    </h1>
-    <p>
-        เรียนรู้เนื้อหาอย่างเป็นระบบ
-        เพื่อเสริมสร้างความรู้
-        ในการดูแลเด็กที่มีไข้
-    </p>
-</div>
+<div class="page-heading"><small>LEARNING MODULE</small><h1>Learning</h1><p>เรียนรู้เนื้อหาอย่างเป็นระบบ เพื่อเสริมสร้างความรู้ในการดูแลเด็กที่มีไข้</p></div>
 <div class="lesson-list">
-    <div class="lesson">
-        <div class="lesson-number">
-            01
-        </div>
-        <div class="lesson-content">
-            <h3>
-                ความรู้พื้นฐานเกี่ยวกับไข้
-            </h3>
-            <p>
-                ความหมาย สาเหตุ
-                และการประเมินอาการเบื้องต้น
-            </p>
-        </div>
-        <span class="status">
-            พร้อมเรียน
-        </span>
-    </div>
-    <div class="lesson">
-        <div class="lesson-number">
-            02
-        </div>
-        <div class="lesson-content">
-            <h3>
-                การประเมินเด็กที่มีไข้
-            </h3>
-            <p>
-                การประเมินอุณหภูมิ
-                อาการร่วม และภาวะเสี่ยง
-            </p>
-        </div>
-        <span class="status">
-            พร้อมเรียน
-        </span>
-    </div>
-    <div class="lesson">
-        <div class="lesson-number">
-            03
-        </div>
-        <div class="lesson-content">
-            <h3>
-                หลักการเช็ดตัวลดไข้
-            </h3>
-            <p>
-                หลักการ วิธีปฏิบัติ
-                และข้อควรระวัง
-            </p>
-        </div>
-        <span class="status">
-            พร้อมเรียน
-        </span>
-    </div>
-    <div class="lesson">
-        <div class="lesson-number">
-            04
-        </div>
-        <div class="lesson-content">
-            <h3>
-                การดูแลเด็กที่บ้าน
-            </h3>
-            <p>
-                การดูแลทั่วไป
-                การให้สารน้ำ
-                และการสังเกตอาการ
-            </p>
-        </div>
-        <span class="status">
-            พร้อมเรียน
-        </span>
-    </div>
-    <div class="lesson">
-        <div class="lesson-number">
-            05
-        </div>
-        <div class="lesson-content">
-            <h3>
-                อาการเตือนที่ควรพบแพทย์
-            </h3>
-            <p>
-                การสังเกตอาการผิดปกติ
-                และแนวทางการส่งต่อ
-            </p>
-        </div>
-        <span class="status">
-            พร้อมเรียน
-        </span>
-    </div>
+    <div class="lesson" onclick="openLesson(1)" style="cursor:pointer"><div class="lesson-number">01</div><div class="lesson-content"><h3>ความรู้พื้นฐานเกี่ยวกับไข้</h3><p>ความหมาย สาเหตุ และการประเมินอาการเบื้องต้น</p></div><span class="status" id="lessonStatus1">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(2)" style="cursor:pointer"><div class="lesson-number">02</div><div class="lesson-content"><h3>การประเมินเด็กที่มีไข้</h3><p>การประเมินอุณหภูมิ อาการร่วม และภาวะเสี่ยง</p></div><span class="status" id="lessonStatus2">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(3)" style="cursor:pointer"><div class="lesson-number">03</div><div class="lesson-content"><h3>หลักการเช็ดตัวลดไข้</h3><p>หลักการ วิธีปฏิบัติ และข้อควรระวัง</p></div><span class="status" id="lessonStatus3">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(4)" style="cursor:pointer"><div class="lesson-number">04</div><div class="lesson-content"><h3>การดูแลเด็กที่บ้าน</h3><p>การดูแลทั่วไป การให้สารน้ำ และการสังเกตอาการ</p></div><span class="status" id="lessonStatus4">พร้อมเรียน</span></div>
+    <div class="lesson" onclick="openLesson(5)" style="cursor:pointer"><div class="lesson-number">05</div><div class="lesson-content"><h3>อาการเตือนที่ควรพบแพทย์</h3><p>การสังเกตอาการผิดปกติ และแนวทางการส่งต่อ</p></div><span class="status" id="lessonStatus5">พร้อมเรียน</span></div>
+</div>
+<div id="lessonDetail" class="scenario-card" style="display:none;margin-top:18px">
+    <div class="scenario-label" id="lessonDetailNo">LESSON</div>
+    <h2 id="lessonDetailTitle"></h2>
+    <div class="scenario-text" id="lessonDetailBody" style="white-space:pre-line"></div>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="completeLesson()">ทำเครื่องหมายว่าเรียนแล้ว</button>
 </div>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 2 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 2 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     SITUATION
-===================================================== -->
+
 <main id="scenarioPage" class="app-page" style="display:none">
 <div class="main">
-<div class="page-heading">
-    <small>
-        CLINICAL SIMULATION
-    </small>
-    <h1>
-        Situation
-    </h1>
-    <p>
-        ฝึกการคิดวิเคราะห์
-        และตัดสินใจผ่านสถานการณ์
-        การดูแลเด็กที่มีไข้
-    </p>
-</div>
+<div class="page-heading"><small>CLINICAL SIMULATION</small><h1>Situation</h1><p>ฝึกการคิดวิเคราะห์ และตัดสินใจผ่านสถานการณ์การดูแลเด็กที่มีไข้</p></div>
 <div class="scenario-container">
-<div class="scenario-card">
-    <div class="scenario-label">
-        SCENARIO 01
-    </div>
-    <h2>
-        เด็กมีไข้สูง
-        และผู้ปกครองต้องการเช็ดตัว
-    </h2>
-    <div class="scenario-text">
-        เด็กอายุ 3 ปี
-        มีอุณหภูมิร่างกาย 39°C
-        ผู้ปกครองต้องการช่วยลดไข้
-        และสอบถามว่าควรดำเนินการอย่างไร
-    </div>
-    <div class="options">
-        <button
-            class="option"
-            onclick="answerScenario(this,false)">
-            A. ใช้น้ำเย็นจัดเช็ดตัว
-        </button>
-        <button
-            class="option"
-            onclick="answerScenario(this,true)">
-            B. ประเมินอาการเด็ก
-            และดำเนินการลดไข้
-            ตามหลักการที่เหมาะสม
-        </button>
-        <button
-            class="option"
-            onclick="answerScenario(this,false)">
-            C. ห่มผ้าหนา ๆ
-            เพื่อให้เด็กมีเหงื่อออก
-        </button>
-        <button
-            class="option"
-            onclick="answerScenario(this,false)">
-            D. ให้เด็กออกกำลังกาย
-            เพื่อระบายความร้อน
-        </button>
-    </div>
-    <div
-        id="scenarioFeedback"
-        class="feedback">
-        <strong>
-            ผลการวิเคราะห์
-        </strong>
-        <br><br>
-        การดูแลเด็กที่มีไข้
-        ควรเริ่มจากการประเมินอาการ
-        และสภาวะของเด็ก
-        จากนั้นจึงเลือกวิธีการดูแล
-        ที่เหมาะสมกับสถานการณ์
-    </div>
+<div class="scenario-card" id="scenarioCard"></div>
+<div class="page-navigation" style="border-top:none;margin-top:16px">
+    <button class="page-nav-btn" id="prevScenarioBtn" onclick="changeScenario(-1)">← ข้อก่อนหน้า</button>
+    <span class="page-nav-label" id="scenarioProgressLabel">ข้อ 1 / 10</span>
+    <button class="page-nav-btn" id="nextScenarioBtn" onclick="changeScenario(1)">ข้อถัดไป →</button>
 </div>
 </div>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 3 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 3 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     ASSESSMENT
-===================================================== -->
+
 <main id="assessmentPage" class="app-page" style="display:none">
 <div class="main">
-<div class="page-heading">
-    <small>
-        KNOWLEDGE ASSESSMENT
-    </small>
-    <h1>
-        Assessment
-    </h1>
-    <p>
-        แบบประเมินหลังการเรียนรู้
-    </p>
+<div class="page-heading"><small>KNOWLEDGE ASSESSMENT</small><h1>Assessment</h1><p>แบบประเมิน 3 ส่วน คำถามระบุตัวเลือกชัดเจน และมีเกณฑ์คะแนนกำกับทุกส่วน</p></div>
+<div class="question-card" style="border-left:4px solid var(--blue2)">
+<h3>เกณฑ์คะแนนทั้งฉบับ</h3>
+<p style="color:var(--muted);font-size:13px;line-height:1.85;margin-top:8px">
+<strong>ส่วนความรู้</strong> 15 ข้อการเช็ดตัว (ถูก/ผิด) และ 5 ข้อการดูแลทั่วไป (เลือกข้อถูก) รวม 20 คะแนน ร้อยละ = (ข้อถูก ÷ 20) × 100<br>
+แปลผลความรู้: ร้อยละ 80–100 ดีมาก · 60–79 ปานกลาง · ต่ำกว่า 60 ควรทบทวน<br><br>
+<strong>ส่วนความเชื่อ 12 ข้อ</strong> มาตรวัด 1–5 (ไม่เห็นด้วยอย่างยิ่ง = 1 ถึง เห็นด้วยอย่างยิ่ง = 5)<br>
+การรับรู้ประโยชน์ ข้อ B1–B4 คะแนนรวม 4–20 · การรับรู้ความรุนแรง ข้อ B5–B8 รวม 4–20 · การรับรู้อุปสรรค ข้อ B9–B12 รวม 4–20<br>
+ค่าเฉลี่ยแต่ละด้าน = ผลรวมของด้านนั้น ÷ 4 (ช่วง 1.00–5.00) ไม่มีถูกผิด แต่ใช้ดูระดับความเชื่อ<br><br>
+<strong>ส่วนพฤติกรรม 10 ข้อ</strong> มาตรวัด 1–5 (ไม่ทำเลย = 1 ถึง ทำทุกครั้ง = 5) รวม 10–50 คะแนน<br>
+ค่าเฉลี่ย = ผลรวม ÷ 10 · แปลผลพฤติกรรม: 4.21–5.00 ปฏิบัติสม่ำเสมอ · 3.41–4.20 บ่อย · 2.61–3.40 ปานกลาง · 1.81–2.60 น้อย · 1.00–1.80 น้อยมาก
+</p>
+</div>
+<div class="question-card" style="border-left:4px solid var(--success)">
+<div class="question-number">INFORMED CONSENT</div>
+<h3>ข้อความยินยอมเข้าร่วมวิจัย</h3>
+<p style="color:var(--muted);font-size:13px;line-height:1.85;margin:8px 0 12px">โครงการวิจัยเรื่อง ผลของการใช้สื่อดิจิทัล Web Application ร่วมกับ LINE Official Account เป็นสื่อการสอนต่อความรู้ ความเชื่อด้านสุขภาพ และพฤติกรรมการเช็ดตัวลดไข้ ของผู้ปกครองในการจัดการภาวะไข้ในเด็กอายุ 1–5 ปี คณะพยาบาลศาสตร์อัครราชกุมารี ราชวิทยาลัยจุฬาภรณ์<br><br>ข้อมูลที่ท่านตอบจะใช้เพื่อการพัฒนากระบวนการเรียนรู้ ไม่ระบุชื่อในรายงานผล ท่านมีสิทธิ์ไม่ตอบหรือถอนตัวได้ตลอดเวลา</p>
+<label class="assessment-option"><input type="checkbox" id="consentCheck"> ข้าพเจ้ายินยอมทำแบบประเมินนี้</label>
 </div>
 <form id="assessmentForm">
-<div class="question-card">
-    <div class="question-number">
-        QUESTION 01
-    </div>
-    <h3>
-        การประเมินเด็กที่มีไข้
-        ควรให้ความสำคัญกับสิ่งใด
-    </h3>
-    <label class="assessment-option">
-        <input type="radio" name="q1" value="0">
-        สีของเสื้อผ้า
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q1" value="1">
-        อุณหภูมิ
-        และอาการร่วมของเด็ก
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q1" value="0">
-        ของเล่นของเด็ก
-    </label>
+<div class="section-title"><div><h2>ส่วนที่ 1 ความรู้เกี่ยวกับการเช็ดตัวลดไข้</h2><p class="section-description">อ่านข้อความแล้วเลือกคำตอบที่ถูกต้องระหว่าง “ถูก” หรือ “ผิด” ข้อละ 1 คะแนน รวม 15 คะแนน</p></div></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K1</div><h3>การเช็ดตัวลดไข้ควรใช้ผ้าชุบน้ำเย็นจัดเพื่อให้ไข้ลดเร็ว</h3>
+<label class="assessment-option"><input type="radio" name="k1" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k1" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K2</div><h3>ควรเช็ดตัวทันทีเมื่อเด็กมีอุณหภูมิสูงกว่า 38°C</h3>
+<label class="assessment-option"><input type="radio" name="k2" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k2" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K3</div><h3>การเช็ดตัวลดไข้ควรทำในห้องที่ไม่มีลมโกรก</h3>
+<label class="assessment-option"><input type="radio" name="k3" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k3" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K4</div><h3>ขณะเช็ดตัวควรถอดเสื้อผ้าเด็กออกให้หมด</h3>
+<label class="assessment-option"><input type="radio" name="k4" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k4" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K5</div><h3>ควรเช็ดบริเวณรักแร้ คอ ขาหนีบ และหลังหูเป็นหลัก</h3>
+<label class="assessment-option"><input type="radio" name="k5" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k5" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K6</div><h3>น้ำที่ใช้เช็ดตัวควรมีอุณหภูมิใกล้เคียงกับอุณหภูมิห้อง</h3>
+<label class="assessment-option"><input type="radio" name="k6" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k6" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K7</div><h3>เช็ดตัวต่อเนื่องประมาณ 15-20 นาที หรือจนไข้ลด</h3>
+<label class="assessment-option"><input type="radio" name="k7" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k7" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K8</div><h3>หากเด็กหนาวสั่นควรหยุดเช็ดตัวทันที</h3>
+<label class="assessment-option"><input type="radio" name="k8" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k8" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K9</div><h3>สามารถใช้ร่วมกับการให้ยาลดไข้ได้</h3>
+<label class="assessment-option"><input type="radio" name="k9" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k9" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K10</div><h3>ควรเช็ดเฉพาะหน้าผากและแขนเท่านั้น</h3>
+<label class="assessment-option"><input type="radio" name="k10" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k10" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K11</div><h3>การใช้แอลกอฮอล์เช็ดตัวช่วยลดไข้ได้เร็วและปลอดภัย</h3>
+<label class="assessment-option"><input type="radio" name="k11" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k11" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K12</div><h3>เช็ดตามแนวขนเพื่อไม่ให้ระคายเคืองผิวหนัง</h3>
+<label class="assessment-option"><input type="radio" name="k12" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k12" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K13</div><h3>หลังเช็ดตัวควรเช็ดให้แห้งและใส่เสื้อผ้าบาง ๆ</h3>
+<label class="assessment-option"><input type="radio" name="k13" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k13" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K14</div><h3>เด็กไข้สูงมากควรอาบน้ำเย็นแทนการเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="k14" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k14" value="F"> ผิด</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ K15</div><h3>การเช็ดตัวลดไข้เป็นวิธีช่วยลดอุณหภูมิร่างกายที่ปลอดภัยและได้ผล</h3>
+<label class="assessment-option"><input type="radio" name="k15" value="T"> ถูก</label>
+<label class="assessment-option"><input type="radio" name="k15" value="F"> ผิด</label></div>
+<div class="section-title"><div><h2>ส่วนความรู้เพิ่มเติม การดูแลทั่วไป</h2><p class="section-description">เพิ่ม 5 ข้อ เลือกคำตอบที่ถูกต้องที่สุด ข้อละ 1 คะแนน รวม 5 คะแนน นับรวมกับคะแนนความรู้</p></div></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ G1</div><h3>เป้าหมายหลักของการดูแลเด็กที่มีไข้ที่บ้านคือข้อใด</h3>
+<label class="assessment-option"><input type="radio" name="g1" value="1"> ทำให้เด็กสุขสบาย ดื่มน้ำได้ และสังเกตอาการ</label>
+<label class="assessment-option"><input type="radio" name="g1" value="0"> ทำให้อุณหภูมิกลับเป็น 37°C ให้ได้ทุกครั้ง</label>
+<label class="assessment-option"><input type="radio" name="g1" value="0"> ห้ามเด็กนอนจนกว่าไข้จะลง</label>
+<label class="assessment-option"><input type="radio" name="g1" value="0"> ให้ยาปฏิชีวนะทันที</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ G2</div><h3>เมื่อจะให้ยาลดไข้ ผู้ปกครองควรทำอย่างไร</h3>
+<label class="assessment-option"><input type="radio" name="g2" value="0"> ให้แอสไพรินทุกครั้ง</label>
+<label class="assessment-option"><input type="radio" name="g2" value="1"> ให้พาราเซตามอลตามน้ำหนักตัว และเมื่อเด็กไม่สุขสบาย</label>
+<label class="assessment-option"><input type="radio" name="g2" value="0"> ให้ยาเท่าที่เหลือจากผู้ใหญ่ในบ้าน</label>
+<label class="assessment-option"><input type="radio" name="g2" value="0"> ให้ยาซ้ำทุก 1 ชั่วโมงจนกว่าไข้จะหาย</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ G3</div><h3>การดูแลทั่วไปที่บ้านที่เหมาะสมคือข้อใด</h3>
+<label class="assessment-option"><input type="radio" name="g3" value="0"> ห่มผ้าหนา ๆ เพื่อขับเหงื่อ</label>
+<label class="assessment-option"><input type="radio" name="g3" value="0"> งดนมและน้ำเพื่อไม่ให้อาเจียน</label>
+<label class="assessment-option"><input type="radio" name="g3" value="1"> ให้น้ำหรือนมเพียงพอ ใส่เสื้อผ้าบาง และอยู่ในห้องที่อากาศถ่ายเท</label>
+<label class="assessment-option"><input type="radio" name="g3" value="0"> เปิดพัดลมเป่าตัวเด็กโดยตรงทั้งวัน</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ G4</div><h3>ข้อใดควรพาเด็กพบแพทย์หรือขอความช่วยเหลือ</h3>
+<label class="assessment-option"><input type="radio" name="g4" value="0"> เด็กอายุ 4 ปี ไข้ 38.2°C แต่ยังเล่นได้ กินได้</label>
+<label class="assessment-option"><input type="radio" name="g4" value="1"> ทารกอายุน้อยกว่า 3 เดือนมีไข้ หรือเด็กซึม หอบ ชัก ไม่ยอมดื่ม</label>
+<label class="assessment-option"><input type="radio" name="g4" value="0"> เด็กมีเหงื่อออกเล็กน้อยหลังเล่น</label>
+<label class="assessment-option"><input type="radio" name="g4" value="0"> อุณหภูมิทางรักแร้ 37.0°C โดยไม่มีอาการอื่น</label></div>
+<div class="question-card"><div class="question-number">ความรู้ ข้อ G5</div><h3>ข้อความใดถูกต้องเกี่ยวกับยาลดไข้และการชักจากไข้</h3>
+<label class="assessment-option"><input type="radio" name="g5" value="0"> ยาลดไข้ป้องกันการชักจากไข้ได้แน่นอน</label>
+<label class="assessment-option"><input type="radio" name="g5" value="0"> ถ้าไม่เช็ดตัว เด็กจะชักทุกราย</label>
+<label class="assessment-option"><input type="radio" name="g5" value="1"> ยังไม่มีหลักฐานชัดเจนว่ายาลดไข้ป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้</label>
+<label class="assessment-option"><input type="radio" name="g5" value="0"> ห้ามใช้ยาลดไข้เด็ดขาด</label></div>
+<div class="section-title"><div><h2>ส่วนที่ 2 ความเชื่อด้านสุขภาพ (HBM)</h2><p class="section-description">เลือกเพียง 1 ระดับต่อข้อ จาก ไม่เห็นด้วยอย่างยิ่ง (1) ถึง เห็นด้วยอย่างยิ่ง (5) ไม่มีถูกผิด คิดเป็นค่าเฉลี่ยแต่ละด้าน</p></div></div>
+<p style="color:var(--orange);font-size:13px;font-weight:600;margin:18px 0 8px">การรับรู้ประโยชน์</p><div class="question-card"><div class="question-number">B1</div><h3>การเช็ดตัวลดไข้ช่วยให้อุณหภูมิร่างกายของเด็กลดลงเร็วขึ้น</h3>
+<label class="assessment-option"><input type="radio" name="b1" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b1" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b1" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b1" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b1" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B2</div><h3>การเช็ดตัวลดไข้สามารถช่วยลดความเสี่ยงต่อการชักจากไข้สูง</h3>
+<label class="assessment-option"><input type="radio" name="b2" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b2" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b2" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b2" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b2" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B3</div><h3>การเช็ดตัวลดไข้เป็นวิธีที่ปลอดภัยและไม่เป็นอันตรายต่อเด็ก</h3>
+<label class="assessment-option"><input type="radio" name="b3" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b3" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b3" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b3" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b3" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B4</div><h3>การเช็ดตัวลดไข้ช่วยให้เด็กสบายตัวและอารมณ์ดีขึ้น</h3>
+<label class="assessment-option"><input type="radio" name="b4" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b4" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b4" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b4" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b4" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><p style="color:var(--orange);font-size:13px;font-weight:600;margin:18px 0 8px">การรับรู้ความรุนแรง</p><div class="question-card"><div class="question-number">B5</div><h3>เด็กที่มีไข้สูงอาจเกิดอาการชักได้</h3>
+<label class="assessment-option"><input type="radio" name="b5" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b5" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b5" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b5" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b5" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B6</div><h3>หากไม่รีบลดไข้ อาจเกิดภาวะแทรกซ้อนร้ายแรง</h3>
+<label class="assessment-option"><input type="radio" name="b6" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b6" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b6" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b6" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b6" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B7</div><h3>ไข้สูงต่อเนื่องอาจเป็นอันตรายต่อสมองของเด็ก</h3>
+<label class="assessment-option"><input type="radio" name="b7" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b7" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b7" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b7" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b7" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B8</div><h3>การไม่เช็ดตัวลดใช้อาจทำให้ไข้ลดช้าลง</h3>
+<label class="assessment-option"><input type="radio" name="b8" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b8" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b8" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b8" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b8" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><p style="color:var(--orange);font-size:13px;font-weight:600;margin:18px 0 8px">การรับรู้อุปสรรค</p><div class="question-card"><div class="question-number">B9</div><h3>เด็กมักร้องไห้หรือไม่ยอมให้เช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="b9" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b9" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b9" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b9" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b9" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B10</div><h3>การเช็ดตัวใช้เวลานานและยุ่งยาก</h3>
+<label class="assessment-option"><input type="radio" name="b10" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b10" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b10" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b10" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b10" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B11</div><h3>ไม่มั่นใจว่าน้ำที่ใช้เช็ดจะมีอุณหภูมิเหมาะสมหรือไม่</h3>
+<label class="assessment-option"><input type="radio" name="b11" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b11" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b11" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b11" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b11" value="เห็นด้วยอย่างยิ่ง"> 5</label></div><div class="question-card"><div class="question-number">B12</div><h3>ผู้ปกครองกลัวว่าเด็กจะหนาวหลังเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="b12" value="ไม่เห็นด้วยอย่างยิ่ง"> 1</label>
+<label class="assessment-option"><input type="radio" name="b12" value="ไม่เห็นด้วย"> 2</label>
+<label class="assessment-option"><input type="radio" name="b12" value="ไม่แน่ใจ"> 3</label>
+<label class="assessment-option"><input type="radio" name="b12" value="เห็นด้วย"> 4</label>
+<label class="assessment-option"><input type="radio" name="b12" value="เห็นด้วยอย่างยิ่ง"> 5</label></div>
+<div class="section-title"><div><h2>ส่วนความเชื่อเพิ่มเติม การดูแลทั่วไป</h2><p class="section-description">เพิ่ม 5 ข้อ เลือก 1 ระดับ ไม่เห็นด้วยอย่างยิ่ง = 1 ถึง เห็นด้วยอย่างยิ่ง = 5 รวม 5–25 คะแนน ข้อ BH2 และ BH5 เป็นข้อความที่ไม่สอดคล้องแนวทาง จะกลับคะแนนตอนคิดผล</p></div></div>
+<div class="question-card"><div class="question-number">BH1</div><h3>การดูอาการโดยรวมของเด็กสำคัญกว่าการลดตัวเลขอุณหภูมิเพียงอย่างเดียว</h3>
+<label class="assessment-option"><input type="radio" name="bh1" value="1"> ไม่เห็นด้วยอย่างยิ่ง</label>
+<label class="assessment-option"><input type="radio" name="bh1" value="2"> ไม่เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh1" value="3"> ไม่แน่ใจ</label>
+<label class="assessment-option"><input type="radio" name="bh1" value="4"> เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh1" value="5"> เห็นด้วยอย่างยิ่ง</label></div>
+<div class="question-card"><div class="question-number">BH2</div><h3>ต้องเช็ดตัวหรือให้ยาลดไข้ทุกครั้งเพื่อป้องกันการชักจากไข้</h3>
+<label class="assessment-option"><input type="radio" name="bh2" value="1"> ไม่เห็นด้วยอย่างยิ่ง</label>
+<label class="assessment-option"><input type="radio" name="bh2" value="2"> ไม่เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh2" value="3"> ไม่แน่ใจ</label>
+<label class="assessment-option"><input type="radio" name="bh2" value="4"> เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh2" value="5"> เห็นด้วยอย่างยิ่ง</label></div>
+<div class="question-card"><div class="question-number">BH3</div><h3>การให้เด็กดื่มน้ำและอยู่ในที่อากาศถ่ายเทช่วยให้เด็กสุขสบายขึ้นได้</h3>
+<label class="assessment-option"><input type="radio" name="bh3" value="1"> ไม่เห็นด้วยอย่างยิ่ง</label>
+<label class="assessment-option"><input type="radio" name="bh3" value="2"> ไม่เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh3" value="3"> ไม่แน่ใจ</label>
+<label class="assessment-option"><input type="radio" name="bh3" value="4"> เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh3" value="5"> เห็นด้วยอย่างยิ่ง</label></div>
+<div class="question-card"><div class="question-number">BH4</div><h3>ทารกอายุน้อยกว่า 3 เดือนที่มีไข้ควรพบแพทย์แม้ดูเหมือนยังดูดนมได้</h3>
+<label class="assessment-option"><input type="radio" name="bh4" value="1"> ไม่เห็นด้วยอย่างยิ่ง</label>
+<label class="assessment-option"><input type="radio" name="bh4" value="2"> ไม่เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh4" value="3"> ไม่แน่ใจ</label>
+<label class="assessment-option"><input type="radio" name="bh4" value="4"> เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh4" value="5"> เห็นด้วยอย่างยิ่ง</label></div>
+<div class="question-card"><div class="question-number">BH5</div><h3>น้ำเย็นจัด น้ำแข็ง หรือแอลกอฮอล์เป็นวิธีลดไข้ที่ปลอดภัย</h3>
+<label class="assessment-option"><input type="radio" name="bh5" value="1"> ไม่เห็นด้วยอย่างยิ่ง</label>
+<label class="assessment-option"><input type="radio" name="bh5" value="2"> ไม่เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh5" value="3"> ไม่แน่ใจ</label>
+<label class="assessment-option"><input type="radio" name="bh5" value="4"> เห็นด้วย</label>
+<label class="assessment-option"><input type="radio" name="bh5" value="5"> เห็นด้วยอย่างยิ่ง</label></div>
+<div class="section-title"><div><h2>ส่วนที่ 3 พฤติกรรมการเช็ดตัวลดไข้</h2><p class="section-description">เลือกเพียง 1 ระดับต่อข้อ จาก ไม่ทำเลย (1 คะแนน) ถึง ทำทุกครั้ง (5 คะแนน) รวม 10–50 คะแนน</p></div></div>
+<div class="question-card"><div class="question-number">P1</div><h3>เตรียมน้ำอุณหภูมิห้องหรืออุ่นเล็กน้อย สำหรับเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="p1" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p1" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p1" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p1" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p1" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P2</div><h3>เตรียมผ้าขนหนูสะอาดสำหรับเช็ดตัวเด็ก</h3>
+<label class="assessment-option"><input type="radio" name="p2" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p2" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p2" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p2" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p2" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P3</div><h3>ถอดเสื้อผ้าเด็กออกก่อนเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="p3" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p3" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p3" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p3" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p3" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P4</div><h3>เช็ดบริเวณคอ รักแร้ ขาหนีบ และลำตัว เป็นจุดสำคัญ</h3>
+<label class="assessment-option"><input type="radio" name="p4" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p4" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p4" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p4" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p4" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P5</div><h3>เช็ดตัวต่อเนื่องประมาณ 10-15 นาที</h3>
+<label class="assessment-option"><input type="radio" name="p5" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p5" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p5" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p5" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p5" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P6</div><h3>หยุดเช็ดตัวทันทีหากเด็กหนาวสั่น</h3>
+<label class="assessment-option"><input type="radio" name="p6" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p6" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p6" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p6" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p6" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P7</div><h3>หลังเช็ดตัวเช็ดให้แห้งและใส่เสื้อผ้าบาง ๆ</h3>
+<label class="assessment-option"><input type="radio" name="p7" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p7" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p7" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p7" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p7" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P8</div><h3>ให้ยาลดไข้ตามคำแนะนำแพทย์หลังเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="p8" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p8" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p8" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p8" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p8" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P9</div><h3>สังเกตอาการหลังเช็ดตัว เช่น อุณหภูมิลดลงหรือไม่</h3>
+<label class="assessment-option"><input type="radio" name="p9" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p9" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p9" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p9" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p9" value="ทำทุกครั้ง"> 5</label></div>
+<div class="question-card"><div class="question-number">P10</div><h3>บันทึกอุณหภูมิร่างกายของเด็กหลังเช็ดตัว</h3>
+<label class="assessment-option"><input type="radio" name="p10" value="ไม่ทำเลย"> 1</label>
+<label class="assessment-option"><input type="radio" name="p10" value="นาน ๆ ครั้ง"> 2</label>
+<label class="assessment-option"><input type="radio" name="p10" value="บางครั้ง"> 3</label>
+<label class="assessment-option"><input type="radio" name="p10" value="บ่อยครั้ง"> 4</label>
+<label class="assessment-option"><input type="radio" name="p10" value="ทำทุกครั้ง"> 5</label></div>
+<div class="section-title"><div><h2>ส่วนที่ 4 พฤติกรรมการดูแลทั่วไป</h2><p class="section-description">เพิ่ม 5 ข้อ เลือก 1 ระดับต่อข้อ ไม่ทำเลย = 1 ถึง ทำทุกครั้ง = 5 รวม 5–25 คะแนน</p></div></div>
+<div class="question-card"><div class="question-number">P-G1</div><h3>เมื่อเด็กมีไข้ ท่านประเมินทั้งอุณหภูมิและการกิน การเล่น การรู้สึกตัว</h3>
+<label class="assessment-option"><input type="radio" name="pg1" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pg1" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg1" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg1" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg1" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">P-G2</div><h3>ท่านให้เด็กดื่มน้ำหรือนมเพียงพอ และใส่เสื้อผ้าที่ระบายอากาศได้</h3>
+<label class="assessment-option"><input type="radio" name="pg2" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pg2" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg2" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg2" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg2" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">P-G3</div><h3>ท่านให้พาราเซตามอลตามน้ำหนักตัวเมื่อเด็กไม่สุขสบาย ไม่ให้ยาของผู้ใหญ่</h3>
+<label class="assessment-option"><input type="radio" name="pg3" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pg3" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg3" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg3" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg3" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">P-G4</div><h3>หากเป็นทารกน้อยกว่า 3 เดือนมีไข้ หรือเด็กซึม หอบ ชัก ท่านพาพบแพทย์</h3>
+<label class="assessment-option"><input type="radio" name="pg4" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pg4" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg4" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg4" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg4" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">P-G5</div><h3>ท่านไม่ใช้น้ำเย็นจัด น้ำแข็ง หรือแอลกอฮอล์เช็ดตัวเด็ก</h3>
+<label class="assessment-option"><input type="radio" name="pg5" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pg5" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg5" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg5" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pg5" value="5"> ทำทุกครั้ง</label></div>
+<div class="section-title"><div><h2>ส่วนพฤติกรรมเพิ่มเติม การดูแลทั่วไป</h2><p class="section-description">เพิ่มอีก 5 ข้อ เลือก 1 ระดับ ไม่ทำเลย = 1 ถึง ทำทุกครั้ง = 5 รวม 5–25 คะแนน</p></div></div>
+<div class="question-card"><div class="question-number">PB1</div><h3>ท่านสังเกตอาการเตือน เช่น ซึม หอบ ผื่นจุดเลือดออก ซีด ปลายมือเท้าเย็น</h3>
+<label class="assessment-option"><input type="radio" name="pb1" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pb1" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb1" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb1" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb1" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">PB2</div><h3>หากไข้ไม่ลดใน 2–3 วัน ท่านพาเด็กพบแพทย์</h3>
+<label class="assessment-option"><input type="radio" name="pb2" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pb2" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb2" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb2" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb2" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">PB3</div><h3>ท่านไม่ห่มผ้าหนาเกินไปเมื่อเด็กมีไข้</h3>
+<label class="assessment-option"><input type="radio" name="pb3" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pb3" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb3" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb3" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb3" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">PB4</div><h3>ท่านจดหรือจำอุณหภูมิและอาการของเด็กเพื่อติดตามอาการ</h3>
+<label class="assessment-option"><input type="radio" name="pb4" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pb4" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb4" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb4" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb4" value="5"> ทำทุกครั้ง</label></div>
+<div class="question-card"><div class="question-number">PB5</div><h3>กรณีฉุกเฉิน ท่านพร้อมโทร 1669 หรือพาไปสถานพยาบาลทันที</h3>
+<label class="assessment-option"><input type="radio" name="pb5" value="1"> ไม่ทำเลย</label>
+<label class="assessment-option"><input type="radio" name="pb5" value="2"> นาน ๆ ครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb5" value="3"> บางครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb5" value="4"> บ่อยครั้ง</label>
+<label class="assessment-option"><input type="radio" name="pb5" value="5"> ทำทุกครั้ง</label></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+<button type="button" class="btn btn-primary" onclick="submitAssessment('pre')">บันทึกผลก่อนเรียน</button>
+<button type="button" class="btn btn-primary" onclick="submitAssessment('post')">บันทึกผลหลังเรียน</button>
 </div>
-<div class="question-card">
-    <div class="question-number">
-        QUESTION 02
-    </div>
-    <h3>
-        เมื่อเด็กมีไข้
-        ผู้ปกครองควรสังเกตสิ่งใดร่วมด้วย
-    </h3>
-    <label class="assessment-option">
-        <input type="radio" name="q2" value="1">
-        อาการผิดปกติ
-        และการเปลี่ยนแปลงของเด็ก
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q2" value="0">
-        จำนวนของเล่น
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q2" value="0">
-        สีของห้อง
-    </label>
-</div>
-<div class="question-card">
-    <div class="question-number">
-        QUESTION 03
-    </div>
-    <h3>
-        การดูแลเด็กที่มีไข้
-        ควรดำเนินการอย่างไร
-    </h3>
-    <label class="assessment-option">
-        <input type="radio" name="q3" value="1">
-        ประเมินอาการ
-        และดูแลอย่างเหมาะสม
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q3" value="0">
-        ไม่จำเป็นต้องสังเกตอาการ
-    </label>
-    <label class="assessment-option">
-        <input type="radio" name="q3" value="0">
-        ให้เด็กทำกิจกรรมหนัก
-    </label>
-</div>
-<button
-    type="button"
-    class="btn btn-primary"
-    onclick="submitAssessment()">
-    ส่งคำตอบ
-</button>
-<div
-    id="assessmentResult"
-    class="result-box"
-    style="margin-top:25px">
-    <div>
-        ผลการประเมิน
-    </div>
-    <div
-        id="resultScore"
-        class="result-score">
-        0%
-    </div>
-    <p>
-        ผลคะแนนถูกบันทึกไว้ในระบบ
-    </p>
+<p style="color:var(--muted);font-size:12px;margin-top:10px;line-height:1.7">เลือกปุ่มตามช่วงเวลาเก็บข้อมูล ระบบเก็บผลก่อนเรียนและหลังเรียนแยกกัน แล้วเทียบในหน้าผลการเรียนรู้</p>
+<div id="assessmentResult" class="result-box" style="margin-top:25px">
+    <div>ผลการประเมิน</div>
+    <div id="resultScore" class="result-score">0%</div>
+    <p id="resultDetail">ผลคะแนนถูกบันทึกไว้ในระบบ</p>
 </div>
 </form>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 4 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 4 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     OUTCOME
-===================================================== -->
+
 <main id="outcomePage" class="app-page" style="display:none">
 <div class="main">
-<div class="page-heading">
-    <small>
-        LEARNING OUTCOME
-    </small>
-    <h1>
-        ผลการเรียนรู้
-    </h1>
-    <p>
-        สรุประดับความรู้และระบุหัวข้อ
-        ที่ควรทบทวนเพิ่มเติมจากผลการเรียนรู้
-    </p>
-</div>
+<div class="page-heading"><small>LEARNING OUTCOME</small><h1>ผลการเรียนรู้</h1><p>สรุประดับความรู้และระบุหัวข้อที่ควรทบทวนเพิ่มเติมจากผลการเรียนรู้</p></div>
 <div class="outcome-grid">
 <div class="outcome-card">
-    <h2>
-        ระดับความรู้ปัจจุบัน
-    </h2>
-    <p>
-        ระบบประเมินจากคะแนนแบบประเมิน
-        และกิจกรรมการเรียนรู้ที่ทำสำเร็จ
-    </p>
+    <h2>ระดับความรู้ปัจจุบัน</h2>
+    <p>ระบบประเมินจากคะแนนแบบประเมิน และกิจกรรมการเรียนรู้ที่ทำสำเร็จ</p>
     <div class="knowledge-level">
-        <div class="level-circle">
-            <strong id="outcomeScore">
-                0%
-            </strong>
-            <span>
-                KNOWLEDGE
-            </span>
-        </div>
+        <div class="level-circle"><strong id="outcomeScore">0%</strong><span>KNOWLEDGE</span></div>
         <div>
-            <div
-                class="level-title"
-                id="knowledgeLevel">
-                ยังไม่มีผลประเมิน
-            </div>
-            <div
-                class="level-description"
-                id="knowledgeDescription">
-                ทำแบบประเมินเพื่อดูระดับความรู้
-                และคำแนะนำในการเรียนรู้
-            </div>
+            <div class="level-title" id="knowledgeLevel">ยังไม่มีผลประเมิน</div>
+            <div class="level-description" id="knowledgeDescription">ทำแบบประเมินเพื่อดูระดับความรู้ และคำแนะนำในการเรียนรู้</div>
         </div>
     </div>
     <div class="outcome-list">
-        <div class="outcome-item">
-            <div class="outcome-dot">
-                ✓
-            </div>
-            <div>
-                <strong>
-                    สิ่งที่เรียนรู้แล้ว
-                </strong>
-                <span id="completedLearning">
-                    ยังไม่มีข้อมูลกิจกรรมที่ทำสำเร็จ
-                </span>
-            </div>
-        </div>
-        <div class="outcome-item">
-            <div class="outcome-dot">
-                !
-            </div>
-            <div>
-                <strong>
-                    จุดที่ควรพัฒนา
-                </strong>
-                <span id="weakPoint">
-                    ทำแบบประเมินเพื่อระบุจุดที่ควรพัฒนา
-                </span>
-            </div>
-        </div>
+        <div class="outcome-item"><div class="outcome-dot">✓</div><div><strong>สิ่งที่เรียนรู้แล้ว</strong><span id="completedLearning">ยังไม่มีข้อมูลกิจกรรมที่ทำสำเร็จ</span></div></div>
+        <div class="outcome-item"><div class="outcome-dot">○</div><div><strong>สิ่งที่ยังไม่เรียน</strong><span id="pendingLearning">ยังไม่เริ่มกิจกรรม</span></div></div>
+        <div class="outcome-item"><div class="outcome-dot">!</div><div><strong>จุดที่ควรพัฒนา</strong><span id="weakPoint">ทำแบบประเมินและสถานการณ์เพื่อระบุจุดที่ควรพัฒนา</span></div></div>
     </div>
 </div>
 <div class="outcome-card need-card">
-    <h2>
-        ควรเรียนเพิ่มเติม
-    </h2>
-    <p>
-        ระบบจะแนะนำหัวข้อที่ควรกลับไปทบทวน
-        ตามผลการประเมิน
-    </p>
-    <div
-        class="learning-recommendation"
-        id="recommendationBox">
-        <strong>
-            คำแนะนำการเรียนรู้
-        </strong>
-        <p id="recommendationText">
-            เมื่อทำแบบประเมินแล้ว
-            ระบบจะแนะนำบทเรียนที่เหมาะสม
-        </p>
+    <h2>ควรเรียนเพิ่มเติม</h2>
+    <p>ระบบจะแนะนำหัวข้อที่ควรกลับไปทบทวน ตามผลการประเมิน</p>
+    <div class="learning-recommendation" id="recommendationBox">
+        <strong>คำแนะนำการเรียนรู้</strong>
+        <p id="recommendationText">เมื่อทำแบบประเมินแล้ว ระบบจะแนะนำบทเรียนที่เหมาะสม</p>
     </div>
-    <div class="outcome-list">
-        <div class="outcome-item">
-            <div class="outcome-dot">
-                01
-            </div>
-            <div>
-                <strong>
-                    การประเมินเด็กที่มีไข้
-                </strong>
-                <span>
-                    ทบทวนการประเมินอุณหภูมิ
-                    และอาการร่วม
-                </span>
-            </div>
-        </div>
-        <div class="outcome-item">
-            <div class="outcome-dot">
-                02
-            </div>
-            <div>
-                <strong>
-                    การเช็ดตัวลดไข้
-                </strong>
-                <span>
-                    ทบทวนหลักการ
-                    ขั้นตอน และข้อควรระวัง
-                </span>
-            </div>
-        </div>
-        <div class="outcome-item">
-            <div class="outcome-dot">
-                03
-            </div>
-            <div>
-                <strong>
-                    อาการเตือน
-                </strong>
-                <span>
-                    ทบทวนการสังเกตอาการผิดปกติ
-                    และการขอรับบริการ
-                </span>
-            </div>
+    <div class="learning-recommendation" style="margin-top:16px">
+        <strong>ใบสรุปผลงานวิจัย</strong>
+        <p id="researchSummary" style="white-space:pre-line">ยังไม่มีผลแบบประเมิน</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button type="button" class="btn btn-primary" onclick="copyResearchSummary()">คัดลอกสรุปผล</button>
+        <button type="button" class="btn btn-secondary" onclick="downloadResearchSummary()">ดาวน์โหลดไฟล์สรุปผล</button>
         </div>
     </div>
-    <button
-        class="btn btn-primary"
-        style="margin-top:20px"
-        onclick="openPage('lessons')">
-        กลับไปทบทวนบทเรียน
-    </button>
+    <div class="outcome-list" id="recommendList"></div>
+    <button class="btn btn-primary" style="margin-top:20px" onclick="openPage('lessons')">กลับไปทบทวนบทเรียน</button>
 </div>
 </div>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 5 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 5 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     PROFILE
-===================================================== -->
+
 <main id="profilePage" class="app-page" style="display:none">
 <div class="main">
-<div class="page-heading">
-    <small>
-        MY PROFILE
-    </small>
-    <h1>
-        โปรไฟล์ผู้ใช้งาน
-    </h1>
-    <p>
-        จัดการข้อมูลส่วนตัว
-        และช่องทางการติดต่อ
-    </p>
-</div>
+<div class="page-heading"><small>MY PROFILE</small><h1>โปรไฟล์ผู้ใช้งาน</h1><p>จัดการข้อมูลส่วนตัว และช่องทางการติดต่อ</p></div>
 <div class="profile-card">
 <div class="profile-photo-wrap">
-    <img
-        id="profilePhoto"
-        class="profile-photo"
-        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80"
-        alt="รูปโปรไฟล์">
-    <input
-        type="file"
-        id="photoInput"
-        accept="image/*"
-        style="display:none"
-        onchange="changePhoto(event)">
-    <button
-        class="change-photo"
-        onclick="document.getElementById('photoInput').click()">
-        เปลี่ยนรูปโปรไฟล์
-    </button>
+    <img id="profilePhoto" class="profile-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="รูปโปรไฟล์">
+    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="changePhoto(event)">
+    <button class="change-photo" onclick="document.getElementById('photoInput').click()">เปลี่ยนรูปโปรไฟล์</button>
 </div>
-<div class="form-group">
-    <label>
-        ชื่อผู้ใช้งาน
-    </label>
-    <input
-        id="profileName"
-        type="text"
-        placeholder="กรอกชื่อผู้ใช้งาน">
-</div>
-<div class="form-group">
-    <label>
-        อีเมล
-    </label>
-    <input
-        id="profileEmail"
-        type="email"
-        placeholder="example@email.com">
-</div>
-<button
-    class="btn btn-primary"
-    onclick="saveProfile()">
-    บันทึกข้อมูล
-</button>
-<!-- LINE + 1669 -->
+<div class="form-group"><label>ชื่อผู้ใช้งาน</label><input id="profileName" type="text" placeholder="กรอกชื่อผู้ใช้งาน"></div>
+<div class="form-group"><label>อีเมล</label><input id="profileEmail" type="email" placeholder="example@email.com"></div>
+<button class="btn btn-primary" onclick="saveProfile()">บันทึกข้อมูล</button>
 <div class="contact-grid">
 <div class="contact-box">
-    <div class="contact-icon line-icon">
-        LINE
-    </div>
-    <h3>
-        LINE Official Account
-    </h3>
-    <p>
-        ติดต่อสอบถามข้อมูล
-        และรับข่าวสารจาก
-        SMART FEVER CARE
-    </p>
-    <a
-        href="#"
-        class="contact-btn line-btn"
-        onclick="connectLine();return false;">
-        เชื่อมต่อ LINE OA
-    </a>
+    <div class="contact-icon line-icon">LINE</div>
+    <h3>LINE Official Account</h3>
+    <p>ติดต่อสอบถามข้อมูล และรับข่าวสารจาก SMART FEVER CARE ผ่าน LINE Official Account @538gcahu</p>
+    <a href="https://line.me/R/ti/p/@538gcahu" class="contact-btn line-btn" target="_blank" rel="noopener">เชื่อมต่อ LINE OA</a>
 </div>
 <div class="contact-box">
-    <div class="contact-icon phone-icon">
-        1669
-    </div>
-    <h3>
-        ติดต่อฉุกเฉิน
-    </h3>
-    <p>
-        กรณีฉุกเฉินหรือมีอาการรุนแรง
-        สามารถติดต่อสายด่วนการแพทย์ฉุกเฉิน
-    </p>
-    <a
-        href="tel:1669"
-        class="contact-btn phone-btn">
-        โทร 1669
-    </a>
+    <div class="contact-icon phone-icon">1669</div>
+    <h3>ติดต่อฉุกเฉิน</h3>
+    <p>กรณีฉุกเฉินหรือมีอาการรุนแรง สามารถติดต่อสายด่วนการแพทย์ฉุกเฉิน</p>
+    <a href="tel:1669" class="contact-btn phone-btn">โทร 1669</a>
 </div>
 </div>
 </div>
 </div>
 <div class="page-navigation">
-    <button
-        class="page-nav-btn back-btn"
-        onclick="navigatePage(-1)">
-        ← ย้อนกลับ
-    </button>
-    <span class="page-nav-label">
-        หน้า 6 / 6
-    </span>
-    <button
-        class="page-nav-btn next-btn"
-        onclick="navigatePage(1)">
-        ถัดไป →
-    </button>
+    <button class="page-nav-btn back-btn" onclick="navigatePage(-1)">← ย้อนกลับ</button>
+    <span class="page-nav-label">หน้า 6 / 6</span>
+    <button class="page-nav-btn next-btn" onclick="navigatePage(1)">ถัดไป →</button>
 </div>
 </main>
-<!-- =====================================================
-     BOTTOM NAVIGATION
-===================================================== -->
+
 <nav class="bottom-nav">
 <div class="nav-inner">
-<button
-    class="nav-item active"
-    data-page="home"
-    onclick="openPage('home')">
-    <span class="nav-icon">
-        H
-    </span>
-    Home
-</button>
-<button
-    class="nav-item"
-    data-page="lessons"
-    onclick="openPage('lessons')">
-    <span class="nav-icon">
-        L
-    </span>
-    Learning
-</button>
-<button
-    class="nav-item"
-    data-page="scenario"
-    onclick="openPage('scenario')">
-    <span class="nav-icon">
-        S
-    </span>
-    Situation
-</button>
-<button
-    class="nav-item"
-    data-page="assessment"
-    onclick="openPage('assessment')">
-    <span class="nav-icon">
-        A
-    </span>
-    Assessment
-</button>
-<button
-    class="nav-item"
-    data-page="outcome"
-    onclick="openPage('outcome')">
-    <span class="nav-icon">
-        O
-    </span>
-    Outcome
-</button>
-<button
-    class="nav-item"
-    data-page="profile"
-    onclick="openPage('profile')">
-    <span class="nav-icon">
-        P
-    </span>
-    Profile
-</button>
+<button class="nav-item active" data-page="home" onclick="openPage('home')"><span class="nav-icon">H</span>Home</button>
+<button class="nav-item" data-page="lessons" onclick="openPage('lessons')"><span class="nav-icon">L</span>Learning</button>
+<button class="nav-item" data-page="scenario" onclick="openPage('scenario')"><span class="nav-icon">S</span>Situation</button>
+<button class="nav-item" data-page="assessment" onclick="openPage('assessment')"><span class="nav-icon">A</span>Assessment</button>
+<button class="nav-item" data-page="outcome" onclick="openPage('outcome')"><span class="nav-icon">O</span>Outcome</button>
+<button class="nav-item" data-page="profile" onclick="openPage('profile')"><span class="nav-icon">P</span>Profile</button>
 </div>
 </nav>
 </div>
 </section>
-<!-- =====================================================
-     LOGIN MODAL
-===================================================== -->
-<div
-    id="loginModal"
-    class="login-modal"
-    onclick="closeLoginOutside(event)">
+
+<div id="loginModal" class="login-modal" onclick="closeLoginOutside(event)">
 <div class="login-box">
 <div class="login-head">
-    <div class="login-icon">
-        SFC
-    </div>
-    <h2>
-        เข้าสู่ SMART FEVER CARE
-    </h2>
-    <p>
-        เลือกช่องทางที่ต้องการเข้าสู่ระบบ
-    </p>
+    <div class="login-icon">SFC</div>
+    <h2>เข้าสู่ SMART FEVER CARE</h2>
+    <p>เลือกช่องทางที่ต้องการเข้าสู่ระบบ</p>
 </div>
 <div class="login-tabs">
-    <button
-        id="emailTab"
-        class="login-tab active"
-        onclick="switchLogin('email')">
-        Email
-    </button>
-    <button
-        id="lineTab"
-        class="login-tab"
-        onclick="switchLogin('line')">
-        LINE
-    </button>
+    <button id="emailTab" class="login-tab active" onclick="switchLogin('email')">Email</button>
+    <button id="lineTab" class="login-tab" onclick="switchLogin('line')">LINE</button>
 </div>
-<div
-    id="emailLogin"
-    class="login-form active">
-    <label class="login-label">
-        อีเมล
-    </label>
-    <input
-        id="loginEmail"
-        class="login-input"
-        type="email"
-        placeholder="example@email.com"
-        autocomplete="email">
-    <label class="login-label">
-        ชื่อผู้ใช้งาน
-    </label>
-    <input
-        id="loginName"
-        class="login-input"
-        type="text"
-        placeholder="กรอกชื่อที่ต้องการแสดง">
-    <button
-        class="btn btn-primary"
-        style="width:100%"
-        onclick="loginWithEmail()">
-        เข้าสู่ระบบด้วย Email
-    </button>
+<div id="emailLogin" class="login-form active">
+    <label class="login-label">อีเมล</label>
+    <input id="loginEmail" class="login-input" type="email" placeholder="example@email.com" autocomplete="email">
+    <label class="login-label">รหัสผ่าน</label>
+    <input id="loginPassword" class="login-input" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="current-password">
+    <label class="login-label">ชื่อผู้ใช้งาน</label>
+    <input id="loginName" class="login-input" type="text" placeholder="กรอกชื่อที่ต้องการแสดง">
+    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="loginWithEmail()">เข้าสู่ระบบด้วยอีเมล</button>
+    <button class="btn btn-secondary" style="width:100%" onclick="registerWithEmail()">สมัครสมาชิกด้วยอีเมล</button>
+    <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">เข้าสู่ระบบด้วยอีเมลและรหัสผ่านของท่าน</p>
 </div>
-<div
-    id="lineLogin"
-    class="login-form">
-    <p style="color:var(--muted);font-size:12px;line-height:1.8;margin-bottom:15px">
-        สำหรับการเชื่อมต่อ LINE จริง
-        จำเป็นต้องนำ LINE Login หรือ LIFF
-        ของโครงการมาใส่ในส่วนนี้
-    </p>
-    <button
-        class="line-login"
-        onclick="loginWithLine()">
-        เข้าสู่ระบบด้วย LINE
-    </button>
+<div id="lineLogin" class="login-form">
+    <p style="color:var(--muted);font-size:12px;line-height:1.8;margin-bottom:15px">กดปุ่มเพื่อไปที่บัญชี LINE ของท่าน ยืนยันการอนุญาต แล้วระบบจะนำชื่อกับรูปโปรไฟล์เข้าแอปทันที</p>
+    <button class="line-login" onclick="loginWithLine()">เข้าสู่ระบบด้วย LINE</button>
+    <a href="https://line.me/R/ti/p/@538gcahu" target="_blank" rel="noopener" class="contact-btn line-btn" style="display:block;text-align:center;margin-top:10px;text-decoration:none">เพิ่มเพื่อน @538gcahu</a>
 </div>
-<button
-    class="login-close"
-    onclick="closeLogin()">
-    ยกเลิก
-</button>
+
+<button class="login-close" onclick="closeLogin()">ยกเลิก</button>
 </div>
 </div>
-<!-- =====================================================
-     VIDEO MODAL
-===================================================== -->
-<div
-    id="videoModal"
-    class="video-modal"
-    onclick="closeVideoOutside(event)">
+
+<div id="videoModal" class="video-modal" onclick="closeVideoOutside(event)">
 <div class="video-modal-content">
 <div class="video-modal-header">
-    <h3 id="videoModalTitle">
-        วิดีโอเพื่อการเรียนรู้
-    </h3>
-    <button
-        class="close-video"
-        onclick="closeVideo()">
-        ×
-    </button>
+    <h3 id="videoModalTitle">วิดีโอเพื่อการเรียนรู้</h3>
+    <button class="close-video" onclick="closeVideo()">×</button>
 </div>
-<div
-    id="videoPlayer"
-    class="video-player">
-    <div class="video-placeholder">
-        <h4 id="videoPlaceholderTitle">
-            วิดีโอเพื่อการเรียนรู้
-        </h4>
-        <p>
-            ส่วนนี้เตรียมไว้สำหรับ
-            เชื่อมต่อวิดีโอการเรียนรู้จริง
-            ของ SMART FEVER CARE
-        </p>
+<div id="videoPlayer" class="video-player">
+    <div class="video-slide" id="videoSlide">
+        <small id="videoSlideTag">VIDEO LESSON</small>
+        <h4 id="videoPlaceholderTitle">วิดีโอเพื่อการเรียนรู้</h4>
+        <p id="videoSlideText">กดเล่นเพื่อเริ่มบทเรียน</p>
+    </div>
+    <div class="video-controls">
+        <button class="video-ctrl" id="playPauseBtn" onclick="toggleVideoPlay()">▶ เล่น</button>
+        <button class="video-ctrl" onclick="prevSlide()">ก่อนหน้า</button>
+        <button class="video-ctrl" onclick="nextSlide()">ถัดไป</button>
+        <div class="video-track"><span id="videoProgressFill"></span></div>
+        <div class="video-time" id="videoTime">01 / 01</div>
     </div>
 </div>
-<div class="video-modal-footer">
-    สื่อวิดีทัศน์นี้เป็นส่วนหนึ่งของ
-    กระบวนการเรียนรู้ดิจิทัล
-    เพื่อเสริมสร้างความรู้และทักษะ
-    ในการดูแลเด็กที่มีไข้
+<div class="video-modal-footer" id="videoModalFooter">
+    เนื้อหาอ้างอิงจากคำแนะนำการดูแลผู้ป่วยเด็กที่มีไข้ โดยราชวิทยาลัยกุมารแพทย์แห่งประเทศไทยและสมาคมกุมารแพทย์แห่งประเทศไทย 26 กรกฎาคม 2568
 </div>
 </div>
 </div>
-<!-- TOAST -->
+
 <div id="toast" class="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
-/* =========================================================
-   USER DATA
-========================================================= */
 let user = {
-    name:
-        localStorage.getItem("sfc_name")
-        || "ผู้ใช้งาน",
-    email:
-        localStorage.getItem("sfc_email")
-        || "",
-    photo:
-        localStorage.getItem("sfc_photo")
-        ||
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80"
+    name: localStorage.getItem("sfc_name") || "ผู้ใช้งาน",
+    email: localStorage.getItem("sfc_email") || "",
+    photo: localStorage.getItem("sfc_photo") || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80"
 };
-/* =========================================================
-   PAGE ORDER
-========================================================= */
-const pageOrder = [
-    "home",
-    "lessons",
-    "scenario",
-    "assessment",
-    "outcome",
-    "profile"
-];
-/* =========================================================
-   LOGIN MODAL
-========================================================= */
+const pageOrder = ["home","lessons","scenario","assessment","outcome","profile"];
+let currentVideoType = null;
+let currentSlide = 0;
+let isPlaying = false;
+let slideTimer = null;
+
+const videoFiles = {
+    assessment: "video-assessment.mp4",
+    tepid: "video-tepid.mp4",
+    warning: "video-warning.mp4"
+};
+const videoData = {
+    assessment: {
+        title: "หลักการประเมินเด็กที่มีไข้",
+        slides: [
+            {tag:"VIDEO LESSON 01", title:"หลักการประเมินเด็กที่มีไข้", text:"สื่อนี้เรียบเรียงจากคำแนะนำราชวิทยาลัยกุมารแพทย์แห่งประเทศไทยและสมาคมกุมารแพทย์แห่งประเทศไทย วันที่ 26 กรกฎาคม 2568"},
+            {tag:"คำจำกัดความ", title:"เมื่อใดถือว่าเด็กมีไข้", text:"ถือว่ามีไข้เมื่อวัดทางหูหรือหน้าผากตั้งแต่ 38 องศาเซลเซียสขึ้นไป หรือวัดทางปากตั้งแต่ 37.8 องศา หรือวัดทางรักแร้ประมาณ 37.2 ถึง 37.5 องศาเซลเซียส"},
+            {tag:"วัตถุประสงค์", title:"เป้าหมายหลักคือความสุขสบาย", text:"การดูแลไข้มีเป้าหมายเพื่อให้เด็กสุขสบาย ไม่จำเป็นต้องทำให้ไข้ลงหรืออุณหภูมิกลับเป็นปกติเสมอไป หากเด็กยังสบายดี"},
+            {tag:"การประเมิน", title:"ดูทั้งอุณหภูมิและอาการร่วม", text:"การตัดสินใจดูแลควรพิจารณาร่วมกับอาการอื่นและภาวะทั่วไปของเด็ก ไม่ดูเฉพาะตัวเลขอุณหภูมิอย่างเดียว"},
+            {tag:"การดูแลที่บ้าน", title:"หลักการดูแลเบื้องต้น", text:"ให้ยาลดไข้ตามน้ำหนักเมื่อเด็กไม่สบายตัว ดื่มน้ำให้เพียงพอ สวมเสื้อผ้าที่ระบายอากาศได้ดี และอยู่ในห้องที่อากาศถ่ายเท ไม่ร้อนจัดหรือเย็นจัด"},
+            {tag:"ยาลดไข้", title:"พาราเซตามอลเป็นยาที่แนะนำ", text:"ยาที่แนะนำคือพาราเซตามอลตามน้ำหนักตัวเด็ก ควรหลีกเลี่ยงยาในกลุ่ม NSAIDs เช่น ไอบูโพรเฟน หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ หรือแผลในกระเพาะ"},
+            {tag:"ชักจากไข้", title:"ลดไข้ไม่ได้แปลว่าป้องกันชักได้", text:"ปัจจุบันยังไม่มีหลักฐานชัดเจนว่าการให้ยาลดไข้หรือการเช็ดตัวสามารถป้องกันการชักจากไข้สูงได้ แต่อาจช่วยให้เด็กสบายตัวขึ้น"}
+        ]
+    },
+    tepid: {
+        title: "แนวทางการเช็ดตัวลดไข้",
+        slides: [
+            {tag:"VIDEO LESSON 02", title:"แนวทางการเช็ดตัวลดไข้", text:"การเช็ดตัวเป็นทางเลือก ไม่ใช่สิ่งที่ต้องทำทุกครั้งเมื่อมีไข้ ตามแนวทางราชวิทยาลัยกุมารแพทย์แห่งประเทศไทย ปี 2568"},
+            {tag:"หลักฐาน", title:"ประสิทธิภาพยังไม่ชัดเจนหากใช้เป็นประจำ", text:"องค์กรวิชาชีพหลายแห่งไม่แนะนำให้เช็ดตัวเป็นประจำ เพราะอาจทำให้เด็กหนาวสั่น ตกใจกลัว และโดยรวมด้อยกว่าพาราเซตามอลในการลดไข้"},
+            {tag:"ช่วงเวลา", title:"อาจช่วยในช่วง 1 ถึง 2 ชั่วโมงแรก", text:"การเช็ดตัวร่วมกับพาราเซตามอลอาจช่วยให้ไข้ลงเร็วกว่ายาอย่างเดียวในช่วง 1 ถึง 2 ชั่วโมงแรก แต่หลังจาก 2 ชั่วโมงระดับไข้ไม่แตกต่างกัน"},
+            {tag:"เมื่อใดจึงพิจารณา", title:"ใช้เป็นทางเลือกร่วมกับยา", text:"พิจารณาเมื่อเด็กมีไข้สูงและไม่สบายตัวจากไข้ หรือเป็นการดูแลเบื้องต้นขณะยังไม่มียาลดไข้"},
+            {tag:"วิธีที่ถูกต้อง", title:"ใช้น้ำอุณหภูมิห้องหรือน้ำอุ่น", text:"ใช้ผ้าชุบน้ำอุณหภูมิห้องหรือน้ำอุ่น เช็ดอย่างเบามือบริเวณที่เลือดไหลเวียนดี เช่น รักแร้ ซอกคอ และขาหนีบ"},
+            {tag:"สังเกตเด็ก", title:"ถ้าไม่สุขสบายให้หยุด", text:"หากเด็กหนาวสั่น ร้องมาก หรือไม่สุขสบายขณะเช็ดตัว ให้หยุดเช็ดทันที"},
+            {tag:"ข้อห้าม", title:"ห้ามน้ำเย็นจัด น้ำแข็ง และแอลกอฮอล์", text:"ห้ามเช็ดถูแรง ๆ ห้ามใช้น้ำเย็นจัด น้ำแข็ง หรือแอลกอฮอล์ เพราะอาจทำให้หนาวสั่น ร่างกายสร้างความร้อนเพิ่ม หรือเกิดอันตรายจากการดูดซึมแอลกอฮอล์"}
+        ]
+    },
+    warning: {
+        title: "การเฝ้าระวังอาการผิดปกติ",
+        slides: [
+            {tag:"VIDEO LESSON 03", title:"การเฝ้าระวังอาการผิดปกติ", text:"ไข้เป็นการตอบสนองตามธรรมชาติ หากเด็กยังสบายดี เล่นได้ กินได้ โดยทั่วไปไข้เองไม่ได้เป็นอันตราย"},
+            {tag:"อาการเตือน", title:"ควรพบแพทย์เมื่อมีสัญญาณเหล่านี้", text:"เด็กอายุน้อยกว่า 3 เดือน มีอาการซึม ชัก ไม่ดื่มนมหรือน้ำ หายใจลำบากหรือหอบเหนื่อย"},
+            {tag:"อาการเตือน", title:"ผื่น จุดเลือดออก และภาวะคล้ายช็อก", text:"มีผื่นหรือจุดเลือดออก ปลายมือปลายเท้าเย็น ซีด หรืออาการคล้ายช็อก ควรรีบพบแพทย์"},
+            {tag:"ระยะเวลาไข้", title:"ไข้ที่ไม่ดีขึ้นตามเวลา", text:"ไข้ไม่ลดลงภายใน 2 ถึง 3 วัน หรือมีไข้กลับมาภายใน 1 ถึง 2 สัปดาห์ ควรไปพบแพทย์เพื่อหาสาเหตุ"},
+            {tag:"การสื่อสาร", title:"ให้ข้อมูลเพื่อลดความกังวล", text:"บุคลากรควรอธิบายธรรมชาติของไข้ การดูแลที่บ้าน และการสังเกตอาการเตือน โดยไม่สร้างความวิตกเกินควร"},
+            {tag:"ฉุกเฉิน", title:"หากอาการรุนแรงให้ขอความช่วยเหลือ", text:"กรณีฉุกเฉินสามารถโทรสายด่วนการแพทย์ฉุกเฉิน 1669 และพาเด็กพบแพทย์โดยเร็ว"},
+            {tag:"สรุป", title:"ประเมิน ดูแล และเฝ้าระวัง", text:"สรุปสั้น ๆ คือ ประเมินเด็กทั้งตัว ไม่ลดไข้เพียงเพื่อตัวเลข เช็ดตัวเฉพาะเมื่อเหมาะสม และรีบพบแพทย์เมื่อมีอาการเตือน"}
+        ]
+    }
+};
+
+function getAuthConfig(){
+    try{ return JSON.parse(localStorage.getItem("sfc_auth_config")||"{}"); }catch(e){ return {}; }
+}
+function saveAuthConfig(){
+    const cfg = {
+        liffId: (document.getElementById("cfgLiffId")||{}).value?.trim() || "",
+        channelId: (document.getElementById("cfgLineChannel")||{}).value?.trim() || "",
+        apiKey: (document.getElementById("cfgFbKey")||{}).value?.trim() || "",
+        authDomain: (document.getElementById("cfgFbDomain")||{}).value?.trim() || "",
+        projectId: (document.getElementById("cfgFbProject")||{}).value?.trim() || ""
+    };
+    localStorage.setItem("sfc_auth_config", JSON.stringify(cfg));
+    initFirebaseFromConfig();
+    showToast("บันทึกค่าการเข้าสู่ระบบแล้ว");
+}
+function fillAuthConfigFields(){
+    const cfg = getAuthConfig();
+    const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.value=v||""; };
+    set("cfgLiffId", cfg.liffId);
+    set("cfgLineChannel", cfg.channelId);
+    set("cfgFbKey", cfg.apiKey);
+    set("cfgFbDomain", cfg.authDomain);
+    set("cfgFbProject", cfg.projectId);
+}
+function initFirebaseFromConfig(){
+    const cfg = getAuthConfig();
+    if(!cfg.apiKey || !cfg.authDomain || !cfg.projectId) return null;
+    try{
+        if(!window.firebase) return null;
+        if(firebase.apps && firebase.apps.length) return firebase.auth();
+        firebase.initializeApp({apiKey:cfg.apiKey, authDomain:cfg.authDomain, projectId:cfg.projectId});
+        return firebase.auth();
+    }catch(e){
+        console.error(e);
+        return null;
+    }
+}
 function openLogin(type="email"){
-    document
-        .getElementById("loginModal")
-        .classList.add("show");
+    fillAuthConfigFields();
+    document.getElementById("loginModal").classList.add("show");
     document.body.style.overflow="hidden";
     switchLogin(type);
 }
 function closeLogin(){
-    document
-        .getElementById("loginModal")
-        .classList.remove("show");
+    document.getElementById("loginModal").classList.remove("show");
     document.body.style.overflow="";
 }
-function closeLoginOutside(event){
-    if(event.target.id==="loginModal"){
-        closeLogin();
-    }
-}
+function closeLoginOutside(event){ if(event.target.id==="loginModal") closeLogin(); }
 function switchLogin(type){
-    const emailTab =
-        document.getElementById("emailTab");
-    const lineTab =
-        document.getElementById("lineTab");
-    const emailForm =
-        document.getElementById("emailLogin");
-    const lineForm =
-        document.getElementById("lineLogin");
-    emailTab.classList.remove("active");
-    lineTab.classList.remove("active");
-    emailForm.classList.remove("active");
-    lineForm.classList.remove("active");
-    if(type==="line"){
-        lineTab.classList.add("active");
-        lineForm.classList.add("active");
-    }else{
-        emailTab.classList.add("active");
-        emailForm.classList.add("active");
-    }
+    emailTab.classList.toggle("active", type!=="line");
+    lineTab.classList.toggle("active", type==="line");
+    emailLogin.classList.toggle("active", type!=="line");
+    lineLogin.classList.toggle("active", type==="line");
 }
-/* =========================================================
-   EMAIL LOGIN
-========================================================= */
-function loginWithEmail(){
-    const email =
-        document
-            .getElementById("loginEmail")
-            .value
-            .trim();
-    let name =
-        document
-            .getElementById("loginName")
-            .value
-            .trim();
-    if(!email){
-        showToast("กรุณากรอกอีเมล");
+function finishEmailSession(email, name){
+    user.name = name || email.split("@")[0];
+    user.email = email;
+    localStorage.setItem("sfc_name", user.name);
+    localStorage.setItem("sfc_email", user.email);
+    localStorage.setItem("sfc_logged_in","true");
+    localStorage.setItem("sfc_auth_method","email");
+    closeLogin(); loginSuccess();
+}
+async function loginWithEmail(){
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = (document.getElementById("loginPassword")||{}).value || "";
+    let name = document.getElementById("loginName").value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast("กรอกอีเมลให้ถูกต้อง"); return; }
+    const auth = initFirebaseFromConfig();
+    if(!auth){
+        showToast("ยังไม่ได้ตั้งค่า Firebase จึงยังล็อกอินอีเมลจริงไม่ได้");
         return;
     }
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailPattern.test(email)){
-        showToast("รูปแบบอีเมลไม่ถูกต้อง");
+    if(!password || password.length<6){ showToast("กรอกรหัสผ่านอย่างน้อย 6 ตัวอักษร"); return; }
+    try{
+        const cred = await auth.signInWithEmailAndPassword(email, password);
+        finishEmailSession(cred.user.email, name || cred.user.displayName || email.split("@")[0]);
+        if(name && cred.user.updateProfile) await cred.user.updateProfile({displayName:name});
+    }catch(err){
+        showToast(err && err.message ? err.message : "เข้าสู่ระบบอีเมลไม่สำเร็จ");
+    }
+}
+async function registerWithEmail(){
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = (document.getElementById("loginPassword")||{}).value || "";
+    let name = document.getElementById("loginName").value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast("กรอกอีเมลให้ถูกต้อง"); return; }
+    if(!password || password.length<6){ showToast("ตั้งรหัสผ่านอย่างน้อย 6 ตัวอักษร"); return; }
+    const auth = initFirebaseFromConfig();
+    if(!auth){
+        showToast("ยังไม่ได้ตั้งค่า Firebase จึงยังสมัครอีเมลจริงไม่ได้");
         return;
     }
-    if(!name){
-        name =
-            email
-                .split("@")[0]
-                .replace(/[._-]/g," ");
+    try{
+        const cred = await auth.createUserWithEmailAndPassword(email, password);
+        if(name && cred.user.updateProfile) await cred.user.updateProfile({displayName:name});
+        finishEmailSession(cred.user.email, name || email.split("@")[0]);
+        showToast("สมัครสมาชิกและเข้าสู่ระบบแล้ว");
+    }catch(err){
+        showToast(err && err.message ? err.message : "สมัครสมาชิกไม่สำเร็จ");
     }
-    user.name=name;
-    user.email=email;
-    localStorage.setItem(
-        "sfc_name",
-        user.name
-    );
-    localStorage.setItem(
-        "sfc_email",
-        user.email
-    );
-    closeLogin();
-    loginSuccess();
 }
-/* =========================================================
-   LINE LOGIN
-========================================================= */
-function loginWithLine(){
-    /*
-      ส่วนนี้เป็น Demo Login
-      เพื่อให้ระบบทดสอบการเข้าใช้งานได้ทันที
-      หากนำไปใช้กับ LINE จริง
-      ให้เปลี่ยนฟังก์ชันนี้เป็น LIFF / LINE Login
-    */
-    user.name =
-        localStorage.getItem("sfc_name")
-        || "ผู้ใช้งาน LINE";
-    user.email =
-        localStorage.getItem("sfc_email")
-        || "";
-    localStorage.setItem(
-        "sfc_line_login",
-        "true"
-    );
+function loginAsGuest(){
+    user.name = localStorage.getItem("sfc_name") || "ผู้ปกครอง";
+    user.email = localStorage.getItem("sfc_email") || "guest@smartfever.care";
+    localStorage.setItem("sfc_name", user.name);
+    localStorage.setItem("sfc_email", user.email);
+    localStorage.setItem("sfc_logged_in","true");
+    closeLogin(); loginSuccess();
+}
+function applyLineProfile(profile, email){
+    user.name = (profile && profile.displayName) || "ผู้ใช้งาน LINE";
+    user.email = email || "line-user@smartfever.care";
+    if(profile && profile.pictureUrl) user.photo = profile.pictureUrl;
+    localStorage.setItem("sfc_name", user.name);
+    localStorage.setItem("sfc_email", user.email);
+    if(user.photo) localStorage.setItem("sfc_photo", user.photo);
+    localStorage.setItem("sfc_line_login","true");
+    localStorage.setItem("sfc_logged_in","true");
+    localStorage.setItem("sfc_auth_method","line");
     closeLogin();
     loginSuccess();
+    showToast("เข้าสู่ระบบด้วย LINE แล้ว: "+user.name);
+}
+function getLineLiffId(){
+    const cfg = getAuthConfig();
+    return cfg.liffId || localStorage.getItem("sfc_liff_id") || "";
+}
+async function completeLineLogin(){
+    if(!window.liff || !liff.isLoggedIn()) return false;
+    const profile = await liff.getProfile();
+    let email = "";
+    try{
+        const token = liff.getDecodedIDToken && liff.getDecodedIDToken();
+        if(token && token.email) email = token.email;
+    }catch(e){}
+    applyLineProfile(profile, email);
+    return true;
+}
+function getLineLoginConfig(){
+    const cfg = getAuthConfig();
+    return {
+        channelId: cfg.channelId || localStorage.getItem("sfc_line_channel_id") || "",
+        channelSecret: cfg.channelSecret || localStorage.getItem("sfc_line_channel_secret") || ""
+    };
+}
+function saveLineLoginConfig(channelId, channelSecret){
+    localStorage.setItem("sfc_line_channel_id", channelId);
+    if(channelSecret) localStorage.setItem("sfc_line_channel_secret", channelSecret);
+    const cfg = getAuthConfig();
+    cfg.channelId = channelId;
+    if(channelSecret) cfg.channelSecret = channelSecret;
+    localStorage.setItem("sfc_auth_config", JSON.stringify(cfg));
+}
+function lineRedirectUri(){
+    return location.origin + location.pathname;
+}
+async function makePkce(){
+    const bytes = crypto.getRandomValues(new Uint8Array(32));
+    const verifier = Array.from(bytes).map(b=>("0"+b.toString(16)).slice(-2)).join("")+"abcdefghijk";
+    const enc = new TextEncoder().encode(verifier);
+    const hash = await crypto.subtle.digest("SHA-256", enc);
+    const challenge = btoa(String.fromCharCode(...new Uint8Array(hash))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+    return {verifier, challenge};
+}
+async function loginWithLine(){
+    let {channelId, channelSecret} = getLineLoginConfig();
+    if(!channelId){
+        channelId = window.prompt("ใส่ LINE Login Channel ID");
+        if(!channelId){ showToast("ต้องมี Channel ID ของ LINE Login"); return; }
+        saveLineLoginConfig(channelId.trim(), channelSecret);
+    }
+    if(!channelSecret){
+        channelSecret = window.prompt("ใส่ LINE Login Channel Secret");
+        if(!channelSecret){ showToast("ต้องมี Channel Secret เพื่อดึงชื่อและรูป"); return; }
+        saveLineLoginConfig(channelId.trim(), channelSecret.trim());
+    }
+    const {verifier, challenge} = await makePkce();
+    const state = Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);
+    sessionStorage.setItem("sfc_line_state", state);
+    sessionStorage.setItem("sfc_line_verifier", verifier);
+    sessionStorage.setItem("sfc_line_redirect", lineRedirectUri());
+    location.href = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id="+encodeURIComponent(channelId.trim())+"&redirect_uri="+encodeURIComponent(lineRedirectUri())+"&state="+encodeURIComponent(state)+"&scope="+encodeURIComponent("profile openid email")+"&code_challenge="+encodeURIComponent(challenge)+"&code_challenge_method=S256";
+}
+async function handleLineOAuthReturn(){
+    const params = new URLSearchParams(location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    const err = params.get("error");
+    if(err){
+        showToast("ยังไม่อนุญาตให้เข้าถึงบัญชี LINE");
+        history.replaceState({}, document.title, lineRedirectUri());
+        return false;
+    }
+    if(!code) return false;
+    if(state !== sessionStorage.getItem("sfc_line_state")){
+        showToast("การยืนยัน LINE ไม่ตรงกัน กรุณาลองใหม่");
+        return false;
+    }
+    const {channelId, channelSecret} = getLineLoginConfig();
+    const body = new URLSearchParams({
+        grant_type:"authorization_code",
+        code,
+        redirect_uri: sessionStorage.getItem("sfc_line_redirect") || lineRedirectUri(),
+        client_id: channelId,
+        client_secret: channelSecret,
+        code_verifier: sessionStorage.getItem("sfc_line_verifier") || ""
+    });
+    try{
+        const tokenRes = await fetch("https://api.line.me/oauth2/v2.1/token", {
+            method:"POST",
+            headers:{"Content-Type":"application/x-www-form-urlencoded"},
+            body
+        });
+        const token = await tokenRes.json();
+        if(!token.access_token){
+            showToast("แลกโทเค็น LINE ไม่สำเร็จ ตรวจ Channel ID Secret และ Callback URL");
+            console.error(token);
+            return false;
+        }
+        const profRes = await fetch("https://api.line.me/v2/profile", {
+            headers:{Authorization:"Bearer "+token.access_token}
+        });
+        const profile = await profRes.json();
+        applyLineProfile({displayName: profile.displayName, pictureUrl: profile.pictureUrl}, "");
+        history.replaceState({}, document.title, lineRedirectUri());
+        return true;
+    }catch(e){
+        console.error(e);
+        showToast("เชื่อมบัญชี LINE ผู้ใช้ไม่สำเร็จ");
+        return false;
+    }
 }
 function loginSuccess(){
-    document
-        .getElementById("welcome")
-        .classList.remove("active");
-    document
-        .getElementById("app")
-        .classList.add("active");
-    updateUser();
-    openPage("home");
-    showToast(
-        "เข้าสู่ SMART FEVER CARE เรียบร้อยแล้ว"
-    );
+    welcome.classList.remove("active");
+    app.classList.add("active");
+    updateUser(); openPage("home");
+    showToast("เข้าสู่ SMART FEVER CARE เรียบร้อยแล้ว");
 }
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
 function navigatePage(direction){
-    const activeNav =
-        document.querySelector(
-            ".nav-item.active"
-        );
-    const currentPage =
-        activeNav
-        ? activeNav.dataset.page
-        : "home";
-    const currentIndex =
-        pageOrder.indexOf(currentPage);
-    if(currentIndex===-1){
+    const activeNav = document.querySelector(".nav-item.active");
+    const currentPage = activeNav ? activeNav.dataset.page : "home";
+    const currentIndex = pageOrder.indexOf(currentPage);
+    const nextIndex = currentIndex + direction;
+    if(nextIndex < 0 || nextIndex >= pageOrder.length){
+        showToast(direction < 0 ? "คุณอยู่หน้าแรกแล้ว" : "คุณอยู่หน้าสุดท้ายแล้ว");
         return;
     }
-    const nextIndex =
-        currentIndex + direction;
-    if(
-        nextIndex < 0 ||
-        nextIndex >= pageOrder.length
-    ){
-        showToast(
-            direction < 0
-            ? "คุณอยู่หน้าแรกแล้ว"
-            : "คุณอยู่หน้าสุดท้ายแล้ว"
-        );
-        return;
-    }
-    openPage(
-        pageOrder[nextIndex]
-    );
+    openPage(pageOrder[nextIndex]);
 }
-/* =========================================================
-   OPEN PAGE
-========================================================= */
 function openPage(page){
-    document
-        .querySelectorAll(".app-page")
-        .forEach(el=>{
-            el.style.display="none";
-        });
-    const target =
-        document.getElementById(
-            page+"Page"
-        );
-    if(target){
-        target.style.display="block";
-    }
-    document
-        .querySelectorAll(".nav-item")
-        .forEach(el=>{
-            el.classList.remove("active");
-            if(el.dataset.page===page){
-                el.classList.add("active");
-            }
-        });
-    updatePageNavigation(page);
-    if(page==="outcome"){
-        updateOutcome();
-    }
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
+    document.querySelectorAll(".app-page").forEach(el=>el.style.display="none");
+    const target = document.getElementById(page+"Page");
+    if(target) target.style.display="block";
+    document.querySelectorAll(".nav-item").forEach(el=>{
+        el.classList.toggle("active", el.dataset.page===page);
     });
+    updatePageNavigation(page);
+    if(page==="outcome") updateOutcome();
+    if(page==="scenario") renderScenario();
+    if(page==="lessons") refreshLessonStatus();
+    window.scrollTo({top:0, behavior:"smooth"});
 }
-/* =========================================================
-   PAGE NAVIGATION UI
-========================================================= */
 function updatePageNavigation(page){
-    const index =
-        pageOrder.indexOf(page);
-    document
-        .querySelectorAll(".back-btn")
-        .forEach(btn=>{
-            btn.disabled=index<=0;
-        });
-    document
-        .querySelectorAll(".next-btn")
-        .forEach(btn=>{
-            btn.disabled=
-                index>=pageOrder.length-1;
-        });
-    document
-        .querySelectorAll(".page-nav-label")
-        .forEach(label=>{
-            label.innerText=
-                `หน้า ${index+1} / ${pageOrder.length}`;
-        });
+    const index = pageOrder.indexOf(page);
+    document.querySelectorAll(".back-btn").forEach(btn=>btn.disabled=index<=0);
+    document.querySelectorAll(".next-btn").forEach(btn=>btn.disabled=index>=pageOrder.length-1);
+    document.querySelectorAll(".page-nav-label").forEach(label=>label.innerText=`หน้า ${index+1} / ${pageOrder.length}`);
 }
-/* =========================================================
-   LOGOUT
-========================================================= */
 function logoutSystem(){
-    const confirmed =
-        confirm(
-            "ต้องการออกจากระบบ SMART FEVER CARE หรือไม่?"
-        );
-    if(!confirmed){
-        return;
-    }
-    document
-        .getElementById("app")
-        .classList.remove("active");
-    document
-        .getElementById("welcome")
-        .classList.add("active");
-    showToast(
-        "ออกจากระบบเรียบร้อยแล้ว"
-    );
+    if(!confirm("ต้องการออกจากระบบ SMART FEVER CARE หรือไม่?")) return;
+    app.classList.remove("active");
+    welcome.classList.add("active");
+    showToast("ออกจากระบบเรียบร้อยแล้ว");
 }
-/* =========================================================
-   USER
-========================================================= */
 function updateUser(){
-    document
-        .getElementById("homeUserName")
-        .innerText=user.name;
-    document
-        .getElementById("headerUserName")
-        .innerText=user.name;
-    document
-        .getElementById("headerAvatar")
-        .src=user.photo;
-    document
-        .getElementById("profilePhoto")
-        .src=user.photo;
-    document
-        .getElementById("profileName")
-        .value=user.name;
-    document
-        .getElementById("profileEmail")
-        .value=user.email;
-    updateProgress();
-    updateVideoStatus();
-    updateOutcome();
+    homeUserName.innerText=user.name;
+    headerUserName.innerText=user.name;
+    headerAvatar.src=user.photo;
+    profilePhoto.src=user.photo;
+    profileName.value=user.name;
+    profileEmail.value=user.email;
+    updateProgress(); updateVideoStatus(); updateOutcome();
 }
-/* =========================================================
-   SAVE PROFILE
-========================================================= */
 function saveProfile(){
-    user.name =
-        document
-            .getElementById("profileName")
-            .value
-            .trim()
-            || "ผู้ใช้งาน";
-    user.email =
-        document
-            .getElementById("profileEmail")
-            .value
-            .trim();
-    localStorage.setItem(
-        "sfc_name",
-        user.name
-    );
-    localStorage.setItem(
-        "sfc_email",
-        user.email
-    );
+    user.name = profileName.value.trim() || "ผู้ใช้งาน";
+    user.email = profileEmail.value.trim();
+    localStorage.setItem("sfc_name", user.name);
+    localStorage.setItem("sfc_email", user.email);
     updateUser();
-    showToast(
-        "บันทึกข้อมูลโปรไฟล์เรียบร้อยแล้ว"
-    );
+    showToast("บันทึกข้อมูลโปรไฟล์เรียบร้อยแล้ว");
 }
-/* =========================================================
-   PHOTO
-========================================================= */
 function changePhoto(event){
-    const file =
-        event.target.files[0];
-    if(!file){
-        return;
-    }
-    if(!file.type.startsWith("image/")){
-        showToast(
-            "กรุณาเลือกไฟล์รูปภาพ"
-        );
-        return;
-    }
-    const reader =
-        new FileReader();
+    const file = event.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith("image/")){ showToast("กรุณาเลือกไฟล์รูปภาพ"); return; }
+    const reader = new FileReader();
     reader.onload=function(e){
         user.photo=e.target.result;
-        localStorage.setItem(
-            "sfc_photo",
-            user.photo
-        );
+        localStorage.setItem("sfc_photo", user.photo);
         updateUser();
-        showToast(
-            "เปลี่ยนรูปโปรไฟล์เรียบร้อยแล้ว"
-        );
+        showToast("เปลี่ยนรูปโปรไฟล์เรียบร้อยแล้ว");
     };
     reader.readAsDataURL(file);
 }
-/* =========================================================
-   SCENARIO
-========================================================= */
-function answerScenario(button,correct){
-    document
-        .querySelectorAll(
-            "#scenarioPage .option"
-        )
-        .forEach(btn=>{
-            btn.disabled=true;
-        });
-    if(correct){
-        button.classList.add("correct");
-        showToast(
-            "คำตอบถูกต้อง"
-        );
-    }else{
-        button.classList.add("wrong");
-        showToast(
-            "คำตอบยังไม่ถูกต้อง"
-        );
-    }
-    document
-        .getElementById("scenarioFeedback")
-        .classList.add("show");
-    localStorage.setItem(
-        "sfc_scenario",
-        "completed"
-    );
-    updateProgress();
-    updateOutcome();
+const scenarios = [
+    {title:"เด็กมีไข้สูง และผู้ปกครองต้องการเช็ดตัว", text:"เด็กอายุ 3 ปี มีอุณหภูมิร่างกาย 39°C ผู้ปกครองต้องการช่วยลดไข้ และสอบถามว่าควรดำเนินการอย่างไร", options:["ใช้น้ำเย็นจัดเช็ดตัว","ประเมินอาการเด็ก และดำเนินการลดไข้ตามหลักการที่เหมาะสม","ห่มผ้าหนา ๆ เพื่อให้เด็กมีเหงื่อออก","ให้เด็กออกกำลังกาย เพื่อระบายความร้อน"], answer:1, feedback:"ควรเริ่มจากประเมินอาการและสภาวะของเด็กก่อน แล้วค่อยเลือกวิธีดูแล ไม่ใช้น้ำเย็นจัด น้ำแข็ง หรือแอลกอฮอล์ และไม่จำเป็นต้องเช็ดตัวทุกครั้งที่มีไข้"},
+    {title:"ทารกอายุ 2 เดือน มีไข้", text:"ผู้ปกครองพบว่าทารกอายุ 2 เดือน ตัวร้อน วัดหน้าผากได้ 38.2°C แต่ยังดูดนมได้ ผู้ปกครองควรวางแผนก่อนอย่างไร", options:["เช็ดตัวที่บ้านแล้วสังเกตไปก่อน 2-3 วัน","ให้พาราเซตามอลทันทีแล้วไม่ต้องพบแพทย์","พาพบแพทย์โดยเร็ว เพราะอายุน้อยกว่า 3 เดือนเป็นอาการเตือน","ห่มผ้าหนาและปิดห้องให้อบอุ่น"], answer:2, feedback:"เด็กอายุน้อยกว่า 3 เดือนที่มีไข้ อยู่ในกลุ่มอาการเตือน ควรพบแพทย์เพื่อหาสาเหตุ ไม่ควรดูแลที่บ้านเพียงอย่างเดียว"},
+    {title:"เด็กสุขสบายแม้มีไข้", text:"เด็กอายุ 4 ปี วัดทางหูได้ 38.3°C ยังเล่นได้ กินข้าวได้ ยิ้มได้ ไม่หอบ ผู้ปกครองควรมุ่งเป้าการดูแลอย่างไร", options:["ต้องลดอุณหภูมิให้กลับเป็นปกติให้ได้","เน้นให้เด็กสุขสบาย สังเกตอาการ และดูแลทั่วไปที่บ้าน","เช็ดตัวด้วยแอลกอฮอล์เพื่อลดไข้เร็ว","ให้ออกกำลังกายเพื่อขับเหงื่อ"], answer:1, feedback:"เป้าหมายหลักคือความสุขสบาย ไม่จำเป็นต้องทำให้อุณหภูมิกลับปกติเสมอไป หากเด็กยังสบายดี เล่นได้ กินได้"},
+    {title:"วิธีเช็ดตัวที่ถูกต้อง", text:"ผู้ปกครองตัดสินใจเช็ดตัวเด็กอายุ 5 ปี ที่ไข้สูงและกระสับกระส่าย วิธีใดถูกต้อง", options:["ใช้ผ้าชุบน้ำอุณหภูมิห้องหรือน้ำอุ่น เช็ดเบาที่รักแร้ ซอกคอ ขาหนีบ","ใช้น้ำแข็งประคบทั่วตัว","เช็ดถูแรง ๆ ทั้งตัวเพื่อลดความร้อนเร็ว","ชุบแอลกอฮอล์เช็ดตามตัว"], answer:0, feedback:"การเช็ดตัวที่ถูกต้องใช้น้ำอุณหภูมิห้องหรือน้ำอุ่น เช็ดเบาบริเวณที่เลือดไหลเวียนดี หากหนาวสั่นหรือไม่สุขสบายให้หยุดทันที"},
+    {title:"เด็กหนาวสั่นขณะเช็ดตัว", text:"ขณะเช็ดตัว เด็กเริ่มตัวสั่น ร้องไห้มาก และไม่ยอมให้เช็ดต่อ ควรทำอย่างไร", options:["เช็ดต่อให้ครบทั้งตัว","หยุดเช็ดตัวทันที แล้วประเมินความสุขสบายของเด็ก","ใช้น้ำที่เย็นลงเพื่อให้ได้ผลเร็วขึ้น","คลุมผ้าหนาแล้วเช็ดต่อ"], answer:1, feedback:"หากเด็กหนาวสั่น ร้องมาก หรือไม่สุขสบายขณะเช็ดตัว ให้หยุดเช็ดตัว"},
+    {title:"เลือกยาลดไข้", text:"เด็กอายุ 6 ปี มีไข้และไม่สบายตัว ไม่มีประวัติโรคประจำตัว และไม่สงสัยไข้เลือดออก ยาที่แนะนำตามแนวทางคือข้อใด", options:["แอสไพริน","พาราเซตามอลตามน้ำหนักตัว","ยาแก้อักเสบกลุ่ม NSAIDs ทุกชนิด","ยาปฏิชีวนะทันที"], answer:1, feedback:"ยาที่แนะนำคือพาราเซตามอลตามน้ำหนักตัวเด็ก ควรหลีกเลี่ยง NSAIDs หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะ"},
+    {title:"สงสัยไข้เลือดออก", text:"เด็กมีไข้ ปวดเมื่อย และมีจุดแดงตามตัว ผู้ปกครองถามว่าใช้ยาไอบูโพรเฟนได้หรือไม่", options:["ใช้ได้เลยเพราะลดไข้ได้ดี","ควรหลีกเลี่ยง NSAIDs เช่น ไอบูโพรเฟน และพาพบแพทย์","ใช้ร่วมกับแอลกอฮอล์เช็ดตัว","เพิ่มขนาดยาเป็นสองเท่า"], answer:1, feedback:"แนวทางแนะนำให้หลีกเลี่ยง NSAIDs ในผู้ป่วยที่สงสัยไข้เลือดออก ควรประเมินและพบแพทย์"},
+    {title:"อาการเตือนระบบหายใจ", text:"เด็กอายุ 2 ปี มีไข้ หอบ หายใจลำบาก และดูเหนื่อยผิดปกติ นอกจากการลดไข้แล้วควรทำอะไรเป็นอันดับแรก", options:["เช็ดตัวต่อที่บ้านจนไข้ลง","พาพบแพทย์หรือขอความช่วยเหลือฉุกเฉิน","ให้นอนห่มผ้าหนา ๆ","งดนมและน้ำเพื่อไม่ให้สำลัก"], answer:1, feedback:"หายใจลำบากหรือหอบเหนื่อยเป็นอาการเตือน ควรพบแพทย์หรือโทร 1669 ไม่รอให้ไข้ลงที่บ้านอย่างเดียว"},
+    {title:"ไข้ไม่ลดใน 3 วัน", text:"เด็กอายุ 4 ปี มีไข้มา 3 วัน ไข้ยังไม่ลดลง แม้กินได้บ้าง ผู้ปกครองควรทำอย่างไร", options:["รอต่ออีก 1 สัปดาห์","ไปพบแพทย์เพื่อหาสาเหตุของไข้","เปลี่ยนไปใช้น้ำแข็งเช็ดตัวทุกชั่วโมง","หยุดสังเกตอาการเพราะเริ่มชินแล้ว"], answer:1, feedback:"ไข้ไม่ลดภายใน 2-3 วัน หรือไข้กลับมาใน 1-2 สัปดาห์ ควรพบแพทย์เพื่อหาสาเหตุ"},
+    {title:"ความเข้าใจเรื่องชักจากไข้", text:"ผู้ปกครองกังวลว่าต้องเช็ดตัวและให้ยาลดไข้ทันทีทุกครั้งเพื่อป้องกันชักจากไข้สูง ข้อใดถูกต้องที่สุด", options:["เช็ดตัวและยาลดไข้ป้องกันชักจากไข้ได้แน่นอน","ยังไม่มีหลักฐานชัดเจนว่ายาลดไข้หรือการเช็ดตัวป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้","ห้ามให้ยาลดไข้เด็ดขาด","ถ้าไม่เช็ดตัว เด็กจะชักทุกราย"], answer:1, feedback:"แนวทางระบุชัดว่ายังไม่มีหลักฐานว่าการให้ยาลดไข้หรือการเช็ดตัวป้องกันชักจากไข้สูงได้ แต่อาจช่วยบรรเทาความไม่สุขสบาย"}
+];
+let scenarioIndex = 0;
+let scenarioAnswers = JSON.parse(localStorage.getItem("sfc_scenario_answers") || "{}");
+function renderScenario(){
+    const item = scenarios[scenarioIndex];
+    const letters = ["A","B","C","D"];
+    const saved = scenarioAnswers[scenarioIndex];
+    const optionsHtml = item.options.map((opt,i)=>{
+        let cls = "option";
+        let disabled = "";
+        if(typeof saved === "number"){
+            disabled = "disabled";
+            if(i===item.answer) cls += " correct";
+            else if(i===saved && saved!==item.answer) cls += " wrong";
+        }
+        return `<button class="${cls}" ${disabled} onclick="answerScenario(${i})">${letters[i]}. ${opt}</button>`;
+    }).join("");
+    const showFb = typeof saved === "number" ? " show" : "";
+    document.getElementById("scenarioCard").innerHTML = `
+        <div class="scenario-label">SCENARIO ${String(scenarioIndex+1).padStart(2,"0")}</div>
+        <h2>${item.title}</h2>
+        <div class="scenario-text">${item.text}</div>
+        <div class="options">${optionsHtml}</div>
+        <div id="scenarioFeedback" class="feedback${showFb}"><strong>ผลการวิเคราะห์</strong><br><br>${item.feedback}</div>
+    `;
+    document.getElementById("scenarioProgressLabel").innerText = `ข้อ ${scenarioIndex+1} / ${scenarios.length}`;
+    document.getElementById("prevScenarioBtn").disabled = scenarioIndex<=0;
+    document.getElementById("nextScenarioBtn").disabled = scenarioIndex>=scenarios.length-1;
 }
-/* =========================================================
-   ASSESSMENT
-========================================================= */
-function submitAssessment(){
-    const form =
-        document.getElementById(
-            "assessmentForm"
-        );
-    let score=0;
-    const total=3;
-    for(let i=1;i<=3;i++){
-        const answer =
-            form.querySelector(
-                `input[name="q${i}"]:checked`
-            );
-        if(!answer){
-            showToast(
-                "กรุณาตอบคำถามให้ครบทุกข้อ"
-            );
+function changeScenario(step){
+    const next = scenarioIndex + step;
+    if(next<0 || next>=scenarios.length) return;
+    scenarioIndex = next;
+    renderScenario();
+}
+function answerScenario(choice){
+    const item = scenarios[scenarioIndex];
+    scenarioAnswers[scenarioIndex] = choice;
+    localStorage.setItem("sfc_scenario_answers", JSON.stringify(scenarioAnswers));
+    const doneCount = Object.keys(scenarioAnswers).length;
+    if(doneCount>=1) localStorage.setItem("sfc_scenario","completed");
+    if(doneCount>=scenarios.length) localStorage.setItem("sfc_scenario_all","completed");
+    renderScenario();
+    showToast(choice===item.answer ? "คำตอบถูกต้อง" : "คำตอบยังไม่ถูกต้อง");
+    updateProgress(); updateOutcome();
+}
+function submitAssessment(phase){
+    phase = phase === "post" ? "post" : "pre";
+    if(!document.getElementById("consentCheck") || !document.getElementById("consentCheck").checked){
+        showToast("กรุณายินยอมก่อนทำแบบประเมิน");
+        return;
+    }
+    const form = document.getElementById("assessmentForm");
+    const names = [];
+    for(let i=1;i<=15;i++) names.push("k"+i);
+    for(let i=1;i<=5;i++) names.push("g"+i);
+    for(let i=1;i<=12;i++) names.push("b"+i);
+    for(let i=1;i<=10;i++) names.push("p"+i);
+    for(let i=1;i<=5;i++) names.push("pg"+i);
+    for(let i=1;i<=5;i++) names.push("bh"+i);
+    for(let i=1;i<=5;i++) names.push("pb"+i);
+    for(const name of names){
+        if(!form.querySelector(`input[name="${name}"]:checked`)){
+            showToast("กรุณาตอบให้ครบทั้ง 3 ส่วน");
             return;
         }
-        if(answer.value==="1"){
-            score++;
-        }
     }
-    const percentage =
-        Math.round(
-            (score/total)*100
-        );
-    document
-        .getElementById("resultScore")
-        .innerText=
-            percentage+"%";
-    document
-        .getElementById("assessmentResult")
-        .classList.add("show");
-    localStorage.setItem(
-        "sfc_score",
-        percentage
-    );
-    updateProgress();
-    updateOutcome();
-    showToast(
-        "บันทึกผลการประเมินแล้ว"
-    );
+    const knowledgeKey = {k1:"F",k2:"F",k3:"F",k4:"F",k5:"T",k6:"T",k7:"F",k8:"T",k9:"T",k10:"F",k11:"F",k12:"T",k13:"T",k14:"F",k15:"F"};
+    const knowledgeAnswerText = {T:"ถูก",F:"ผิด"};
+    let correct=0;
+    let review=[];
+    for(let i=1;i<=15;i++){
+        const v = form.querySelector(`input[name="k${i}"]:checked`).value;
+        const ok = v===knowledgeKey["k"+i];
+        if(ok) correct++;
+        review.push("K"+i+" เฉลย: "+knowledgeAnswerText[knowledgeKey["k"+i]]+(ok?" (ตอบถูก)":" (ตอบยังไม่ถูก)"));
+    }
+    let generalCorrect=0;
+    const generalKey={g1:"1",g2:"1",g3:"1",g4:"1",g5:"1"};
+    const generalText={g1:"ทำให้เด็กสุขสบาย ดื่มน้ำได้ และสังเกตอาการ",g2:"ให้พาราเซตามอลตามน้ำหนักตัว และเมื่อเด็กไม่สุขสบาย",g3:"ให้น้ำหรือนมเพียงพอ ใส่เสื้อผ้าบาง และอยู่ในห้องที่อากาศถ่ายเท",g4:"ทารกอายุน้อยกว่า 3 เดือนมีไข้ หรือเด็กซึม หอบ ชัก ไม่ยอมดื่ม",g5:"ยังไม่มีหลักฐานชัดเจนว่ายาลดไข้ป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้"};
+    for(let i=1;i<=5;i++){
+        const v = form.querySelector(`input[name="g${i}"]:checked`).value;
+        const ok = v===generalKey["g"+i];
+        if(ok) generalCorrect++;
+        review.push("G"+i+" เฉลย: "+generalText["g"+i]+(ok?" (ตอบถูก)":" (ตอบยังไม่ถูก)"));
+    }
+    const knowledgeTotal = correct + generalCorrect;
+    const knowledgePct = Math.round((knowledgeTotal/20)*100);
+    const sumRange = (prefix, from, to) => {
+        let s=0;
+        for(let i=from;i<=to;i++) s += Number(form.querySelector(`input[name="${prefix}${i}"]:checked`).value);
+        return s;
+    };
+    const ben = sumRange("b",1,4), sev = sumRange("b",5,8), bar = sumRange("b",9,12);
+    const prac = sumRange("p",1,10);
+    const pracG = sumRange("pg",1,5);
+    const bhRaw = [1,2,3,4,5].map(i=>Number(form.querySelector(`input[name="bh${i}"]:checked`).value));
+    const bhAligned = (bhRaw[0])+(6-bhRaw[1])+bhRaw[2]+bhRaw[3]+(6-bhRaw[4]);
+    const extraBeliefMean = bhAligned/5;
+    const pracB = sumRange("pb",1,5);
+    const extraPracticeMean = pracB/5;
+    const beliefMean = ((ben+sev+bar)/12);
+    const practiceMean = prac/10;
+    const generalPracticeMean = pracG/5;
+    function interpretKnowledge(pct){
+        if(pct>=80) return "ดีมาก";
+        if(pct>=60) return "ปานกลาง";
+        return "ควรทบทวน";
+    }
+    function interpretMean(m){
+        if(m>=4.21) return "สูง / ปฏิบัติสม่ำเสมอ";
+        if(m>=3.41) return "ค่อนข้างสูง / บ่อย";
+        if(m>=2.61) return "ปานกลาง";
+        if(m>=1.81) return "ค่อนข้างต่ำ / น้อย";
+        return "ต่ำ / น้อยมาก";
+    }
+    resultScore.innerText = knowledgePct+"%";
+    resultDetail.innerHTML = `
+        ความรู้เช็ดตัว ${correct}/15 + การดูแลทั่วไป ${generalCorrect}/5 = ${knowledgeTotal}/20 ข้อ (${knowledgePct}%) (${interpretKnowledge(knowledgePct)})<br>
+        ความเชื่อ: ประโยชน์ ${ben}/20 ค่าเฉลี่ย ${(ben/4).toFixed(2)} · ความรุนแรง ${sev}/20 ค่าเฉลี่ย ${(sev/4).toFixed(2)} · อุปสรรค ${bar}/20 ค่าเฉลี่ย ${(bar/4).toFixed(2)}<br>
+        พฤติกรรมเช็ดตัว ${prac}/50 ค่าเฉลี่ย ${practiceMean.toFixed(2)} (${interpretMean(practiceMean)})<br>พฤติกรรมการดูแลทั่วไป ${pracG}/25 ค่าเฉลี่ย ${generalPracticeMean.toFixed(2)} (${interpretMean(generalPracticeMean)})<br>
+        ความเชื่อเพิ่มเติมด้านการดูแลทั่วไป ค่าเฉลี่ยสอดคล้องแนวทาง ${extraBeliefMean.toFixed(2)} จาก 5.00<br>
+        พฤติกรรมเพิ่มเติมด้านการดูแลทั่วไป ${pracB}/25 ค่าเฉลี่ย ${extraPracticeMean.toFixed(2)} (${interpretMean(extraPracticeMean)})<br><br>
+        เฉลยส่วนความรู้: ${review.join(" · ")}
+    `;
+    assessmentResult.classList.add("show");
+    const wrongKnowledge=[];
+    for(let i=1;i<=15;i++){
+        const v=form.querySelector(`input[name="k${i}"]:checked`).value;
+        if(v!==knowledgeKey["k"+i]) wrongKnowledge.push("K"+i);
+    }
+    for(let i=1;i<=5;i++){
+        const v=form.querySelector(`input[name="g${i}"]:checked`).value;
+        if(v!=="1") wrongKnowledge.push("G"+i);
+    }
+    const payload = {phase, knowledgePct, correct, generalCorrect, knowledgeTotal, beliefMean, practiceMean, generalPracticeMean, extraBeliefMean, extraPracticeMean, ben, sev, bar, prac, pracG, pracB, extraBeliefMean, wrongKnowledge, at: new Date().toISOString()};
+    localStorage.setItem("sfc_score", knowledgePct);
+    localStorage.setItem("sfc_score_detail", JSON.stringify(payload));
+    localStorage.setItem(phase==="post" ? "sfc_score_post" : "sfc_score_pre", JSON.stringify(payload));
+    updateProgress(); updateOutcome();
+    showToast(phase==="post" ? "บันทึกผลหลังเรียนแล้ว" : "บันทึกผลก่อนเรียนแล้ว");
 }
-/* =========================================================
-   OUTCOME
-========================================================= */
-function updateOutcome(){
-    const score =
-        localStorage.getItem("sfc_score");
-    const scenario =
-        localStorage.getItem("sfc_scenario");
-    const videoCount = [
-        "assessment",
-        "tepid",
-        "warning"
-    ].filter(type=>{
-        return localStorage.getItem(
-            "sfc_video_"+type
-        );
-    }).length;
-    const scoreValue =
-        score
-        ? Number(score)
-        : 0;
-    const outcomeScore =
-        document.getElementById(
-            "outcomeScore"
-        );
-    if(!outcomeScore){
-        return;
-    }
-    outcomeScore.innerText =
-        scoreValue+"%";
-    const level =
-        document.getElementById(
-            "knowledgeLevel"
-        );
-    const description =
-        document.getElementById(
-            "knowledgeDescription"
-        );
-    const weakPoint =
-        document.getElementById(
-            "weakPoint"
-        );
-    const recommendation =
-        document.getElementById(
-            "recommendationText"
-        );
-    if(!score){
-        level.innerText =
-            "ยังไม่มีผลประเมิน";
-        description.innerText =
-            "ทำแบบประเมินเพื่อดูระดับความรู้และคำแนะนำในการเรียนรู้";
-        weakPoint.innerText =
-            "ทำแบบประเมินเพื่อระบุจุดที่ควรพัฒนา";
-        recommendation.innerText =
-            "แนะนำให้เริ่มเรียนบทเรียนทั้งหมดตามลำดับ ก่อนทำแบบประเมินอีกครั้ง.";
-    }else if(scoreValue>=80){
-        level.innerText =
-            "มีความรู้ในระดับดีมาก";
-        description.innerText =
-            "สามารถตอบคำถามเกี่ยวกับการดูแลเด็กที่มีไข้ได้ในระดับดี";
-        weakPoint.innerText =
-            "ควรทบทวนเฉพาะหัวข้อที่ยังไม่มั่นใจ และฝึกสถานการณ์เพิ่มเติม";
-        recommendation.innerText =
-            "แนะนำให้ทบทวนเรื่องการเฝ้าระวังอาการผิดปกติ และฝึกสถานการณ์จำลองเพื่อเพิ่มความมั่นใจ.";
-    }else if(scoreValue>=60){
-        level.innerText =
-            "มีความรู้ในระดับปานกลาง";
-        description.innerText =
-            "มีพื้นฐานความรู้แล้ว แต่ยังควรทบทวนบางประเด็นเพิ่มเติม";
-        weakPoint.innerText =
-            "ควรทบทวนการประเมินเด็กและหลักการดูแลเด็กที่มีไข้";
-        recommendation.innerText =
-            "แนะนำให้กลับไปทบทวนบทเรียนเรื่องการประเมินเด็กที่มีไข้ และหลักการเช็ดตัวลดไข้.";
-    }else{
-        level.innerText =
-            "ควรพัฒนาเพิ่มเติม";
-        description.innerText =
-            "ควรกลับไปศึกษาบทเรียนพื้นฐานก่อนทำแบบประเมินซ้ำ";
-        weakPoint.innerText =
-            "ควรทบทวนความรู้พื้นฐานเกี่ยวกับไข้ การประเมิน และการดูแลเด็ก";
-        recommendation.innerText =
-            "แนะนำให้เรียนบทเรียนตั้งแต่ต้น โดยเน้นการประเมินเด็กที่มีไข้ การดูแลที่บ้าน และอาการเตือน.";
-    }
-    const completed =
-        document.getElementById(
-            "completedLearning"
-        );
-    let completedText=[];
-    if(score){
-        completedText.push(
-            "ทำแบบประเมินความรู้แล้ว"
-        );
-    }
-    if(scenario){
-        completedText.push(
-            "ทำสถานการณ์จำลองแล้ว"
-        );
-    }
-    if(videoCount>0){
-        completedText.push(
-            `รับชมวิดีโอแล้ว ${videoCount} รายการ`
-        );
-    }
-    completed.innerText =
-        completedText.length
-        ? completedText.join(" • ")
-        : "ยังไม่มีข้อมูลกิจกรรมที่ทำสำเร็จ";
-}
-/* =========================================================
-   VIDEO DATA
-========================================================= */
-const videoData={
-    assessment:{
-        title:"หลักการประเมินเด็กที่มีไข้",
-        placeholder:"หลักการประเมินเด็กที่มีไข้"
-    },
-    tepid:{
-        title:"แนวทางการเช็ดตัวลดไข้",
-        placeholder:"แนวทางการเช็ดตัวลดไข้"
-    },
-    warning:{
-        title:"การเฝ้าระวังอาการผิดปกติ",
-        placeholder:"การเฝ้าระวังอาการผิดปกติ"
-    }
+
+
+const lessonContent = {
+1:{title:"ความรู้พื้นฐานเกี่ยวกับไข้", body:"ไข้หมายถึงอุณหภูมิร่างกายสูงกว่าปกติ\nถือว่ามีไข้เมื่อวัดทางหูหรือหน้าผาก ≥ 38°C หรือทางปาก ≥ 37.8°C หรือทางรักแร้ประมาณ 37.2–37.5°C\nไข้เป็นการตอบสนองตามธรรมชาติต่อการติดเชื้อหรือสาเหตุอื่น ไม่ใช่โรคโดยตัวเอง\nเป้าหมายการดูแลคือความสุขสบายของเด็ก ไม่จำเป็นต้องทำให้อุณหภูมิกลับปกติเสมอไปหากเด็กยังสบายดี"},
+2:{title:"การประเมินเด็กที่มีไข้", body:"ประเมินทั้งตัวเลขอุณหภูมิและอาการร่วม เช่น การกิน การเล่น การรู้สึกตัว การหายใจ\nดูภาวะทั่วไปของเด็ก ไม่ตัดสินจากอุณหภูมิเพียงอย่างเดียว\nยาลดไข้ที่แนะนำคือพาราเซตามอลตามน้ำหนักตัว\nหลีกเลี่ยง NSAIDs หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะอาหาร"},
+3:{title:"หลักการเช็ดตัวลดไข้", body:"การเช็ดตัวเป็นทางเลือก ไม่ใช่สิ่งที่ต้องทำทุกครั้งที่มีไข้\nอาจช่วยให้ไข้ลงเร็วขึ้นในช่วง 1–2 ชั่วโมงแรกเมื่อใช้ร่วมกับพาราเซตามอล แต่หลังจาก 2 ชั่วโมงระดับไข้ไม่แตกต่างกัน\nวิธีที่ถูกต้อง: ผ้าชุบน้ำอุณหภูมิห้องหรือน้ำอุ่น เช็ดเบาที่รักแร้ ซอกคอ ขาหนีบ\nหากหนาวสั่น ร้องมาก หรือไม่สุขสบาย ให้หยุดทันที\nห้ามน้ำเย็นจัด น้ำแข็ง แอลกอฮอล์ และห้ามเช็ดถูแรง"},
+4:{title:"การดูแลเด็กที่บ้าน", body:"ให้ดื่มน้ำหรือนมเพียงพอ\nสวมเสื้อผ้าที่ระบายอากาศได้ดี\nอยู่ในห้องที่อากาศถ่ายเท ไม่ร้อนจัดหรือเย็นจัด\nให้ยาลดไข้เมื่อเด็กไม่สบายตัว ตามน้ำหนักและคำแนะนำทางการแพทย์\nสังเกตอาการต่อเนื่อง และบันทึกอุณหภูมิเมื่อทำได้"},
+5:{title:"อาการเตือนที่ควรพบแพทย์", body:"เด็กอายุน้อยกว่า 3 เดือนที่มีไข้\nซึม ชัก ไม่ดื่มนมหรือน้ำ หายใจลำบาก หอบเหนื่อย\nมีผื่นหรือจุดเลือดออก ปลายมือปลายเท้าเย็น ซีด หรือคล้ายช็อก\nไข้ไม่ลดใน 2–3 วัน หรือไข้กลับมาใน 1–2 สัปดาห์\nกรณีฉุกเฉินโทร 1669"}
 };
-/* =========================================================
-   OPEN VIDEO
-========================================================= */
-function openVideo(type){
-    const data =
-        videoData[type];
-    if(!data){
-        return;
-    }
-    document
-        .getElementById("videoModalTitle")
-        .innerText=data.title;
-    document
-        .getElementById("videoPlaceholderTitle")
-        .innerText=data.placeholder;
-    document
-        .getElementById("videoModal")
-        .classList.add("show");
-    document.body.style.overflow="hidden";
-    localStorage.setItem(
-        "sfc_video_"+type,
-        "completed"
-    );
-    updateVideoStatus();
-    updateProgress();
-    updateOutcome();
-}
-function closeVideo(){
-    document
-        .getElementById("videoModal")
-        .classList.remove("show");
-    document.body.style.overflow="";
-}
-function closeVideoOutside(event){
-    if(event.target.id==="videoModal"){
-        closeVideo();
+function refreshLessonStatus(){
+    for(let i=1;i<=5;i++){
+        const el = document.getElementById("lessonStatus"+i);
+        if(el) el.innerText = localStorage.getItem("sfc_lesson_"+i) ? "เรียนแล้ว" : "พร้อมเรียน";
     }
 }
-function updateVideoStatus(){
-    const items=[
-        "assessment",
-        "tepid",
-        "warning"
-    ];
-    items.forEach(type=>{
-        const element =
-            document.getElementById(
-                "videoComplete"+
-                type.charAt(0).toUpperCase()+
-                type.slice(1)
-            );
-        if(
-            localStorage.getItem(
-                "sfc_video_"+type
-            )
-        ){
-            if(element){
-                element.style.display=
-                    "inline-block";
+function openLesson(id){
+    const data = lessonContent[id];
+    if(!data) return;
+    window.currentLesson = id;
+    lessonDetail.style.display="block";
+    lessonDetailNo.innerText = "LESSON 0"+id;
+    lessonDetailTitle.innerText = data.title;
+    lessonDetailBody.innerText = data.body;
+    lessonDetail.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function completeLesson(){
+    if(!window.currentLesson) return;
+    localStorage.setItem("sfc_lesson_"+window.currentLesson,"done");
+    refreshLessonStatus();
+    updateProgress(); updateOutcome();
+    showToast("บันทึกว่าเรียนบทนี้แล้ว");
+}
+function updateOutcome(){
+    const lessonNames = {
+        1:"บทที่ 1 ความรู้พื้นฐานเกี่ยวกับไข้",
+        2:"บทที่ 2 การประเมินเด็กที่มีไข้",
+        3:"บทที่ 3 หลักการเช็ดตัวลดไข้",
+        4:"บทที่ 4 การดูแลเด็กที่บ้าน",
+        5:"บทที่ 5 อาการเตือนที่ควรพบแพทย์"
+    };
+    const videoNames = {assessment:"วิดีโอหลักการประเมินเด็กที่มีไข้", tepid:"วิดีโอแนวทางการเช็ดตัวลดไข้", warning:"วิดีโอการเฝ้าระวังอาการผิดปกติ"};
+    const doneLessons = [1,2,3,4,5].filter(i=>localStorage.getItem("sfc_lesson_"+i));
+    const pendingLessons = [1,2,3,4,5].filter(i=>!localStorage.getItem("sfc_lesson_"+i));
+    const doneVideos = Object.keys(videoNames).filter(k=>localStorage.getItem("sfc_video_"+k));
+    const pendingVideos = Object.keys(videoNames).filter(k=>!localStorage.getItem("sfc_video_"+k));
+    let scenarioAnswers={};
+    try{ scenarioAnswers = JSON.parse(localStorage.getItem("sfc_scenario_answers")||"{}"); }catch(e){}
+    const scenarioDone = Object.keys(scenarioAnswers).map(Number);
+    const scenarioPending = [...Array(10).keys()].filter(i=>!scenarioDone.includes(i));
+    let scenarioWrong=[];
+    if(typeof scenarios!=="undefined"){
+        scenarioDone.forEach(i=>{
+            if(scenarios[i] && scenarioAnswers[i]!==scenarios[i].answer) scenarioWrong.push(i+1);
+        });
+    }
+    const pre = JSON.parse(localStorage.getItem("sfc_score_pre")||"null");
+    const post = JSON.parse(localStorage.getItem("sfc_score_post")||"null");
+    const d = JSON.parse(localStorage.getItem("sfc_score_detail")||"null");
+    const scoreValue = d && d.knowledgePct!=null ? Number(d.knowledgePct) : (localStorage.getItem("sfc_score")?Number(localStorage.getItem("sfc_score")):null);
+    if(outcomeScore) outcomeScore.innerText = (scoreValue!=null?scoreValue:0)+"%";
+
+    if(scoreValue==null){
+        knowledgeLevel.innerText="ยังไม่มีผลประเมิน";
+        knowledgeDescription.innerText="ทำแบบประเมินก่อนเรียนหรือหลังเรียน เพื่อดูระดับความรู้จริง";
+    }else if(scoreValue>=80){
+        knowledgeLevel.innerText="มีความรู้ในระดับดีมาก";
+        knowledgeDescription.innerText="ตอบความรู้ได้ร้อยละ "+scoreValue+" ตามเกณฑ์ 80–100";
+    }else if(scoreValue>=60){
+        knowledgeLevel.innerText="มีความรู้ในระดับปานกลาง";
+        knowledgeDescription.innerText="ตอบความรู้ได้ร้อยละ "+scoreValue+" ตามเกณฑ์ 60–79 ควรทบทวนจุดที่ผิด";
+    }else{
+        knowledgeLevel.innerText="ควรพัฒนาเพิ่มเติม";
+        knowledgeDescription.innerText="ตอบความรู้ได้ร้อยละ "+scoreValue+" ต่ำกว่า 60 ควรเรียนบทเรียนและวิดีโอที่เกี่ยวข้องแล้วทำแบบประเมินซ้ำ";
+    }
+
+    const doneParts=[];
+    doneLessons.forEach(i=>doneParts.push(lessonNames[i]));
+    doneVideos.forEach(k=>doneParts.push(videoNames[k]));
+    if(scenarioDone.length) doneParts.push("สถานการณ์จำลอง "+scenarioDone.length+"/10 ข้อ");
+    if(pre) doneParts.push("แบบประเมินก่อนเรียน");
+    if(post) doneParts.push("แบบประเมินหลังเรียน");
+    else if(d && !pre && !post) doneParts.push("แบบประเมิน");
+    completedLearning.innerText = doneParts.length? doneParts.join(" • ") : "ยังไม่มีกิจกรรมที่บันทึกว่าเรียนแล้ว";
+
+    const pendingParts=[];
+    pendingLessons.forEach(i=>pendingParts.push(lessonNames[i]));
+    pendingVideos.forEach(k=>pendingParts.push(videoNames[k]));
+    if(scenarioPending.length) pendingParts.push("สถานการณ์ที่ยังไม่ตอบ ข้อ "+scenarioPending.map(i=>i+1).join(", "));
+    if(!pre) pendingParts.push("แบบประเมินก่อนเรียน");
+    if(!post) pendingParts.push("แบบประเมินหลังเรียน");
+    const pendingEl=document.getElementById("pendingLearning");
+    if(pendingEl) pendingEl.innerText = pendingParts.length? pendingParts.join(" • ") : "ครบทุกกิจกรรมแล้ว";
+
+    const weak=[];
+    const rec=[];
+    const wrong = (d && d.wrongKnowledge) ? d.wrongKnowledge : [];
+    const needTepid = wrong.some(x=>["K1","K2","K3","K4","K7","K10","K11","K14","K15","G5","BH2"].indexOf(x)>=0) || scenarioWrong.some(n=>[1,4,5].indexOf(n)>=0);
+    const needAssess = wrong.some(x=>["G1","G2","K9"].indexOf(x)>=0);
+    const needHome = wrong.some(x=>["G3"].indexOf(x)>=0);
+    const needWarn = wrong.some(x=>["G4"].indexOf(x)>=0) || scenarioWrong.some(n=>[2,8,9].indexOf(n)>=0);
+    const needBasic = wrong.some(x=>["G1","G5"].indexOf(x)>=0);
+    if(wrong.length) weak.push("ความรู้ที่ยังตอบไม่ถูก: "+wrong.join(", "));
+    if(scenarioWrong.length) weak.push("สถานการณ์ที่ตอบยังไม่ถูก: ข้อ "+scenarioWrong.join(", "));
+    if(d && d.practiceMean!=null && d.practiceMean<3.41) weak.push("พฤติกรรมเช็ดตัวเฉลี่ย "+Number(d.practiceMean).toFixed(2)+" ต่ำกว่าเกณฑ์บ่อย (3.41)");
+    if(d && d.generalPracticeMean!=null && d.generalPracticeMean<3.41) weak.push("พฤติกรรมการดูแลทั่วไปเฉลี่ย "+Number(d.generalPracticeMean).toFixed(2)+" ยังไม่สม่ำเสมอ");
+    if(d && d.extraBeliefMean!=null && d.extraBeliefMean<3.41) weak.push("ความเชื่อด้านการดูแลทั่วไปยังไม่สอดคล้องแนวทาง เฉลี่ย "+Number(d.extraBeliefMean).toFixed(2));
+    if(pendingLessons.length) weak.push("ยังไม่ได้เรียนบทเรียน "+pendingLessons.map(i=>"0"+i).join(", "));
+    if(pendingVideos.length) weak.push("ยังไม่ได้ดูวิดีโอ "+pendingVideos.map(k=>videoNames[k]).join(", "));
+    if(!weak.length) weak.push("ยังไม่พบจุดอ่อนชัดจากข้อมูลที่มี หากยังไม่ทำแบบประเมิน ให้เริ่มจากแบบประเมินก่อนเรียน");
+    weakPoint.innerText = weak.join(" • ");
+
+    if(needBasic || pendingLessons.indexOf(1)>=0) rec.push({n:"01",t:"ความรู้พื้นฐานเกี่ยวกับไข้",s:"ทบทวนนิยามไข้ และเป้าหมายความสุขสบาย"});
+    if(needAssess || pendingLessons.indexOf(2)>=0) rec.push({n:"02",t:"การประเมินเด็กที่มีไข้",s:"ทบทวนการดูอุณหภูมิร่วมกับอาการกิน เล่น หายใจ"});
+    if(needTepid || pendingLessons.indexOf(3)>=0 || pendingVideos.indexOf("tepid")>=0) rec.push({n:"03",t:"หลักการเช็ดตัวลดไข้",s:"ทบทวนว่าเป็นทางเลือก น้ำอุณหภูมิห้อง และห้ามน้ำเย็นจัดหรือแอลกอฮอล์"});
+    if(needHome || pendingLessons.indexOf(4)>=0) rec.push({n:"04",t:"การดูแลเด็กที่บ้าน",s:"ทบทวนการให้สารน้ำ เสื้อผ้าบาง และห้องที่อากาศถ่ายเท"});
+    if(needWarn || pendingLessons.indexOf(5)>=0 || pendingVideos.indexOf("warning")>=0) rec.push({n:"05",t:"อาการเตือนที่ควรพบแพทย์",s:"ทบทวนทารกน้อยกว่า 3 เดือน ซึม หอบ ชัก และโทร 1669"});
+    if(!rec.length) rec.push({n:"OK",t:"พร้อมใช้ต่อเนื่อง",s:"ทบทวนวิดีโอสั้น ๆ และทำแบบประเมินหลังเรียนเพื่อเทียบผล"});
+    recommendationText.innerText = rec.map(r=>r.t).join(" · ");
+    const list = document.getElementById("recommendList");
+    if(list){
+        list.innerHTML = rec.map(r=>`<div class="outcome-item"><div class="outcome-dot">${r.n}</div><div><strong>${r.t}</strong><span>${r.s}</span></div></div>`).join("");
+    }
+
+    const sumEl = document.getElementById("researchSummary");
+    if(sumEl){
+        if(!d || d.knowledgePct==null){
+            sumEl.innerText = "ยังไม่มีผลแบบประเมิน";
+        }else{
+            sumEl.innerText =
+`SMART FEVER CARE – สรุปผลพร้อมใช้
+เรียนแล้ว: ${doneParts.join(" | ")||"-"}
+ยังไม่เรียน: ${pendingParts.join(" | ")||"-"}
+จุดที่ควรพัฒนา: ${weak.join(" | ")}
+ความรู้รวม: ${d.knowledgeTotal||d.correct||"-"}/20 = ${d.knowledgePct}%
+ข้อความรู้ที่ยังผิด: ${(d.wrongKnowledge||[]).join(", ")||"-"}
+ความเชื่อประโยชน์ ${d.ben||"-"}/20 · ความรุนแรง ${d.sev||"-"}/20 · อุปสรรค ${d.bar||"-"}/20
+พฤติกรรมเช็ดตัว ${d.prac||"-"}/50 ค่าเฉลี่ย ${Number(d.practiceMean||0).toFixed(2)}
+พฤติกรรมดูแลทั่วไป ${d.pracG||"-"}/25 ค่าเฉลี่ย ${Number(d.generalPracticeMean||0).toFixed(2)}
+ความเชื่อเพิ่มเติมเฉลี่ย ${Number(d.extraBeliefMean||0).toFixed(2)}
+พฤติกรรมเพิ่มเติมเฉลี่ย ${Number(d.extraPracticeMean||0).toFixed(2)}`;
+            if(pre || post){
+                const line=(label,a,b)=>label+": ก่อนเรียน "+a+" | หลังเรียน "+b;
+                sumEl.innerText += "\n\nเปรียบเทียบก่อนเรียน-หลังเรียน\n" +
+                    line("ความรู้ %", pre?pre.knowledgePct+"%":"-", post?post.knowledgePct+"%":"-") + "\n" +
+                    line("ความเชื่อเฉลี่ย", pre?Number(pre.beliefMean).toFixed(2):"-", post?Number(post.beliefMean).toFixed(2):"-") + "\n" +
+                    line("พฤติกรรมเช็ดตัวเฉลี่ย", pre?Number(pre.practiceMean).toFixed(2):"-", post?Number(post.practiceMean).toFixed(2):"-");
             }
         }
+    }
+}
+
+
+function renderSlide(){
+    const data = videoData[currentVideoType];
+    if(!data) return;
+    const slide = data.slides[currentSlide];
+    videoSlideTag.innerText = slide.tag;
+    videoPlaceholderTitle.innerText = slide.title;
+    videoSlideText.innerText = slide.text;
+    videoTime.innerText = String(currentSlide+1).padStart(2,"0")+" / "+String(data.slides.length).padStart(2,"0");
+    videoProgressFill.style.width = ((currentSlide+1)/data.slides.length*100)+"%";
+}
+function speakSlide(){
+    if(!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const data = videoData[currentVideoType];
+    const slide = data.slides[currentSlide];
+    const utter = new SpeechSynthesisUtterance(slide.title+". "+slide.text);
+    utter.lang="th-TH";
+    utter.rate=0.95;
+    window.speechSynthesis.speak(utter);
+}
+function toggleVideoPlay(){
+    isPlaying = !isPlaying;
+    playPauseBtn.innerText = isPlaying ? "⏸ หยุด" : "▶ เล่น";
+    if(isPlaying){
+        speakSlide();
+        startSlideTimer();
+    }else{
+        window.speechSynthesis && window.speechSynthesis.cancel();
+        clearTimeout(slideTimer);
+    }
+}
+function startSlideTimer(){
+    clearTimeout(slideTimer);
+    slideTimer = setTimeout(()=>{
+        const data = videoData[currentVideoType];
+        if(currentSlide < data.slides.length-1){
+            currentSlide++;
+            renderSlide();
+            if(isPlaying){ speakSlide(); startSlideTimer(); }
+        }else{
+            isPlaying=false;
+            playPauseBtn.innerText="▶ เล่น";
+            showToast("รับชมวิดีโอครบแล้ว");
+        }
+    }, 9000);
+}
+function nextSlide(){
+    const data = videoData[currentVideoType];
+    if(currentSlide < data.slides.length-1){
+        currentSlide++;
+        renderSlide();
+        if(isPlaying){ speakSlide(); startSlideTimer(); }
+    }
+}
+function prevSlide(){
+    if(currentSlide>0){
+        currentSlide--;
+        renderSlide();
+        if(isPlaying){ speakSlide(); startSlideTimer(); }
+    }
+}
+function openVideo(type){
+    const data = videoData[type];
+    if(!data) return;
+    currentVideoType = type;
+    currentSlide = 0;
+    isPlaying = false;
+    playPauseBtn.innerText="▶ เล่น";
+    videoModalTitle.innerText = data.title;
+    const player = document.getElementById("videoPlayer");
+    const file = videoFiles[type];
+    player.innerHTML = '<video id="lessonVideo" controls autoplay playsinline style="width:100%;height:100%;background:#061D2D;object-fit:contain"><source src="'+file+'" type="video/mp4">เบราว์เซอร์ไม่รองรับวิดีโอ</video>';
+    videoModal.classList.add("show");
+    document.body.style.overflow="hidden";
+    localStorage.setItem("sfc_video_"+type,"completed");
+    updateVideoStatus(); updateProgress(); updateOutcome();
+}
+function closeVideo(){
+    const lesson = document.getElementById("lessonVideo");
+    if(lesson){ lesson.pause(); lesson.removeAttribute("src"); lesson.load(); }
+    videoModal.classList.remove("show");
+    document.body.style.overflow="";
+    isPlaying=false;
+    clearTimeout(slideTimer);
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+}
+function closeVideoOutside(event){ if(event.target.id==="videoModal") closeVideo(); }
+function updateVideoStatus(){
+    ["assessment","tepid","warning"].forEach(type=>{
+        const element = document.getElementById("videoComplete"+type.charAt(0).toUpperCase()+type.slice(1));
+        if(localStorage.getItem("sfc_video_"+type) && element) element.style.display="inline-block";
     });
 }
-/* =========================================================
-   PROGRESS
-========================================================= */
 function updateProgress(){
-    const score =
-        localStorage.getItem(
-            "sfc_score"
-        );
-    const scenario =
-        localStorage.getItem(
-            "sfc_scenario"
-        );
-    let progress=0;
-    if(score){
-        progress+=30;
-    }
-    if(scenario){
-        progress+=25;
-    }
-    const videoCount=[
-        "assessment",
-        "tepid",
-        "warning"
-    ].filter(type=>{
-        return localStorage.getItem(
-            "sfc_video_"+type
-        );
-    }).length;
-    progress +=
-        Math.round(
-            videoCount*5
-        );
-    if(progress>100){
-        progress=100;
-    }
-    document
-        .getElementById("progressText")
-        .innerText=
-            progress+"%";
-    document
-        .getElementById("progressNumber")
-        .innerText=
-            progress+"%";
-    document
-        .getElementById("progressBar")
-        .style.width=
-            progress+"%";
-    document
-        .getElementById("lastScore")
-        .innerText=
-            score
-            ? score+"%"
-            : "—";
+    const score = localStorage.getItem("sfc_score");
+    let answers = {};
+    try{ answers = JSON.parse(localStorage.getItem("sfc_scenario_answers")||"{}"); }catch(e){}
+    const scenarioDone = Object.keys(answers).length;
+    const lessonDone = [1,2,3,4,5].filter(i=>localStorage.getItem("sfc_lesson_"+i)).length;
+    const videoCount=["assessment","tepid","warning"].filter(type=>localStorage.getItem("sfc_video_"+type)).length;
+    let progress = lessonDone*8 + Math.round(scenarioDone*2) + videoCount*5 + (score?25:0);
+    if(progress>100) progress=100;
+    progressText.innerText=progress+"%";
+    progressNumber.innerText=progress+"%";
+    progressBar.style.width=progress+"%";
+    lastScore.innerText = score ? score+"%" : "—";
 }
-/* =========================================================
-   LINE OA
-========================================================= */
+function copyResearchSummary(){
+    const box = document.getElementById("researchSummary");
+    if(!box) return;
+    navigator.clipboard.writeText(box.innerText).then(()=>showToast("คัดลอกสรุปผลแล้ว")).catch(()=>showToast("คัดลอกไม่สำเร็จ"));
+}
+function downloadResearchSummary(){
+    const box = document.getElementById("researchSummary");
+    if(!box || box.innerText.indexOf("ยังไม่มีผล")===0){
+        showToast("ยังไม่มีผลให้ดาวน์โหลด");
+        return;
+    }
+    const blob = new Blob([box.innerText], {type:"text/plain;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "smart-fever-care-result.txt";
+    a.click();
+    showToast("ดาวน์โหลดไฟล์สรุปผลแล้ว");
+}
 function connectLine(){
-    showToast(
-        "LINE OA จะสามารถเชื่อมต่อจริงได้เมื่อใส่ LINE Official Account / LIFF ของโครงการ"
-    );
+    window.open("https://line.me/R/ti/p/@538gcahu", "_blank");
 }
-/* =========================================================
-   TOAST
-========================================================= */
 function showToast(message){
-    const toast =
-        document.getElementById(
-            "toast"
-        );
     toast.innerText=message;
     toast.classList.add("show");
-    clearTimeout(
-        window.toastTimer
-    );
-    window.toastTimer =
-        setTimeout(()=>{
-            toast.classList.remove("show");
-        },3000);
+    clearTimeout(window.toastTimer);
+    window.toastTimer=setTimeout(()=>toast.classList.remove("show"),3000);
 }
-/* =========================================================
-   ESC
-========================================================= */
-document.addEventListener(
-    "keydown",
-    function(event){
-        if(event.key==="Escape"){
-            closeVideo();
-            closeLogin();
-        }
-    }
-);
-/* =========================================================
-   INITIALIZE
-========================================================= */
+document.addEventListener("keydown", function(event){
+    if(event.key==="Escape"){ closeVideo(); closeLogin(); }
+});
 updateUser();
-openPage("home");
+(async function restoreSession(){
+    fillAuthConfigFields();
+    if(await handleLineOAuthReturn()) return;
+    const cfg = getAuthConfig();
+    try{
+        const auth = initFirebaseFromConfig();
+        if(auth){
+            auth.onAuthStateChanged(function(fbUser){
+                if(fbUser){
+                    user.name = fbUser.displayName || fbUser.email.split("@")[0];
+                    user.email = fbUser.email;
+                    localStorage.setItem("sfc_name", user.name);
+                    localStorage.setItem("sfc_email", user.email);
+                    localStorage.setItem("sfc_logged_in","true");
+                    loginSuccess();
+                }
+            });
+        }
+    }catch(e){}
+    if(localStorage.getItem("sfc_logged_in") || localStorage.getItem("sfc_line_login")){
+        loginSuccess();
+    }else{
+        openPage("home");
+    }
+})();
 </script>
 </body>
 </html>
