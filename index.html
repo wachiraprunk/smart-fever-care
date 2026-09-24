@@ -1075,10 +1075,9 @@ async function completeLineLogin(){
     return true;
 }
 function getLineLoginConfig(){
-    const cfg = getAuthConfig();
     return {
-        channelId: cfg.channelId || localStorage.getItem("sfc_line_channel_id") || "2011734553",
-        channelSecret: cfg.channelSecret || localStorage.getItem("sfc_line_channel_secret") || "75d9e42f8a19737775b1964503cd2bca"
+        channelId: "2011734553",
+        channelSecret: "75d9e42f8a19737775b1964503cd2bca"
     };
 }
 function saveLineLoginConfig(channelId, channelSecret){
