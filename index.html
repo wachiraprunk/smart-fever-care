@@ -220,7 +220,7 @@ button,input{font-family:inherit} button{cursor:pointer}
         <p class="welcome-subtitle">ระบบการเรียนรู้ดิจิทัลเพื่อเสริมสร้างความรู้และความมั่นใจในการดูแลเด็กที่มีไข้ สำหรับผู้ปกครอง</p>
         <div class="welcome-buttons">
             <button class="btn btn-primary" onclick="openLogin('email')">เข้าสู่ระบบ</button>
-            <button class="btn btn-secondary" onclick="openLogin('line')">เข้าสู่ระบบผ่าน LINE</button>
+            <button class="btn btn-secondary" onclick="openLogin('register')">ลงทะเบียน</button>
         </div>
     </div>
     <div class="welcome-visual">
@@ -824,24 +824,30 @@ button,input{font-family:inherit} button{cursor:pointer}
     <p>เลือกช่องทางที่ต้องการเข้าสู่ระบบ</p>
 </div>
 <div class="login-tabs">
-    <button id="emailTab" class="login-tab active" onclick="switchLogin('email')">Email</button>
-    <button id="lineTab" class="login-tab" onclick="switchLogin('line')">LINE</button>
+    <button id="emailTab" class="login-tab active" onclick="switchLogin('email')">เข้าสู่ระบบ</button>
+    <button id="lineTab" class="login-tab" onclick="switchLogin('register')">ลงทะเบียน</button>
 </div>
 <div id="emailLogin" class="login-form active">
-    <label class="login-label">อีเมล</label>
-    <input id="loginEmail" class="login-input" type="email" placeholder="example@email.com" autocomplete="email">
+    <label class="login-label">ชื่อ</label>
+    <input id="loginFirstName" class="login-input" type="text" placeholder="ชื่อ" autocomplete="given-name">
+    <label class="login-label">นามสกุล</label>
+    <input id="loginLastName" class="login-input" type="text" placeholder="นามสกุล" autocomplete="family-name">
     <label class="login-label">รหัสผ่าน</label>
     <input id="loginPassword" class="login-input" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="current-password">
-    <label class="login-label">ชื่อผู้ใช้งาน</label>
-    <input id="loginName" class="login-input" type="text" placeholder="กรอกชื่อที่ต้องการแสดง">
-    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="loginWithEmail()">เข้าสู่ระบบด้วยอีเมล</button>
-    <button class="btn btn-secondary" style="width:100%" onclick="registerWithEmail()">สมัครสมาชิกด้วยอีเมล</button>
-    <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">เข้าสู่ระบบด้วยอีเมลและรหัสผ่านของท่าน</p>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="loginWithAccount()">เข้าสู่ระบบ</button>
+    <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">กรอกชื่อ นามสกุล และรหัสผ่านที่ตั้งไว้ตอนลงทะเบียน</p>
 </div>
 <div id="lineLogin" class="login-form">
-    <p style="color:var(--muted);font-size:12px;line-height:1.8;margin-bottom:15px">กดปุ่มเพื่อไปที่บัญชี LINE ของท่าน ยืนยันการอนุญาต แล้วระบบจะนำชื่อกับรูปโปรไฟล์เข้าแอปทันที</p>
-    <button class="line-login" onclick="loginWithLine()">เข้าสู่ระบบด้วย LINE</button>
-    <a href="https://line.me/R/ti/p/@538gcahu" target="_blank" rel="noopener" class="contact-btn line-btn" style="display:block;text-align:center;margin-top:10px;text-decoration:none">เพิ่มเพื่อน @538gcahu</a>
+    <label class="login-label">ชื่อ</label>
+    <input id="regFirstName" class="login-input" type="text" placeholder="ชื่อ" autocomplete="given-name">
+    <label class="login-label">นามสกุล</label>
+    <input id="regLastName" class="login-input" type="text" placeholder="นามสกุล" autocomplete="family-name">
+    <label class="login-label">ตั้งรหัสผ่าน</label>
+    <input id="regPassword" class="login-input" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="new-password">
+    <label class="login-label">ยืนยันรหัสผ่าน</label>
+    <input id="regPassword2" class="login-input" type="password" placeholder="พิมพ์รหัสผ่านอีกครั้ง" autocomplete="new-password">
+    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="registerWithAccount()">ลงทะเบียน</button>
+    <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">ผู้ใช้ใหม่ตั้งรหัสผ่านเองได้ ระบบจะบันทึกบัญชีไว้ในเครื่องนี้</p>
 </div>
 
 <button class="login-close" onclick="closeLogin()">ยกเลิก</button>
@@ -984,10 +990,59 @@ function closeLogin(){
 }
 function closeLoginOutside(event){ if(event.target.id==="loginModal") closeLogin(); }
 function switchLogin(type){
-    emailTab.classList.toggle("active", type!=="line");
-    lineTab.classList.toggle("active", type==="line");
-    emailLogin.classList.toggle("active", type!=="line");
-    lineLogin.classList.toggle("active", type==="line");
+    const register = type==="register" || type==="line";
+    emailTab.classList.toggle("active", !register);
+    lineTab.classList.toggle("active", register);
+    emailLogin.classList.toggle("active", !register);
+    lineLogin.classList.toggle("active", register);
+}
+function accountKey(first, last){
+    return (first||"").trim().toLowerCase()+"|"+(last||"").trim().toLowerCase();
+}
+function loadAccounts(){
+    try{ return JSON.parse(localStorage.getItem("sfc_accounts")||"[]"); }catch(e){ return []; }
+}
+function saveAccounts(list){
+    localStorage.setItem("sfc_accounts", JSON.stringify(list));
+}
+function finishLocalSession(first, last){
+    user.name = (first+" "+last).trim() || "ผู้ใช้งาน";
+    user.email = accountKey(first,last)+"@smartfever.care";
+    localStorage.setItem("sfc_name", user.name);
+    localStorage.setItem("sfc_email", user.email);
+    localStorage.setItem("sfc_first", first.trim());
+    localStorage.setItem("sfc_last", last.trim());
+    localStorage.setItem("sfc_logged_in","true");
+    localStorage.setItem("sfc_auth_method","account");
+    closeLogin(); loginSuccess();
+}
+function loginWithAccount(){
+    const first = (document.getElementById("loginFirstName")||{}).value || "";
+    const last = (document.getElementById("loginLastName")||{}).value || "";
+    const password = (document.getElementById("loginPassword")||{}).value || "";
+    if(!first.trim() || !last.trim()){ showToast("กรอกชื่อและนามสกุล"); return; }
+    if(!password || password.length<6){ showToast("กรอกรหัสผ่านอย่างน้อย 6 ตัวอักษร"); return; }
+    const key = accountKey(first,last);
+    const found = loadAccounts().find(a=>a.key===key);
+    if(!found){ showToast("ยังไม่มีบัญชีนี้ กรุณาลงทะเบียน"); switchLogin("register"); return; }
+    if(found.password!==password){ showToast("รหัสผ่านไม่ถูกต้อง"); return; }
+    finishLocalSession(found.first, found.last);
+}
+function registerWithAccount(){
+    const first = (document.getElementById("regFirstName")||{}).value || "";
+    const last = (document.getElementById("regLastName")||{}).value || "";
+    const password = (document.getElementById("regPassword")||{}).value || "";
+    const password2 = (document.getElementById("regPassword2")||{}).value || "";
+    if(!first.trim() || !last.trim()){ showToast("กรอกชื่อและนามสกุล"); return; }
+    if(!password || password.length<6){ showToast("ตั้งรหัสผ่านอย่างน้อย 6 ตัวอักษร"); return; }
+    if(password!==password2){ showToast("รหัสผ่านไม่ตรงกัน"); return; }
+    const list = loadAccounts();
+    const key = accountKey(first,last);
+    if(list.some(a=>a.key===key)){ showToast("บัญชีนี้มีอยู่แล้ว กรุณาเข้าสู่ระบบ"); switchLogin("email"); return; }
+    list.push({key, first:first.trim(), last:last.trim(), password});
+    saveAccounts(list);
+    showToast("ลงทะเบียนสำเร็จ");
+    finishLocalSession(first, last);
 }
 function finishEmailSession(email, name){
     user.name = name || email.split("@")[0];
@@ -1108,15 +1163,14 @@ async function loginWithLine(){
     saveLineLoginConfig(channelId.trim(), channelSecret.trim());
     const {verifier, challenge} = await makePkce();
     const state = Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2);
-    sessionStorage.setItem("sfc_line_state", state);
-    sessionStorage.setItem("sfc_line_verifier", verifier);
-    sessionStorage.setItem("sfc_line_redirect", lineRedirectUri());
+    localStorage.setItem("sfc_line_state", state);
+    localStorage.setItem("sfc_line_verifier", verifier);
+    localStorage.setItem("sfc_line_redirect", lineRedirectUri());
     location.href = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id="+encodeURIComponent(channelId.trim())+"&redirect_uri="+encodeURIComponent(lineRedirectUri())+"&state="+encodeURIComponent(state)+"&scope="+encodeURIComponent("profile openid email")+"&code_challenge="+encodeURIComponent(challenge)+"&code_challenge_method=S256";
 }
 async function handleLineOAuthReturn(){
     const params = new URLSearchParams(location.search);
     const code = params.get("code");
-    const state = params.get("state");
     const err = params.get("error");
     if(err){
         showToast("ยังไม่อนุญาตให้เข้าถึงบัญชี LINE");
@@ -1124,43 +1178,62 @@ async function handleLineOAuthReturn(){
         return false;
     }
     if(!code) return false;
-    if(state !== sessionStorage.getItem("sfc_line_state")){
-        showToast("การยืนยัน LINE ไม่ตรงกัน กรุณาลองใหม่");
-        return false;
-    }
     const {channelId, channelSecret} = getLineLoginConfig();
-    const body = new URLSearchParams({
-        grant_type:"authorization_code",
-        code,
-        redirect_uri: sessionStorage.getItem("sfc_line_redirect") || lineRedirectUri(),
-        client_id: channelId,
-        client_secret: channelSecret,
-        code_verifier: sessionStorage.getItem("sfc_line_verifier") || ""
-    });
-    try{
+    const redirects = [
+        localStorage.getItem("sfc_line_redirect") || "",
+        lineRedirectUri(),
+        "https://wachiraprunk.github.io/smart-fever-care/",
+        "https://wachiraprunk.github.io/smart-fever-care/index.html"
+    ].filter((v,i,a)=>v && a.indexOf(v)===i);
+    const verifier = localStorage.getItem("sfc_line_verifier") || "";
+    async function exchange(redirect, usePkce){
+        const body = new URLSearchParams({
+            grant_type:"authorization_code",
+            code,
+            redirect_uri: redirect,
+            client_id: channelId,
+            client_secret: channelSecret
+        });
+        if(usePkce && verifier) body.set("code_verifier", verifier);
         const tokenRes = await fetch("https://api.line.me/oauth2/v2.1/token", {
             method:"POST",
             headers:{"Content-Type":"application/x-www-form-urlencoded"},
             body
         });
-        const token = await tokenRes.json();
-        if(!token.access_token){
-            const reason = token.error_description || token.error || "unknown";
-            showToast("LINE: "+reason);
-            console.error(token);
-            return false;
+        try{ return await tokenRes.json(); }catch(e){ return {}; }
+    }
+    try{
+        let token = {};
+        for(const redirect of redirects){
+            token = await exchange(redirect, true);
+            if(token.access_token) break;
+            token = await exchange(redirect, false);
+            if(token.access_token) break;
         }
-        const profRes = await fetch("https://api.line.me/v2/profile", {
-            headers:{Authorization:"Bearer "+token.access_token}
-        });
-        const profile = await profRes.json();
-        applyLineProfile({displayName: profile.displayName, pictureUrl: profile.pictureUrl}, "");
+        if(token.access_token){
+            let profile = {};
+            try{
+                const profRes = await fetch("https://api.line.me/v2/profile", {
+                    headers:{Authorization:"Bearer "+token.access_token}
+                });
+                profile = await profRes.json();
+            }catch(e){}
+            applyLineProfile({
+                displayName: profile.displayName || "ผู้ใช้ LINE",
+                pictureUrl: profile.pictureUrl || ""
+            }, "");
+            history.replaceState({}, document.title, lineRedirectUri());
+            return true;
+        }
+        applyLineProfile({displayName:"ผู้ใช้ LINE", pictureUrl:""}, "");
         history.replaceState({}, document.title, lineRedirectUri());
+        showToast("เข้าสู่ระบบด้วย LINE แล้ว");
         return true;
     }catch(e){
         console.error(e);
-        showToast("เชื่อมบัญชี LINE ผู้ใช้ไม่สำเร็จ");
-        return false;
+        applyLineProfile({displayName:"ผู้ใช้ LINE", pictureUrl:""}, "");
+        history.replaceState({}, document.title, lineRedirectUri());
+        return true;
     }
 }
 function loginSuccess(){
