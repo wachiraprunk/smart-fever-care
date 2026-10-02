@@ -207,6 +207,7 @@ button,input{font-family:inherit} button{cursor:pointer}
     .main{padding-left:4%;padding-right:4%}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <section id="welcome" class="page active">
@@ -1046,13 +1047,54 @@ function snapshotProgress(){
         updatedAt: new Date().toISOString()
     };
 }
+const SFC_SUPABASE_URL="https://urqkglxfzusdjwvtnizv.supabase.co";
+const SFC_SUPABASE_KEY="sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97";
+function getRemote(){
+    try{
+        if(!window.supabase) return null;
+        if(!window.__sfcRemote) window.__sfcRemote=window.supabase.createClient(SFC_SUPABASE_URL, SFC_SUPABASE_KEY);
+        return window.__sfcRemote;
+    }catch(e){ return null; }
+}
 function persistUserData(){
     const key=currentUserKey();
     if(!key) return;
     const all=readAllResults();
-    all[key]=snapshotProgress();
+    const snap=snapshotProgress();
+    all[key]=snap;
     localStorage.setItem("sfc_all_results", JSON.stringify(all));
     localStorage.setItem("sfc_last_saved", new Date().toISOString());
+    syncRemote(key, snap);
+}
+async function syncRemote(key, snap){
+    const db=getRemote();
+    if(!db || !key || !snap) return;
+    const row={
+        user_key: key,
+        name: snap.name||"",
+        email: snap.email||"",
+        score: snap.score? Number(snap.score): null,
+        pre_score: snap.pre && snap.pre.knowledgePct!=null ? Number(snap.pre.knowledgePct): null,
+        post_score: snap.post && snap.post.knowledgePct!=null ? Number(snap.post.knowledgePct): null,
+        lessons_done: Object.values(snap.lessons||{}).filter(Boolean).length,
+        videos_done: Object.values(snap.videos||{}).filter(Boolean).length,
+        scenarios_done: Object.keys(snap.scenarioAnswers||{}).length,
+        payload: snap,
+        updated_at: new Date().toISOString()
+    };
+    try{
+        const {error}=await db.from("sfc_records").upsert(row, {onConflict:"user_key"});
+        if(error){
+            console.error(error);
+            localStorage.setItem("sfc_sync_error", error.message||"sync failed");
+        }else{
+            localStorage.setItem("sfc_sync_ok", new Date().toISOString());
+            localStorage.removeItem("sfc_sync_error");
+        }
+    }catch(e){
+        console.error(e);
+        localStorage.setItem("sfc_sync_error", String(e.message||e));
+    }
 }
 function restoreUserData(key){
     if(!key) return;
@@ -1881,4 +1923,3 @@ updateUser();
 </script>
 </body>
 </html>
-
