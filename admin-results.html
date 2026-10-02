@@ -7,45 +7,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--blue:#073B66;--orange:#F28C28;--light:#F5F8FB;--text:#183247;--muted:#718096;--border:#E4EBF2}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Prompt",sans-serif;background:var(--light);color:var(--text)}
+body{font-family:Prompt,sans-serif;background:#F5F8FB;color:#183247;margin:0}
 header{background:#073B66;color:#fff;padding:18px 5%}
-header h1{font-size:22px}
-header p{opacity:.8;font-size:13px;margin-top:4px}
 main{max-width:1100px;margin:auto;padding:24px 5% 60px}
-.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:16px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-button,input{font-family:inherit}
-button{border:none;background:var(--orange);color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:600}
-button.sec{background:#fff;color:var(--blue);border:1px solid var(--border)}
-input{border:1px solid var(--border);border-radius:12px;padding:10px 12px;min-width:180px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
-.stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px}
-.stat b{display:block;font-size:26px;color:var(--blue)}
-.stat span{color:var(--muted);font-size:12px}
+.card{background:#fff;border:1px solid #E4EBF2;border-radius:18px;padding:18px;margin-bottom:16px}
+button{border:none;background:#F28C28;color:#fff;border-radius:12px;padding:10px 14px;font-weight:600}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{text-align:left;padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
-th{color:var(--muted);font-weight:600}
-.err{color:#B84B3E;font-size:13px;line-height:1.7}
-pre{white-space:pre-wrap;background:#F7FAFC;padding:12px;border-radius:12px;font-size:12px;margin-top:10px}
-@media(max-width:800px){.stats{grid-template-columns:1fr 1fr}table{display:block;overflow:auto}}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #E4EBF2}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:#fff;border:1px solid #E4EBF2;border-radius:16px;padding:14px}
+.stat b{display:block;font-size:26px;color:#073B66}
 </style>
 </head>
 <body>
 <header>
   <h1>หลังบ้าน SMART FEVER CARE</h1>
-  <p>ดึงผลผู้ใช้ที่แอปส่งขึ้น Supabase ตาราง sfc_records</p>
+  <p>ดึงผลจากตาราง sfc_records</p>
 </header>
 <main>
   <div class="card">
-    <div class="row">
-      <input id="pin" type="password" placeholder="รหัสหลังบ้าน">
-      <button onclick="unlock()">เข้าหลังบ้าน</button>
-      <button class="sec" onclick="loadRows()">รีเฟรช</button>
-      <button class="sec" onclick="exportCsv()">ดาวน์โหลด CSV</button>
-    </div>
-    <p id="status" style="margin-top:10px;color:#718096;font-size:13px">ใส่รหัส fevercare2568 เพื่อดูข้อมูล</p>
+    <button onclick="loadRows()">รีเฟรช</button>
+    <button onclick="exportCsv()">ดาวน์โหลด CSV</button>
+    <p id="status">กำลังดึงข้อมูล...</p>
   </div>
   <div class="stats">
     <div class="stat"><span>ผู้ใช้ทั้งหมด</span><b id="nUsers">—</b></div>
@@ -55,97 +38,40 @@ pre{white-space:pre-wrap;background:#F7FAFC;padding:12px;border-radius:12px;font
   </div>
   <div class="card" style="overflow:auto">
     <table>
-      <thead>
-        <tr>
-          <th>ชื่อ</th><th>บัญชี</th><th>ก่อนเรียน</th><th>หลังเรียน</th><th>บทเรียน</th><th>วิดีโอ</th><th>สถานการณ์</th><th>อัปเดต</th>
-        </tr>
-      </thead>
-      <tbody id="rows"><tr><td colspan="8">ยังไม่โหลดข้อมูล</td></tr></tbody>
+      <thead><tr><th>ชื่อ</th><th>บัญชี</th><th>ก่อนเรียน</th><th>หลังเรียน</th><th>บทเรียน</th><th>วิดีโอ</th><th>สถานการณ์</th><th>อัปเดต</th></tr></thead>
+      <tbody id="rows"></tbody>
     </table>
-    <div id="help" class="err"></div>
   </div>
 </main>
 <script>
-const URL="https://urqkglxfzusdjwvtnizv.supabase.co";
-const KEY="sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97";
-const PIN="fevercare2568";
-const db=window.supabase.createClient(URL, KEY);
+const db=window.supabase.createClient("https://urqkglxfzusdjwvtnizv.supabase.co","sb_publishable_Lm5h8Ck36cvPFT0ctEYHCw_EY6n6l97");
 let rows=[];
-function unlock(){
-  if(document.getElementById("pin").value.trim()!==PIN){
-    document.getElementById("status").innerText="รหัสไม่ถูกต้อง";
-    return;
-  }
-  sessionStorage.setItem("sfc_admin","1");
-  loadRows();
-}
+function esc(v){return String(v==null?"":v).replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">");}
 async function loadRows(){
-  if(sessionStorage.getItem("sfc_admin")!=="1"){
-    document.getElementById("status").innerText="กรอกรหัสหลังบ้านก่อน";
-    return;
-  }
   document.getElementById("status").innerText="กำลังดึงข้อมูล...";
-  const {data, error}=await db.from("sfc_records").select("*").order("updated_at",{ascending:false});
-  if(error){
-    document.getElementById("status").innerText="ดึงข้อมูลไม่สำเร็จ";
-    document.getElementById("help").innerHTML="ยังไม่มีตาราง หรือยังไม่เปิดสิทธิ์อ่าน<br>ไปที่ Supabase → SQL Editor แล้วรันคำสั่งนี้<pre>"+sql()+"</pre>";
-    return;
-  }
-  rows=data||[];
-  document.getElementById("help").innerHTML="";
+  const res=await db.from("sfc_records").select("*").order("updated_at",{ascending:false});
+  if(res.error){ document.getElementById("status").innerText="ดึงไม่สำเร็จ: "+res.error.message; return; }
+  rows=res.data||[];
   document.getElementById("status").innerText="ดึงได้ "+rows.length+" รายการ";
   document.getElementById("nUsers").innerText=rows.length;
   document.getElementById("nPre").innerText=rows.filter(r=>r.pre_score!=null).length;
   document.getElementById("nPost").innerText=rows.filter(r=>r.post_score!=null).length;
-  const posts=rows.map(r=>r.post_score).filter(v=>v!=null);
-  document.getElementById("nAvg").innerText=posts.length? Math.round(posts.reduce((a,b)=>a+Number(b),0)/posts.length)+"%" : "—";
-  const body=document.getElementById("rows");
-  if(!rows.length){
-    body.innerHTML='<tr><td colspan="8">ยังไม่มีผู้ใช้ส่งผล ต้องให้ผู้เรียนทำแบบประเมินหรือเรียนบทก่อน</td></tr>';
-    return;
-  }
-  body.innerHTML=rows.map(r=>`<tr>
-    <td>${esc(r.name)}</td>
-    <td>${esc(r.user_key)}</td>
-    <td>${r.pre_score==null?"—":r.pre_score+"%"}</td>
-    <td>${r.post_score==null?"—":r.post_score+"%"}</td>
-    <td>${r.lessons_done??0}/5</td>
-    <td>${r.videos_done??0}/3</td>
-    <td>${r.scenarios_done??0}/10</td>
-    <td>${esc((r.updated_at||"").replace("T"," ").slice(0,16))}</td>
-  </tr>`).join("");
+  const posts=rows.map(r=>Number(r.post_score)).filter(v=>!Number.isNaN(v)&&rOk(v));
+  function rOk(v){return v!==null;}
+  const valid=rows.map(r=>r.post_score).filter(v=>v!=null);
+  document.getElementById("nAvg").innerText=valid.length? Math.round(valid.reduce((a,b)=>a+Number(b),0)/valid.length)+"%" : "—";
+  document.getElementById("rows").innerHTML=rows.map(r=>"<tr><td>"+esc(r.name)+"</td><td>"+esc(r.user_key)+"</td><td>"+(r.pre_score==null?"—":r.pre_score+"%")+"</td><td>"+(r.post_score==null?"—":r.post_score+"%")+"</td><td>"+(r.lessons_done||0)+"/5</td><td>"+(r.videos_done||0)+"/3</td><td>"+(r.scenarios_done||0)+"/10</td><td>"+esc(String(r.updated_at||"").replace("T"," ").slice(0,16))+"</td></tr>").join("") || "<tr><td colspan='8'>ยังไม่มีข้อมูล</td></tr>";
 }
-function esc(v){return String(v??"").replace(/[&<>"]/g,s=>({"&":"&","<":"<",">":">",'"':"""}[s]));}
 function exportCsv(){
   if(!rows.length){ alert("ยังไม่มีข้อมูล"); return; }
   const head=["name","user_key","pre_score","post_score","lessons_done","videos_done","scenarios_done","updated_at"];
-  const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>'"'+String(r[k]??"").replace(/"/g,'""')+'"').join(",")));
-  const blob=new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+  const lines=[head.join(",")].concat(rows.map(r=>head.map(k=>'"'+String(r[k]==null?"":r[k]).replace(/"/g,'""')+'"').join(",")));
   const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
+  a.href=URL.createObjectURL(new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8"}));
   a.download="smart-fever-care-users.csv";
   a.click();
 }
-function sql(){
-  return `create table if not exists public.sfc_records (
-  user_key text primary key,
-  name text,
-  email text,
-  score numeric,
-  pre_score numeric,
-  post_score numeric,
-  lessons_done int,
-  videos_done int,
-  scenarios_done int,
-  payload jsonb,
-  updated_at timestamptz default now()
-);
-alter table public.sfc_records enable row level security;
-create policy sfc_insert on public.sfc_records for insert to anon, authenticated with check (true);
-create policy sfc_update on public.sfc_records for update to anon, authenticated using (true) with check (true);
-create policy sfc_select on public.sfc_records for select to anon, authenticated using (true);`;
-}
-if(sessionStorage.getItem("sfc_admin")==="1") loadRows();
+loadRows();
 </script>
 </body>
 </html>
