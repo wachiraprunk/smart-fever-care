@@ -1546,15 +1546,24 @@ function submitAssessment(phase){
     }
     const knowledgeTotal = correct + generalCorrect;
     const knowledgePct = Math.round((knowledgeTotal/20)*100);
+    const likertScore = (v) => {
+        const map = {
+            "ไม่เห็นด้วยอย่างยิ่ง":1,"ไม่เห็นด้วย":2,"ไม่แน่ใจ":3,"เห็นด้วย":4,"เห็นด้วยอย่างยิ่ง":5,
+            "ไม่ทำเลย":1,"นาน ๆ ครั้ง":2,"บางครั้ง":3,"บ่อยครั้ง":4,"ทำทุกครั้ง":5
+        };
+        if(map[v]) return map[v];
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    };
     const sumRange = (prefix, from, to) => {
         let s=0;
-        for(let i=from;i<=to;i++) s += Number(form.querySelector(`input[name="${prefix}${i}"]:checked`).value);
+        for(let i=from;i<=to;i++) s += likertScore(form.querySelector(`input[name="${prefix}${i}"]:checked`).value);
         return s;
     };
     const ben = sumRange("b",1,4), sev = sumRange("b",5,8), bar = sumRange("b",9,12);
     const prac = sumRange("p",1,10);
     const pracG = sumRange("pg",1,5);
-    const bhRaw = [1,2,3,4,5].map(i=>Number(form.querySelector(`input[name="bh${i}"]:checked`).value));
+    const bhRaw = [1,2,3,4,5].map(i=>likertScore(form.querySelector(`input[name="bh${i}"]:checked`).value));
     const bhAligned = (bhRaw[0])+(6-bhRaw[1])+bhRaw[2]+bhRaw[3]+(6-bhRaw[4]);
     const extraBeliefMean = bhAligned/5;
     const pracB = sumRange("pb",1,5);
