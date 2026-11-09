@@ -295,6 +295,7 @@ button,input{font-family:inherit} button{cursor:pointer}
             <h3>แบบประเมินความรู้</h3>
             <p>ประเมินความรู้หลังเรียน และติดตามพัฒนาการของผู้เรียน</p>
             <button class="btn btn-primary" style="margin-top:15px" onclick="openPage('assessment')">ทำแบบประเมิน</button>
+            <span id="assessmentDone" class="video-complete" style="display:none;margin-top:10px">✓ ทำแบบประเมินแล้ว</span>
         </div>
     </div>
 </div>
@@ -1386,7 +1387,25 @@ function navigatePage(direction){
     }
     openPage(pageOrder[nextIndex]);
 }
+function learningReady(){
+    const lessons=[1,2,3,4,5].every(i=>localStorage.getItem("sfc_lesson_"+i));
+    const videos=["assessment","tepid","warning"].every(k=>localStorage.getItem("sfc_video_"+k));
+    let answers={};
+    try{ answers=JSON.parse(localStorage.getItem("sfc_scenario_answers")||"{}"); }catch(e){}
+    const scenarios=Object.keys(answers).length>=10;
+    if(lessons && videos && scenarios) localStorage.setItem("sfc_first_round","done");
+    return localStorage.getItem("sfc_first_round")==="done";
+}
 function openPage(page){
+    if(page==="assessment" && !learningReady()){
+        const miss=[];
+        [1,2,3,4,5].forEach(i=>{ if(!localStorage.getItem("sfc_lesson_"+i)) miss.push("บทที่ "+i); });
+        ["assessment","tepid","warning"].forEach(k=>{ if(!localStorage.getItem("sfc_video_"+k)) miss.push("วิดีโอ"); });
+        let answers={}; try{ answers=JSON.parse(localStorage.getItem("sfc_scenario_answers")||"{}"); }catch(e){}
+        if(Object.keys(answers).length<10) miss.push("สถานการณ์ที่ยังไม่ตอบ");
+        showToast("รอบแรกต้องเรียนครบ ดูวิดีโอครบ และตอบสถานการณ์ครบก่อน จึงจะทำแบบฝึกหัดได้");
+        return;
+    }
     document.querySelectorAll(".app-page").forEach(el=>el.style.display="none");
     const target = document.getElementById(page+"Page");
     if(target) target.style.display="block";
@@ -1415,6 +1434,10 @@ function logoutSystem(){
     welcome.classList.add("active");
     showToast("ออกจากระบบแล้ว กรุณาเข้าสู่ระบบใหม่");
 }
+function updateAssessmentStatus(){
+    const el=document.getElementById("assessmentDone");
+    if(el && (localStorage.getItem("sfc_score")||localStorage.getItem("sfc_score_pre")||localStorage.getItem("sfc_score_post"))) el.style.display="inline-block";
+}
 function updateUser(){
     homeUserName.innerText=user.name;
     headerUserName.innerText=user.name;
@@ -1422,7 +1445,7 @@ function updateUser(){
     profilePhoto.src=user.photo;
     profileName.value=user.name;
     profileEmail.value=user.email;
-    updateProgress(); updateVideoStatus(); updateOutcome();
+    updateProgress(); updateVideoStatus(); updateOutcome(); updateAssessmentStatus();
 }
 function saveProfile(){
     user.name = profileName.value.trim() || "ผู้ใช้งาน";
@@ -1482,7 +1505,7 @@ function renderScenario(){
         <div class="options">${optionsHtml}</div>
         <div id="scenarioFeedback" class="feedback${showFb}"><strong>ผลการวิเคราะห์</strong><br><br>${item.feedback}</div>
     `;
-    document.getElementById("scenarioProgressLabel").innerText = `ข้อ ${scenarioIndex+1} / ${scenarios.length}`;
+    document.getElementById("scenarioProgressLabel").innerText = `ข้อ ${scenarioIndex+1} / ${scenarios.length}`+(typeof saved==="number"?"  ✓ ตอบแล้ว":"");
     document.getElementById("prevScenarioBtn").disabled = scenarioIndex<=0;
     document.getElementById("nextScenarioBtn").disabled = scenarioIndex>=scenarios.length-1;
 }
@@ -1502,6 +1525,7 @@ function answerScenario(choice){
     if(doneCount>=scenarios.length) localStorage.setItem("sfc_scenario_all","completed");
     renderScenario();
     showToast(choice===item.answer ? "คำตอบถูกต้อง" : "คำตอบยังไม่ถูกต้อง");
+    learningReady();
     updateProgress(); updateOutcome();
 }
 function submitAssessment(phase){
@@ -1614,7 +1638,27 @@ function submitAssessment(phase){
 
 const lessonContent = {
 1:{title:"ความรู้พื้นฐานเกี่ยวกับไข้", body:"ที่มาและความสำคัญ\nผู้ปกครองจำนวนมากมีภาวะกลัวไข้ (fever phobia) ทำให้ดูแลลูกไม่ถูกวิธี เช่น เช็ดตัวด้วยน้ำเย็นจัด ให้ยาลดไข้ผิดขนาด หรือพาไปโรงพยาบาลช้า อาจทำให้โรครุนแรงขึ้นและเกิดภาวะแทรกซ้อน\n\nไข้คืออะไร\nไข้คือภาวะที่อุณหภูมิร่างกายสูงกว่าปกติ ไม่ใช่โรคโดยตัวเอง แต่เป็นการตอบสนองของร่างกายเมื่อพบเชื้อโรค\nตามแนวทางราชวิทยาลัยกุมารแพทย์แห่งประเทศไทย พ.ศ. 2568 ถือว่ามีไข้เมื่อ\n• วัดทางหูหรือหน้าผาก ≥ 38°C\n• วัดทางปาก ≥ 37.8°C\n• วัดทางรักแร้ประมาณ 37.2–37.5°C\n\nทำไมเด็กจึงเป็นไข้อง่ายกว่าผู้ใหญ่\nระบบภูมิคุ้มกันของเด็กยังพัฒนาไม่เต็มที่ เมื่อมีเชื้อเข้าสู่ร่างกายจึงตอบสนองเร็ว ไข้ช่วยยับยั้งการเติบโตของเชื้อและกระตุ้นภูมิคุ้มกันให้ทำงานดีขึ้น\n\nเป้าหมายการดูแล\nเพื่อให้เด็กสุขสบาย ไม่จำเป็นต้องทำให้ไข้ลงหรืออุณหภูมิกลับเป็นปกติเสมอไป หากเด็กยังเล่นได้ กินได้ และสุขสบายดี"},
-2:{title:"การประเมินเด็กที่มีไข้", body:"ประเมินทั้งตัวเลขอุณหภูมิและอาการของเด็ก\nอย่าตัดสินจากอุณหภูมิเพียงอย่างเดียว ให้ดูการกิน การเล่น การรู้สึกตัว การหายใจ หน้าแดง หรืออาการกระสับกระส่ายร่วมด้วย\n\nวิธีวัดอุณหภูมิ\n• ทางหูหรือหน้าผาก ≥ 38°C จึงถือว่ามีไข้\n• ทางปาก ≥ 37.8°C ไม่ควรวัดทันทีหลังดื่มน้ำอุ่นหรือน้ำเย็น\n• ทางรักแร้ประมาณ 37.2–37.5°C\nหากทำได้ วัดซ้ำเป็นระยะ เช่น ทุก 4 ชั่วโมง และจดอาการร่วม\n\nยาลดไข้ที่แนะนำ\nใช้พาราเซตามอลตามน้ำหนักตัวเด็ก เมื่อเด็กไม่สุขสบาย\nห้ามให้ถี่เกิน 4–6 ชั่วโมง และห้ามให้เกินขนาดที่กำหนด\nหลีกเลี่ยงยาในกลุ่ม NSAIDs เช่น ไอบูโพรเฟน หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะอาหาร\n\nความเข้าใจเรื่องชักจากไข้\nยังไม่มีหลักฐานชัดเจนว่ายาลดไข้หรือการเช็ดตัวป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้"},
+2:{title:"การประเมินเด็กที่มีไข้", body:"ประเมินทั้งตัวเลขอุณหภูมิและอาการของเด็ก\nอย่าตัดสินจากอุณหภูมิเพียงอย่างเดียว ให้ดูการกิน การเล่น การรู้สึกตัว การหายใจ หน้าแดง หรืออาการกระสับกระส่ายร่วมด้วย\n\nวิธีวัดอุณหภูมิ\n• ทางหูหรือหน้าผาก ≥ 38°C จึงถือว่ามีไข้\n• ทางปาก ≥ 37.8°C ไม่ควรวัดทันทีหลังดื่มน้ำอุ่นหรือน้ำเย็น\n• ทางรักแร้ประมาณ 37.2–37.5°C\nหากทำได้ วัดซ้ำเป็นระยะ เช่น ทุก 4 ชั่วโมง และจดอาการร่วม\n\nยาลดไข้ที่แนะนำ
+ใช้พาราเซตามอลตามน้ำหนักตัวเด็ก เมื่อเด็กไม่สุขสบาย ไม่ให้ยาเพียงเพราะตัวเลขอุณหภูมิสูง
+ขนาดยาพาราเซตามอลตามน้ำหนักตัว อ้างอิง American Academy of Pediatrics / HealthyChildren.org อัปเดต 30 มกราคม 2026 และขนาดมาตรฐานที่ใช้ในแนวทางกุมารเวชศาสตร์ไทย
+• ขนาดต่อครั้ง 10–15 มิลลิกรัมต่อน้ำหนักตัว 1 กิโลกรัม
+• ให้ซ้ำได้ทุก 4–6 ชั่วโมงเมื่อมีอาการ และไม่เกิน 5 ครั้งใน 24 ชั่วโมง
+• เด็กอายุต่ำกว่า 2 ปี หรือน้ำหนักน้อยกว่า 10 กิโลกรัม ควรปรึกษาแพทย์หรือเภสัชกรก่อนให้ยา
+• ใช้กระบอกฉีดยาหรือถ้วยตวงที่มากับยา ห้ามใช้ช้อนบ้าน
+• ดูความเข้มข้นบนฉลากทุกครั้ง เพราะยาน้ำเด็กมีทั้ง 120 มก./5 มล. และ 160 มก./5 มล.
+
+ตัวอย่างขนาดต่อครั้งตามน้ำหนัก (ใช้ 15 มก./กก. เป็นเกณฑ์กลาง ปรับได้ในช่วง 10–15 มก./กก.)
+• 8–10 กก. ประมาณ 80–150 มก. → ยาน้ำ 120 มก./5 มล. ประมาณ 3.3–6.3 มล. หรือ ยาน้ำ 160 มก./5 มล. ประมาณ 2.5–4.7 มล.
+• 11–16 กก. ประมาณ 160 มก. → ยาน้ำ 120 มก./5 มล. ประมาณ 6.7 มล. หรือ ยาน้ำ 160 มก./5 มล. 5 มล.
+• 16–22 กก. ประมาณ 240 มก. → ยาน้ำ 120 มก./5 มล. ประมาณ 10 มล. หรือ ยาน้ำ 160 มก./5 มล. 7.5 มล.
+• เด็กโตที่กลืนยาเม็ดได้ อาจใช้ยาเม็ด 325 มก. ตามฉลากและน้ำหนัก แต่ต้องไม่เกินขนาดที่คำนวณได้
+
+ข้อควรระวัง
+ห้ามให้ถี่เกิน 4–6 ชั่วโมง และห้ามให้เกินขนาดสูงสุดต่อวันตามฉลาก
+ห้ามใช้ยาแก้หวัดหรือยาผสมที่มีพาราเซตามอลซ้ำซ้อน
+หลีกเลี่ยงยาในกลุ่ม NSAIDs เช่น ไอบูโพรเฟน หากสงสัยไข้เลือดออก หรือมีโรคไต โรคตับ แผลในกระเพาะอาหาร
+
+ความเข้าใจเรื่องชักจากไข้\nยังไม่มีหลักฐานชัดเจนว่ายาลดไข้หรือการเช็ดตัวป้องกันชักจากไข้ได้ แต่ช่วยให้เด็กสบายขึ้นได้"},
 3:{title:"หลักการเช็ดตัวลดไข้", body:"การเช็ดตัวเป็นทางเลือก ไม่ใช่สิ่งที่ต้องทำทุกครั้งที่มีไข้\nแนวทางปี 2568 ระบุว่ายังไม่มีหลักฐานชัดว่าเช็ดตัวช่วยลดไข้ได้ดีเสมอไป และอาจทำให้เด็กหนาวสั่น ตกใจกลัว โดยรวมด้อยกว่าพาราเซตามอล\nอาจช่วยในช่วง 1–2 ชั่วโมงแรกเมื่อใช้ร่วมกับยา หลังจากนั้นระดับไข้ไม่แตกต่างกัน\n\nวิธีที่ถูกต้อง\n• ใช้น้ำอุณหภูมิห้องหรืออุ่นเล็กน้อย\n• เช็ดเบาบริเวณที่เลือดไหลเวียนดี เช่น รักแร้ ซอกคอ ขาหนีบ ลำตัว\n• สังเกตเด็กระหว่างเช็ด หากหนาวสั่น ร้องมาก หรือไม่สุขสบาย ให้หยุดทันที\n\nห้ามทำ\n• น้ำเย็นจัด น้ำแข็ง แอลกอฮอล์\n• เช็ดถูแรง หรือใช้น้ำร้อน\n• เช็ดตอนเด็กกำลังหนาวสั่น\n• เช็ดขณะสวมเสื้อผ้าหนาเกินไป\n• เช็ดเฉพาะใบหน้าหรือบริเวณเล็ก ๆ\n• ใช้ยาหม่อง การบูร หรือสมุนไพรทาผิวก่อนเช็ดตัว\n\nความเชื่อที่ควรปรับ\nน้ำเย็นจัดไม่ได้ลดไข้เร็วกว่า น้ำเย็นทำให้เส้นเลือดหด ตัวสั่น และร่างกายสร้างความร้อนเพิ่ม\nกินยาอย่างเดียวทำได้ แต่ยาพร้อมการเช็ดตัวด้วยน้ำอุณหภูมิห้องอย่างถูกวิธีจะช่วยให้เด็กสบายขึ้นได้ในบางกรณี"},
 4:{title:"การดูแลเด็กที่บ้าน", body:"หลักการดูแลที่บ้าน\nให้น้ำหรือนมเพียงพอ ใส่เสื้อผ้าที่ระบายอากาศได้ดี อยู่ในห้องที่อากาศถ่ายเท ไม่ร้อนจัดหรือเย็นจัด\nให้พาราเซตามอลตามน้ำหนักเมื่อเด็กไม่สุขสบาย ตามคำแนะนำทางการแพทย์\n\nพฤติกรรมที่ควรหยุด\n• ใช้น้ำเย็นจัดหรือน้ำแข็งเช็ดตัว\n• เช็ดตัวตอนลูกหนาวสั่น\n• เช็ดด้วยน้ำร้อนเพราะคิดว่าร้อนจะออกเร็ว\n• เช็ดขณะสวมเสื้อหนามาก\n• เช็ดแค่หน้าผาก\n• ให้ยาของผู้ใหญ่หรือให้ยาถี่เกินกำหนด\n\nสื่อสารกับผู้ปกครอง\nไข้ในเด็กที่ยังเล่นได้ กินได้ โดยทั่วไปไม่ได้เป็นอันตรายในตัวเอง\nบันทึกอุณหภูมิและอาการเมื่อทำได้ เพื่อติดตามว่าดีขึ้นหรือมีอาการเตือน\nความรู้ที่ถูกต้องช่วยลดความกลัวไข้ และลดการดูแลที่ผิดวิธี"},
 5:{title:"อาการเตือนที่ควรพบแพทย์", body:"ควรพาเด็กพบแพทย์เมื่อมีอาการเตือน เช่น\n• ทารกอายุน้อยกว่า 3 เดือนที่มีไข้\n• ซึม ชัก ตัวเกร็ง ไม่ดื่มนมหรือน้ำ กินไม่ได้\n• หายใจลำบาก หอบเหนื่อย หน้าอกบุ๋ม หายใจเร็วกว่าปกติ\n• มีผื่นหรือจุดเลือดออก ปลายมือปลายเท้าเย็น ซีด หรืออาการคล้ายช็อก\n• อาเจียนตลอดเวลา\n• ปวดศีรษะรุนแรง คอแข็ง ร้องกวนผิดปกติ\n• ไข้สูงเกิน 39°C หรือไข้เกิน 48–72 ชั่วโมงแล้วยังไม่ดีขึ้น\n• ไข้ไม่ลดใน 2–3 วัน หรือไข้กลับมาใน 1–2 สัปดาห์\n\nกรณีฉุกเฉินโทร 1669 และพาไปสถานพยาบาลทันที\nหากไม่แน่ใจ ให้พบแพทย์เพื่อความปลอดภัยของเด็ก"}
@@ -1622,7 +1666,7 @@ const lessonContent = {
 function refreshLessonStatus(){
     for(let i=1;i<=5;i++){
         const el = document.getElementById("lessonStatus"+i);
-        if(el) el.innerText = localStorage.getItem("sfc_lesson_"+i) ? "เรียนแล้ว" : "พร้อมเรียน";
+        if(el) el.innerText = localStorage.getItem("sfc_lesson_"+i) ? "✓ เรียนแล้ว" : "พร้อมเรียน";
     }
 }
 function openLesson(id){
@@ -1642,6 +1686,7 @@ function completeLesson(){
     refreshLessonStatus();
     updateProgress(); updateOutcome();
     showToast("บันทึกว่าเรียนบทนี้แล้ว");
+    learningReady();
 }
 function updateOutcome(){
     const lessonNames = {
@@ -1841,6 +1886,7 @@ function openVideo(type){
     localStorage.setItem("sfc_video_"+type,"completed");
     persistUserData();
     updateVideoStatus(); updateProgress(); updateOutcome();
+    if(typeof learningReady==="function") learningReady();
 }
 function closeVideo(){
     const lesson = document.getElementById("lessonVideo");
@@ -1855,7 +1901,7 @@ function closeVideoOutside(event){ if(event.target.id==="videoModal") closeVideo
 function updateVideoStatus(){
     ["assessment","tepid","warning"].forEach(type=>{
         const element = document.getElementById("videoComplete"+type.charAt(0).toUpperCase()+type.slice(1));
-        if(localStorage.getItem("sfc_video_"+type) && element) element.style.display="inline-block";
+        if(localStorage.getItem("sfc_video_"+type) && element){ element.style.display="inline-block"; element.innerText="✓ รับชมแล้ว"; }
     });
 }
 function updateProgress(){
