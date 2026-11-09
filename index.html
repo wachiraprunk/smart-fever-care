@@ -1533,12 +1533,12 @@ function renderScenario(){
             if(i===item.answer) cls += " correct";
             else if(i===saved && saved!==item.answer) cls += " wrong";
         }
-        return `<button class="${cls}" ${disabled} onclick="answerScenario(${i})">${letters[i]}. ${opt}</button><button class="listen-btn" onclick="speakText(${JSON.stringify(opt)})">ฟัง ${letters[i]}</button>`;
+        return `<button class="${cls}" ${disabled} onclick="answerScenario(${i})">${letters[i]}. ${opt}</button><button type="button" class="listen-btn" data-say="${encodeURIComponent(opt)}" onclick="speakText(decodeURIComponent(this.dataset.say))">ฟัง ${letters[i]}</button>`;
     }).join("");
     const showFb = typeof saved === "number" ? " show" : "";
     document.getElementById("scenarioCard").innerHTML = `
         <div class="scenario-label">SCENARIO ${String(scenarioIndex+1).padStart(2,"0")}</div>
-        <button class="listen-btn" onclick="speakText(${JSON.stringify(item.title+" "+item.text)})">ฟังโจทย์</button>
+        <button type="button" class="listen-btn" data-say="${encodeURIComponent(item.title+" "+item.text)}" onclick="speakText(decodeURIComponent(this.dataset.say))">ฟังโจทย์</button>
         <h2>${item.title}</h2>
         <div class="scenario-text">${item.text}</div>
         <div class="options">${optionsHtml}</div>
