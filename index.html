@@ -1404,15 +1404,42 @@ function learningReady(){
     return localStorage.getItem("sfc_first_round")==="done";
 }
 
+function prepareSpeech(text){
+    return String(text||"")
+        .replace(/≥/g," มากกว่าหรือเท่ากับ ")
+        .replace(/≤/g," น้อยกว่าหรือเท่ากับ ")
+        .replace(/°C/g," องศาเซลเซียส ")
+        .replace(/%/g," เปอร์เซ็นต์ ")
+        .replace(/มก\.\/กก\./g," มิลลิกรัมต่อกิโลกรัม ")
+        .replace(/มก\.\/5 มล\./g," มิลลิกรัมต่อห้ามิลลิลิตร ")
+        .replace(/มล\./g," มิลลิลิตร ")
+        .replace(/กก\./g," กิโลกรัม ")
+        .replace(/\//g," ต่อ ")
+        .replace(/[•·]/g,". ")
+        .replace(/\n+/g,". ")
+        .replace(/\s+/g," ")
+        .trim();
+}
+function thaiVoice(){
+    const voices=window.speechSynthesis.getVoices()||[];
+    return voices.find(v=>/th(-|_)?TH/i.test(v.lang)) || voices.find(v=>/thai/i.test(v.name)) || null;
+}
 function speakText(text){
     if(!window.speechSynthesis){ showToast("เครื่องนี้ยังพูดไม่ได้"); return; }
-    window.speechSynthesis.cancel();
-    const clean=String(text||"").replace(/\s+/g," ").trim();
+    const clean=prepareSpeech(text);
     if(!clean) return;
-    const u=new SpeechSynthesisUtterance(clean);
-    u.lang="th-TH";
-    u.rate=0.9;
-    window.speechSynthesis.speak(u);
+    window.speechSynthesis.cancel();
+    const parts=clean.split(/(?<=[.!?])\s+|\s{2,}/).map(s=>s.trim()).filter(Boolean);
+    const chunks=parts.length?parts:[clean];
+    const voice=thaiVoice();
+    chunks.forEach(function(part, i){
+        const u=new SpeechSynthesisUtterance(part);
+        u.lang="th-TH";
+        u.rate=0.82;
+        u.pitch=1;
+        if(voice) u.voice=voice;
+        window.speechSynthesis.speak(u);
+    });
 }
 function makeListenButton(text){
     const b=document.createElement("button");
