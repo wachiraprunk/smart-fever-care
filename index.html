@@ -18,6 +18,11 @@
 html{scroll-behavior:smooth}
 body{font-family:"Prompt",sans-serif;background:var(--light);color:var(--text);min-height:100vh}
 button,input{font-family:inherit} button{cursor:pointer}
+.listen-btn{border:none;background:#073B66;color:#fff;border-radius:16px;padding:12px 16px;font-size:16px;font-weight:700;min-height:48px;min-width:72px}
+.assessment-option{font-size:16px;padding:16px;min-height:56px}
+.btn,.page-nav-btn,.option{min-height:48px;font-size:16px}
+.option{padding:16px}
+
 .page{display:none;min-height:100vh} .page.active{display:block}
 #welcome{background:radial-gradient(circle at 90% 10%,rgba(255,180,92,.35),transparent 28%),linear-gradient(135deg,#073B66 0%,#0B5D8F 58%,#F28C28 130%);color:white;overflow:hidden}
 .welcome-header{padding:24px 6%;display:flex;align-items:center}
@@ -48,7 +53,7 @@ button,input{font-family:inherit} button{cursor:pointer}
 .login-tab.active{background:white;color:var(--blue);font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.06)}
 .login-form{display:none}.login-form.active{display:block}
 .login-label{display:block;color:var(--blue);font-size:12px;margin-bottom:7px}
-.login-input{width:100%;padding:14px 15px;border:1px solid var(--border);border-radius:13px;outline:none;font-size:13px;margin-bottom:13px}
+.login-input{width:100%;min-height:52px;font-size:16px;padding:14px 15px;border:1px solid var(--border);border-radius:13px;outline:none;font-size:13px;margin-bottom:13px}
 .login-input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,140,40,.10)}
 .line-login{width:100%;border:none;padding:14px;border-radius:13px;background:#06C755;color:white;font-weight:600;font-size:14px}
 .login-close{width:100%;border:none;background:#F3F6F8;color:var(--muted);border-radius:13px;padding:12px;margin-top:10px;font-size:12px}
@@ -220,9 +225,10 @@ button,input{font-family:inherit} button{cursor:pointer}
         <h1 class="welcome-title">SMART<br><span>FEVER CARE</span></h1>
         <p class="welcome-subtitle">ระบบการเรียนรู้ดิจิทัลเพื่อเสริมสร้างความรู้และความมั่นใจในการดูแลเด็กที่มีไข้ สำหรับผู้ปกครอง</p>
         <div class="welcome-buttons">
-            <button class="btn btn-primary" onclick="openLogin('email')">เข้าสู่ระบบ</button>
-            <button class="btn btn-secondary" onclick="openLogin('register')">ลงทะเบียน</button>
-            <button class="btn btn-secondary" onclick="openLogin('line')">เข้าสู่ระบบผ่าน LINE</button>
+            <button class="btn btn-primary" style="min-height:56px;font-size:18px" onclick="openLogin('email')">เข้าสู่ระบบ</button>
+            <button class="btn btn-secondary" style="min-height:56px;font-size:18px" onclick="openLogin('register')">ลงทะเบียน</button>
+            <button class="btn btn-secondary" style="min-height:56px;font-size:18px" onclick="openLogin('line')">เข้าสู่ระบบผ่าน LINE</button>
+            <button class="btn btn-secondary" style="min-height:56px;font-size:18px;background:#073B66;color:#fff" onclick="speakText('วิธีเข้าใช้ ถ้ามีบัญชีแล้ว กดเข้าสู่ระบบ แล้วกรอกชื่อ นามสกุล และรหัสผ่าน ถ้ายังไม่มีบัญชี กดลงทะเบียน ตั้งรหัสเอง หรือกดเข้าสู่ระบบผ่านไลน์')">ฟังวิธีเข้าใช้</button>
         </div>
     </div>
     <div class="welcome-visual">
@@ -825,6 +831,7 @@ button,input{font-family:inherit} button{cursor:pointer}
     <div class="login-icon">SFC</div>
     <h2>เข้าสู่ SMART FEVER CARE</h2>
     <p>เลือกช่องทางที่ต้องการเข้าสู่ระบบ</p>
+    <button class="listen-btn" style="margin-top:10px" onclick="speakText('หน้าเข้าสู่ระบบ มีสามช่องทาง เข้าสู่ระบบ ลงทะเบียน และไลน์')">ฟังหน้านี้</button>
 </div>
 <div class="login-tabs" style="grid-template-columns:1fr 1fr 1fr">
     <button id="emailTab" class="login-tab active" onclick="switchLogin('email')">เข้าสู่ระบบ</button>
@@ -832,25 +839,25 @@ button,input{font-family:inherit} button{cursor:pointer}
     <button id="lineTab" class="login-tab" onclick="switchLogin('line')">LINE</button>
 </div>
 <div id="emailLogin" class="login-form active">
-    <label class="login-label">ชื่อ</label>
+    <label class="login-label">ชื่อ <button type="button" class="listen-btn" onclick="speakText('กรอกชื่อ')">ฟัง</button></label>
     <input id="loginFirstName" class="login-input" type="text" placeholder="ชื่อ" autocomplete="given-name">
-    <label class="login-label">นามสกุล</label>
+    <label class="login-label">นามสกุล <button type="button" class="listen-btn" onclick="speakText('กรอกนามสกุล')">ฟัง</button></label>
     <input id="loginLastName" class="login-input" type="text" placeholder="นามสกุล" autocomplete="family-name">
-    <label class="login-label">รหัสผ่าน</label>
+    <label class="login-label">รหัสผ่าน <button type="button" class="listen-btn" onclick="speakText('กรอกรหัสผ่านอย่างน้อยหกตัว')">ฟัง</button></label>
     <input id="loginPassword" class="login-input" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="current-password">
-    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="loginWithAccount()">เข้าสู่ระบบ</button>
+    <button class="btn btn-primary" style="width:100%;min-height:56px;font-size:18px;margin-bottom:10px" onclick="speakText('กำลังเข้าสู่ระบบ'); loginWithAccount()">เข้าสู่ระบบ</button>
     <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">กรอกชื่อ นามสกุล และรหัสผ่านที่ตั้งไว้ตอนลงทะเบียน</p>
 </div>
 <div id="registerLogin" class="login-form">
-    <label class="login-label">ชื่อ</label>
+    <label class="login-label">ชื่อ <button type="button" class="listen-btn" onclick="speakText('กรอกชื่อ')">ฟัง</button></label>
     <input id="regFirstName" class="login-input" type="text" placeholder="ชื่อ" autocomplete="given-name">
-    <label class="login-label">นามสกุล</label>
+    <label class="login-label">นามสกุล <button type="button" class="listen-btn" onclick="speakText('กรอกนามสกุล')">ฟัง</button></label>
     <input id="regLastName" class="login-input" type="text" placeholder="นามสกุล" autocomplete="family-name">
-    <label class="login-label">ตั้งรหัสผ่าน</label>
+    <label class="login-label">ตั้งรหัสผ่าน <button type="button" class="listen-btn" onclick="speakText('ตั้งรหัสผ่านอย่างน้อยหกตัว')">ฟัง</button></label>
     <input id="regPassword" class="login-input" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="new-password">
-    <label class="login-label">ยืนยันรหัสผ่าน</label>
+    <label class="login-label">ยืนยันรหัสผ่าน <button type="button" class="listen-btn" onclick="speakText('พิมพ์รหัสผ่านอีกครั้ง')">ฟัง</button></label>
     <input id="regPassword2" class="login-input" type="password" placeholder="พิมพ์รหัสผ่านอีกครั้ง" autocomplete="new-password">
-    <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="registerWithAccount()">ลงทะเบียน</button>
+    <button class="btn btn-primary" style="width:100%;min-height:56px;font-size:18px;margin-bottom:10px" onclick="speakText('กำลังลงทะเบียน'); registerWithAccount()">ลงทะเบียน</button>
     <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px">ผู้ใช้ใหม่ตั้งรหัสผ่านเองได้ ระบบจะบันทึกบัญชีไว้ในเครื่องนี้</p>
 </div>
 <div id="lineLogin" class="login-form">
@@ -1396,6 +1403,36 @@ function learningReady(){
     if(lessons && videos && scenarios) localStorage.setItem("sfc_first_round","done");
     return localStorage.getItem("sfc_first_round")==="done";
 }
+
+function speakText(text){
+    if(!window.speechSynthesis){ showToast("เครื่องนี้ยังพูดไม่ได้"); return; }
+    window.speechSynthesis.cancel();
+    const clean=String(text||"").replace(/\s+/g," ").trim();
+    if(!clean) return;
+    const u=new SpeechSynthesisUtterance(clean);
+    u.lang="th-TH";
+    u.rate=0.9;
+    window.speechSynthesis.speak(u);
+}
+function makeListenButton(text){
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="listen-btn";
+    b.innerText="ฟัง";
+    b.onclick=function(e){ e.preventDefault(); e.stopPropagation(); speakText(text); };
+    return b;
+}
+function setupListenButtons(){
+    document.querySelectorAll(".question-card h3").forEach(h=>{
+        if(h.querySelector(".listen-btn")) return;
+        h.prepend(makeListenButton(h.innerText));
+    });
+    document.querySelectorAll(".assessment-option").forEach(opt=>{
+        if(opt.querySelector(".listen-btn")) return;
+        const label=opt.innerText.replace("ฟัง","").trim();
+        opt.appendChild(makeListenButton(label||"ตัวเลือก"));
+    });
+}
 function openPage(page){
     if(page==="assessment" && !learningReady()){
         const miss=[];
@@ -1414,6 +1451,7 @@ function openPage(page){
     });
     updatePageNavigation(page);
     if(page==="outcome") updateOutcome();
+    if(page==="assessment") setupListenButtons();
     if(page==="scenario") renderScenario();
     if(page==="lessons") refreshLessonStatus();
     window.scrollTo({top:0, behavior:"smooth"});
@@ -1495,11 +1533,12 @@ function renderScenario(){
             if(i===item.answer) cls += " correct";
             else if(i===saved && saved!==item.answer) cls += " wrong";
         }
-        return `<button class="${cls}" ${disabled} onclick="answerScenario(${i})">${letters[i]}. ${opt}</button>`;
+        return `<button class="${cls}" ${disabled} onclick="answerScenario(${i})">${letters[i]}. ${opt}</button><button class="listen-btn" onclick="speakText(${JSON.stringify(opt)})">ฟัง ${letters[i]}</button>`;
     }).join("");
     const showFb = typeof saved === "number" ? " show" : "";
     document.getElementById("scenarioCard").innerHTML = `
         <div class="scenario-label">SCENARIO ${String(scenarioIndex+1).padStart(2,"0")}</div>
+        <button class="listen-btn" onclick="speakText(${JSON.stringify(item.title+" "+item.text)})">ฟังโจทย์</button>
         <h2>${item.title}</h2>
         <div class="scenario-text">${item.text}</div>
         <div class="options">${optionsHtml}</div>
@@ -1657,6 +1696,15 @@ function openLesson(id){
     lessonDetailNo.innerText = "LESSON 0"+id;
     lessonDetailTitle.innerText = data.title;
     lessonDetailBody.innerText = data.body;
+    let lb=document.getElementById("lessonListen");
+    if(!lb){
+        lb=document.createElement("button");
+        lb.id="lessonListen";
+        lb.className="listen-btn";
+        lb.innerText="ฟังบทนี้";
+        lessonDetailBody.parentNode.insertBefore(lb, lessonDetailBody);
+    }
+    lb.onclick=function(){ speakText(data.title+". "+data.body); };
     lessonDetail.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function completeLesson(){
